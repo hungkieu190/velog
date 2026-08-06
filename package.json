@@ -1,0 +1,24 @@
+{
+    "name": "velog",
+    "version": "0.1.0",
+    "description": "VeLog — Digital Vehicle Passport for WordPress by Mamflow",
+    "private": true,
+    "license": "GPL-2.0-or-later",
+    "scripts": {
+        "check": "bash bin/check.sh",
+        "dev": "node bin/build-assets.js --dev",
+        "build": "node bin/build-assets.js",
+        "release": "bash bin/release.sh",
+        "lint:js": "echo 'TODO: Add ESLint'",
+        "lint:css": "echo 'TODO: Add Stylelint'"
+    },
+    "devDependencies": {
+        "@wordpress/scripts": "^30.0",
+        "esbuild": "^0.27.7",
+        "sass": "^1.102.0"
+    },
+    "engines": {
+        "node": ">=20.0.0",
+        "npm": ">=10.0.0"
+    }
+}

@@ -1,0 +1,33 @@
+includes:
+    - vendor/szepeviktor/phpstan-wordpress/extension.neon
+
+parameters:
+    level: 8
+
+    paths:
+        - velog.php
+        - uninstall.php
+        - src/
+
+    excludePaths:
+        - vendor/
+        - node_modules/
+        - tests/
+
+    bootstrapFiles:
+        - vendor/szepeviktor/phpstan-wordpress/bootstrap.php
+
+    dynamicConstantNames:
+        - ABSPATH
+        - WP_DEBUG
+        - WP_UNINSTALL_PLUGIN
+        - VELOG_VERSION
+        - VELOG_MINIMUM_PHP_VERSION
+        - VELOG_MINIMUM_WP_VERSION
+        - VELOG_PLUGIN_FILE
+        - VELOG_PLUGIN_DIR
+        - VELOG_PLUGIN_URL
+        - VELOG_PLUGIN_BASENAME
+        - VELOG_TEXT_DOMAIN
+
+    reportUnmatchedIgnoredErrors: false

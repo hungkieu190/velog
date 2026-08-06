@@ -1,0 +1,54 @@
+# ============================================================
+# VeLog — .gitignore
+# ============================================================
+
+# Composer
+/vendor/
+composer.lock
+
+# npm / Node
+/node_modules/
+package-lock.json
+yarn.lock
+
+# Build artifacts
+/assets/css/*.css
+/assets/js/*.js
+!/assets/css/.gitkeep
+!/assets/js/.gitkeep
+
+# Distribution zip
+/dist/
+*.zip
+
+# IDE / Editor
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# PHP
+*.log
+/tmp/
+
+# WordPress
+wp-config.php
+
+# Test artifacts
+/tests/.phpunit.result.cache
+/coverage/
+/.phpunit.cache/
+
+# PHPStan cache
+.phpstan/
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# Reports & Release artifacts
+/reports/
+/release/

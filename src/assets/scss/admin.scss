@@ -1,0 +1,25 @@
+@use 'variables' as *;
+
+/**
+ * VeLog — Admin Dashboard Stylesheet
+ * Author: Mamflow <https://mamflow.com>
+ */
+
+.velog-admin-wrap {
+  font-family: $mf-font-family;
+  margin: 20px 0;
+
+  .velog-header {
+    background: #fff;
+    border: 1px solid #ccd0d4;
+    border-left: 4px solid $mf-primary;
+    padding: 15px 20px;
+    margin-bottom: 20px;
+
+    h1 {
+      margin: 0;
+      color: $mf-secondary;
+      font-size: 1.5rem;
+    }
+  }
+}
