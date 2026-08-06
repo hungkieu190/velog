@@ -38,6 +38,7 @@ wp-config.php
 
 # Test artifacts
 /tests/.phpunit.result.cache
+/tests/.phpunit.cache/
 /coverage/
 /.phpunit.cache/
 
