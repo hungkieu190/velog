@@ -1,0 +1,58 @@
+
+> velog@0.1.0 release
+> node scripts/release.mjs
+
+./composer.json is valid
+
+> velog@0.1.0 check
+> bash bin/check.sh
+
+No syntax errors detected in velog.php
+No syntax errors detected in uninstall.php
+No syntax errors detected in src/Core/Loader.php
+No syntax errors detected in src/Core/Deactivator.php
+No syntax errors detected in src/Core/Activator.php
+No syntax errors detected in src/Core/Plugin.php
+> phpcs --standard=phpcs.xml
+> phpstan analyse --configuration=phpstan.neon
+
+⚠️  You're running an old version of PHPStan.️
+
+The last release in the 1.12.x series with new features
+and bugfixes was released on July 17th 2025,
+that's 427 days ago.
+
+Since then more than 65 new PHPStan versions were released
+with hundreds of new features, bugfixes, and other
+quality of life improvements.
+
+To learn about what you're missing out on, check out
+this blog with articles about the latest major releases:
+https://phpstan.org/blog
+
+Upgrade today to PHPStan 2.2 or newer by using
+"phpstan/phpstan": "^2.2" in your composer.json.
+
+ 0/6 [░░░░░░░░░░░░░░░░░░░░░░░░░░░░]   0%[1G[2K 6/6 [▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓] 100%
+
+
+ [OK] No errors                                                                 
+
+Quality checks passed. Report: reports/check-2026-09-17_17-04-59.log
+> phpunit --configuration=tests/phpunit.xml
+PHPUnit 10.5.64 by Sebastian Bergmann and contributors.
+
+Runtime:       PHP 8.3.6
+Configuration: /home/ecommercelife/Local Sites/velog/app/public/wp-content/plugins/velog/tests/phpunit.xml
+
+.....                                                               5 / 5 (100%)
+
+Time: 00:00.004, Memory: 8.00 MB
+
+OK (5 tests, 10 assertions)
+Built 4 files (production).
+Generating optimized autoload files
+Generated optimized autoload files containing 5 classes
+Release verified: 22 runtime files
+/home/ecommercelife/Local Sites/velog/app/public/wp-content/plugins/velog/release/velog
+/home/ecommercelife/Local Sites/velog/app/public/wp-content/plugins/velog/release/velog-0.1.0.zip

@@ -1,0 +1,12 @@
+node_modules/fixture: ignored — PASS
+release/fixture: ignored — PASS
+assets/js/admin.js.map: ignored — PASS
+assets/css/admin.css.map: ignored — PASS
+src/js/admin.js: not ignored — PASS
+scripts/build.mjs: not ignored — PASS
+package-lock.json: not ignored — PASS
+composer.lock: not ignored — PASS
+assets/js/admin.js: not ignored — PASS
+assets/css/admin.css: not ignored — PASS
+.env.local.example: not ignored — PASS
+Lockfiles existed locally but were not previously tracked. Existing tracked CI files remain tracked. No git index removals performed.

@@ -45,7 +45,7 @@ Follow [WordPress PHP Coding Standards](https://developer.wordpress.org/coding-s
 
 Follow [@wordpress/eslint-plugin](https://www.npmjs.com/package/@wordpress/eslint-plugin).
 
-- **Indentation**: 2 spaces.
+- **Indentation**: Follow WordPress tooling for plugin frontend JavaScript (tabs); Node build tools use 2 spaces.
 - **Quotes**: Single quotes.
 - **Semicolons**: Required.
 - No `var` — use `const` or `let`.
@@ -62,7 +62,7 @@ Follow [WordPress CSS Coding Standards](https://developer.wordpress.org/coding-s
 ## Asset Editing Rule (Build-First)
 
 - ❌ **NEVER edit files in `assets/css/` or `assets/js/` directly.** They are compiled build outputs.
-- ✅ Always edit SCSS/JS source files in `src/assets/scss/` and `src/assets/js/`.
+- ✅ Always edit SCSS/JS source files in `src/css/` and `src/js/`.
 - 🔄 Always run `npm run build` (or `npm run dev`) after modifying source assets.
 
 ---

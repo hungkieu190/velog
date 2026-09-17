@@ -12,7 +12,7 @@ Building the digital identity of every vehicle.
 
 == Description ==
 
-**VeLog** is a production-grade WordPress plugin that provides a **Digital Vehicle Passport** for repair shops.
+**VeLog** is a WordPress plugin scaffold for a planned **Digital Vehicle Passport** for repair shops.
 
 > The digital passport for every vehicle.
 
@@ -42,7 +42,7 @@ Every feature is:
 
 1. Upload the `velog` folder to the `/wp-content/plugins/` directory.
 2. Activate the plugin through the **Plugins** menu in WordPress admin.
-3. Navigate to **VeLog** in the admin menu to get started.
+3. This version contains the bootstrap scaffold; vehicle features and the VeLog admin menu are not implemented yet.
 
 == Frequently Asked Questions ==
 
@@ -63,3 +63,7 @@ Visit [mamflow.com/support](https://mamflow.com/support) for documentation and s
 
 = 0.1.0 =
 Initial release.
+
+== Development workflow ==
+
+Read [AGENTS.md](AGENTS.md) and [the workflow index](ai-document/README.md). Use Node 24, `npm ci`, and `composer install`. Run `npm run progress` for task status, `npm run dev` for a development build, `npm run production` for production assets, and `npm run release` for a local installable package. See [build and release](ai-document/build-and-release.md) for prerequisites and acceptance limits.

@@ -1,3 +1,5 @@
+> Read [AGENTS.md](AGENTS.md) first for the current workflow and authority. This manual retains project architecture and coding guidance.
+
 # AGENT.md — VeLog AI Development Manual
 
 > **All AI agents must read this file completely before generating any code.**
@@ -22,7 +24,7 @@
 
 ## 2. Project Philosophy
 
-1. **Document First** — No code is written without a feature plan in `plans/current/`.
+1. **Document First** — Implement only an approved task in `ai-document/tasks/`; `plans/current/` contains product inputs.
 2. **Design Second** — Architecture is reviewed before implementation.
 3. **Implement Third** — Code is written only after documentation and design are approved.
 4. **Never implement undocumented features.**
@@ -110,8 +112,8 @@ Never:
 ### 4.4 Assets (Strict Build-First Rule)
 
 - ❌ **STRICT PROHIBITION**: NEVER edit files inside `assets/css/` or `assets/js/` directly. They are compiled build artifacts.
-- ✅ **Source-First Requirement**: Always edit SCSS and JS source files in `src/assets/scss/` and `src/assets/js/`.
-- 🔄 **Rebuild Mandate**: After modifying any source file in `src/assets/`, ALWAYS run `npm run build` (or `npm run dev`) to compile changes into `assets/`.
+- ✅ **Source-First Requirement**: Always edit SCSS and JS source files in `src/css/` and `src/js/`.
+- 🔄 **Rebuild Mandate**: After modifying any source file in `src/`, ALWAYS run `npm run build` (or `npm run dev`) to compile changes into `assets/`.
 - Enqueue correctly: scope (admin/frontend), dependencies, versioning, conditions.
 
 ### 4.5 Clean Code
@@ -126,17 +128,17 @@ Never:
 ## 5. Development Workflow
 
 ```
-1. Feature Request
+1. Feature Request (see AGENTS.md and ai-document/ for task handoffs)
        ↓
-2. Create plan: plans/current/feature-name.md
+2. Create approved task: ai-document/tasks/<id>-<slug>.md
        ↓
-3. Design review (architecture, DB schema, API)
+3. User scope approval and Architect design review
        ↓
 4. Implementation
        ↓
 5. Tests (Unit + Integration)
        ↓
-6. Code review (PHPCS + PHPStan must pass)
+6. Builder handoff; independent Architect review (PHPCS + PHPStan must pass)
        ↓
 7. Documentation update
        ↓
@@ -147,7 +149,7 @@ Never:
 
 ## 6. Feature Plan Template
 
-Every feature plan in `plans/current/` must include:
+Product feature inputs in `plans/current/` use the following outline; approved implementation tasks follow `ai-document/architect-builder-workflow.md`:
 
 ```markdown
 # Feature: [Name]
@@ -172,25 +174,25 @@ Every feature plan in `plans/current/` must include:
 3. **Never assume the file structure** — always inspect actual files.
 4. **Never refactor outside requested scope.**
 5. **Never rename hooks, filters, or functions** without explicit request.
-6. **Never add new libraries or Composer packages** without explicit request.
+6. Add dependencies only within explicitly approved task scope.
 7. **Always request missing information** rather than making assumptions:
    - File path
    - Usage context
    - Scope of impact
 8. **Every output must be production-ready** — no debug code.
-9. **Asset Build Rule**: ALWAYS edit SCSS/JS in `src/assets/` and rebuild using `npm run build` / `npm run dev`. NEVER edit `/assets/` (`assets/css/`, `assets/js/`) directly.
+9. **Asset Build Rule**: ALWAYS edit SCSS/JS in `src/` and rebuild using `npm run build` / `npm run dev`. NEVER edit `/assets/` (`assets/css/`, `assets/js/`) directly.
 
 ---
 
 ## 8. Release Process
 
 1. Update `CHANGELOG.md`.
-2. Bump version in `velog.php` and `composer.json`.
+2. Validate version declarations per `ai-document/build-and-release.md`; do not automatically bump versions.
 3. Run `composer run lint` (must pass 100%).
 4. Run `composer run test` (must pass 100%).
-5. Tag the release: `git tag v{version}`.
-6. Build the production zip.
-7. Submit to mamflow.com and WordPress.org.
+5. Create a local package with `npm run release`; tagging requires separate explicit authorization.
+6. Review package evidence and complete manual acceptance.
+7. Publish only after explicit user authorization.
 
 ---
 

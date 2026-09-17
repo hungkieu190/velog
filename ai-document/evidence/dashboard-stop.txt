@@ -1,0 +1,1 @@
+Sent SIGINT to the WF-001 dashboard process (same signal as Ctrl+C); server closed successfully. Restarted afterward for user inspection.

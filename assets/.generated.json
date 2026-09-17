@@ -1,0 +1,9 @@
+{
+  "mode": "production",
+  "files": [
+    "assets/css/admin.css",
+    "assets/css/frontend.css",
+    "assets/js/admin.js",
+    "assets/js/frontend.js"
+  ]
+}

@@ -1,0 +1,5 @@
+
+> velog@0.1.0 dev
+> node scripts/build.mjs --mode=development
+
+Built 8 files (development).

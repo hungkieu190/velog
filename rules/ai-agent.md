@@ -10,7 +10,7 @@
 
 Before writing any code, an AI agent MUST:
 
-- [ ] Read `AGENT.md` completely.
+- [ ] Read `AGENTS.md` and `AGENT.md` completely.
 - [ ] Read the relevant rule file(s) in `rules/`.
 - [ ] Inspect the actual file structure — never assume.
 - [ ] Identify the feature plan in `plans/` if applicable.
@@ -37,13 +37,13 @@ Before writing any code, an AI agent MUST:
 
 - ❌ Modify WordPress core files.
 - ❌ Modify third-party plugin files.
-- ❌ Add new Composer or npm packages.
+- ❌ Add new Composer or npm packages outside explicitly approved task scope.
 - ❌ Rename existing hooks, filters, or functions.
 - ❌ Change hook priority without explicit instruction.
 - ❌ Leave `var_dump`, `console.log`, or `print_r` in code.
 - ❌ Write business logic in templates.
 - ❌ Write inline CSS or JS (unless explicitly requested).
-- ❌ Implement features not yet documented in `plans/`.
+- ❌ Implement features without an approved task in `ai-document/tasks/`.
 - ❌ Guess about file structure — always inspect first.
 - ❌ Make assumptions — always ask.
 - ❌ Refactor outside the requested scope.

@@ -1,0 +1,16 @@
+
+> velog@0.1.0 test:workflow
+> node --test tests/workflow/*.test.mjs
+
+✔ build ownership, maps, repeatability and safe failure (3308.02708ms)
+✔ dashboard surfaces contradictions and escapes untrusted Markdown (4.361422ms)
+✔ release package boundaries and failures preserve the last successful archive (19955.348368ms)
+✔ quality gate propagates tool startup failure (201.205223ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 23576.664334

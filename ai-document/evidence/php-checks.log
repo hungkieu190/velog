@@ -1,0 +1,57 @@
+
+> velog@0.1.0 check
+> bash bin/check.sh
+
+No syntax errors detected in velog.php
+No syntax errors detected in uninstall.php
+No syntax errors detected in src/Core/Loader.php
+No syntax errors detected in src/Core/Deactivator.php
+No syntax errors detected in src/Core/Activator.php
+No syntax errors detected in src/Core/Plugin.php
+> phpcs --standard=phpcs.xml
+
+FILE: ...e/Local Sites/velog/app/public/wp-content/plugins/velog/src/js/frontend.js
+--------------------------------------------------------------------------------
+FOUND 18 ERRORS AND 4 WARNINGS AFFECTING 8 LINES
+--------------------------------------------------------------------------------
+  1 | ERROR   | [ ] You must use "/**" style comments for a file comment
+  6 | ERROR   | [x] Opening parenthesis of a multi-line function call must be
+    |         |     the last content on the line
+  6 | ERROR   | [x] Only one argument is allowed per line in a multi-line
+    |         |     function call
+  7 | WARNING | [x] Found precision alignment of 2 spaces.
+  7 | ERROR   | [x] Multi-line function call not indented correctly; expected 4
+    |         |     spaces but found 2
+  7 | ERROR   | [x] Line indented incorrectly; expected at least 1 tabs, found
+    |         |     2 spaces
+  7 | ERROR   | [ ] Inline comments must end in full-stops, exclamation marks,
+    |         |     or question marks
+  8 | WARNING | [x] Found precision alignment of 2 spaces.
+  8 | ERROR   | [x] Multi-line function call not indented correctly; expected 4
+    |         |     spaces but found 2
+  8 | ERROR   | [x] Line indented incorrectly; expected at least 1 tabs, found
+    |         |     2 spaces
+  8 | ERROR   | [x] Expected 1 spaces after opening parenthesis; 0 found
+  8 | ERROR   | [x] Expected 1 spaces before closing parenthesis; 0 found
+  9 | WARNING | [x] Found precision alignment of 2 spaces.
+  9 | ERROR   | [x] Multi-line function call not indented correctly; expected 4
+    |         |     spaces but found 2
+  9 | ERROR   | [x] Line indented incorrectly; expected 1 tabs, found 2 spaces
+ 10 | ERROR   | [x] Tabs must be used to indent lines; spaces are not allowed
+ 10 | ERROR   | [x] Line indented incorrectly; expected at least 2 tabs, found
+    |         |     1
+ 10 | ERROR   | [ ] Inline comments must end in full-stops, exclamation marks,
+    |         |     or question marks
+ 11 | WARNING | [x] Found precision alignment of 2 spaces.
+ 11 | ERROR   | [x] Multi-line function call not indented correctly; expected 4
+    |         |     spaces but found 2
+ 11 | ERROR   | [x] Line indented incorrectly; expected 1 tabs, found 2 spaces
+ 12 | ERROR   | [x] Closing parenthesis of a multi-line function call must be
+    |         |     on a line by itself
+--------------------------------------------------------------------------------
+PHPCBF CAN FIX THE 19 MARKED SNIFF VIOLATIONS AUTOMATICALLY
+--------------------------------------------------------------------------------
+
+Time: 1.01 secs; Memory: 16MB
+
+Script phpcs --standard=phpcs.xml handling the phpcs event returned with error code 2

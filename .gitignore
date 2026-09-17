@@ -4,22 +4,17 @@
 
 # Composer
 /vendor/
-composer.lock
 
 # npm / Node
 /node_modules/
-package-lock.json
 yarn.lock
 
 # Build artifacts
-/assets/css/*.css
-/assets/js/*.js
 !/assets/css/.gitkeep
 !/assets/js/.gitkeep
 
 # Distribution zip
 /dist/
-*.zip
 
 # IDE / Editor
 .idea/
@@ -53,3 +48,12 @@ wp-config.php
 # Reports & Release artifacts
 /reports/
 /release/
+
+# Production assets and lockfiles are tracked; only development maps are ignored.
+/assets/js/**/*.map
+/assets/css/**/*.map
+/.cache/
+!.env.*.example
+
+# Sanitized workflow verification evidence is shared with reviewers.
+!/ai-document/evidence/*.log

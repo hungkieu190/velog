@@ -11,7 +11,7 @@
 - [ ] All planned features for this version are implemented.
 - [ ] All `// TODO:` items are resolved or deferred to next version.
 - [ ] `CHANGELOG.md` is updated with all changes.
-- [ ] Version bumped in: `velog.php`, `composer.json`, `README.md`.
+- [ ] Version declarations match: plugin header, VELOG_VERSION, package.json and README.md Stable tag. Bump only when explicitly requested.
 - [ ] `Tested up to` in `README.md` is updated to latest WordPress version tested.
 
 ## Code Quality
@@ -58,34 +58,14 @@
 
 ## Release
 
-- [ ] Create git tag: `git tag v{version}`.
+- [ ] With separate user authorization, create git tag: `git tag v{version}`.
 - [ ] Build distribution zip (exclude dev files).
-- [ ] Upload to mamflow.com.
-- [ ] Submit to WordPress.org SVN (if applicable).
-- [ ] Announce release.
+- [ ] Upload to mamflow.com only with explicit authorization.
+- [ ] Submit to WordPress.org SVN only with explicit authorization (if applicable).
+- [ ] Announce release only with explicit authorization.
 
 ---
 
-## Files to Exclude from Distribution Zip
+## Package authority
 
-```
-.git/
-.github/
-node_modules/
-vendor/   (unless required)
-src/      (only if compiled)
-tests/
-docs/
-plans/
-rules/
-*.neon
-*.xml (phpcs)
-composer.json
-composer.lock
-package.json
-package-lock.json
-.editorconfig
-.gitignore
-AGENT.md
-CONTRIBUTING.md
-```
+Use `npm run release`, `scripts/release.config.mjs` and `ai-document/build-and-release.md`. The package must include runtime PHP under src/ and production Composer autoloading. Never copy development vendor wholesale. Local package creation does not authorize publication.

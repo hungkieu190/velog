@@ -1,3 +1,5 @@
+> Workflow: read [AGENTS.md](AGENTS.md) and [the project index](ai-document/README.md). Implement approved tasks only.
+
 # Contributing to VeLog — by [Mamflow](https://mamflow.com)
 
 Thank you for your interest in contributing to **VeLog — Digital Vehicle Passport** by [Mamflow](https://mamflow.com)!
@@ -19,9 +21,9 @@ We welcome contributions from everyone. By participating in this project, you ag
 
 ## Development Workflow
 
-> **Important**: Always read [AGENT.md](AGENT.md) before contributing code.
+> **Important**: Always read [AGENTS.md](AGENTS.md) and [AGENT.md](AGENT.md) before contributing code.
 
-1. **Document first** — Every feature must have a plan in `plans/current/`.
+1. **Document first** — Every implementation must have an approved task in `ai-document/tasks/`; `plans/current/` retains product inputs.
 2. **Design second** — Architecture must be approved before implementation.
 3. **Implement third** — Write code only after documentation and design are reviewed.
 
@@ -34,8 +36,9 @@ We welcome contributions from everyone. By participating in this project, you ag
 - PHP 8.1+
 - WordPress 6.4+
 - Composer
-- Node.js 20+
-- npm 10+
+- Node.js 24 LTS (see .nvmrc)
+- npm >=10 <12
+- PHP ZipArchive for local release packaging
 
 ### Setup
 
@@ -47,8 +50,10 @@ cd velog
 # Install PHP dependencies
 composer install
 
-# Install JS dependencies
-npm install
+# Select the project runtime and install locked JS dependencies
+nvm install
+nvm use
+npm ci
 
 # Verify code quality
 composer run lint
@@ -100,7 +105,7 @@ Please include:
 
 Use the [Feature Request](.github/ISSUE_TEMPLATE/feature_request.md) template.
 
-New features must be documented in `plans/` before any code is written.
+New features must have product documentation and an approved task in `ai-document/tasks/` before code is written.
 
 ---
 

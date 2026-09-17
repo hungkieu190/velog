@@ -1,0 +1,47 @@
+✖ manifest destination cannot overwrite backend source (425.493832ms)
+✖ rejected release destination leaves no temporary staging (6595.163486ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 0
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 7085.594347
+
+✖ failing tests:
+
+test at tests/workflow/workflow.test.mjs:158:1
+✖ manifest destination cannot overwrite backend source (425.493832ms)
+  AssertionError [ERR_ASSERTION]: Expected "actual" to be strictly unequal to: 0
+      at TestContext.<anonymous> (file:///home/ecommercelife/Local%20Sites/velog/app/public/wp-content/plugins/velog/tests/workflow/workflow.test.mjs:166:12)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 0,
+    operator: 'notStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/workflow/workflow.test.mjs:172:1
+✖ rejected release destination leaves no temporary staging (6595.163486ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    [
+  +   '.stage-Ob57G8',
+      'velog'
+    ]
+  
+      at TestContext.<anonymous> (file:///home/ecommercelife/Local%20Sites/velog/app/public/wp-content/plugins/velog/tests/workflow/workflow.test.mjs:180:12)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ '.stage-Ob57G8', 'velog' ],
+    expected: [ 'velog' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }

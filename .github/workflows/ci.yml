@@ -67,3 +67,24 @@ jobs:
 
       - name: Run tests
         run: composer run test
+
+  workflow:
+    name: Build and package verification
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+          extensions: zip
+          tools: composer:v2
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+          cache: npm
+      - run: composer install --prefer-dist --no-progress --no-interaction
+      - run: npm ci
+      - run: npm run test:workflow
+      - run: npm run release
+      - name: Verify tracked production assets are current
+        run: git diff --exit-code -- assets/

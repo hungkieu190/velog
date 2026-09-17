@@ -1,0 +1,16 @@
+Unpacking the package...
+Installing the plugin...
+Plugin installed successfully.
+Activating 'velog'...
+Plugin 'velog' activated.
+Success: Installed 1 of 1 plugins.
+[{"name":"velog","status":"active","update":"none","version":"0.1.0","update_version":"","auto_update":"off"}]Bootstrap class: MF\VeLog\Core\Plugin
+Version: 0.1.0
+6.4
+Plugin 'velog' deactivated.
+Success: Deactivated 1 of 1 plugins.
+Installed file HTTP 200 and byte match: assets/js/admin.js
+Installed file HTTP 200 and byte match: assets/js/frontend.js
+Installed file HTTP 200 and byte match: assets/css/admin.css
+Installed file HTTP 200 and byte match: assets/css/frontend.css
+Smoke database shut down; plugin deactivated. Static URL checks do not prove application enqueue integration.

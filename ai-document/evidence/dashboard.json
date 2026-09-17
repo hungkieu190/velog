@@ -1,0 +1,106 @@
+{
+  "currentFocus": {
+    "id": "WF-001",
+    "title": "WF-001: Establish the VeLog development workflow",
+    "file": "ai-document/tasks/WF-001-workflow-bootstrap.md",
+    "status": "DONE",
+    "owner": "Architect",
+    "declaredOwner": "Architect",
+    "round": "Final acceptance \u2014 Review 2",
+    "nextAction": "Architect waits for the next product scope, then prepares a separate DRAFT feature task; this bootstrap is accepted.",
+    "findings": [
+      "F-001",
+      "F-009",
+      "F-002",
+      "F-003",
+      "F-004",
+      "F-005",
+      "F-006",
+      "F-007",
+      "F-008",
+      "F-010",
+      "F-011"
+    ],
+    "promptCount": 5,
+    "validPromptCount": 5,
+    "latestPrompt": "Read AGENTS.md, ai-document/implementation-checklist.md and ai-document/tasks/WF-001-workflow-bootstrap.md. WF-001 is DONE after the user-assigned Architect review; AC1\u2013AC7 passed and F-001\u2013F-011 are closed. Six workflow tests, clean-snapshot npm ci/dev/release, PHPCS/PHPStan, PHPUnit and dashboard checks passed; WordPress 6.4 installation evidence was reviewed. Hosted CI and other runtime-version combinations remain NOT VERIFIED and are outside this local bootstrap acceptance. Next: Architect prepares a separate DRAFT feature task only when the user supplies the next product scope. Do not reopen WF-001 without new evidence, implement unapproved features, commit or deploy.",
+    "history": [
+      "Planning report \u2014 Round 1 (Architect)",
+      "Approved assignment \u2014 2026-09-17",
+      "Implementation report \u2014 Round 1 (Builder)",
+      "Review \u2014 Round 1 (Architect)",
+      "Fix report \u2014 Round 2 (Architect-authorized corrections)",
+      "Review \u2014 Round 2 (Architect)",
+      "Final acceptance (Architect)"
+    ],
+    "issues": []
+  },
+  "summary": {
+    "total": 7,
+    "done": 7,
+    "open": 0
+  },
+  "phases": [
+    {
+      "name": "Phase 1 \u2014 Workflow visibility",
+      "total": 2,
+      "done": 2
+    },
+    {
+      "name": "Phase 2 \u2014 Source and release tooling",
+      "total": 3,
+      "done": 3
+    },
+    {
+      "name": "Phase 3 \u2014 Acceptance",
+      "total": 2,
+      "done": 2
+    }
+  ],
+  "tasks": [
+    {
+      "id": "WF-001",
+      "title": "WF-001: Establish the VeLog development workflow",
+      "file": "ai-document/tasks/WF-001-workflow-bootstrap.md",
+      "status": "DONE",
+      "owner": "Architect",
+      "declaredOwner": "Architect",
+      "round": "Final acceptance \u2014 Review 2",
+      "nextAction": "Architect waits for the next product scope, then prepares a separate DRAFT feature task; this bootstrap is accepted.",
+      "findings": [
+        "F-001",
+        "F-009",
+        "F-002",
+        "F-003",
+        "F-004",
+        "F-005",
+        "F-006",
+        "F-007",
+        "F-008",
+        "F-010",
+        "F-011"
+      ],
+      "promptCount": 5,
+      "validPromptCount": 5,
+      "latestPrompt": "Read AGENTS.md, ai-document/implementation-checklist.md and ai-document/tasks/WF-001-workflow-bootstrap.md. WF-001 is DONE after the user-assigned Architect review; AC1\u2013AC7 passed and F-001\u2013F-011 are closed. Six workflow tests, clean-snapshot npm ci/dev/release, PHPCS/PHPStan, PHPUnit and dashboard checks passed; WordPress 6.4 installation evidence was reviewed. Hosted CI and other runtime-version combinations remain NOT VERIFIED and are outside this local bootstrap acceptance. Next: Architect prepares a separate DRAFT feature task only when the user supplies the next product scope. Do not reopen WF-001 without new evidence, implement unapproved features, commit or deploy.",
+      "history": [
+        "Planning report \u2014 Round 1 (Architect)",
+        "Approved assignment \u2014 2026-09-17",
+        "Implementation report \u2014 Round 1 (Builder)",
+        "Review \u2014 Round 1 (Architect)",
+        "Fix report \u2014 Round 2 (Architect-authorized corrections)",
+        "Review \u2014 Round 2 (Architect)",
+        "Final acceptance (Architect)"
+      ],
+      "issues": []
+    }
+  ],
+  "openItems": [],
+  "issues": [],
+  "lastUpdated": "2026-09-17T10:06:34.757Z",
+  "readAt": "2026-09-17T10:07:08.238Z",
+  "sources": [
+    "ai-document/implementation-checklist.md",
+    "ai-document/tasks/WF-001-workflow-bootstrap.md"
+  ]
+}

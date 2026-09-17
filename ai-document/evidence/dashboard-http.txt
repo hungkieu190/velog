@@ -1,0 +1,7 @@
+GET /: HTTP 200
+GET /api/progress: HTTP 200
+GET /progress.css: HTTP 200
+POST http://127.0.0.1:4187/: HTTP 405
+GET http://127.0.0.1:4187/missing: HTTP 404
+GET http://127.0.0.1:4187/: HTTP 403
+Checklist/task hashes unchanged after dashboard reads and rejected writes: PASS
