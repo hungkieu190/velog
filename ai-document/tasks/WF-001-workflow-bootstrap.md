@@ -10,7 +10,7 @@
 - Latest round: Final acceptance — Review 2
 - Latest implementation/review round: Review 2
 - Next actor: Architect
-- Next actor and exact next action: Architect waits for the next product scope, then prepares a separate DRAFT feature task; this bootstrap is accepted.
+- Next actor and exact next action: Architect proceeds to PLAN-001 to propose and obtain approval of the master plan/MVP before feature implementation. WF-001 remains accepted.
 
 ## Problem and intended behavior
 Existing build/release scripts do not meet the supplied workflow contracts. See ../release-readiness.md findings F-001–F-009 for static evidence. Establish a maintainable, reproducible workflow without implementing vehicle features or altering product behavior.
@@ -158,4 +158,14 @@ Acceptance boundary follows the original explicit scope: local workflow setup, n
 
 ```text
 Read AGENTS.md, ai-document/implementation-checklist.md and ai-document/tasks/WF-001-workflow-bootstrap.md. WF-001 is DONE after the user-assigned Architect review; AC1–AC7 passed and F-001–F-011 are closed. Six workflow tests, clean-snapshot npm ci/dev/release, PHPCS/PHPStan, PHPUnit and dashboard checks passed; WordPress 6.4 installation evidence was reviewed. Hosted CI and other runtime-version combinations remain NOT VERIFIED and are outside this local bootstrap acceptance. Next: Architect prepares a separate DRAFT feature task only when the user supplies the next product scope. Do not reopen WF-001 without new evidence, implement unapproved features, commit or deploy.
+```
+
+## Handoff correction — Project planning prerequisite
+
+The user identified that the previous prompt skipped master-plan approval. WF-001 remains DONE for tooling only. The previous final-acceptance prompt is retained as historical text and superseded by this correction. Overall product planning is incomplete; PLAN-001 is the current DRAFT task. Historical 7/7 counts concern bootstrap only, not total product completion.
+
+### Chat handoff prompt
+
+```text
+Act as Architect. Read AGENTS.md, ai-document/product-plan.md, ai-document/implementation-checklist.md, ai-document/tasks/PLAN-001-master-plan.md and the four feature drafts under plans/current/. WF-001 is DONE for tooling only; PLAN-001 is DRAFT and the product has no approved master plan or MVP. Next: consolidate the drafts into a proposed master plan covering users, end-to-end flows, data/permissions, MVP boundaries, dependencies, milestones and acceptance criteria. List unresolved product decisions for the user and obtain explicit approval before creating READY feature implementation tasks. Prior tooling checks passed; product behavior and master-plan acceptance are NOT VERIFIED. Do not treat bootstrap completion as product completion, invent approved business rules, implement features, commit or deploy.
 ```
