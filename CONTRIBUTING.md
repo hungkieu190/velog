@@ -21,9 +21,9 @@ We welcome contributions from everyone. By participating in this project, you ag
 
 ## Development Workflow
 
-> **Important**: Always read [AGENTS.md](AGENTS.md) and [AGENT.md](AGENT.md) before contributing code.
+> **Important**: Always read [AGENTS.md](AGENTS.md) before contributing code.
 
-1. **Document first** — Every implementation must have an approved task in `ai-document/tasks/`; `plans/current/` retains product inputs.
+1. **Document first** — Every implementation must have an approved task in `ai-document/tasks/`; `ai-document/product-inputs/` retains product inputs.
 2. **Design second** — Architecture must be approved before implementation.
 3. **Implement third** — Write code only after documentation and design are reviewed.
 

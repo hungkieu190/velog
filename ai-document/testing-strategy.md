@@ -11,3 +11,7 @@ Execution results are recorded in evidence/README.md and the WF-001 Builder repo
 - AC7: Architect independently inspects the complete diff, reruns relevant checks, records AC verdicts and stable finding IDs. Only then update checklist/status.
 
 Store actual logs/manifests under evidence/ and manual procedures/results under walkthroughs/. Evidence files must not contain secrets. No fabricated screenshots, execution results, or product acceptance.
+
+## Product implementation verification
+
+Historical AC1–AC7 above refer to WF-001 only. CORE-001 owns new bootstrap/i18n regressions and isolated WordPress evidence; earlier tooling acceptance cannot satisfy these checks. For later regional work, use the representative locale/unit/currency matrix in internationalization.md, including unchanged historical values, cross-unit thresholds, RTL, zero/two/three-decimal currencies and timezone boundaries. All product checks remain NOT VERIFIED until executed and recorded under the owning task.

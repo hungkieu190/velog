@@ -10,11 +10,13 @@
 
 Before writing any code, an AI agent MUST:
 
-- [ ] Read `AGENTS.md` and `AGENT.md` completely.
+- [ ] Read `AGENTS.md` completely.
+- [ ] Record the session's fixed Architect or Builder role and check task contributor history; never hold both roles or propose switching to self-accept.
 - [ ] Read the relevant rule file(s) in `rules/`.
 - [ ] Inspect the actual file structure — never assume.
-- [ ] Identify the feature plan in `plans/` if applicable.
+- [ ] Identify the feature plan in `ai-document/product-inputs/` if applicable.
 - [ ] Understand the full impact of the change.
+- [ ] Read the task's implementation/correction blueprint and verification matrix. Architect must record assignment readiness; Builder must report applicable missing design details before dependent work.
 
 ---
 
@@ -99,3 +101,7 @@ If ANY of the following is unknown, DO NOT write code. Request:
 - Call the project owner: **pé Kiều Mầm**.
 - Present the approach first and ask for approval before implementing.
 - Be concise — no unnecessary explanations.
+
+## Role boundaries
+
+Follow the Mandatory role separation section in `ai-document/architect-builder-workflow.md`. Architect and Builder are distinct agents/operators in separate sessions. Builder never asks to become Architect, writes reviewer verdicts or accepts its own work. Architect returns code corrections to Builder instead of implementing them. If assigned the other role mid-session, explain the conflict and hand off to a separate eligible session; do not ask for an exception.

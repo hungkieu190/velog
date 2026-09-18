@@ -29,7 +29,7 @@
 ## Color Usage
 
 - Respect user's WordPress admin color scheme.
-- Brand accent color: to be defined in `docs/ui/`.
+- Brand accent color: to be defined in `ai-document/ui/` when UI design documentation is introduced.
 - ❌ No hardcoded colors that conflict with dark mode.
 
 ---

@@ -45,7 +45,7 @@ Closes #[issue-number]
 - [ ] PHPDoc added to all public methods.
 - [ ] `CHANGELOG.md` updated.
 - [ ] `docs/` updated if applicable.
-- [ ] Feature plan in `plans/` updated if applicable.
+- [ ] Feature plan in `ai-document/product-inputs/` updated if applicable.
 
 ### Security
 

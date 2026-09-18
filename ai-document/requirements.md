@@ -10,3 +10,14 @@
 - R8: Verify installation, builds, ownership, packaging, failure behavior, repeatability, ignores, dashboard, and isolated WordPress installation. Missing evidence stays NOT VERIFIED.
 
 Full acceptance requirements are preserved in source-build-release-workflow.md sections 4–12 and architect-builder-workflow.md. No abbreviated requirement overrides those specifications.
+
+## Approved international MVP requirements — PLAN-001 revision 3
+
+- PR1: One shop per installation; private staff workflows for customer/vehicle records, service history and maintenance queue.
+- PR2: Configurable km/mi, currency/precision and locale/timezone presentation; preserve historical units and currencies. Follow internationalization.md for scope and verification.
+- PR3: Explicit manager/technician permissions and object-level checks; customers have no login by default.
+- PR4: Archived linked records retain service history; finalized corrections are attributed and reasoned.
+- PR5: Date/recorded-distance maintenance thresholds, snooze and completion; no automatic email/recurrence in MVP.
+- PR6: Photos, sharing, QR/PDF and notifications are deferred. Additional unit dimensions are supported when corresponding future fields are introduced.
+
+These are approved product requirements, not passing runtime checks. Detailed implementation gates are recorded in product-plan.md and each task.

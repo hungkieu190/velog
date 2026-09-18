@@ -40,5 +40,9 @@ pre { white-space: pre-wrap; overflow-wrap: anywhere; font-size: 12px; backgroun
 footer { padding: 24px 5vw; color: #586966; font-size: 11px; border-top: 1px solid #d9dfda; overflow-wrap: anywhere; }
 section { animation: appear .3s ease-out; }
 @keyframes appear { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+.phase-items { grid-column: 1 / -1; margin: 8px 0 0; padding-left: 16px; color: #586966; list-style: square; }
+.phase-items li { padding: 3px 0; }
+.phase-items li.done { opacity: 0.6; }
+.phase-items li.done del { color: #146f50; }
 @media (max-width: 800px) { main { grid-template-columns: 1fr; padding-top: 28px; gap: 32px; } aside { border-left: 0; padding-left: 0; } .brand span { display: block; } }
 @media (prefers-reduced-motion: reduce) { section { animation: none; } summary { transition: none; } }

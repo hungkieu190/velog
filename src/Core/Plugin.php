@@ -33,6 +33,16 @@ final class Plugin {
 	private static ?Plugin $instance = null;
 
 	/**
+	 * Whether the Loader has already been run.
+	 *
+	 * Guards against duplicate hook registration on repeated run() calls.
+	 *
+	 * @since 0.1.0
+	 * @var bool
+	 */
+	private bool $ran = false;
+
+	/**
 	 * Hook/filter registry.
 	 *
 	 * @var Loader
@@ -90,11 +100,15 @@ final class Plugin {
 	/**
 	 * Loads the plugin text domain for i18n.
 	 *
+	 * Queues the text-domain registration on `init` rather than
+	 * `plugins_loaded` so that WordPress's locale infrastructure is ready
+	 * and a WP >= 6.7 early-translation warning is not triggered.
+	 *
 	 * @since 0.1.0
 	 */
 	private function set_locale(): void {
 		$this->loader->add_action(
-			'plugins_loaded',
+			'init',
 			$this,
 			'load_plugin_textdomain'
 		);
@@ -103,13 +117,20 @@ final class Plugin {
 	/**
 	 * Loads the plugin text domain.
 	 *
+	 * Registered on `init` by {@see Plugin::set_locale()}.
+	 *
+	 * The third argument must be a path relative to WP_PLUGIN_DIR; WordPress
+	 * prepends WP_PLUGIN_DIR internally. VELOG_PLUGIN_BASENAME resolves to
+	 * `velog/velog.php`, so dirname() yields `velog` and the full path
+	 * becomes `<wp-content>/plugins/velog/languages`.
+	 *
 	 * @since 0.1.0
 	 */
 	public function load_plugin_textdomain(): void {
 		load_plugin_textdomain(
 			VELOG_TEXT_DOMAIN,
 			false,
-			basename( plugin_dir_path( __DIR__ . '/../../velog.php' ) ) . '/languages/'
+			dirname( plugin_basename( VELOG_PLUGIN_FILE ) ) . '/languages'
 		);
 	}
 
@@ -134,9 +155,17 @@ final class Plugin {
 	/**
 	 * Runs the plugin by executing all registered hooks.
 	 *
+	 * Idempotent: repeated calls after the first are silently ignored so that
+	 * external code cannot duplicate hook registration by calling run() more
+	 * than once.
+	 *
 	 * @since 0.1.0
 	 */
 	public function run(): void {
+		if ( $this->ran ) {
+			return;
+		}
+		$this->ran = true;
 		$this->loader->run();
 	}
 

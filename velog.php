@@ -112,15 +112,25 @@ register_deactivation_hook( VELOG_PLUGIN_FILE, array( 'MF\\VeLog\\Core\\Deactiva
 /**
  * Returns the main plugin instance.
  *
+ * @since  0.1.0
  * @return MF\VeLog\Core\Plugin
  */
 function mf_velog(): \MF\VeLog\Core\Plugin {
 	return \MF\VeLog\Core\Plugin::get_instance();
 }
 
-add_action(
-	'plugins_loaded',
-	function (): void {
-		mf_velog();
-	}
-);
+/**
+ * Bootstraps the plugin by running the Loader on plugins_loaded.
+ *
+ * Instantiates the singleton (which queues all callbacks) and then calls
+ * Plugin::run() so that the Loader registers every queued hook with
+ * WordPress exactly once.
+ *
+ * @since 0.1.0
+ * @hook  plugins_loaded
+ */
+function mf_velog_bootstrap(): void {
+	mf_velog()->run();
+}
+
+add_action( 'plugins_loaded', 'mf_velog_bootstrap' );

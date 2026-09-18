@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "project": "velog",
+  "assignments": {
+    "codex": {
+      "role": "architect"
+    },
+    "antigravity": {
+      "role": "builder"
+    }
+  },
+  "policy": {
+    "allow_role_switch": false,
+    "allow_self_acceptance": false,
+    "announce_on_session_start": true,
+    "unknown_client": "stop_and_request_client_identification",
+    "assignment_changes": "explicit_user_request_only",
+    "write_on_session_start": false
+  }
+}

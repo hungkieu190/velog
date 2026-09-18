@@ -51,7 +51,7 @@ export function parseChecklist(markdown) {
   }
   const phases = [...new Set(items.map((item) => item.phase))].map((name) => {
     const group = items.filter((item) => item.phase === name);
-    return { name, total: group.length, done: group.filter((item) => item.done).length };
+    return { name, total: group.length, done: group.filter((item) => item.done).length, items: group };
   });
   const current = section(markdown, 'Current focus');
   return { items, phases, focusId: field(current, 'Task'), focusStatus: field(current, 'Status'), nextAction: field(current, 'Exact next action') };

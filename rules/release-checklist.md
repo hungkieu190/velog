@@ -53,8 +53,8 @@
 ## Documentation
 
 - [ ] `README.md` / `readme.txt` up to date.
-- [ ] `docs/` updated for any new features.
-- [ ] `docs/releases/` entry created for this version.
+- [ ] Relevant feature documentation in `ai-document/` updated; record N/A with a reason if no feature documentation is affected.
+- [ ] Release evidence and readiness updated in `ai-document/release-readiness.md`, with `CHANGELOG.md` as the change history; link supporting evidence rather than duplicating it.
 
 ## Release
 

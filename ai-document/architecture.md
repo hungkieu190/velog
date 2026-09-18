@@ -9,3 +9,9 @@ Implemented workflow: scripts/build.config.mjs defines explicit entry/output own
 Dashboard is a visibility tool, not acceptance evidence. No application hooks or business behavior changes are needed for bootstrap. Missing asset enqueue integration remains a documented product follow-up, not permission to add global enqueues.
 
 Build output is staged and manifest-owned. Release captures production bytes before another build can run, uses PHP ZipArchive, and generates Composer autoloading offline in isolated staging. The dashboard uses server-rendered escaped HTML and a local source stylesheet, with no browser-side JavaScript.
+
+## Approved product direction — PLAN-001 revision 3
+
+Single-shop private admin MVP: customers/vehicles, service history and internal reminders. Internationalization is a foundation requirement, not a later display patch; follow internationalization.md for original/canonical distances, record-specific currencies, Unicode, timezone and locale separation. Common owns reusable regional primitives; Admin owns presentation/settings; Core owns lifecycle wiring. No implementation is claimed here.
+
+P0 sequence: CORE-001 fixes bootstrap/translation timing first; a subsequent bounded task specifies regional settings, catalog provenance, parsing/conversion precision and tests; then capability/private-CPT foundation is scoped before P1 CRUD. Existing Core source remains unchanged during planning.
