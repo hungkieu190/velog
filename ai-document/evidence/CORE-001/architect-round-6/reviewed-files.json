@@ -1,0 +1,8 @@
+{
+  "tests/workflow/core001-smoke-functions.sh": "9eeeb49cd5fe5f150c7289ff6221c7b35a25bf24337c2adfe2d4b637f3145a41",
+  "tests/workflow/core001-smoke-controls.sh": "44ed7dc8eccc3cfc3638d19c8e4471e79036b7d1dca012c0002539db468110c4",
+  "tests/workflow/core001-smoke.sh": "1a1bf643e53f2464ef0b0a626b77f3d14dfeb56ae69b1484daec15350f4b6c17",
+  "velog.php": "1a5947cda7366c2a86ca909a7eb79ed9a92326a19564e0047feeb8c99e4e26d6",
+  "src/Core/Plugin.php": "7f1f3457f31486a8ace0f1ac3460985c150917c609d68aa8baba2537c2c96170",
+  "src/Core/Loader.php": "27585ce7c057107c17a326659d205d39218a04e759d29c2bef439b9b6396591b"
+}

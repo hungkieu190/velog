@@ -16,8 +16,8 @@ Status: LOCAL BOOTSTRAP ACCEPTED — WF-001 DONE. Local packaging and isolated s
 
 Architect closed F-001–F-009 after reviewing the implementation and evidence. Review also found and corrected F-010 (manifest destination) and F-011 (staging leak); failed-before/passed-after tests are recorded in the task.
 
-AC7 is complete under the user’s explicit Architect reassignment. Automatic asset enqueue integration is absent from baseline; hosted CI and runtime versions other than WordPress 6.4/PHP 8.3.6 remain NOT VERIFIED as broader follow-ups. Product plans remain Draft and require separate scope decisions.
+AC7 is complete under the user’s explicit Architect reassignment. Automatic asset enqueue integration is absent from baseline; hosted CI and runtime versions other than WordPress 6.4/PHP 8.3.6 remain NOT VERIFIED as broader follow-ups. PLAN-001 master-plan revision 3 is approved; individual implementation readiness and product acceptance remain separate gates.
 
 ## Product planning prerequisite
 
-The local tooling package is accepted, but the product has no approved master plan/MVP. PLAN-001 is DRAFT and must be approved before feature implementation. A successful scaffold ZIP is not a completed product release.
+PLAN-001 revision 3 is DONE for approved international MVP direction. CORE-001 remains CHANGES_REQUESTED; the ten subsequent implementation tasks are DRAFT in PLAN-002, prepared for later Builder execution. No product release is accepted. MVP-001 will require actual ZIP installation, complete journeys, negative authorization checks, agreed performance evidence and user manual acceptance. Privacy/retention procedure remains a production gate; a successful local ZIP alone does not satisfy it or authorize publication.

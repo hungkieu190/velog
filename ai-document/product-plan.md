@@ -82,3 +82,7 @@ P-001–P-006 are approved, with P-004 amended for international markets; see [d
 ## Verification state
 
 VERIFIED by read-only inspection: Core scaffolding, lack of product registrations, existing test scope and contradictions among the four draft plans. NOT VERIFIED: product runtime behavior, proposed permissions/data model, performance, end-to-end tests, manual product acceptance. Master-plan approval is recorded in PLAN-001. No application code, production data, builds or dependencies were changed for this plan.
+
+## Batch planning follow-up — 2026-09-21
+
+The user requested continuous planning across the remaining MVP and deferred Builder execution. [PLAN-002](tasks/PLAN-002-mvp-task-batch.md) expands P0–P4 into ten bounded draft tasks with dependencies and a consolidated pending-decision register. This does not reopen approved master-plan direction, approve new detailed proposals, accept CORE-001 or authorize product execution. The checklist remains the progress authority. P5/P6 remain deferred options rather than implementation assignments.

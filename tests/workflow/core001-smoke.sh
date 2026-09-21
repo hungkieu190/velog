@@ -2,35 +2,28 @@
 set -e
 trap 'echo "Error on line $LINENO"; exit 1' ERR
 
-WORK_DIR="/tmp/velog-core001-smoke-$RANDOM"
-DB_DIR="$WORK_DIR/db"
-WP_DIR="$WORK_DIR/wp"
-SOCK="$WORK_DIR/mysql.sock"
-PLUGIN_SRC="/home/ecommercelife/Local Sites/velog/app/public/wp-content/plugins/velog"
-LOG_FILE="$PLUGIN_SRC/ai-document/evidence/CORE-001/isolated-smoke.log"
-DB_PID=""
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$DIR/core001-smoke-functions.sh"
 
+PLUGIN_SRC="/home/ecommercelife/Local Sites/velog/app/public/wp-content/plugins/velog"
+LOG_FILE="${CORE001_LOG_FILE:-$PLUGIN_SRC/ai-document/evidence/CORE-001/round-7/isolated-smoke.log}"
 mkdir -p "$(dirname "$LOG_FILE")"
-exec > >(tee -a "$LOG_FILE") 2>&1
+
+exec > >(tee "$LOG_FILE") 2>&1
 
 echo "Starting isolated smoke test at $(date)"
 echo "PHP Version: $(php -v | head -n1)"
+
+echo "Reserving work directory..."
+if ! reserve_work_dir; then
+    echo "Failed to reserve work directory"
+    exit 1
+fi
 echo "Work dir: $WORK_DIR"
 
-cleanup() {
-    local exit_code=$?
-    echo "Cleaning up..."
-    if [ -n "$DB_PID" ]; then
-        echo "Shutting down MariaDB (PID $DB_PID)..."
-        kill -TERM "$DB_PID" 2>/dev/null || true
-        wait "$DB_PID" 2>/dev/null || true
-        echo "MariaDB shut down."
-    fi
-    rm -rf "$WORK_DIR"
-    echo "Cleanup complete. Exit code: $exit_code"
-    exit $exit_code
-}
-trap cleanup EXIT
+DB_DIR="$WORK_DIR/db"
+WP_DIR="$WORK_DIR/wp"
+SOCK="$WORK_DIR/mysql.sock"
 
 echo "Initializing MariaDB..."
 mkdir -p "$DB_DIR"
@@ -41,9 +34,10 @@ mysqld --datadir="$DB_DIR" --socket="$SOCK" --pid-file="$WORK_DIR/mysqld.pid" --
 DB_PID=$!
 
 echo "Waiting for MariaDB to be ready..."
-until mysqladmin ping -S "$SOCK" --silent 2>/dev/null; do
-    sleep 1
-done
+if ! wait_ready "$DB_PID" "$SOCK" 30; then
+    echo "MariaDB failed to start or timeout reached"
+    exit 1
+fi
 
 echo "Creating database..."
 mysql -u root -S "$SOCK" -e "CREATE DATABASE wp_test;"
@@ -121,22 +115,15 @@ EOF
     echo "Running Normal Load Test..."
     set +e
     NORMAL_OUTPUT=$(TEST_NORMAL_LOAD=1 wp eval "echo 'WP-CLI Booted';" --path="$WP_DIR" 2>&1)
+    NORMAL_EXIT=$?
     set -e
     echo "$NORMAL_OUTPUT"
     
-    if echo "$NORMAL_OUTPUT" | grep -q "Normal load translation: Xin Chào"; then
-        echo "SUCCESS: Translated string matched 'Xin Chào'"
+    if normal_gate "$NORMAL_OUTPUT" $NORMAL_EXIT; then
+        echo "SUCCESS: Normal gate passed (Translated output found and no VeLog early-loading warning detected)"
     else
-        echo "FAIL: Expected 'Xin Chào' not found in normal load output"
+        echo "FAIL: Normal gate failed"
         exit 1
-    fi
-    
-    # Check that our normal load does NOT produce a doing_it_wrong for load_plugin_textdomain
-    if echo "$NORMAL_OUTPUT" | grep -qi "doing_it_wrong.*load_plugin_textdomain"; then
-        echo "FAIL: Unexpected doing_it_wrong warning during normal load"
-        exit 1
-    else
-        echo "SUCCESS: No early-loading warning detected during normal load"
     fi
 
     # The warning behavior for early loading was introduced in WP >= 6.7.
@@ -144,13 +131,31 @@ EOF
         echo "Running Early Load Test (Negative Control) on $WP_VERSION..."
         set +e
         EARLY_OUTPUT=$(TEST_NEGATIVE_CONTROL=1 wp eval "echo 'WP-CLI Booted';" --path="$WP_DIR" 2>&1)
+        EARLY_EXIT=$?
         set -e
         echo "$EARLY_OUTPUT"
-        
-        if echo "$EARLY_OUTPUT" | grep -qiE "doing_it_wrong|_load_textdomain_just_in_time"; then
-            echo "SUCCESS: Negative control correctly triggered doing_it_wrong warning"
+
+        velog_early_warning_detector "$EARLY_OUTPUT"
+        if [ $? -eq 0 ]; then
+            echo "SUCCESS: Negative control correctly triggered early warning"
         else
-            echo "FAIL: Negative control did not trigger doing_it_wrong warning"
+            echo "FAIL: Negative control did not trigger early warning"
+            exit 1
+        fi
+
+        # negative_replay as described in the blueprint
+        echo "Running negative replay assertions..."
+        if ! normal_gate "${NORMAL_OUTPUT}\n${EARLY_OUTPUT}" 0; then
+            echo "SUCCESS: Normal gate rejected combined output (negative control output appended)"
+        else
+            echo "FAIL: Normal gate passed with contaminated output"
+            exit 1
+        fi
+        
+        if ! normal_gate "$NORMAL_OUTPUT" 1; then
+            echo "SUCCESS: Normal gate rejected simulated nonzero exit code"
+        else
+            echo "FAIL: Normal gate passed with nonzero exit code"
             exit 1
         fi
     fi

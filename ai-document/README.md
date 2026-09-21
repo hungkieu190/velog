@@ -1,6 +1,6 @@
 # VeLog project workflow
 
-Project status: WF-001 tooling and PLAN-001 master-plan revision 3 are DONE. The user approved the international MVP with configurable units/currency. Current focus: [CORE-001](tasks/CORE-001-bootstrap-i18n.md), CHANGES_REQUESTED after Architect review Round 4; F-001/F-002 are closed, Builder must resolve F-003/F-004. Product runtime is not yet accepted. See [the international product contract](internationalization.md); regional implementation follows bootstrap/i18n in a separate task.
+Project status: WF-001 tooling and PLAN-001 master-plan revision 3 remain DONE. Current focus: [CORE-001](tasks/CORE-001-bootstrap-i18n.md), READY_FOR_REVIEW. F-003 is closed; F-004 is implemented. Architect is next to review Correction blueprint — Round 7. Independent lint/tests passed (21 tests, 35 assertions); product acceptance remains pending. [PLAN-002](tasks/PLAN-002-mvp-task-batch.md) and its ten subsequent implementation tasks remain DRAFT and undispatched. Product runtime is not accepted. The [checklist](implementation-checklist.md) owns progress; PLAN-002 owns consolidated pending decisions and shared draft verification requirements.
 
 Read [product plan](product-plan.md), [requirements](requirements.md), [decisions](decisions.md), [architecture](architecture.md), [checklist](implementation-checklist.md), [testing strategy](testing-strategy.md), [release readiness](release-readiness.md), and [build and release](build-and-release.md).
 

@@ -1,0 +1,20 @@
+[
+  {
+    "version": "6.4.3",
+    "normal_log_replay": "ACCEPT",
+    "activation_markers": true
+  },
+  {
+    "version": "6.7.2",
+    "normal_log_replay": "ACCEPT",
+    "activation_markers": true
+  },
+  {
+    "actual_early_log_replay": "detector=0\nREJECT"
+  },
+  {
+    "builder_recorded_workdir_exists_now": false,
+    "real_smoke_independently_rerun": false,
+    "database_access_during_review": false
+  }
+]

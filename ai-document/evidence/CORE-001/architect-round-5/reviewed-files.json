@@ -1,0 +1,5 @@
+{
+  "tests/workflow/core001-smoke.sh": "1a1bf643e53f2464ef0b0a626b77f3d14dfeb56ae69b1484daec15350f4b6c17",
+  "/home/ecommercelife/Local Sites/velog/app/public/wp-content/plugins/velog/tests/workflow/core001-smoke-functions.sh": "de2e23b14f3deb0b53202671bc8ce3c4d32d7eb3dd24590459d851b3efccb451",
+  "tests/workflow/core001-smoke-controls.sh": "201a0f2af99955afbd4f39347e1f983d2dff45bf52e89a94b0c6018d57894c5a"
+}

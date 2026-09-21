@@ -73,3 +73,7 @@ User approved moving the four product drafts to ai-document/product-inputs/ and 
 User approved a static project JSON mapping (Codex → Architect, Antigravity → Builder) and mandatory immediate Vietnamese role acknowledgement after reading AGENTS.md. Implemented in ai-document/agent-roles.json, root startup instructions and an Antigravity workspace rule. No per-session writeback or shared current_role field. Unknown application identities must be clarified, not guessed. Model names do not identify the host. Existing fixed-role/contributor separation remains binding.
 
 Configuration is project-scoped; global user files are unchanged. JSON and instruction consistency are verified locally; fresh-session loading in the two applications is not yet independently tested. This is automatic role guidance, not tamper-proof access control.
+
+## PLAN-002 — Continuous planning authorization (2026-09-21)
+
+The user requested successive plans for multiple tasks and explicitly placed Builder implementation later. This authorizes Architect to prepare the entire remaining P0–P4 draft queue now, without a confirmation between each planning document. It does not approve unconfirmed business rules or dispatch Builder. PLAN-002 owns proposed G-01–G-08 and each task owns its technical readiness gates; all remain pending until actual decisions are recorded. Existing PLAN-001 approval, CORE-001 findings and role separation are unchanged. No product or runtime verification is claimed by writing the plans.

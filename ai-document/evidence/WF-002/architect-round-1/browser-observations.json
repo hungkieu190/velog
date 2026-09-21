@@ -1,0 +1,100 @@
+{
+  "browserVersion": "153.0.8010.52",
+  "errors": [
+    "Applying inline style violates the following Content Security Policy directive 'style-src 'self''. Either the 'unsafe-inline' keyword, a hash ('sha256-4eeAzDkwYTIzJ6orNU7kS3xzoMXf5HEtoLcPPn8zbk8='), or a nonce ('nonce-...') is required to enable inline execution. Note that hashes do not apply to event handlers, style attributes and javascript: navigations unless the 'unsafe-hashes' keyword is present. The action has been blocked.",
+    "Applying inline style violates the following Content Security Policy directive 'style-src 'self''. Either the 'unsafe-inline' keyword, a hash ('sha256-yfTvMaTyEH6d35GAfp2xdzRI90Yr6i4sBxr6QDmw5o0='), or a nonce ('nonce-...') is required to enable inline execution. Note that hashes do not apply to event handlers, style attributes and javascript: navigations unless the 'unsafe-hashes' keyword is present. The action has been blocked.",
+    "Applying inline style violates the following Content Security Policy directive 'style-src 'self''. Either the 'unsafe-inline' keyword, a hash ('sha256-4eeAzDkwYTIzJ6orNU7kS3xzoMXf5HEtoLcPPn8zbk8='), or a nonce ('nonce-...') is required to enable inline execution. Note that hashes do not apply to event handlers, style attributes and javascript: navigations unless the 'unsafe-hashes' keyword is present. The action has been blocked.",
+    "Applying inline style violates the following Content Security Policy directive 'style-src 'self''. Either the 'unsafe-inline' keyword, a hash ('sha256-yfTvMaTyEH6d35GAfp2xdzRI90Yr6i4sBxr6QDmw5o0='), or a nonce ('nonce-...') is required to enable inline execution. Note that hashes do not apply to event handlers, style attributes and javascript: navigations unless the 'unsafe-hashes' keyword is present. The action has been blocked.",
+    "Applying inline style violates the following Content Security Policy directive 'style-src 'self''. Either the 'unsafe-inline' keyword, a hash ('sha256-4eeAzDkwYTIzJ6orNU7kS3xzoMXf5HEtoLcPPn8zbk8='), or a nonce ('nonce-...') is required to enable inline execution. Note that hashes do not apply to event handlers, style attributes and javascript: navigations unless the 'unsafe-hashes' keyword is present. The action has been blocked.",
+    "Applying inline style violates the following Content Security Policy directive 'style-src 'self''. Either the 'unsafe-inline' keyword, a hash ('sha256-yfTvMaTyEH6d35GAfp2xdzRI90Yr6i4sBxr6QDmw5o0='), or a nonce ('nonce-...') is required to enable inline execution. Note that hashes do not apply to event handlers, style attributes and javascript: navigations unless the 'unsafe-hashes' keyword is present. The action has been blocked."
+  ],
+  "observations": [
+    {
+      "route": "mining",
+      "ms": 100,
+      "styles": {
+        "transform": "matrix(0.999998, 0.00206453, -0.00206453, 0.999998, 0, 0)",
+        "origin": "0px 0px",
+        "iterations": "1",
+        "duration": "4.5s"
+      }
+    },
+    {
+      "route": "mining",
+      "ms": 1000,
+      "styles": {
+        "transform": "matrix(0.984808, -0.173648, 0.173648, 0.984808, 0, 0)",
+        "origin": "0px 0px",
+        "iterations": "1",
+        "duration": "4.5s"
+      }
+    },
+    {
+      "route": "mining",
+      "ms": 3000,
+      "styles": {
+        "transform": "matrix(0.984808, -0.173648, 0.173648, 0.984808, 0, 0)",
+        "origin": "0px 0px",
+        "iterations": "1",
+        "duration": "4.5s"
+      }
+    },
+    {
+      "route": "mining",
+      "ms": 5500,
+      "styles": {
+        "transform": "matrix(0.984808, -0.173648, 0.173648, 0.984808, 0, 0)",
+        "origin": "0px 0px",
+        "iterations": "1",
+        "duration": "4.5s"
+      }
+    },
+    {
+      "route": "drawing",
+      "ms": 100,
+      "styles": {
+        "transform": "matrix(1, 0, 0, 1, 0, 0)",
+        "origin": "0px 0px",
+        "iterations": "1",
+        "duration": "4.5s"
+      }
+    },
+    {
+      "route": "drawing",
+      "ms": 1000,
+      "styles": {
+        "transform": "matrix(0.968845, -0.247667, 0.247667, 0.968845, 0, 0)",
+        "origin": "0px 0px",
+        "iterations": "1",
+        "duration": "4.5s"
+      }
+    },
+    {
+      "route": "drawing",
+      "ms": 3000,
+      "styles": {
+        "transform": "matrix(0.906308, -0.422618, 0.422618, 0.906308, 0, 0)",
+        "origin": "0px 0px",
+        "iterations": "1",
+        "duration": "4.5s"
+      }
+    },
+    {
+      "route": "drawing",
+      "ms": 5500,
+      "styles": {
+        "transform": "matrix(0.906308, -0.422618, 0.422618, 0.906308, 0, 0)",
+        "origin": "0px 0px",
+        "iterations": "1",
+        "duration": "4.5s"
+      }
+    },
+    {
+      "mobileReduced": {
+        "viewport": 320,
+        "width": 323,
+        "animations": 0
+      }
+    }
+  ]
+}
