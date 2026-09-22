@@ -41,3 +41,26 @@ if ( ! defined( 'VELOG_PLUGIN_BASENAME' ) ) {
 if ( ! defined( 'VELOG_TEXT_DOMAIN' ) ) {
 	define( 'VELOG_TEXT_DOMAIN', 'velog' );
 }
+
+if ( ! class_exists( 'WP_User' ) ) {
+	/**
+	 * WP_User stub.
+	 */
+	class WP_User {
+		/**
+		 * ID.
+		 *
+		 * @var int
+		 */
+		public $ID;
+		/**
+		 * Checks capability.
+		 *
+		 * @param string $cap Capability.
+		 * @return bool
+		 */
+		public function has_cap( $cap ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
+			return false;
+		}
+	}
+}

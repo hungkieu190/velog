@@ -1,17 +1,17 @@
 # CORE-001: Wire bootstrap hooks and translation lifecycle
 
 ## Current handoff
-- Status: READY_FOR_REVIEW
-- Plan revision: 1
+- Status: DONE
+- Plan revision: 2 (accepted bounded closeout)
 - Architect / Builder identity or session reference: Round 7 implementer: Antigravity Builder; prior contributor 866ba911-4817-495a-90db-c2e198e686cc retained. Distinct contributors; no machine ID invented.
 - Related checklist items: CORE-001 / AC1–AC4; PLAN-F-004.
 - Baseline branch and commit: branch `main`, HEAD `f04d4fc5dbb103423d81f324701611bcefd871d8`. Pre-existing working-tree changes: AGENTS.md, CONTRIBUTING.md, ai-document docs, rules/ai-agent.md (all documentation; two new untracked files: internationalization.md, tasks/CORE-001-bootstrap-i18n.md). All documentation changes preserved.
 - Baseline test state: 5 tests, 10 assertions — OK; `composer run lint` exit 0 (PHPCS + PHPStan).
 - User approval reference and approved scope: 2026-09-18 user approved the MVP with international configuration and authorized starting. This bounded task implements the approved P0 bootstrap/i18n prerequisite only.
-- Latest round: Builder Fix report — Round 7
-- Latest implementation/review round: Round 7 implemented: F-004/AC4 fixes and evidence.
-- Next actor: Architect
-- Next actor and exact next action: Independently review Fix report — Round 7 against the blueprint, run verification, and record verdict per AC. Mark DONE if all pass.
+- Latest round: Architect independent acceptance — Round 10, revision 2.
+- Latest implementation/review round: Round 10 accepted AC1–AC4; F-001–F-005 CLOSED within the approved bounded closeout.
+- Next actor: Architect for dependent task CORE-003.
+- Next actor and exact next action: Use the accepted CORE-001 interfaces and evidence as the prerequisite for CORE-003; do not reopen historical findings without new contradictory evidence.
 
 ## Problem and intended behavior
 
@@ -601,4 +601,18 @@ Act as Architect for CORE-001, READY_FOR_REVIEW, revision 1, round 7. Read ai-do
 Verify F-004 (capture rm failure under both errexit modes and preserve original status).
 Confirm R7-3 matrix assertions output correctly in isolated-smoke.log. Rerun `composer run lint`, `composer run test` and `git diff --check` and verify exits 0 with 21 tests/35 assertions.
 Record your verdict per AC. If everything passes, mark CORE-001 DONE, update checklist items to DONE, and assign the next step. Do not deploy or access active databases.
+```
+
+---
+
+## Acceptance recovery note — Architect, Round 10 revision 2 (2026-09-22)
+
+The task header and checklist were found reverted to the Round 7 handoff while the retained independent Round 10 acceptance evidence remained intact. The user confirmed that this reset was not intentional. This note restores the accepted status from [the retained review](../evidence/CORE-001/architect-round-10/review.md); it is documentation recovery, not a new verification run or a rewrite of prior reports.
+
+Round 10 records independent Architect acceptance with AC1–AC4 PASS, B1/B2 PASS, F-001–F-005 CLOSED within revision 2, `composer run lint` exit 0, `composer run test` exit 0 with 21 tests / 35 assertions, the regression control exit 0 and final `git diff --check` exit 0. PHP 8.1 remains NOT VERIFIED; PHP 8.3.6 was the observed runtime. Exact reviewed hashes and final checks remain under `ai-document/evidence/CORE-001/architect-round-10/`.
+
+### Chat handoff prompt
+
+```text
+Continue as Architect for CORE-003 after accepted prerequisite CORE-001. Read AGENTS.md, ai-document/evidence/CORE-001/architect-round-10/review.md and ai-document/tasks/CORE-003-access-private-types.md. CORE-001 is DONE under its Round 10 revision-2 bounded closeout; this recovery note adds no new runtime claim. Prepare or review CORE-003 according to its current handoff without modifying accepted CORE-001 runtime or historical evidence.
 ```

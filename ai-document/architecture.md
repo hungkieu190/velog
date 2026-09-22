@@ -21,3 +21,14 @@ P0 sequence: CORE-001 fixes bootstrap/translation timing first; a subsequent bou
 The opening baseline paragraphs above describe historical scaffold/tooling states. At main 2aa3b8d, Plugin::run() already has an idempotence guard and queues translation loading on init; CORE-001 is still CHANGES_REQUESTED because F-003/F-004 concern the verification harness. No product services, registrations or admin asset enqueues exist yet. uninstall.php deletes velog_settings; DATA-001 must reconcile that with approved retained-data direction before operational settings/records are introduced.
 
 [PLAN-002](tasks/PLAN-002-mvp-task-batch.md) and its ten linked tasks are the proposed implementation design, not implemented architecture. They split exact regional primitives, private capability/types, versioned storage, explicit setup, customer/vehicle CRUD, service transitions, history retrieval, manual reminders and final package acceptance. Pending product rules and storage concurrency design must be resolved before READY. Adopt concrete schema/interfaces into this document only when approved in the owning task; do not create a second competing schema contract here while drafts are unresolved.
+
+## Regional Primitives (CORE-002)
+
+The `MF\VeLog\Common\Regional` namespace provides pure PHP helpers for distance, currency, and date operations:
+- `Distance::parse( $input, $unit, $separator )` returns an array with `original_value`, `unit`, and `canonical_mm`.
+- `Distance::to_decimal( $canonical_mm, $unit, $places )` takes canonical_mm and returns a fixed-place display decimal.
+- `DecimalMath` provides exact half-up logic without binary floats. All stored/full quantities are exact decimal strings, and arithmetic is handled as bounded intermediates.
+- `Money::parse( $input, $currency_code, $separator )` returns `original_value`, `minor_units`, `currency`, `scale`, and `catalog_version` using `CurrencyCatalog`.
+- `CalendarDate::parse()` and `CalendarDate::today()` handle strict date-only values avoiding timezone offsets.
+- `DecimalInput` enforces rigid numeric ASCII character constraints (no NUL bytes), limiting values to 256 bytes.
+- `CurrencyCatalogData` is statically generated from Unicode CLDR via `derive-catalog.php` (no runtime network/database dependencies) and includes explicitly active currencies.

@@ -1,0 +1,130 @@
+{
+  "php_version": "8.3.6",
+  "boundary_probes": [
+    {
+      "call": [
+        "CalendarDate",
+        "parse",
+        [
+          "2024-02-29\n"
+        ]
+      ],
+      "observed": {
+        "value": "2024-02-29\n"
+      }
+    },
+    {
+      "call": [
+        "Distance",
+        "to_decimal",
+        [
+          "500\n",
+          "km",
+          3
+        ]
+      ],
+      "observed": {
+        "value": "0.005"
+      }
+    },
+    {
+      "call": [
+        "Formatter",
+        "decimal",
+        [
+          "1234.50\n",
+          ".",
+          ","
+        ]
+      ],
+      "observed": {
+        "value": "1,234.50\n"
+      }
+    },
+    {
+      "call": [
+        "DecimalInput",
+        "parse",
+        [
+          "\u0000123\u0000",
+          ".",
+          2
+        ]
+      ],
+      "observed": {
+        "value": "123"
+      }
+    },
+    {
+      "call": [
+        "DecimalInput",
+        "parse",
+        [
+          null,
+          ".",
+          2
+        ]
+      ],
+      "observed": {
+        "error": "InvalidArgumentException",
+        "message": "Input must be a string"
+      }
+    },
+    {
+      "call": [
+        "DecimalInput",
+        "parse",
+        [
+          [],
+          ".",
+          2
+        ]
+      ],
+      "observed": {
+        "error": "InvalidArgumentException",
+        "message": "Input must be a string"
+      }
+    },
+    {
+      "call": [
+        "DecimalInput",
+        "parse",
+        [
+          " \t123\r\n",
+          ".",
+          2
+        ]
+      ],
+      "observed": {
+        "value": "123"
+      }
+    }
+  ],
+  "exact_arithmetic": {
+    "cases": 600,
+    "failures": []
+  },
+  "source_hashes": [
+    {
+      "file": "currencyData.json",
+      "match": true
+    },
+    {
+      "file": "currencies.json",
+      "match": true
+    },
+    {
+      "file": "LICENSE",
+      "match": true
+    }
+  ],
+  "catalog_count": 153,
+  "catalog_matches_independent_derivation": true,
+  "generator_hash_mismatch": {
+    "exit": 0,
+    "stdout": "Hash mismatch for currencyData.json. Expected ab007c5bb654a11601d6328f73a9b5b504334c556f3edb760020d6e2cc408472, got a25af2a7b44af159360737771d82102721af99a7e77e37879498aeab7e5b4260\n",
+    "stderr": "",
+    "runtime_output_created": false
+  },
+  "temporary_fixture_removed": true
+}

@@ -65,6 +65,7 @@ final class Plugin {
 
 		$this->load_dependencies();
 		$this->set_locale();
+		$this->define_core_hooks();
 		$this->define_admin_hooks();
 		$this->define_frontend_hooks();
 	}
@@ -132,6 +133,16 @@ final class Plugin {
 			false,
 			dirname( plugin_basename( VELOG_PLUGIN_FILE ) ) . '/languages'
 		);
+	}
+
+	/**
+	 * Registers core hooks.
+	 *
+	 * @since 0.1.0
+	 */
+	private function define_core_hooks(): void {
+		$post_types = new PostTypes();
+		$this->loader->add_action( 'init', $post_types, 'register_post_types' );
 	}
 
 	/**

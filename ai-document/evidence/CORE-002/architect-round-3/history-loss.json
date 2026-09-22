@@ -1,0 +1,17 @@
+{
+  "script": "patch_fix_report.php",
+  "sha256": "6ccaae3a1f7b8529cb0da439ad9c5ff9de5ae71c89813795c0eed747f104f4d6",
+  "observed_pattern": "### Chat handoff prompt[\\s\\S]*$",
+  "read_only_simulation_removed_headings": [
+    "### Chat handoff prompt",
+    "## Review \u2014 Round 1 (Architect, 2026-09-22)",
+    "### Baseline recovery \u2014 approved revision 2",
+    "### Correction blueprint \u2014 Round 2",
+    "#### Change map and ordered work",
+    "#### Critical path and failure behavior",
+    "#### Verification matrix and completion evidence",
+    "### Chat handoff prompt"
+  ],
+  "script_executed_by_reviewer": false,
+  "execution_attribution": "NOT VERIFIED; observed script explains the received truncation pattern, no execution log inspected"
+}

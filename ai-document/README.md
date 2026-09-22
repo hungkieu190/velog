@@ -1,6 +1,6 @@
 # VeLog project workflow
 
-Project status: WF-001 tooling and PLAN-001 master-plan revision 3 remain DONE. Current focus: [CORE-001](tasks/CORE-001-bootstrap-i18n.md), READY_FOR_REVIEW. F-003 is closed; F-004 is implemented. Architect is next to review Correction blueprint — Round 7. Independent lint/tests passed (21 tests, 35 assertions); product acceptance remains pending. [PLAN-002](tasks/PLAN-002-mvp-task-batch.md) and its ten subsequent implementation tasks remain DRAFT and undispatched. Product runtime is not accepted. The [checklist](implementation-checklist.md) owns progress; PLAN-002 owns consolidated pending decisions and shared draft verification requirements.
+Project current focus: [CORE-003](tasks/CORE-003-access-private-types.md), READY revision 2, assigned to Builder (Antigravity). G-02 is approved and the executable blueprint covers capability lifecycle, private record types and isolated WordPress verification. CORE-001 and CORE-002 are DONE; CORE-001 status was restored from retained Round 10 acceptance evidence after an unintentional documentation reset. Other implementation tasks remain DRAFT. PHP 8.1 remains NOT VERIFIED where noted by the accepted task evidence.
 
 Read [product plan](product-plan.md), [requirements](requirements.md), [decisions](decisions.md), [architecture](architecture.md), [checklist](implementation-checklist.md), [testing strategy](testing-strategy.md), [release readiness](release-readiness.md), and [build and release](build-and-release.md).
 

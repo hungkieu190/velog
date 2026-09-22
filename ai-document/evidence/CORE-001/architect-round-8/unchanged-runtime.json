@@ -1,0 +1,8 @@
+{
+  "velog.php": true,
+  "src/Core/Plugin.php": true,
+  "src/Core/Loader.php": true,
+  "tests/workflow/core001-smoke-functions.sh": true,
+  "tests/workflow/core001-smoke.sh": true,
+  "matching_tmp_paths_after_review": []
+}

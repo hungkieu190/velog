@@ -1,0 +1,12 @@
+{
+  "src/Common/Regional/Distance.php": "98df35a22aea7d996a392aedb690df94207e363532194c93d36c3b6c78678d8a",
+  "src/Common/Regional/Formatter.php": "d46f4ee686f211fc5b851f5f0599e3bbc214e2b3bf9d1093e841b3f1c795eddc",
+  "src/Common/Regional/CalendarDate.php": "38e5cc5858b806124ec2b1d9caecb1b310a61ee2aa3602cdc191ebe7f366230c",
+  "src/Common/Regional/CurrencyCatalog.php": "3a1ded324b8f0c613dc9517e800182eb8e48d6ffcf1b7ee2a27f8a4b603e6468",
+  "src/Common/Regional/Money.php": "18cae8b514ce46431c6823866572f83c5aa27cfe41439cda900516a1618421ac",
+  "src/Common/Regional/DecimalInput.php": "398d7ea554909ef3cf26480285f72344edacaf1627aa567f179d3ecff373a7f8",
+  "src/Common/Regional/CurrencyCatalogData.php": "1be8965bd4529ea9c1cbfd8f4c106822135a9ab757b7ca64a40345f15aacadf7",
+  "src/Common/Regional/DecimalMath.php": "15025cc1392db3dc3b468f49b25df8420a0640b9a8c77de1326527553d6d455c",
+  "tests/Unit/RegionalPrimitivesTest.php": "a5a5ec24781095244503943527ce90f56f6dd0b10c6d01a6ac8eb41f54e7f9e0",
+  "tests/Unit/CurrencyCatalogTest.php": "23bd0c1d64deeb48fa964b28bcb002ce8345441cb5fa14a8e2cd9f3d943a4537"
+}

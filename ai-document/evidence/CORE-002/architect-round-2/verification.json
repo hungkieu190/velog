@@ -1,0 +1,535 @@
+{
+  "runtime_probes": [
+    {
+      "call": [
+        "CalendarDate",
+        "parse",
+        [
+          "2024-02-29\n"
+        ]
+      ],
+      "expected": {
+        "error": "InvalidArgumentException",
+        "message": "invalid_date"
+      },
+      "actual": {
+        "error": "InvalidArgumentException",
+        "message": "invalid_date"
+      },
+      "pass": true
+    },
+    {
+      "call": [
+        "Distance",
+        "to_decimal",
+        [
+          "500\n",
+          "km",
+          3
+        ]
+      ],
+      "expected": {
+        "error": "InvalidArgumentException",
+        "message": "invalid_number"
+      },
+      "actual": {
+        "error": "InvalidArgumentException",
+        "message": "invalid_number"
+      },
+      "pass": true
+    },
+    {
+      "call": [
+        "Formatter",
+        "decimal",
+        [
+          "1234.50\n",
+          "."
+        ]
+      ],
+      "expected": {
+        "error": "InvalidArgumentException",
+        "message": "invalid_number"
+      },
+      "actual": {
+        "error": "InvalidArgumentException",
+        "message": "invalid_number"
+      },
+      "pass": true
+    },
+    {
+      "call": [
+        "CalendarDate",
+        "parse",
+        [
+          "2024-02-29\r\n"
+        ]
+      ],
+      "expected": {
+        "error": "InvalidArgumentException",
+        "message": "invalid_date"
+      },
+      "actual": {
+        "error": "InvalidArgumentException",
+        "message": "invalid_date"
+      },
+      "pass": true
+    },
+    {
+      "call": [
+        "Distance",
+        "to_decimal",
+        [
+          "500\r\n",
+          "km",
+          3
+        ]
+      ],
+      "expected": {
+        "error": "InvalidArgumentException",
+        "message": "invalid_number"
+      },
+      "actual": {
+        "error": "InvalidArgumentException",
+        "message": "invalid_number"
+      },
+      "pass": true
+    },
+    {
+      "call": [
+        "Formatter",
+        "decimal",
+        [
+          "1234.50\r\n",
+          "."
+        ]
+      ],
+      "expected": {
+        "error": "InvalidArgumentException",
+        "message": "invalid_number"
+      },
+      "actual": {
+        "error": "InvalidArgumentException",
+        "message": "invalid_number"
+      },
+      "pass": true
+    },
+    {
+      "call": [
+        "CalendarDate",
+        "parse",
+        [
+          "2024-02-29\u0000"
+        ]
+      ],
+      "expected": {
+        "error": "InvalidArgumentException",
+        "message": "invalid_date"
+      },
+      "actual": {
+        "error": "InvalidArgumentException",
+        "message": "invalid_date"
+      },
+      "pass": true
+    },
+    {
+      "call": [
+        "Distance",
+        "to_decimal",
+        [
+          "500\u0000",
+          "km",
+          3
+        ]
+      ],
+      "expected": {
+        "error": "InvalidArgumentException",
+        "message": "invalid_number"
+      },
+      "actual": {
+        "error": "InvalidArgumentException",
+        "message": "invalid_number"
+      },
+      "pass": true
+    },
+    {
+      "call": [
+        "Formatter",
+        "decimal",
+        [
+          "1234.50\u0000",
+          "."
+        ]
+      ],
+      "expected": {
+        "error": "InvalidArgumentException",
+        "message": "invalid_number"
+      },
+      "actual": {
+        "error": "InvalidArgumentException",
+        "message": "invalid_number"
+      },
+      "pass": true
+    },
+    {
+      "call": [
+        "CalendarDate",
+        "parse",
+        [
+          "2024-02-29x"
+        ]
+      ],
+      "expected": {
+        "error": "InvalidArgumentException",
+        "message": "invalid_date"
+      },
+      "actual": {
+        "error": "InvalidArgumentException",
+        "message": "invalid_date"
+      },
+      "pass": true
+    },
+    {
+      "call": [
+        "Distance",
+        "to_decimal",
+        [
+          "500x",
+          "km",
+          3
+        ]
+      ],
+      "expected": {
+        "error": "InvalidArgumentException",
+        "message": "invalid_number"
+      },
+      "actual": {
+        "error": "InvalidArgumentException",
+        "message": "invalid_number"
+      },
+      "pass": true
+    },
+    {
+      "call": [
+        "Formatter",
+        "decimal",
+        [
+          "1234.50x",
+          "."
+        ]
+      ],
+      "expected": {
+        "error": "InvalidArgumentException",
+        "message": "invalid_number"
+      },
+      "actual": {
+        "error": "InvalidArgumentException",
+        "message": "invalid_number"
+      },
+      "pass": true
+    },
+    {
+      "call": [
+        "DecimalInput",
+        "parse",
+        [
+          "\u0000123",
+          ".",
+          2
+        ]
+      ],
+      "expected": {
+        "error": "InvalidArgumentException",
+        "message": "invalid_number"
+      },
+      "actual": {
+        "error": "InvalidArgumentException",
+        "message": "invalid_number"
+      },
+      "pass": true
+    },
+    {
+      "call": [
+        "DecimalInput",
+        "parse",
+        [
+          "123\u0000",
+          ".",
+          2
+        ]
+      ],
+      "expected": {
+        "error": "InvalidArgumentException",
+        "message": "invalid_number"
+      },
+      "actual": {
+        "error": "InvalidArgumentException",
+        "message": "invalid_number"
+      },
+      "pass": true
+    },
+    {
+      "call": [
+        "DecimalInput",
+        "parse",
+        [
+          "12\u00003",
+          ".",
+          2
+        ]
+      ],
+      "expected": {
+        "error": "InvalidArgumentException",
+        "message": "invalid_number"
+      },
+      "actual": {
+        "error": "InvalidArgumentException",
+        "message": "invalid_number"
+      },
+      "pass": true
+    },
+    {
+      "call": [
+        "DecimalInput",
+        "parse",
+        [
+          null,
+          ".",
+          2
+        ]
+      ],
+      "expected": {
+        "error": "InvalidArgumentException",
+        "message": "invalid_number"
+      },
+      "actual": {
+        "error": "InvalidArgumentException",
+        "message": "invalid_number"
+      },
+      "pass": true
+    },
+    {
+      "call": [
+        "DecimalInput",
+        "parse",
+        [
+          [],
+          ".",
+          2
+        ]
+      ],
+      "expected": {
+        "error": "InvalidArgumentException",
+        "message": "invalid_number"
+      },
+      "actual": {
+        "error": "InvalidArgumentException",
+        "message": "invalid_number"
+      },
+      "pass": true
+    },
+    {
+      "call": [
+        "DecimalInput",
+        "parse",
+        [
+          123,
+          ".",
+          2
+        ]
+      ],
+      "expected": {
+        "error": "InvalidArgumentException",
+        "message": "invalid_number"
+      },
+      "actual": {
+        "error": "InvalidArgumentException",
+        "message": "invalid_number"
+      },
+      "pass": true
+    },
+    {
+      "call": [
+        "DecimalInput",
+        "parse",
+        [
+          "\u0661\u0662\u0663",
+          ".",
+          2
+        ]
+      ],
+      "expected": {
+        "error": "InvalidArgumentException",
+        "message": "invalid_number"
+      },
+      "actual": {
+        "error": "InvalidArgumentException",
+        "message": "invalid_number"
+      },
+      "pass": true
+    },
+    {
+      "call": [
+        "DecimalInput",
+        "parse",
+        [
+          "\uff11\uff12\uff13",
+          ".",
+          2
+        ]
+      ],
+      "expected": {
+        "error": "InvalidArgumentException",
+        "message": "invalid_number"
+      },
+      "actual": {
+        "error": "InvalidArgumentException",
+        "message": "invalid_number"
+      },
+      "pass": true
+    },
+    {
+      "call": [
+        "Distance",
+        "to_decimal",
+        [
+          "500",
+          "km",
+          3
+        ]
+      ],
+      "expected": {
+        "value": "0.001"
+      },
+      "actual": {
+        "value": "0.001"
+      },
+      "pass": true
+    },
+    {
+      "call": [
+        "Distance",
+        "to_decimal",
+        [
+          "1609343999998391",
+          "mi",
+          3
+        ]
+      ],
+      "expected": {
+        "value": "999999999.999"
+      },
+      "actual": {
+        "value": "999999999.999"
+      },
+      "pass": true
+    },
+    {
+      "call": [
+        "Distance",
+        "to_decimal",
+        [
+          "1609343999998392",
+          "mi",
+          3
+        ]
+      ],
+      "expected": {
+        "error": "InvalidArgumentException",
+        "message": "out_of_range"
+      },
+      "actual": {
+        "error": "InvalidArgumentException",
+        "message": "out_of_range"
+      },
+      "pass": true
+    },
+    {
+      "call": [
+        "DecimalInput",
+        "parse",
+        [
+          " \t\r\n\u000b\f123 \t\r\n\u000b\f",
+          ".",
+          2
+        ]
+      ],
+      "expected": {
+        "value": "123"
+      },
+      "actual": {
+        "value": "123"
+      },
+      "pass": true
+    }
+  ],
+  "source_hashes": {
+    "currencyData.json": true,
+    "currencies.json": true,
+    "LICENSE": true
+  },
+  "unchanged_from_round_1": {
+    "src/Common/Regional/DecimalMath.php": true,
+    "src/Common/Regional/Money.php": true,
+    "src/Common/Regional/CurrencyCatalog.php": true,
+    "src/Common/Regional/CurrencyCatalogData.php": true
+  },
+  "generator_cases": [
+    {
+      "case": "valid",
+      "exit": 0,
+      "stdout": "Catalog generated successfully at src/Common/Regional/CurrencyCatalogData.php\n",
+      "stderr": "",
+      "output_exists": true,
+      "catalog_matches_runtime": true,
+      "license_lines_present": true,
+      "pass": true,
+      "temporary_directory_removed": true
+    },
+    {
+      "case": "hash",
+      "exit": 1,
+      "stdout": "",
+      "stderr": "Hash mismatch for currencyData.json. Expected ab007c5bb654a11601d6328f73a9b5b504334c556f3edb760020d6e2cc408472, got 11d510e067d2cdcd7559bd86d27a2f4c20babd43670346b97af99b522c1f0075\n",
+      "output_exists": false,
+      "pass": true,
+      "temporary_directory_removed": true
+    },
+    {
+      "case": "count",
+      "exit": 1,
+      "stdout": "",
+      "stderr": "Count mismatch. Expected 154, got 153\n",
+      "output_exists": false,
+      "pass": true,
+      "temporary_directory_removed": true
+    },
+    {
+      "case": "missing-source",
+      "exit": 1,
+      "stdout": "Downloading file:///tmp/velog-c2-r2-x12vj6yp/missing/currencyData.json...\n",
+      "stderr": "PHP Warning:  file_get_contents(file:///tmp/velog-c2-r2-x12vj6yp/missing/currencyData.json): Failed to open stream: No such file or directory in /tmp/velog-c2-r2-x12vj6yp/ai-document/evidence/CORE-002/round-1/derive-catalog.php on line 25\nFailed to download file:///tmp/velog-c2-r2-x12vj6yp/missing/currencyData.json\n",
+      "output_exists": false,
+      "pass": true,
+      "temporary_directory_removed": true
+    },
+    {
+      "case": "malformed-json",
+      "exit": 1,
+      "stdout": "",
+      "stderr": "JSON decode failed for currencyData.json\n",
+      "output_exists": false,
+      "pass": true,
+      "temporary_directory_removed": true
+    },
+    {
+      "case": "output-failure",
+      "exit": 1,
+      "stdout": "",
+      "stderr": "PHP Warning:  mkdir(): Not a directory in /tmp/velog-c2-r2-7f8s1f8r/ai-document/evidence/CORE-002/round-1/derive-catalog.php on line 141\nPHP Warning:  file_put_contents(/tmp/velog-c2-r2-7f8s1f8r/ai-document/evidence/CORE-002/round-1/../../../../src/Common/Regional/CurrencyCatalogData.php): Failed to open stream: No such file or directory in /tmp/velog-c2-r2-7f8s1f8r/ai-document/evidence/CORE-002/round-1/derive-catalog.php on line 143\nFailed to write full catalog data\n",
+      "output_exists": false,
+      "pass": true,
+      "temporary_directory_removed": true
+    }
+  ]
+}

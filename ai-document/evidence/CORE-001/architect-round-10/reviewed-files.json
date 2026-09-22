@@ -1,0 +1,9 @@
+{
+  "tests/workflow/core001-smoke-controls-regression.sh": "477ccca5bbf1c04178a01ff2ff4cd9b7499cbf90e9c0e26ab0d25f3013ef17e7",
+  "tests/workflow/core001-smoke-controls.sh": "b013194f2edddbb0e983f651626a4e30bedd18fd6fae59c595040e7b1f3cb4fd",
+  "tests/workflow/core001-smoke-functions.sh": "d4d102003b0194671dc76a700a7c36b8acc3d92bdf310d22fb4db7b68b35e6dd",
+  "tests/workflow/core001-smoke.sh": "da9e91796747f96197949285fcc87f65f477a4f9b24c218c46986e4bc6bdb89e",
+  "velog.php": "1a5947cda7366c2a86ca909a7eb79ed9a92326a19564e0047feeb8c99e4e26d6",
+  "src/Core/Plugin.php": "7f1f3457f31486a8ace0f1ac3460985c150917c609d68aa8baba2537c2c96170",
+  "src/Core/Loader.php": "27585ce7c057107c17a326659d205d39218a04e759d29c2bef439b9b6396591b"
+}

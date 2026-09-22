@@ -2,15 +2,16 @@
 
 ## Current focus
 
-- Task: CORE-001
-- Status: READY_FOR_REVIEW
-- Next actor: Architect
-- Exact next action: Independently review Fix report — Round 7 against the blueprint, run verification, and record verdict per AC. Mark DONE if all pass.
-- Planning queue: PLAN-002 and its ten implementation tasks remain DRAFT. The user requested a bounded CORE-001 correction handoff on 2026-09-21; no new feature task is dispatched.
+- Task: CORE-003
+- Status: READY
+- Next actor: Builder (Antigravity)
+- Exact next action: Implement CORE-003 revision 2 exactly as scoped, run C3-V1–C3-V5 and return READY_FOR_REVIEW with Round 1 evidence.
+- Planning queue: CORE-001 and CORE-002 are DONE. CORE-003 is READY. G-02 is approved; G-03–G-08 remain pending.
+- Documentation recovery: CORE-001 status was restored from retained Round 10 independent acceptance evidence after the user confirmed the apparent reset was not intentional. No historical evidence was rewritten and no new verification claim was added.
 
 ## Project status
 
-Tooling bootstrap and master-plan revision 3 are accepted. The user approved an international MVP; product implementation begins with CORE-001 and is not accepted yet. Checklist counts represent recorded work only, not overall product completion.
+Tooling bootstrap and master-plan revision 3 are accepted. CORE-001 and CORE-002 are DONE; CORE-003 is the active READY implementation assignment. Checklist counts represent recorded work only, not overall product completion.
 
 ## Accepted product master plan and MVP
 
@@ -22,12 +23,12 @@ Task: [PLAN-001](tasks/PLAN-001-master-plan.md).
 
 ## Product P0 — Foundation
 
-- [ ] CORE-001 / AC1: Real bootstrap runs Loader once. Status: CHANGES_REQUESTED.
-- [ ] CORE-001 / AC2: Correct translation lifecycle and fixture translation. Status: CHANGES_REQUESTED.
-- [ ] CORE-001 / AC3: Compatibility and PHP quality/test gates. Status: CHANGES_REQUESTED.
-- [ ] CORE-001 / AC4: Isolated WordPress evidence and independent review. Status: CHANGES_REQUESTED.
+- [x] CORE-001 / AC1: Real bootstrap runs Loader once. Status: DONE.
+- [x] CORE-001 / AC2: Correct translation lifecycle and fixture translation. Status: DONE.
+- [x] CORE-001 / AC3: Compatibility and PHP quality/test gates. Status: DONE.
+- [x] CORE-001 / AC4: Isolated WordPress evidence and independent review. Status: DONE.
 
-Task: [CORE-001](tasks/CORE-001-bootstrap-i18n.md). The complete dependency queue is now drafted in PLAN-002 below; every new implementation task remains DRAFT.
+Task: [CORE-001](tasks/CORE-001-bootstrap-i18n.md). Accepted in independent Architect Round 10, revision 2; retained evidence is under `ai-document/evidence/CORE-001/architect-round-10/`.
 
 ## Continuous MVP planning — PLAN-002
 
@@ -37,23 +38,23 @@ Task: [CORE-001](tasks/CORE-001-bootstrap-i18n.md). The complete dependency queu
 
 Task: [PLAN-002](tasks/PLAN-002-mvp-task-batch.md). Draft documents are written; unchecked items remain pending the planning review/decision gates. These entries measure recorded acceptance, not implementation completion. Approved master-plan direction remains unchanged.
 
-## Product implementation queue — planned, not dispatched
+## Product implementation queue
 
 ### CORE-002 — Exact regional value primitives
 
-- [ ] CORE-002 / AC1: Locale parsing rejects ambiguous/invalid values and preserves unknown versus zero. Status: DRAFT.
-- [ ] CORE-002 / AC2: Exact km/mi conversion, bounds and half-up behavior are proved without persisted binary floats. Status: DRAFT.
-- [ ] CORE-002 / AC3: Money identity/scale and date-only/UTC distinctions survive preference changes. Status: DRAFT.
-- [ ] CORE-002 / AC4: Unit fixtures and full quality checks pass; no settings or data writes introduced. Status: DRAFT.
+- [x] CORE-002 / AC1: Locale parsing rejects ambiguous/invalid values and preserves unknown versus zero. Status: DONE.
+- [x] CORE-002 / AC2: Exact km/mi conversion, bounds and half-up behavior are proved without persisted binary floats. Status: DONE.
+- [x] CORE-002 / AC3: Money identity/scale and date-only/UTC distinctions survive preference changes. Status: DONE.
+- [x] CORE-002 / AC4: Unit fixtures and full quality checks pass; no settings or data writes introduced. Status: DONE.
 
 Task: [CORE-002](tasks/CORE-002-regional-primitives.md). Prerequisites: CORE-001 DONE.
 
 ### CORE-003 — Capabilities and private record types
 
-- [ ] CORE-003 / AC1: Explicit manager/admin/technician policy is enforced at object and primitive levels. Status: DRAFT.
-- [ ] CORE-003 / AC2: Anonymous, subscriber and unrelated editor cannot discover private records through public/native endpoints. Status: DRAFT.
-- [ ] CORE-003 / AC3: Activation/reactivation and role collisions preserve unrelated roles/capabilities. Status: DRAFT.
-- [ ] CORE-003 / AC4: Real WordPress permission/lifecycle evidence and runner failure/cleanup controls pass. Status: DRAFT.
+- [ ] CORE-003 / AC1: Explicit manager/admin/technician policy is enforced at object and primitive levels. Status: READY.
+- [ ] CORE-003 / AC2: Anonymous, subscriber and unrelated editor cannot discover private records through public/native endpoints. Status: READY.
+- [ ] CORE-003 / AC3: Activation/reactivation and role collisions preserve unrelated roles/capabilities. Status: READY.
+- [ ] CORE-003 / AC4: Real WordPress permission/lifecycle evidence and runner failure/cleanup controls pass. Status: READY.
 
 Task: [CORE-003](tasks/CORE-003-access-private-types.md). Prerequisites: CORE-001 DONE.
 

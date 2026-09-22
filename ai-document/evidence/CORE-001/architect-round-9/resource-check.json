@@ -1,0 +1,19 @@
+{
+  "supervisor_directory": "/tmp/velog-core001-smoke-regression.DOM6f3gO",
+  "supervisor_left_after_success": true,
+  "fixture_records": [],
+  "owned_paths": {
+    "/tmp/velog-core001-smoke.Sa9oT7c2": false,
+    "/tmp/velog-core001-smoke.hDL7a9RD": true,
+    "/tmp/velog-core001-smoke.mz8FAqVr": true,
+    "/tmp/velog-core001-smoke.xoTLBNOi": false
+  },
+  "reviewer_recovery_complete": true,
+  "runtime_shared_unchanged": {
+    "velog.php": true,
+    "src/Core/Plugin.php": true,
+    "src/Core/Loader.php": true,
+    "tests/workflow/core001-smoke-functions.sh": true,
+    "tests/workflow/core001-smoke.sh": true
+  }
+}

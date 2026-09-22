@@ -38,6 +38,14 @@ class Activator {
 		self::set_default_options();
 		self::schedule_events();
 
+		if ( ! Capabilities::install() ) {
+			wp_die(
+				esc_html__( 'VeLog capability install failed.', 'velog' ),
+				esc_html__( 'Plugin Activation Error', 'velog' ),
+				array( 'back_link' => true )
+			);
+		}
+
 		// Store the installed version.
 		update_option( 'velog_version', VELOG_VERSION, false );
 

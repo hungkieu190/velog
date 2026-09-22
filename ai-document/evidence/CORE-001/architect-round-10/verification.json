@@ -1,0 +1,47 @@
+{
+  "observed_owned_paths": {
+    "/tmp/velog-core001-smoke-regression.nVgUZ2Ci": {
+      "absent": true
+    },
+    "/tmp/velog-core001-smoke-unrelated.hY7c451x": {
+      "absent": true
+    },
+    "/tmp/velog-core001-smoke.ALLOPhwg": {
+      "absent": true
+    },
+    "/tmp/velog-core001-smoke.S73EUSGx": {
+      "absent": true
+    },
+    "/tmp/velog-core001-smoke.g8PeyDaN": {
+      "absent": true
+    }
+  },
+  "case_statuses": [
+    [
+      "RES_NONE",
+      "0"
+    ],
+    [
+      "RES_PERSISTENT",
+      "1"
+    ],
+    [
+      "RES_TRANSIENT",
+      "1"
+    ],
+    [
+      "RES_ASSERTION",
+      "1"
+    ]
+  ],
+  "unrelated_marker_check_executed": true,
+  "fixed_repository_scratch_absent": true,
+  "unchanged_inputs": {
+    "tests/workflow/core001-smoke-controls.sh": true,
+    "tests/workflow/core001-smoke-functions.sh": true,
+    "tests/workflow/core001-smoke.sh": true,
+    "velog.php": true,
+    "src/Core/Plugin.php": true,
+    "src/Core/Loader.php": true
+  }
+}

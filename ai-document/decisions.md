@@ -77,3 +77,9 @@ Configuration is project-scoped; global user files are unchanged. JSON and instr
 ## PLAN-002 — Continuous planning authorization (2026-09-21)
 
 The user requested successive plans for multiple tasks and explicitly placed Builder implementation later. This authorizes Architect to prepare the entire remaining P0–P4 draft queue now, without a confirmation between each planning document. It does not approve unconfirmed business rules or dispatch Builder. PLAN-002 owns proposed G-01–G-08 and each task owns its technical readiness gates; all remain pending until actual decisions are recorded. Existing PLAN-001 approval, CORE-001 findings and role separation are unchanged. No product or runtime verification is claimed by writing the plans.
+
+## G-02 — Staff capability policy (2026-09-22)
+
+APPROVED. The user instructed Architect to begin CORE-003 and hand implementation to Builder after reviewing the proposed next work. Create `mf_velog_manager` and `mf_velog_technician`; administrators receive the complete explicit VeLog capability set. Managers can configure the plugin, manage customers and vehicles, correct all service records and manage reminders. Technicians can read operational records and create, edit and finalize only their own service drafts. Customer contact details remain manager/admin only. Existing editors, authors and other WordPress roles receive no VeLog capabilities automatically. WordPress user administration remains the assignment mechanism.
+
+This decision authorizes the bounded CORE-003 capability lifecycle and private record-type implementation after its executable blueprint reaches PASS. It does not authorize product CRUD screens, repository/storage behavior, automatic user-role migration, commit, deployment or active-site database access.

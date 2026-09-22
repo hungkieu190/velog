@@ -1,0 +1,13 @@
+{
+  "src/Common/Regional/Distance.php": true,
+  "src/Common/Regional/Formatter.php": true,
+  "src/Common/Regional/CalendarDate.php": true,
+  "src/Common/Regional/CurrencyCatalog.php": true,
+  "src/Common/Regional/Money.php": true,
+  "src/Common/Regional/DecimalInput.php": true,
+  "src/Common/Regional/CurrencyCatalogData.php": true,
+  "src/Common/Regional/DecimalMath.php": true,
+  "tests/Unit/RegionalPrimitivesTest.php": false,
+  "tests/Unit/CurrencyCatalogTest.php": true,
+  "ai-document/evidence/CORE-002/round-1/derive-catalog.php": true
+}

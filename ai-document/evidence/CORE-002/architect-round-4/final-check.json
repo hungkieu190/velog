@@ -1,0 +1,13 @@
+{
+  "targeted_test_exit": 0,
+  "targeted_tests": 12,
+  "targeted_assertions": 117,
+  "lint_exit": 0,
+  "full_test_exit": 0,
+  "full_tests": 33,
+  "full_assertions": 152,
+  "diff_check_exit": 0,
+  "php_version": "8.3.6",
+  "runtime_and_generator_match_round_3_review": true,
+  "decision": "DONE"
+}

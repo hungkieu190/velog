@@ -56,3 +56,24 @@ Locales are representative fixtures, not a promise that all translations or juri
 - [WordPress internationalization guide](https://developer.wordpress.org/plugins/internationalization/how-to-internationalize-your-plugin/) and [WordPress 6.7 i18n changes](https://make.wordpress.org/core/2024/10/21/i18n-improvements-6-7/): translation lifecycle guidance.
 - [NIST unit conversion factors](https://www.nist.gov/pml/us-surveyfoot/revised-unit-conversion-factors): exact international-mile conversion.
 - Local WordPress source contains determine_locale(), wp_timezone(), wp_date() and number_format_i18n(); presence was inspected, proposed integration has not been tested.
+
+## Implementation and Limitations (CORE-002)
+
+The exact regional value primitives have been implemented as stateless pure-PHP helper classes in `src/Common/Regional/`:
+- `Distance` handles exact distance boundaries (max 999999999.999), overflow rejection, and exact conversion to millimeters via string-based half-up decimal arithmetic (`DecimalMath`).
+- `Money` preserves the original minor-unit values with exact string scales.
+- `CalendarDate` parses strict calendar formats (rejecting time parts, invalid leaps, and trailing whitespace) and derives local today's date from the injected UNIX timestamp and timezone.
+- `DecimalInput` implements strict localized parsing, handling explicit allowed ASCII whitespace characters and separators.
+- `Formatter` provides grouped presentation strings.
+
+### Currency Catalog Provenance
+
+To support a strict list of active currencies, a one-time development generator (`derive-catalog.php`) was built to download and parse Unicode CLDR 48.0.0 data (including `currencyData.json` and `currencies.json`) with a selection date of 2026-09-22. The script validates source checksums against the pinned manifest at [currency-source-verification.json](evidence/CORE-002/planning/currency-source-verification.json), counts the active currencies that are legal tender within the selection date, and writes the hardcoded PHP catalog array to `src/Common/Regional/CurrencyCatalogData.php`.
+
+The catalog metadata is a pinned snapshot, and its specific version (code, scale, and catalog_version) is retained explicitly in parsed money values. The catalog relies strictly on bundled PHP arrays and requires no runtime network or database requests.
+
+### Limitations
+
+- **PHP Ext dependency:** The regional primitive math and formatting do not rely on `BCMath` or `intl` extensions, which improves portability but restricts operations to custom exact-string manipulation (`DecimalMath`).
+- **No Exchange Rates:** The bundled currency catalog includes metadata like scale and symbols but does not provide dynamic exchange rates.
+- **Product UI:** Settings UI, database storage, and WordPress admin interfaces for regional configuration remain out of scope for these foundation primitives.
