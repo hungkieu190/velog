@@ -2,16 +2,16 @@
 
 ## Current focus
 
-- Task: CORE-003
-- Status: READY
-- Next actor: Builder (Antigravity)
-- Exact next action: Implement CORE-003 revision 2 exactly as scoped, run C3-V1–C3-V5 and return READY_FOR_REVIEW with Round 1 evidence.
-- Planning queue: CORE-001 and CORE-002 are DONE. CORE-003 is READY. G-02 is approved; G-03–G-08 remain pending.
+- Task: WF-004
+- Status: IN_PROGRESS
+- Next actor: Architect
+- Exact next action: Next Codex Architect session must resume the task checkpoint and finish coding revision 3 under the explicit user continuation exception; independent acceptance follows.
+- Planning queue: WF-004 takes priority by user instruction on 2026-09-23; other implementation work follows afterward. CORE-001 and CORE-002 are DONE. CORE-003 is CHANGES_REQUESTED after Architect Round 4; WF-003 is DONE. G-02 is approved; G-03–G-08 remain pending.
 - Documentation recovery: CORE-001 status was restored from retained Round 10 independent acceptance evidence after the user confirmed the apparent reset was not intentional. No historical evidence was rewritten and no new verification claim was added.
 
 ## Project status
 
-Tooling bootstrap and master-plan revision 3 are accepted. CORE-001 and CORE-002 are DONE; CORE-003 is the active READY implementation assignment. Checklist counts represent recorded work only, not overall product completion.
+Tooling bootstrap and master-plan revision 3 are accepted. CORE-001 and CORE-002 are DONE; CORE-003 is CHANGES_REQUESTED after Architect Round 4; WF-003 is DONE by the recorded separate bounded acceptance. Round 4 lint/PHPCS/PHPStan and PHPUnit passed (42 tests, 172 assertions, no skips); required fault/callback coverage and real integration/cleanup evidence remain insufficient. Checklist counts represent recorded work only, not overall product completion.
 
 ## Accepted product master plan and MVP
 
@@ -51,10 +51,10 @@ Task: [CORE-002](tasks/CORE-002-regional-primitives.md). Prerequisites: CORE-001
 
 ### CORE-003 — Capabilities and private record types
 
-- [ ] CORE-003 / AC1: Explicit manager/admin/technician policy is enforced at object and primitive levels. Status: READY.
-- [ ] CORE-003 / AC2: Anonymous, subscriber and unrelated editor cannot discover private records through public/native endpoints. Status: READY.
-- [ ] CORE-003 / AC3: Activation/reactivation and role collisions preserve unrelated roles/capabilities. Status: READY.
-- [ ] CORE-003 / AC4: Real WordPress permission/lifecycle evidence and runner failure/cleanup controls pass. Status: READY.
+- [ ] CORE-003 / AC1: Explicit manager/admin/technician policy is enforced at object and primitive levels. Status: CHANGES_REQUESTED.
+- [ ] CORE-003 / AC2: Anonymous, subscriber and unrelated editor cannot discover private records through public/native endpoints. Status: CHANGES_REQUESTED.
+- [ ] CORE-003 / AC3: Activation/reactivation and role collisions preserve unrelated roles/capabilities. Status: CHANGES_REQUESTED.
+- [ ] CORE-003 / AC4: Real WordPress permission/lifecycle evidence and runner failure/cleanup controls pass. Status: CHANGES_REQUESTED.
 
 Task: [CORE-003](tasks/CORE-003-access-private-types.md). Prerequisites: CORE-001 DONE.
 
@@ -156,3 +156,21 @@ Task: [WF-001](tasks/WF-001-workflow-bootstrap.md). No product feature is accept
 - [x] WF-002 / AC4: Regression and browser evidence within the local-tool scope. Status: DONE.
 
 Task: [WF-002](tasks/WF-002-animated-role-strip.md). User approved revision 1 on 2026-09-21; blueprint readiness PASS, assigned separately to Builder. User directly accepted the implementation and marked the task DONE on 2026-09-21, overriding finite animation with infinite animation. CORE-001 remains the current implementation focus until its existing handoff; do not overwrite its concurrent status/evidence.
+
+## Dashboard handoff consistency — WF-003
+
+- [x] WF-003 / AC1: Canonical/decorated roles agree; genuine conflicts remain visible. Status: DONE.
+- [x] WF-003 / AC2: Latest bare/text handoff is parsed without stale fallback or substring-based false validation. Status: DONE.
+- [x] WF-003 / AC3: Read-only escaped dashboard and focus/checklist diagnostics pass regression and HTTP checks. Status: DONE.
+
+Task: [WF-003](tasks/WF-003-progress-owner-consistency.md). User approved on 2026-09-23. Separate bounded acceptance is recorded in CORE-003 Architect Review Round 4 and its evidence/review.md. Status synchronized on 2026-09-23 from that existing decision; no new verification or acceptance is claimed. Do not reopen dashboard scope.
+
+## Priority tooling — WF-004
+
+- [ ] WF-004 / AC1: Atomic final JSON is the sole dispatch trigger and invalid handoffs cannot start work. Status: IN_PROGRESS.
+- [ ] WF-004 / AC2: Serial dispatch, pinned sessions, replay/crash handling and owned cleanup pass. Status: IN_PROGRESS.
+- [ ] WF-004 / AC3: Real Codex adapter reads handoffs and resumes the intended session. Status: IN_PROGRESS.
+- [ ] WF-004 / AC4: Antigravity adapter and isolated bidirectional loop have real evidence. Status: IN_PROGRESS.
+- [ ] WF-004 / AC5: Progress integration, regressions, rules and setup-kit protocol are verified. Status: IN_PROGRESS.
+
+Task: [WF-004](tasks/WF-004-json-handoff-controller.md). IN_PROGRESS; user paused partial Round 3 implementation and explicitly assigned the next Codex Architect session to finish coding it. See AGENTS.md continuation exception and latest task checkpoint. Current partial code is NOT VERIFIED after edits. WF4-F-001–WF4-F-006 remain OPEN; no criteria accepted. Dispatch remains disabled; independent review follows completed implementation. CORE-003 stays deferred; WF-003 remains DONE.

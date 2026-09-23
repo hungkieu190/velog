@@ -1,0 +1,9 @@
+Status: CHANGES_REQUESTED
+
+Act as the separate Antigravity Builder for priority task WF-004. Read AGENTS.md, ai-document/README.md, ai-document/implementation-checklist.md, ai-document/architect-builder-workflow.md, and ai-document/tasks/WF-004-json-handoff-controller.md, especially Architect Review Round 2 and Correction blueprint Round 3 (revision 3, readiness PASS). Read ai-document/evidence/WF-004/architect-round-2/review.md, probe-results.json, http-results.json and workflow.log. Pass incoming validation before work.
+
+Fix all remaining WF4-F-001–WF4-F-006 using revision 3 and the still-applicable revision 2 R1–R7 matrix. Metadata correction WF4-I-004 is resolved. Verified independently: focused 36/36 pass; full workflow 54/56 pass, exit 1; HTTP 200/200/405. Invalid metadata still dispatches, pending receipts are overwritten, adapter recovery drops work, wrong Codex session/result is accepted, and dashboard adapter keys prevent dispatch. Live V7/V8 and process-group cleanup remain NOT VERIFIED.
+
+Use disposable fixtures and raw process/HTTP evidence. Keep active-project dispatch disabled and CORE-003 deferred. Do not invent an Antigravity CLI contract; report unavailable until verified. Preserve historical reports and unrelated changes. No application/PHP changes, dependencies, commits or publication.
+
+Record per-finding fixes and actual R1–R7 commands/exits under ai-document/evidence/WF-004/round-3/. Correct overstated prior coverage explicitly. Synchronize task/checklist/README and append the canonical English Architect handoff last. Return READY_FOR_REVIEW with honest remaining limitations; do not close findings, accept criteria or mark DONE.

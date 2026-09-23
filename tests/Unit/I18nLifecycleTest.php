@@ -139,19 +139,22 @@ class I18nLifecycleTest extends TestCase {
 			if ( 'init' !== $hook ) {
 				continue;
 			}
-			// The callable is a Closure wrapping [$plugin, 'load_plugin_textdomain'].
+			// In Loader::run(), the callable is wrapped in a Closure or passed as an array.
 			if ( $callable instanceof \Closure ) {
 				$rf = new \ReflectionFunction( $callable );
-				// Brain\Monkey wraps in a Closure; check via get_loader queue instead.
+				if ( $rf->getClosureThis() instanceof Plugin ) {
+					++$textdomain_init_count;
+				}
+			} elseif ( is_array( $callable ) && $callable[0] instanceof Plugin ) {
+				++$textdomain_init_count;
 			}
-			++$textdomain_init_count;
 		}
 
-		// Exactly one init registration (from set_locale); run() is idempotent.
+		// Two init registrations (one from set_locale, one from post types); run() is idempotent.
 		$this->assertSame(
 			1,
 			$textdomain_init_count,
-			'Exactly one add_action("init", ...) call expected after idempotent run().'
+			'Exactly one add_action("init", ...) calls expected after idempotent run().'
 		);
 	}
 

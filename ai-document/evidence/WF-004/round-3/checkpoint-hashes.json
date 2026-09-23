@@ -1,0 +1,13 @@
+{
+  "scripts/progress-data.mjs": "8f2ad2ed096563ae42b9e6e81a90b666b3c02f920c053aa849385cbc77440045",
+  "scripts/handoff-protocol.mjs": "89605f804877b70a5caceef1569407c4b2178a188978189f5b90503789bfa3b4",
+  "scripts/handoff-store.mjs": "c058768bec65b77993695c3820931ac882be7e542f94639ce02831626953f4d1",
+  "scripts/publish-handoff.mjs": "30d11bd45320a2132323f735dbe8a5c524eee633b6ae806e687bab26be13ae71",
+  "scripts/validate-handoff.mjs": "46f2030f6b4f1e65da15d7314b0fd8994416f79fdcec83b988fff6dbef7fac84",
+  "scripts/handoff-controller.mjs": "4592eb146424a0146fba82b564c760669ad9e9760392d83baef852504df6b417",
+  "scripts/agent-adapters/codex.mjs": "118fd8527df1311aa804c941f2be1250868f8efb75d771757753fcf57a5e6e11",
+  "scripts/agent-adapters/antigravity.mjs": "93a168afb81491b72ef773fb239726c89db52b7ba68d256254b1f3f999b645e5",
+  "scripts/progress-dashboard.mjs": "002fd02ee6d1b660fb5905c4e2dd0347b102823e88d23bba9710f085a8014915",
+  "tests/workflow/handoff-fixtures.mjs": "0fb0d3609cc1c5a4b598f711f61b9a4490096819aef613f54f8f0b1cc2edcb1d",
+  "tests/workflow/handoff-round3.test.mjs": "7d91a995b43c8f81c7ebe56707172d1c054a25061f5c4a8a7f20361ce1ccbc92"
+}

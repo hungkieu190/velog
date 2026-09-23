@@ -1,0 +1,146 @@
+[
+  {
+    "name": "positive consistent fixture",
+    "observed": {
+      "launches": 1
+    },
+    "expected": "one launch"
+  },
+  {
+    "name": "revision round checklist README mismatch",
+    "observed": {
+      "published": true,
+      "launches": 1,
+      "validation": {
+        "valid": true,
+        "task_id": "TEST-001",
+        "receipt_id": "664ae7ca-9e61-4e95-92d1-865a840c248b",
+        "snapshot": [
+          {
+            "path": "ai-document/tasks/TEST-001-fixture.md",
+            "sha256": "a28aa66d7fdfb4aa331d1103ee3f91a52df6e12e75f55d896a1841f5e358f00d"
+          },
+          {
+            "path": "ai-document/implementation-checklist.md",
+            "sha256": "3ef5a2c1286c072e5e06398f68455ea66028b488260ad0f780719f132491aa9f"
+          },
+          {
+            "path": "ai-document/README.md",
+            "sha256": "41a41ea083082f30a44a1cc991cbafea966df1f3dc12fb8b97ae66c056b1c8ec"
+          }
+        ],
+        "errors": [],
+        "limitations": []
+      }
+    },
+    "expected": "reject and zero launches"
+  },
+  {
+    "name": "unacknowledged replacement",
+    "observed": {
+      "first": "4ecb83ac-8f10-410e-8323-44671e38c0df",
+      "second": "88da51ce-592e-411f-b772-a3946d7421df",
+      "replaced": true
+    },
+    "expected": "reject second, preserve first"
+  },
+  {
+    "name": "same ID changed round",
+    "observed": {
+      "errors": []
+    },
+    "expected": "tamper error"
+  },
+  {
+    "name": "adapter repaired same process",
+    "observed": {
+      "launchesAfterRepair": 0,
+      "lastReceipt": "91e6274c-e7c6-49c8-aae4-3236644afc2b",
+      "blocked": "Adapter for builder is not configured or unavailable"
+    },
+    "expected": "one launch after repair"
+  },
+  {
+    "name": "dashboard adapter map uses client keys",
+    "observed": {
+      "dispatchCount": 0,
+      "blocked": "Adapter for builder is not configured or unavailable"
+    },
+    "expected": "one dispatch with injected production map"
+  },
+  {
+    "name": "validator nonexistent task with empty signal",
+    "observed": {
+      "exit": 0,
+      "stdout": "{\n  \"valid\": true,\n  \"task_id\": null,\n  \"receipt_id\": null,\n  \"snapshot\": [],\n  \"errors\": [],\n  \"limitations\": []\n}\n"
+    },
+    "expected": "nonzero missing task/receipt"
+  },
+  {
+    "name": "validator documented task path on valid receipt",
+    "observed": {
+      "exit": 1,
+      "stdout": "{\n  \"valid\": false,\n  \"task_id\": \"TEST-001\",\n  \"receipt_id\": \"1c6b465c-7edc-41c5-9c12-4d076d916984\",\n  \"snapshot\": [\n    {\n      \"path\": \"ai-document/tasks/TEST-001-fixture.md\",\n      \"sha256\": \"f587d7625bd2b9391b52868e2b48e37782d59d3591a4f0ef6e1b785a84737981\"\n    },\n    {\n      \"path\": \"ai-document/implementation-checklist.md\",\n      \"sha256\": \"fba9d9a12d6ca3ec7812e7e36373b710415d6c65d78ec7b71f312ae95acd9d82\"\n    },\n    {\n      \"path\": \"ai-document/README.md\",\n      \"sha256\": \"96ba9d6779f410e56149a26b0885f5b52927b737adc5ed3873654e33b4ef1717\"\n    }\n  ],\n  \"errors\": [\n    \"Task parameter mismatch: expected ai-document/tasks/TEST-001-fixture.md, got TEST-001\"\n  ],\n  \"limitations\": []\n}\n"
+    },
+    "expected": "exit 0"
+  },
+  {
+    "name": "Codex wrong thread malformed stream invalid result",
+    "observed": {
+      "success": true,
+      "result": {
+        "receipt_id": "18b1ff92-3960-41df-989c-739a264f4b7f",
+        "task_id": "TEST-001",
+        "intake": "INVALID",
+        "outcome": "INVALID"
+      },
+      "events": [
+        {
+          "type": "thread.started",
+          "thread_id": "WRONG-SESSION"
+        },
+        {
+          "type": "turn.completed"
+        }
+      ]
+    },
+    "expected": "failure"
+  },
+  {
+    "name": "held controller lock",
+    "observed": {
+      "launches": 0,
+      "mode": "observe"
+    },
+    "expected": "zero launches, observe"
+  },
+  {
+    "name": "unknown parent",
+    "observed": {
+      "launches": 0,
+      "blocked": "Parent run 67fcdffa-151b-4d88-ae39-1c689d6bf993 is unknown"
+    },
+    "expected": "zero launches with blocker"
+  },
+  {
+    "name": "corrupt JSON ledger",
+    "observed": {
+      "error": "Corrupt or unreadable ledger: Expected property name or '}' in JSON at position 1 (line 1 column 2)"
+    },
+    "expected": "explicit error, no reset"
+  },
+  {
+    "name": "monitor handle during initial active dispatch",
+    "observed": {
+      "handleReturned": false
+    },
+    "expected": "handle available to dashboard shutdown while initial dispatch runs"
+  },
+  {
+    "name": "cleanup",
+    "observed": {
+      "removed": 12
+    },
+    "expected": "all owned fixtures removed"
+  }
+]

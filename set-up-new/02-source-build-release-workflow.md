@@ -601,6 +601,16 @@ All build/package/WordPress smoke checks must have reproducible positive, negati
 - Capture exact commands, exit codes, test totals, versions, relevant raw output and cleanup proof under the task's evidence directory. Sanitize secrets; preserve failed-run history and append corrections to unsupported claims.
 - A failed connection to the active site's database does not establish inability to create a disposable instance. Report actual isolated-setup attempts and precise blockers.
 
+### Evidence lessons for integration and failure controls
+
+Apply these when the approved task includes the relevant behavior; do not add unrelated product features or runtime requirements.
+
+- Negative controls must trigger the real validator, with the fault actually passed to the child/fixture. A direct forced exit is not validation evidence. Match both failure category and exit behavior; reject an unrelated failure even if its numeric exit code matches.
+- Own resources by unique run ID, path, PID and process start identity. Bound connect/request and overall readiness time, detect early child death, stop and reap owned children, verify their absence, then remove owned data. Parallel and signal paths need the same cleanup. Do not count or delete global temporary-directory matches or share log names between concurrent runs. Preserve the original failure and make cleanup failure visible/nonzero.
+- For authenticated denial tests, prove the request is authenticated with the correct session/cookie context and a positive authorized control first. A login redirect is not authorization denial evidence. Verify rejected mutations leave stored state unchanged, using valid request verification such as a nonce when required by the framework.
+- For rollback, compare exact before/after existence, raw value, storage metadata (such as WordPress option autoload), caches and reloaded runtime state where applicable. Inject actual persistence failures; a successful repair is not a rollback test. Mocks must derive reads from stateful writes, not return canned expected success rows. Continue remaining cleanup if one restoration/check fails.
+- Record per-case commands, versions, exits, raw results and resource cleanup, not just a summarized success report. Required skipped/incomplete cases remain unmet; Node fixtures, mocks, real integration and browser checks must be labeled separately. Missing supported-runtime coverage remains NOT VERIFIED.
+
 ## 15. Dashboard and source-control boundaries
 
 The dashboard is local development tooling, owned by the approved workflow task. Its stylesheet may live in src/css/progress.css and be read directly by the localhost server; exclude it from plugin runtime compilation/release. Do not add runtime enqueues solely to satisfy dashboard/build tests.
@@ -608,3 +618,13 @@ The dashboard is local development tooling, owned by the approved workflow task.
 Track authoritative sources, scripts/configuration, npm/Composer lockfiles, production assets and generated ownership manifest for the WordPress profile. Ignore installed dependencies, development maps, release output, private staging/caches and temporary fixtures. Keep sanitized environment examples. Test representative paths with git check-ignore; do not untrack unrelated files or commit automatically.
 
 Do not treat a source checkout as an installable distribution until its autoload/dependencies are installed. Test the actual ZIP independently. Do not count an echo/TODO lint command as a passing quality gate. Only the independent Architect can accept the bounded bootstrap task after inspecting scripts, package contents, failure behavior and real installation evidence; completion of this tooling does not approve or complete the product MVP.
+
+## Final handoff validation integration
+
+For a requested handoff controller, follow the installed Architect/Builder workflow's Handoff state and publication contract. Do not build an unsolicited controller during ordinary project setup.
+
+Use one shared read-only validator for the CLI preflight, publisher and dispatcher. Aggregate field-level errors, identify the exact receipt/snapshot, reject an invalid newest prompt instead of falling back, and keep intake correction ownership separate from product-task status. A validator PASS proves the checked structural conditions only, not product correctness.
+
+Verification must include: a valid fixture; invalid newest heading/block with a valid older prompt; contradictory current metadata; stale hashes after a successful check; rejected publication preserving the previous signal bytes; duplicate delivery; same rejected receipt replay; correction routed to sender without changing task status; crash and restart; and an unchanged-invalid receipt stopping after the retry limit. Inner validation exits are 0 valid, 1 content invalid, 2 command/environment failure; outer regression gates pass only for the expected cause and state. Preserve raw results and owned-resource cleanup. Use stub processes before actual CLI integration.
+
+No local rule or JSON file alone proves an agent was awakened or its rules loaded. Verify actual receipt, workspace, role and pinned session during isolated integration. Initialize dispatch disabled until independent acceptance and explicit activation. Do not describe a draft command as implemented or a stub as a live agent loop.

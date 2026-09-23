@@ -1,0 +1,27 @@
+[
+  {
+    "name": "diff-check",
+    "exit": 2
+  },
+  {
+    "name": "runner-syntax",
+    "exit": 0
+  },
+  {
+    "name": "controls-syntax",
+    "exit": 0
+  },
+  {
+    "name": "persistence-probe",
+    "exit": 0
+  },
+  {
+    "name": "outer-wrong-cause-probe",
+    "exit": 0,
+    "temporary_fixture_cleaned": true
+  },
+  {
+    "name": "assertion-probe",
+    "exit": 1
+  }
+]

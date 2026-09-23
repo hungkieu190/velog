@@ -11,6 +11,8 @@
 Before writing any code, an AI agent MUST:
 
 - [ ] Read `AGENTS.md` completely.
+- [ ] Pass the Mandatory incoming handoff validation in `ai-document/architect-builder-workflow.md` before starting work received from the partner. On FAIL, stop and return the documented correction prompt; resume only after a corrected handoff passes.
+- [ ] Follow the workflow's Handoff state and publication contract: validate the complete final snapshot, report all errors together, preserve history and identify the exact published receipt when tooling is available. Task status is distinct from the immediate handoff actor.
 - [ ] Record the session's fixed Architect or Builder role and check task contributor history; never hold both roles or propose switching to self-accept.
 - [ ] Read the relevant rule file(s) in `rules/`.
 - [ ] Inspect the actual file structure — never assume.
@@ -47,7 +49,7 @@ Before writing any code, an AI agent MUST:
 - ❌ Write inline CSS or JS (unless explicitly requested).
 - ❌ Implement features without an approved task in `ai-document/tasks/`.
 - ❌ Guess about file structure — always inspect first.
-- ❌ Make assumptions — always ask.
+- ❌ Invent undiscoverable requirements. Inspect repository facts first; ask only for unresolved product decisions or information that cannot be obtained locally.
 - ❌ Refactor outside the requested scope.
 
 ---
@@ -98,8 +100,10 @@ If ANY of the following is unknown, DO NOT write code. Request:
 
 ## Communication Style
 
+- Address the user in Vietnamese. Write Architect/Builder inter-agent messages and copy-ready handoff/correction prompts in English, without a brevity requirement; follow `ai-document/architect-builder-workflow.md#agent-to-agent-language`.
+
 - Call the project owner: **pé Kiều Mầm**.
-- Present the approach first and ask for approval before implementing.
+- Present the approach before implementation. Existing explicit approval persists for its scope; do not request it again for already-authorized work.
 - Be concise — no unnecessary explanations.
 
 ## Role boundaries

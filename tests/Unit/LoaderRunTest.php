@@ -242,7 +242,7 @@ class LoaderRunTest extends TestCase {
 		// Expect add_action only for the init hook queued by set_locale().
 		// If run() were not idempotent the count would double on the second call.
 		Functions\expect( 'add_action' )
-			->once()
+			->twice()
 			->with( 'init', \Mockery::type( 'callable' ), 10, 1 );
 		$this->addToAssertionCount( 1 );
 

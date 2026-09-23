@@ -1,0 +1,17 @@
+{
+  "evidence_directory": "/tmp/velog-codex-cli-probe-bqg0fdl6",
+  "exit_code": 0,
+  "timed_out": false,
+  "elapsed_seconds": 6.93,
+  "event_types": [
+    "thread.started",
+    "turn.started",
+    "item.completed",
+    "turn.completed"
+  ],
+  "result": {
+    "ok": true,
+    "marker": "velog-codex-transport-v1"
+  },
+  "errors": []
+}

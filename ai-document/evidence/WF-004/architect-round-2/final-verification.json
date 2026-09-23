@@ -1,0 +1,13 @@
+{
+  "reviewedSourceChanges": [],
+  "taskStatus": "CHANGES_REQUESTED",
+  "owner": "Builder",
+  "taskIssues": [],
+  "promptValid": true,
+  "promptMatchesSaved": true,
+  "focusIssues": [],
+  "signal": {
+    "schema_version": 1,
+    "handoff": null
+  }
+}

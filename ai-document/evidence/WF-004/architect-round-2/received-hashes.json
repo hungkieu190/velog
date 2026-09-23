@@ -1,0 +1,12 @@
+{
+  "scripts/validate-handoff.mjs": "774afc2afdbfeb3ddffde1ac2bc4119fb60ecbc9999a85db1acf22b41a9d2adf",
+  "scripts/publish-handoff.mjs": "a9ce906a9ef0a57a9b9d02023a5daa8028ea9b5f4f8f6d899f5e2ff4d982bc26",
+  "scripts/handoff-protocol.mjs": "bbd70d843f38b2b48f8a96a3c08b6aaca8b6020718f5fc2ccf68f7cdf6166211",
+  "scripts/handoff-controller.mjs": "4592eb146424a0146fba82b564c760669ad9e9760392d83baef852504df6b417",
+  "scripts/agent-adapters/antigravity.mjs": "93a168afb81491b72ef773fb239726c89db52b7ba68d256254b1f3f999b645e5",
+  "scripts/agent-adapters/codex.mjs": "118fd8527df1311aa804c941f2be1250868f8efb75d771757753fcf57a5e6e11",
+  "scripts/progress-data.mjs": "daa4c841a8513c4df582324196150178fbbf1b027fb5ef7ace87331da3aec0eb",
+  "scripts/progress-dashboard.mjs": "002fd02ee6d1b660fb5905c4e2dd0347b102823e88d23bba9710f085a8014915",
+  "scripts/progress-view.mjs": "d278cfbde45fb9681113d183e51ecc28338dd44709f86d7f674462ddb184912a",
+  "tests/workflow/handoff-controller.test.mjs": "c9422ffe65aaa5f37aaf81e0eac6defaa2e60e5240a0388a8ce8de5bb52e837f"
+}

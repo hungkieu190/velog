@@ -1,0 +1,19 @@
+{
+  "src/Common/AccessPolicy.php": "f20db8174d0a49ad9b2729592b221dcece73bd6c5672e48831a7aae8783a0c9f",
+  "src/Core/Capabilities.php": "22a72414c1b59cbec8e613043d88f57f69e83fe7f1282e362e48b942ac4fa31b",
+  "src/Core/PostTypes.php": "45bda5dbe4338e1a98254099fee3930c8fe5e81250f1bb3dfbe9a986a5ba2518",
+  "src/Core/Plugin.php": "c5330170a7382aa1409d90e172f162d648edffbda55a1ec0dfef50c7da5bbc55",
+  "src/Core/Activator.php": "c029e0b8ca75f68a3835344e302dede275d4a870c4e35a6cb2b4d8c5eaa080c9",
+  "tests/Unit/AccessPolicyTest.php": "bb7422298ffd1ab41eeedfd41fd2e1d865f686a6bdfaf1141892051c3ca666ca",
+  "tests/Unit/CapabilitiesTest.php": "56636b6495899516bd44d1e880941f8a3dde8aceefebe5f5f7683de849f2ac27",
+  "tests/Unit/LoaderRunTest.php": "1c4cbdeffd9e90c1f405adb4d1d1cb751e10140e328ca54d405d419d1dc8fdfd",
+  "tests/Unit/I18nLifecycleTest.php": "a3da533fd1ee45ed29e6e2695b06194475f75bad9d1072f665e20cbd194a1727",
+  "tests/fixtures/bootstrap-entry-verify.php": "6b7d71728f8a2ed654de584a6af16cebc394ce0d57fe85acde053a851fb1b462",
+  "tests/fixtures/core-003-verify.php": "ef186cfd5e9ad807b0f3422c22a06e70316d790037cde74a0779148caac8f421",
+  "tests/workflow/product-smoke.sh": "aa74b87f6987fa8714bb64050e51f275f19ea2273534011b47499f9721f6c751",
+  "tests/workflow/product-smoke-controls.sh": "5f23754772940c9f8534320851efbc7420032eef65167a5b985a3da60fdfa4af",
+  "scripts/progress-data.mjs": "c6aa1487e032dfd4adc6049e45831ff6ba552d15c3db90b2fda8d4c5a6e20ab1",
+  "scripts/progress-view.mjs": "ef0feb59775b737803267ba2aae68ecf1e7db0d1ea53e3f6d8c9db6cf70144e5",
+  "ai-document/evidence/CORE-003/round-2/commands.log": "18652f65142fda97b05817763c494bea9dd6d2cebb8d478b7bb9ec06ae41ea5e",
+  "ai-document/evidence/CORE-003/round-2/verification.md": "0bd282cb69c1fdd210c647dd0edcceaeb6bf3b26051c39a79bce7c532872a055"
+}

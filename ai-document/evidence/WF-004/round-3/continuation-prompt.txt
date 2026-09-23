@@ -1,0 +1,7 @@
+Status: IN_PROGRESS
+
+Codex Architect: continue coding priority task WF-004, revision 3. The user explicitly authorized Architect/Codex to implement this task and then explicitly extended that authorization to the next session. Read the WF-004 continuation exception in AGENTS.md and the checkpoint at the end of ai-document/tasks/WF-004-json-handoff-controller.md before work. Do not return this implementation to Antigravity or stop because of the normal Architect no-code rule; this bounded user exception supersedes it for WF-004 implementation only.
+
+Resume the partially edited working tree. Read Correction blueprint Round 3 and ai-document/evidence/WF-004/architect-round-2/review.md. Finish WF4-F-001–WF4-F-006, run meaningful Node 24 regression/process/HTTP checks and isolated Codex CLI verification, and record exact results under ai-document/evidence/WF-004/round-3/. Current draft code is incomplete and has not been tested after editing. Keep dispatch disabled; preserve unrelated changes and all historical evidence.
+
+Record yourself as an implementation contributor. Do not self-accept, close findings or mark DONE; hand off the finished implementation to an independent reviewer. No PHP/product changes, dependencies, commits, push or deployment.

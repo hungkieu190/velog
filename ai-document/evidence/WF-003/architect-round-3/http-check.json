@@ -1,0 +1,10 @@
+{
+  "jsonStatus": 200,
+  "htmlStatus": 200,
+  "focus": "CORE-003",
+  "status": "READY_FOR_REVIEW",
+  "htmlReflectsStatus": true,
+  "noStore": true,
+  "freshSourceProcess": true,
+  "childReaped": true
+}

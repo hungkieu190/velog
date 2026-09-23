@@ -1,0 +1,27 @@
+{
+  "focus": "CORE-003",
+  "status": "CHANGES_REQUESTED",
+  "owner": "Builder",
+  "presentation": {
+    "role": "Builder",
+    "motion": "mining",
+    "label": "Fixes requested"
+  },
+  "liveStatus": "CHANGES_REQUESTED",
+  "liveBuilderActive": true,
+  "relevantIssues": [],
+  "tasks": [
+    {
+      "id": "CORE-003",
+      "status": "CHANGES_REQUESTED",
+      "owner": "Builder",
+      "promptValid": true
+    },
+    {
+      "id": "WF-003",
+      "status": "READY",
+      "owner": "Builder",
+      "promptValid": true
+    }
+  ]
+}

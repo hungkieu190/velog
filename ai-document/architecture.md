@@ -32,3 +32,17 @@ The `MF\VeLog\Common\Regional` namespace provides pure PHP helpers for distance,
 - `CalendarDate::parse()` and `CalendarDate::today()` handle strict date-only values avoiding timezone offsets.
 - `DecimalInput` enforces rigid numeric ASCII character constraints (no NUL bytes), limiting values to 256 bytes.
 - `CurrencyCatalogData` is statically generated from Unicode CLDR via `derive-catalog.php` (no runtime network/database dependencies) and includes explicitly active currencies.
+
+## Capability and Private Types (CORE-003)
+
+The `MF\VeLog\Core\Capabilities` namespace provides the strict schema definitions and persistence implementation for VeLog roles and types.
+- **Table/Context**: The plugin leverages standard WordPress `$wpdb->options` (specifically the `wp_roles` payload) but uses deep transactional verification (`get_option_snapshot` + direct schema evaluation).
+- **Lifecycle Contract**: Activation triggers capability install. A missing database read, serialization mismatch, or failed option rollback immediately aborts activation and restores exact rows with cache invalidation (`alloptions`, `notoptions`, and the specific option key).
+- **Context Enforcement**: `AccessPolicy` guarantees that private service reads/mutations are strictly filtered to `vehicle_visible`, preventing leakages through search, feeds, or REST without the `mf_velog_manage_customers` capability.
+
+## Dashboard and Workflow Parser (WF-003)
+
+The `scripts/progress-data.mjs` script acts as the authoritative parser for the project's task and checklist tracking mechanism.
+- **Ownership**: The workflow tooling is fully decoupled from the runtime plugin application. It parses Markdown via a local server (no browser JS logic).
+- **Prompt Contract**: Handoff prompts are extracted solely from the last `### Chat handoff prompt` code block in a task document. 
+- **Consistency Verification**: The parser validates structural correctness. It derives the expected role from an explicit task "Next actor" field or from the task's known status. Missing roles for BLOCKED tasks and contradictory actor assignments across the task and checklist are flagged explicitly without silently defaulting. The parser escapes all rendered task text to prevent Markdown/HTML injection.

@@ -8,19 +8,10 @@ NEGATIVE_MODE=""
 
 for arg in "$@"; do
     case $arg in
-        --task=*)
-            TASK="${arg#*=}"
-            ;;
-        --wp-version=*)
-            WP_VERSION="${arg#*=}"
-            ;;
-        --negative-mode=*)
-            NEGATIVE_MODE="${arg#*=}"
-            ;;
-        *)
-            echo "Unknown argument: $arg"
-            exit 1
-            ;;
+        --task=*) TASK="${arg#*=}" ;;
+        --wp-version=*) WP_VERSION="${arg#*=}" ;;
+        --negative-mode=*) NEGATIVE_MODE="${arg#*=}" ;;
+        *) echo "Unknown argument: $arg"; exit 1 ;;
     esac
 done
 
@@ -34,7 +25,8 @@ if [ "$WP_VERSION" != "6.4.3" ] && [ "$WP_VERSION" != "6.7.2" ]; then
     exit 1
 fi
 
-for cmd in wp mariadbd mysql php curl; do
+# Preflight tools
+for cmd in wp mariadbd mysql mysqladmin mysql_install_db php curl; do
     if ! command -v $cmd &> /dev/null; then
         echo "Fail: $cmd is required"
         exit 1
@@ -45,45 +37,101 @@ DIR=$(mktemp -d /tmp/velog-product-smoke.XXXXXXXX)
 chmod 0700 "$DIR"
 echo "Allocated $DIR"
 
+# Clean exactly once
+CLEANED=0
 cleanup() {
     local exit_code=$?
+    if [ $CLEANED -eq 1 ]; then
+        exit $exit_code
+    fi
+    CLEANED=1
     set +e
+    
+    # Reap PHP
     if [ -f "$DIR/php.pid" ]; then
-        kill $(cat "$DIR/php.pid") 2>/dev/null || true
+        PHP_PID=$(cat "$DIR/php.pid")
+        if kill -0 $PHP_PID 2>/dev/null; then
+            kill -TERM $PHP_PID 2>/dev/null
+            for i in {1..5}; do
+                if ! kill -0 $PHP_PID 2>/dev/null; then break; fi
+                sleep 1
+            done
+            if kill -0 $PHP_PID 2>/dev/null; then
+                kill -KILL $PHP_PID 2>/dev/null
+            fi
+        fi
     fi
+    
+    # Reap MariaDB
     if [ -f "$DIR/db.pid" ]; then
-        kill $(cat "$DIR/db.pid") 2>/dev/null || true
+        DB_PID=$(cat "$DIR/db.pid")
+        if kill -0 $DB_PID 2>/dev/null; then
+            kill -TERM $DB_PID 2>/dev/null
+            for i in {1..10}; do
+                if ! kill -0 $DB_PID 2>/dev/null; then break; fi
+                sleep 1
+            done
+            if kill -0 $DB_PID 2>/dev/null; then
+                kill -KILL $DB_PID 2>/dev/null
+            fi
+        fi
     fi
+    
     rm -rf "$DIR"
+    if [ -d "$DIR" ]; then
+        echo "Fail: Cleanup failed to remove $DIR"
+        exit_code=1
+    fi
+    
+    if [ "$NEGATIVE_MODE" != "" ]; then
+        echo "Cleanup completed for negative mode $NEGATIVE_MODE"
+    fi
+    
     exit $exit_code
 }
-trap cleanup EXIT INT TERM ERR
+
+trap 'cleanup' EXIT
+trap 'exit 1' INT TERM ERR
+
+mkdir -p "$DIR/db_data"
 
 if [ "$NEGATIVE_MODE" = "db-start-failure" ]; then
     echo "Injecting db-start-failure"
-    exit 9
+    # Don't install db, let mariadbd fail
+    mariadbd --datadir="$DIR/db_data_missing" --socket="$DIR/mysql.sock" --skip-networking --pid-file="$DIR/db.pid" > "$DIR/db.log" 2>&1 &
+else
+    mysql_install_db --datadir="$DIR/db_data" --auth-root-authentication-method=normal > "$DIR/db_install.log" 2>&1
+    mariadbd --datadir="$DIR/db_data" \
+        --socket="$DIR/mysql.sock" \
+        --skip-networking \
+        --pid-file="$DIR/db.pid" > "$DIR/db.log" 2>&1 &
 fi
 
-mkdir -p "$DIR/db_data"
-mysql_install_db --datadir="$DIR/db_data" --auth-root-authentication-method=normal > "$DIR/db_install.log" 2>&1
-
-mariadbd --datadir="$DIR/db_data" \
-    --socket="$DIR/mysql.sock" \
-    --skip-networking \
-    --pid-file="$DIR/db.pid" > "$DIR/db.log" 2>&1 &
+if [ -f "$DIR/db.pid" ]; then
+    DB_PID=$(cat "$DIR/db.pid")
+else
+    DB_PID=$!
+    echo $DB_PID > "$DIR/db.pid"
+fi
 
 if [ "$NEGATIVE_MODE" = "db-never-ready" ]; then
     echo "Injecting db-never-ready"
-    sleep 2
-    exit 9
+    # Overwrite socket path so it never becomes ready
+    DB_SOCKET="$DIR/mysql_missing.sock"
+else
+    DB_SOCKET="$DIR/mysql.sock"
 fi
 
 echo "Waiting for DB..."
 DB_READY=0
 for i in {1..30}; do
-    if mysqladmin ping -S "$DIR/mysql.sock" -u root --silent 2>/dev/null; then
+    if mysqladmin ping -S "$DB_SOCKET" -u root --silent 2>/dev/null; then
         DB_READY=1
         break
+    fi
+    if ! kill -0 $(cat "$DIR/db.pid") 2>/dev/null; then
+        echo "Fail: DB process died during startup"
+        exit 1
     fi
     sleep 1
 done
@@ -99,29 +147,53 @@ WP_DIR="$DIR/wp"
 mkdir -p "$WP_DIR"
 wp core download --version="$WP_VERSION" --path="$WP_DIR" > "$DIR/wp_download.log" 2>&1
 wp config create --dbname=velog_test --dbuser=root --dbhost="localhost:$DIR/mysql.sock" --path="$WP_DIR" > "$DIR/wp_config.log" 2>&1
-wp core install --url="http://localhost:8888" --title="VeLog Smoke Test" --admin_user=admin --admin_password=admin --admin_email=admin@example.com --path="$WP_DIR" > "$DIR/wp_install.log" 2>&1
+wp config set DISABLE_WP_CRON true --raw --path="$WP_DIR"
 
-php -S localhost:8888 -t "$WP_DIR" > "$DIR/php.log" 2>&1 &
-echo $! > "$DIR/php.pid"
+# Bounded port retry
+PORT=0
+for i in {1..10}; do
+    P=$(shuf -i 8000-9999 -n 1)
+    if ! ss -tuln | grep -q ":$P\b"; then
+        PORT=$P
+        break
+    fi
+done
+if [ $PORT -eq 0 ]; then
+    echo "Fail: Could not allocate loopback port"
+    exit 1
+fi
+
+wp core install --url="http://localhost:$PORT" --title="VeLog Smoke Test" --admin_user=admin --admin_password=admin --admin_email=admin@example.com --path="$WP_DIR" > "$DIR/wp_install.log" 2>&1
+
+# Create unique marker
+MARKER="velog-marker-$(basename $DIR)"
+echo "<?php echo '$MARKER';" > "$WP_DIR/marker.php"
 
 if [ "$NEGATIVE_MODE" = "http-never-ready" ]; then
     echo "Injecting http-never-ready"
-    sleep 2
-    exit 9
+    php -S localhost:$PORT -t "$DIR/missing_dir" > "$DIR/php.log" 2>&1 &
+else
+    php -S localhost:$PORT -t "$WP_DIR" > "$DIR/php.log" 2>&1 &
 fi
+echo $! > "$DIR/php.pid"
 
 echo "Waiting for HTTP..."
 HTTP_READY=0
 for i in {1..30}; do
-    if curl -s "http://localhost:8888" > /dev/null; then
+    HTTP_RESP=$(curl -s "http://localhost:$PORT/marker.php" || true)
+    if [ "$HTTP_RESP" = "$MARKER" ]; then
         HTTP_READY=1
         break
+    fi
+    if ! kill -0 $(cat "$DIR/php.pid") 2>/dev/null; then
+        echo "Fail: PHP process died during startup"
+        exit 1
     fi
     sleep 1
 done
 
 if [ $HTTP_READY -eq 0 ]; then
-    echo "Fail: HTTP never ready"
+    echo "Fail: HTTP never ready or wrong marker"
     exit 1
 fi
 
@@ -133,31 +205,14 @@ wp plugin activate velog --path="$WP_DIR"
 
 if [ "$NEGATIVE_MODE" = "fixture-failure" ]; then
     echo "Injecting fixture-failure"
-    exit 9
+    export NEGATIVE_MODE="fixture-failure"
 fi
 
 # Run fixture
 if [ -f "$PLUGIN_DIR/tests/fixtures/core-003-verify.php" ]; then
-    wp eval-file "$PLUGIN_DIR/tests/fixtures/core-003-verify.php" --path="$WP_DIR"
+    wp eval-file "$PLUGIN_DIR/tests/fixtures/core-003-verify.php" "$PORT" --path="$WP_DIR"
 else
     echo "Fail: Fixture not found!"
-    exit 1
-fi
-
-# Test HTTP paths
-# Ensure single posts, search, feed, sitemap do not leak private types
-wp post create --post_type=mf_velog_customer --post_title="Secret Customer" --post_status=publish --path="$WP_DIR" >/dev/null
-wp post create --post_type=post --post_title="Public Post" --post_status=publish --path="$WP_DIR" >/dev/null
-
-search_html=$(curl -s "http://localhost:8888/?s=Secret")
-if echo "$search_html" | grep -q "Secret Customer"; then
-    echo "Fail: Private type leaked in search"
-    exit 1
-fi
-
-feed_xml=$(curl -s "http://localhost:8888/?feed=rss2")
-if echo "$feed_xml" | grep -q "Secret Customer"; then
-    echo "Fail: Private type leaked in feed"
     exit 1
 fi
 

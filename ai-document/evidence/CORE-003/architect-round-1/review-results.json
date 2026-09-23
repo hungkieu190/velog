@@ -1,0 +1,58 @@
+{
+  "date": "2026-09-23",
+  "baseline": "3a32728",
+  "reviewer": "Codex Architect session on 2026-09-23; descriptive reference, no asserted machine ID",
+  "independence": "This session has made no application/test implementation changes. Builder identified in Round 1 as Antigravity; header was stale. No acceptance issued.",
+  "checks": [
+    {
+      "command": "composer run lint",
+      "exit": 1,
+      "result": "PHPCS: 0 errors, 2 line-length warnings at AccessPolicyTest.php:49,105; PHPStan not reached"
+    },
+    {
+      "command": "composer run phpstan",
+      "exit": 1,
+      "result": "2 missing iterable value types: AccessPolicy.php:27 and Capabilities.php:29"
+    },
+    {
+      "command": "composer run test",
+      "exit": 2,
+      "result": "38 tests,166 assertions,1 error,3 failures; LoaderRunTest count, I18nLifecycleTest count, two BootstrapEntryTest subprocess failures (__ missing)"
+    },
+    {
+      "command": "bash -n tests/workflow/product-smoke.sh",
+      "exit": 0
+    },
+    {
+      "command": "node --test tests/workflow/progress-roles.test.mjs",
+      "exit": 0,
+      "result": "7 pass (preceding diagnostic turn)"
+    },
+    {
+      "command": "GET http://127.0.0.1:4177/api/progress",
+      "http": 200,
+      "result": "READY_FOR_REVIEW; owner Architect; declaredOwner Builder (Antigravity) (preceding diagnostic turn)"
+    },
+    {
+      "command": "Read-only PHP stdin probe against actual AccessPolicy",
+      "exit": 0,
+      "result": "Unrelated read action, contacts without read_records, service draft with vehicle_visible=false, manage_customers on vehicle all returned ALLOW"
+    },
+    {
+      "command": "Extract unchanged fixture assertion helper and force false via PHP stdin",
+      "exit": 0,
+      "result": "Printed FAIL, undefined $errors warning, counter=0, process exit=0"
+    },
+    {
+      "command": "command -v php8.1",
+      "result": "No executable found on PATH; PHP 8.1 NOT VERIFIED"
+    }
+  ],
+  "not_verified": [
+    "Real WordPress 6.4.3/6.7.2 reruns: runner has unsafe ownership/cleanup and fixed-port problems; not executed by Architect",
+    "Runtime rollback fault injection",
+    "PHP 8.1",
+    "Manual product acceptance"
+  ],
+  "builder_evidence": "commands.log inspected; verification.md absent; log has summarized outputs without exact exit/version/cleanup evidence. No full test, parallel-run or outer negative-control proof."
+}

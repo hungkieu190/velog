@@ -146,14 +146,17 @@ Replace every placeholder before dispatch. Unknown facts remain explicitly pendi
 Create one concise AGENTS.md containing ALL policies below and links to the installed workflow, build specification, documentation index and relevant rules. Merge with existing applicable instructions rather than erasing them.
 
 - Resolve the client role from ai-document/agent-roles.json and immediately acknowledge it in Vietnamese once per new session; follow the full startup section above.
-- Reply in Vietnamese; code, comments, identifiers and technical documentation in English. Be direct, evidence-based and willing to identify incorrect assumptions; no flattery or unsupported agreement.
+- Reply to the user in Vietnamese; code, comments, identifiers and technical documentation in English. Be direct, evidence-based and willing to identify incorrect assumptions; no flattery or unsupported agreement.
 - Read AGENTS.md, the documentation index, checklist, assigned task and relevant rules before changes. Inspect actual code and preserve unrelated changes.
 - Document first, design second, implement third. Explain scope/approach and obtain explicit approval before implementation; retain approval for unchanged scope. Draft inputs are not implementation authorization.
 - Architect and Builder are different agents/operators in separate sessions with fixed roles. Nobody implements and accepts the same work. Neither role may propose switching/combining roles or ask permission to self-accept. Conflicting role assignments must be handed off to a separate eligible session. Record identities and implementation contributors; verify reviewer independence before acceptance.
 - Architect writes plans, blueprints and reviews, and runs independent verification; never implements application fixes. Builder implements and reports; never writes Architect verdicts, closes findings, marks DONE or checks accepted criteria.
 - Every initial/fix handoff requires the complete implementation/correction blueprint, verification matrix and evidence contract defined below. Record assignment readiness separately from product acceptance. Builder reports missing instructions instead of guessing.
+- Enforce Mandatory incoming handoff validation for both roles before received work: compare task/report/prompt/checklist/index and role authority, record PASS/FAIL, stop on FAIL, return a correction prompt to the sender, and revalidate its corrected handoff. Never silently repair a partner handoff or invent acceptance.
 - Use the eight exact task statuses below. Synchronize current handoff, latest round, next actor/action, checklist status and index. Append history and retain stable finding IDs. Required unexecuted checks are NOT VERIFIED.
+- Apply Handoff state and publication contract: separate task status from handoff correction ownership, validate the complete snapshot before final JSON publication, and never silently fall back to an older prompt. Until tooling is accepted, label checks manual and keep dispatch disabled.
 - Every handoff appears in chat and under `### Chat handoff prompt` in the task; include exact files, status, scope/IDs, blueprint revision, verified/unverified checks and next action.
+- All Architect/Builder inter-agent messages, handoff prompts, correction requests and resubmissions use English, including copy-ready prompts displayed in chat. Keep user-facing explanations in Vietnamese. Do not impose brevity or omit required content for token savings; follow Agent-to-agent language below.
 - No unapproved scope expansion, dependency additions, public API/hook renames or unrelated refactors. No production debug statements or inline JS/CSS unless explicitly requested. One responsibility per function; document public APIs and hooks; use named callbacks when anonymous logic exceeds three lines.
 - Preserve framework/backend namespaces and existing behavior unless scoped. Read relevant security/architecture/style rules and enforce actual project quality gates. Never count placeholder lint scripts or dashboard summaries as evidence.
 - Frontend source belongs in src/js and src/css; preserve Sass when present (new WordPress projects default to Sass unless approved otherwise). Tooling belongs in scripts. Never patch generated assets, manifests or release output. Runtime frontend changes require production rebuild and affected runtime checks; PHP-only/documentation-only work does not inherently require a frontend build.
@@ -179,9 +182,17 @@ For a WordPress plugin, include the following mandatory constraints, adapted to 
 
 For other frameworks, preserve these approval/identity/evidence/documentation rules and map the coding/security/build details to the inspected stack in approved task decisions. Do not force WordPress-specific runtime structures onto unrelated applications.
 
+## Reusable workflow lessons
+
+- Preserve accepted history and stable finding IDs. Restore stale metadata only from an identifiable retained decision; record the source and verification limitations. Do not infer DONE from passing tests, a Builder report or a dashboard.
+- Keep the latest prompt explicit: begin with `Status: <exact status>`. A future status mentioned in the body must not validate the current handoff. Parse the newest prompt section; never silently substitute an older valid prompt for a missing/invalid latest one.
+- Dashboard role comparison must preserve raw declarations, normalize only supported canonical roles with nonempty optional labels, and distinguish absent, invalid and conflicting declarations. Compare explicit checklist actors with the task actor or valid status fallback; do not interpret action prose as an actor. DONE has no active worker; unresolved BLOCKED needs a responsible actor. Surface real contradictions without rewriting documents.
+- Validate dashboard behavior with disposable contradictory fixtures, read-only HTTP JSON/HTML checks from a fresh owned process and confirmed cleanup. Node fixture tests are not browser E2E evidence; record browser checks separately. An existing server may still have cached source modules.
+- Apply the evidence, real-failure and cleanup requirements in file 02 to relevant task blueprints. Port general lessons, not another project's feature scope, historical statuses, test totals or acceptance claims.
+
 ## Bootstrap verification and delivery gate
 
-Before accepting setup, Architect checks: all created links/files exist; no unresolved executable placeholders; separate recorded identities; master-plan state accurately reported; initial/fix blueprints and prompts present; one documentation hierarchy; command/build/package contracts consistent across files; successful AND failing verification cases recorded; checklist/index/task agree; and git diff --check passes. For the dashboard, also test parsing, escaping and state/owner conflicts, not only an HTTP 200.
+Before accepting setup, Architect checks intake examples for both roles (consistent handoff passes; stale status/actor/revision/prompt fails and returns to sender; corrected resubmission is revalidated), and checks: all created links/files exist; no unresolved executable placeholders; separate recorded identities; master-plan state accurately reported; initial/fix blueprints and prompts present; one documentation hierarchy; command/build/package contracts consistent across files; successful AND failing verification cases recorded; checklist/index/task agree; and git diff --check passes. For the dashboard, also test parsing, escaping and state/owner conflicts, not only an HTTP 200.
 
 A clean-source install may require composer install or a documented equivalent. A packaged WordPress plugin must not require Node or Composer at installation time. Report missing environments and untested versions explicitly. Kit completeness does not prove a new project has been set up successfully.
 
@@ -201,7 +212,7 @@ Documentation is not proof that the product works. Every claim must be tied to c
 
 ### Architect
 
-An unassigned session records its initial role before work. A coordinating session starts as Architect; a Builder handoff starts a separate Builder session. Once assigned, the session role is fixed. Architect must inspect the actual repository before planning or reviewing. Architect creates task files, links them from the project checklist, writes acceptance criteria, reviews Builder's implementation, records findings, and decides whether a task can be accepted.
+Resolve the fixed session role from the application assignment using AGENTS.md before task work. Coordination or receipt of a handoff never assigns or changes that role. Architect must inspect the actual repository before planning or reviewing. Architect creates task files, links them from the project checklist, writes acceptance criteria, reviews Builder's implementation, records findings, and decides whether a task can be accepted.
 
 Architect does not implement or fix application code. Architect edits planning/review documents, inspects code, runs independent verification and returns implementation corrections to Builder.
 
@@ -226,6 +237,63 @@ Mandatory for every project initialized with this kit. Architect and Builder mus
 7. **Recovery from a violation.** Disclose who implemented and who purportedly accepted, preserve the historical record and mark the disputed acceptance as requiring independent re-review. A separate eligible Architect determines corrected status/checklist from evidence; Builder must not erase history or repair the violation by accepting again. Historical accepted tasks are not automatically reopened solely because the rule became stricter.
 
 This is an agent workflow rule enforced through role declarations, contributor records and independent review. Markdown instructions are not a technical access-control mechanism; automated prevention of unauthorized file edits would require separately scoped tooling.
+
+## Mandatory incoming handoff validation
+
+Applies to both Architect and Builder on every incoming assignment, review request, correction or resumed handoff, before implementation, substantive review, verification runs or acceptance. Reading documents, checking Git state and inspecting retained evidence to validate the handoff is allowed. This gate does not turn status consistency into proof of product correctness.
+
+1. Compare the task's Current handoff (status, revision, latest round, next actor/action), latest report/decision and latest Chat handoff prompt against the checklist's focus/item statuses and documentation index. Inspect referenced evidence and approval/contributor records; do not trust a chat claim, timestamp, dashboard display or status-derived role alone. For non-focus tasks, do not overwrite another task's legitimate current focus.
+2. Confirm the receiving session has the assigned fixed role, the sender had authority for the recorded transition, reviewer independence is recorded, and the blueprint revision/readiness and approved scope match. READY_FOR_REVIEW requests Architect review, not acceptance. READY or executable CHANGES_REQUESTED requires Builder and blueprint readiness PASS; incomplete correction guidance remains with Architect. BLOCKED must name the blocker and responsible actor; DONE is accepted history, not a new implementation assignment.
+3. Record PASS or FAIL with the compared files, exact discrepancies and responsible sender in an appended `Incoming handoff validation` note. PASS permits only the already-authorized next action. Missing tests explicitly marked NOT VERIFIED are not by themselves a metadata mismatch; they remain review/acceptance limitations.
+4. On FAIL, stop the received task. Do not silently choose the most convenient status, repair the sender's fields, start dependent work or invent a review result. Preserve current task status and history; an intake failure alone does not authorize a task-status transition. Record the immediate correction owner separately using Handoff state and publication contract. Append a correction request without rewriting the sender's report or acceptance. Return a copy-ready prompt in chat and in the task under `### Chat handoff prompt`, addressed to the sending partner, with exact files/fields, observed contradictions, the evidence-backed correction (or unresolved decision), and the request to synchronize and resend. Do not send an external message automatically.
+5. The sender repairs metadata within its role authority, preserves history and evidence, and resends the corrected handoff. A Builder cannot invent or amend Architect acceptance; it must route that part to the responsible Architect. Re-read all affected sources and record PASS before starting the received work. Elapsed time, a repeated “continue” or the receiver's own proposed correction is not a corrected handoff.
+
+A direct user-authorized metadata-reconciliation task may repair specified records from an existing authoritative decision; disclose missing evidence and never turn reconciliation into a new acceptance. This exception does not permit either role to bypass the gate for ordinary partner handoffs.
+
+Correction prompt template (replace every placeholder; do not invent an expected status):
+
+```text
+Status: <currently recorded task status>
+Incoming handoff validation: FAIL. Return to <sending role/session> for metadata correction; <receiving role> has not started the received work. Read <exact task, checklist, index and evidence paths>. Observed: <field-by-field discrepancies>. Reconcile <fields> with <retained decision/report and approved blueprint>, or explicitly resolve <missing decision/evidence> through its authorized owner. Preserve history, scope and contributor identities; do not manufacture verification or acceptance. Synchronize Current handoff, latest round, next actor/action, checklist/index and the latest Chat handoff prompt, then resend. Receiving work resumes only after a fresh intake PASS. Verified: <records actually inspected>. NOT VERIFIED: <unexecuted checks>.
+```
+
+## Handoff state and publication contract
+
+This section clarifies incoming validation; it does not change the eight task statuses, role authority or the requirement to stop received work when intake fails. It applies prospectively. Do not reject an older submission solely because it predates these fields. Mechanical enforcement requires the approved validator/controller implementation and independent verification; these rules alone do not implement that tool.
+
+### Authority and responsibility
+
+- The task's Current handoff owns task status, submitted revision, latest round, scope and the intended work recipient. The checklist owns project priority and accepted progress; its repeated task fields are synchronized views, not independent decisions. README summarizes and links to those records.
+- Track the handoff separately: `Handoff state` is preparing, published, correction_required or accepted; `Handoff actor` is the role responsible for the immediate handoff action; `Handoff recipient` is the role intended to perform the submitted work. These are transport/intake states, not new task statuses or product acceptance.
+- On intake failure, keep task status and submitted work recipient unchanged; set handoff state to correction_required and handoff actor to the sending role. The actor corrects metadata only. On corrected publication, set state to published and actor to the recipient. On intake PASS, accepted means the exact receipt was admitted for work, never that the implementation was accepted.
+- Consumers must not infer immediate ownership from task status when handoff state provides it. A READY_FOR_REVIEW task can await Builder metadata correction while Architect remains the review recipient. Existing consumers that do not support this distinction must show the explicit handoff note and must not auto-dispatch from task status.
+- Drafting may update metadata in any order. Publication is the boundary: partially synchronized records must never be dispatched. Update the checklist/index from the task rather than independently composing competing status statements. Do not create another manually maintained master status file.
+
+### Finalization and receipt
+
+Finish work and logs -> append the report without replacing historical reports -> synchronize current metadata -> write the outgoing English prompt under exactly `### Chat handoff prompt` -> run the validator -> review all reported errors -> publish the JSON atomically as the final handoff write -> send the resulting receipt ID to the recipient/user. Put author/round labels in the enclosing report heading, not the prompt heading. Do not claim a receipt was published merely because a prompt was printed in chat.
+
+A receipt contains a unique ID, superseded/previous receipt ID, task and submitted revision, sender/recipient and intent, plus hashes of the exact prompt and every required handoff document. Treat the JSON as the sole dispatch trigger and a declaration of completed publication, not authenticated authorship or proof of quality. Local execution journals track dispatch and acknowledgement without rewriting the published document snapshot. Mutable intake notes written after receipt validation create the next version; do not misclassify the receiving agent's authorized subsequent work as a pre-intake mismatch.
+
+If documents change before receipt intake, the old receipt is stale. Stop work, display the changed paths and require a newly validated publication. Do not silently refresh hashes, pick a newer prompt from chat or repeatedly poll until mismatched data happens to pass. An interrupted managed sender must finish successfully and release its run before its outgoing receipt is dispatched. A manual publisher explicitly declares it has finished and yielded ownership.
+
+### Validator contract
+
+The implementation must expose a documented, read-only validation command accepting an explicit task path and optional receipt ID. It must run the same validation routines used by publication and dispatch; no independent, weaker success check. Use exit 0 for valid handoff, 1 for invalid content, and 2 for command/environment failure. Return one machine-readable report containing all discoverable errors, with stable error codes, file/field, observed value and expected constraint; keep NOT VERIFIED cases as declared limitations rather than automatic metadata errors.
+
+Required checks: role/transition authority and contributor references; required current fields and round/revision; task/checklist/index consistency; exact latest prompt section and first-line status; prompt/receipt recipient and intent; regular safe document paths and exact content hashes; report/evidence references; contradictory completion claims that are mechanically detectable. A validator cannot prove arbitrary prose true, tests genuinely sufficient, or reviewer independence merely from labels; those remain independent review responsibilities. Do not advertise semantic truth checking based on string matching.
+
+Inspect the newest candidate handoff section first. A suffixed, unsupported, empty or malformed newest heading/block is an error. Never skip it and use an older prompt. Publication must fail without changing the old signal if validation fails; invalid output cannot print a success receipt. A whitespace check does not substitute for this validator.
+
+### Intake correction and repeated failures
+
+Return one consolidated error list and one correction instruction tied to the rejected receipt/snapshot. Preserve historical reports, append corrections and reuse stable IDs. Do not add another long copy of the same report on an unchanged resubmission; record a brief unchanged-receipt result and reference the existing correction instruction. Do not keep escalating the wording of MUST rules.
+
+After two consecutive failures with the same receipt/content and same errors, suspend automatic resubmission. Verify the receiving workspace/root, actual rule loading, sender session, delivery of the correction instruction, pending writes and actual save completion before another retry. Request only information unavailable locally. This is diagnostic escalation, not permission to skip validation or allow one agent to implement and accept its own work.
+
+### Transition until tooling is accepted
+
+No validator command or receipt capability may be presented as available until implemented and independently verified. Until then, keep automated dispatch disabled and use a manual, read-only snapshot check with the same required fields and latest-prompt rules. Record observed document hashes and what was checked; label this manual validation, not a machine-enforced gate. New handoff fields are introduced for the next outgoing round, not by rewriting received historical submissions. Persisting a successful receipt never authorizes commit, deployment or product acceptance.
 
 ## Mandatory implementation blueprint and handoff readiness
 
@@ -258,7 +326,7 @@ For every fix round, append a **Correction blueprint — Round N** mapping each 
 
 ### Builder preflight and pre-handoff gates
 
-Before implementation, Builder reads the blueprint and confirms scope, dependencies and verification expectations in its report. If an applicable design decision is missing or contradictory, identify the precise gap and return it to Architect; continue only clearly independent work already specified. Do not invent business rules, reinterpret acceptance criteria or request to become Architect.
+After the incoming handoff validation passes, Builder reads the blueprint and confirms scope, dependencies and verification expectations in its report. If an applicable design decision is missing or contradictory, identify the precise gap and return it to Architect; do not start the received assignment until the partner corrects the handoff and intake passes. Do not invent business rules, reinterpret acceptance criteria or request to become Architect.
 
 Before READY_FOR_REVIEW, Builder records:
 
@@ -273,6 +341,12 @@ Builder's checklist is a self-check of handoff completeness, not acceptance. Arc
 Applies to new assignments and the next handoff of ongoing tasks, including tasks already in progress. Preserve historical reports; do not retroactively claim old handoffs met this gate. This is a workflow requirement, not an implemented dashboard/parser validation feature.
 
 ## Mandatory Chat Handoff Prompts
+
+### Agent-to-agent language
+
+All Architect-to-Builder and Builder-to-Architect messages, handoff prompts, correction requests and resubmissions must be written in English. This includes copy-ready agent prompts shown in user-facing chat and their matching task-file copies. Explanations addressed to the user remain in Vietnamese.
+
+This is a language requirement, not a brevity requirement. Preserve the full required scope, context, blueprint references, findings, evidence, limitations and next actions; do not shorten or omit information for token savings. Preserve exact identifiers, paths, commands and quoted source text when needed. Apply this policy to new messages without rewriting historical handoffs.
 
 Every handoff must include a copy-ready prompt for the next agent. This is mandatory.
 
@@ -514,6 +588,11 @@ Repeat until Architect can set `DONE`, or use `BLOCKED` / `AWAITING_MANUAL_ACCEP
 - Map each AC to commands, setup, expected output, and cleanup.
 - Separate automated, local integration, sandbox, and manual checks.
 - Mark unavailable checks `NOT VERIFIED`.
+
+## Incoming handoff validation
+- Receiving role/session, sender, task/revision and inspected records:
+- Result: PASS / FAIL; discrepancies and correction request if any:
+- Authorized next action after PASS; received work paused on FAIL:
 
 ## Implementation report — Round 1 (Builder)
 - Changes by step/criterion and file/method.

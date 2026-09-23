@@ -1,0 +1,75 @@
+// Independent Architect probes; disposable fixtures, no application fixes.
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import os from 'node:os';
+import { randomUUID } from 'node:crypto';
+import { pathToFileURL } from 'node:url';
+const root=process.cwd();
+const mod=async p=>import(pathToFileURL(path.join(root,p)));
+const {publishHandoff}=await mod('scripts/publish-handoff.mjs');
+const {validateDocPath}=await mod('scripts/handoff-protocol.mjs');
+const {ControllerState,pollCycle,startMonitor,acquireControllerLock,releaseControllerLock}=await mod('scripts/handoff-controller.mjs');
+const {dispatch:codex}=await mod('scripts/agent-adapters/codex.mjs');
+const results=[];
+const fixtures=[];
+const cfg={enabled:true,priorityTask:'TEST-001',adapters:{antigravity:{executable:'/stub',sessionId:'pinned-builder'},codex:{executable:'/stub',sessionId:'pinned-architect'}}};
+async function fixture(){
+ const d=await fs.mkdtemp(path.join(os.tmpdir(),'wf004-architect-'));fixtures.push(d);
+ await fs.mkdir(path.join(d,'ai-document/tasks'),{recursive:true});await fs.mkdir(path.join(d,'.cache/handoff'),{recursive:true});
+ await fs.writeFile(path.join(d,'ai-document/tasks/TEST-001.md'),'# TEST-001: Fixture\n## Current handoff\n- Status: DONE\n- Plan revision: 99\n- Next actor: Architect\n### Chat handoff prompt\n```text\nStatus: DONE\nNo work authorized.\n```\n');
+ await fs.writeFile(path.join(d,'ai-document/implementation-checklist.md'),'# Checklist\n## Current focus\n- Task: TEST-001\n- Status: DONE\n- Next actor: Architect\n');
+ await fs.writeFile(path.join(d,'ai-document/README.md'),'No assignment authorized.\n');
+ return d;
+}
+const options=d=>({projectRoot:d,taskId:'TEST-001',taskFile:'ai-document/tasks/TEST-001.md',planRevision:1,round:1,taskStatus:'READY',intent:'work',fromRole:'architect',toRole:'builder',senderSessionId:'sender',prompt:'This is not the prompt in the task.',documentPaths:['ai-document/tasks/TEST-001.md','ai-document/implementation-checklist.md','ai-document/README.md']});
+const state=()=>{const s=new ControllerState();s.mode='dispatch';return s;};
+const outcome=(name,data)=>{const item={case:name,...data};results.push(item);console.log(JSON.stringify(item));};
+try{
+ let d=await fixture();
+ const first=await publishHandoff(options(d));let launches=0;
+ await pollCycle(d,cfg,state(),{builder:{dispatch:async()=>{launches++;return {success:true};}}});
+ outcome('contradictory DONE documents and unrelated prompt published/dispatched',{published:!!first.id,launches,expected:'reject, zero launches'});
+ const next=await publishHandoff(options(d));
+ const third=await publishHandoff(options(d));
+ outcome('unacknowledged receipt overwritten',{secondReceipt:next.id,thirdReceipt:third.id,overwritten:third.id!==next.id,expected:'third publication rejected until second acknowledged'});
+ d=await fixture();const outside=await fs.mkdtemp(path.join(os.tmpdir(),'wf004-owned-external-'));fixtures.push(outside);
+ await fs.writeFile(path.join(outside,'private.md'),'owned external fixture');await fs.symlink(outside,path.join(d,'linked'));
+ outcome('ancestor directory symlink escapes root',{accepted:!!await validateDocPath(d,'linked/private.md'),expected:'reject'});
+ d=await fixture();await publishHandoff(options(d));let active=0,maxActive=0,release,notify;
+ const started=new Promise(r=>notify=r);const paused=new Promise(r=>release=r);
+ const s=state();const a={dispatch:async()=>{active++;maxActive=Math.max(maxActive,active);notify();await paused;active--;return {success:true};}};
+ const running=pollCycle(d,cfg,s,{builder:a});await started;
+ await publishHandoff(options(d));
+ await pollCycle(d,cfg,s,{builder:{dispatch:async()=>{active++;maxActive=Math.max(maxActive,active);active--;return {success:true};}}});release();await running;
+ outcome('new receipt while first agent still running',{maxConcurrentAgents:maxActive,expected:1});
+ d=await fixture();await publishHandoff(options(d));await fs.writeFile(path.join(d,'.cache/handoff/config.json'),JSON.stringify(cfg));
+ const held=await acquireControllerLock(d);let lockLaunches=0;
+ const monitor=await startMonitor(d,{adapters:{builder:{dispatch:async()=>{lockLaunches++;return {success:true};}}},clock:()=>({[Symbol.dispose](){}})});
+ monitor.stop();await releaseControllerLock(held);
+ outcome('startMonitor ignores held controller lock',{launchesWhileLockHeld:lockLaunches,expected:0});
+ d=await fixture();await publishHandoff(options(d));let replay=0;
+ const stub={builder:{dispatch:async()=>{replay++;return {success:true};}}};await pollCycle(d,cfg,state(),stub);
+ await fs.writeFile(path.join(d,'.cache/handoff/ledger.json'),'{broken');await pollCycle(d,cfg,state(),stub);
+ outcome('corrupt ledger silently resets and replays',{launches:replay,expected:1});
+ d=await fixture();await publishHandoff(options(d));const ts=state();await pollCycle(d,cfg,ts,{builder:{dispatch:async()=>({success:true})}});
+ const signalPath=path.join(d,'ai-document/handoff-signal.json');const mutated=JSON.parse(await fs.readFile(signalPath));mutated.handoff.round=42;await fs.writeFile(signalPath,JSON.stringify(mutated));
+ await pollCycle(d,cfg,ts,{});outcome('same-ID mutation bypasses tamper check',{errors:ts.errors,expected:'tampering error'});
+ d=await fixture();await publishHandoff({...options(d),parentRunId:'nonexistent-or-failed-parent'});let parentLaunch=0;
+ await pollCycle(d,cfg,state(),{builder:{dispatch:async()=>{parentLaunch++;return {success:true};}}});
+ outcome('parent completion never checked',{launches:parentLaunch,expected:0});
+ d=await fixture();await publishHandoff({...options(d),taskStatus:'READY_FOR_REVIEW',intent:'correct_metadata',fromRole:'architect',toRole:'builder'});const correction=state();
+ await pollCycle(d,cfg,correction,{builder:{dispatch:async()=>({success:true})}});
+ outcome('metadata correction back to Builder with review status',{dispatchCount:correction.dispatchCount,errors:correction.errors,expected:'authorized correction routed to sender'});
+ d=await fixture();const handoff={id:randomUUID(),task_id:'TEST-001',task_file:'ai-document/tasks/TEST-001.md',task_status:'READY_FOR_REVIEW',intent:'work',from_role:'builder',plan_revision:1,round:1};
+ const bad=await codex({projectRoot:d,config:{executable:'/usr/lib/chatgpt/resources/codex',sessionId:randomUUID(),sandbox:'read-only'},handoff,runId:randomUUID(),deadline:10000});
+ outcome('actual Codex adapter resume invocation',{success:bad.success,exitCode:bad.exitCode,stderr:await fs.readFile(path.join(bad.logDir,'stderr.log'),'utf8'),expected:'valid CLI syntax'});
+ const fake=path.join(d,'fake-codex');
+ const fakeText='#!'+process.execPath+'\n'+"const fs=require('node:fs');process.stdin.resume();process.stdin.on('end',()=>{const a=process.argv.slice(2);fs.writeFileSync(a[a.indexOf('-o')+1],JSON.stringify("+JSON.stringify({receipt_id:handoff.id,task_id:'WRONG-TASK',intake:'FAIL',outcome:'blocked'})+"));console.log('not-json');console.log(JSON.stringify({type:'thread.started',thread_id:'WRONG-SESSION'}));console.log(JSON.stringify({type:'turn.failed',error:{message:'deliberate failure'}}));});\n";
+ await fs.writeFile(fake,fakeText,{mode:0o700});
+ const falseSuccess=await codex({projectRoot:d,config:{executable:fake,sessionId:randomUUID()},handoff,runId:randomUUID(),deadline:10000});
+ outcome('adapter accepts wrong session/task and turn.failed',{success:falseSuccess.success,reportedSession:falseSuccess.sessionId,result:falseSuccess.result,events:falseSuccess.events,expected:'failure'});
+}finally{
+ for(const d of fixtures) await fs.rm(d,{recursive:true,force:true});
+ outcome('cleanup',{ownedFixtureCount:fixtures.length,allRemoved:(await Promise.all(fixtures.map(async d=>{try{await fs.access(d);return false;}catch{return true;}}))).every(Boolean)});
+ await fs.writeFile(path.join(root,'ai-document/evidence/WF-004/architect-round-1/probe-results.json'),JSON.stringify(results,null,2));
+}

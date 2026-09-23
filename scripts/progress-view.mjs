@@ -1,3 +1,5 @@
+import { normalizeRole } from './progress-data.mjs';
+
 export function escapeHtml(value) {
   return String(value ?? '').replace(/[&<>"']/g, (character) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[character]));
 }
@@ -5,10 +7,12 @@ export function escapeHtml(value) {
 export function rolePresentation(focus) {
   if (!focus) return { role: null, motion: null, label: 'No active task' };
 
+  const declared = focus.declaredOwner;
+
   if (focus.status === 'BLOCKED') {
-    const valid = ['Architect', 'Builder', 'User'].includes(focus.declaredOwner);
-    const motion = focus.declaredOwner === 'Architect' ? 'drawing' : (focus.declaredOwner === 'Builder' ? 'mining' : null);
-    return { role: valid ? focus.declaredOwner : null, motion: valid ? motion : null, label: 'Blocked' };
+    const valid = ['Architect', 'Builder', 'User'].includes(declared);
+    const motion = declared === 'Architect' ? 'drawing' : (declared === 'Builder' ? 'mining' : null);
+    return { role: valid ? declared : null, motion: valid ? motion : null, label: 'Blocked' };
   }
 
   if (focus.status === 'DONE') return { role: null, motion: null, label: 'Completed' };
@@ -24,6 +28,10 @@ export function rolePresentation(focus) {
 
   const state = table[focus.status];
   if (!state) return { role: null, motion: null, label: 'State needs attention' };
+
+  if (focus.declaredOwnerRaw && !focus.declaredOwner) {
+    return { role: null, motion: null, label: 'State needs attention' };
+  }
 
   if (focus.declaredOwner && focus.declaredOwner !== state.role) {
     return { role: null, motion: null, label: 'State needs attention' };
@@ -103,8 +111,21 @@ export function renderProgress(data) {
   <header><a class="brand" href="/">VeLog<span> / Project progress</span></a><a href="/">Refresh ↻</a></header>
   <main><section class="focus"><p class="eyebrow">CURRENT FOCUS · ${e(focus?.id || 'No task')}</p><h1>${e(focus?.title || 'No active task')}</h1><p class="status">${e(focus?.status || 'No status')} <span> / ${e(focus?.round || 'No round')}</span></p><p class="next">${e(focus?.nextAction || 'Create the next task.')}</p>
   <div class="caption">Recorded task state &middot; updates every 20s</div>
+  ${pres.role ? '' : `<div class="attention-reason">${e(pres.label)}</div>`}
   <div class="owners">${['Architect', 'Builder', 'User'].map(renderScene).join('')}</div></section>
   <aside><p class="eyebrow">CHECKLIST PROGRESS</p><div class="count">${data.summary.done}<span> / ${data.summary.total}</span></div><p>${data.summary.open} open items</p>${data.phases.map((phase) => `<div class="phase"><span>${e(phase.name)}</span><strong>${phase.done}/${phase.total}</strong><progress max="${phase.total || 1}" value="${phase.done}"></progress><ul class="phase-items">${phase.items.map(item => `<li class="${item.done ? 'done' : ''}">${e(item.text)}</li>`).join('')}</ul></div>`).join('')}</aside>
+  ${data.handoffMonitor ? `
+  <section class="wide handoff-monitor">
+    <h2>Handoff Monitor <span>Mode: ${e(data.handoffMonitor.mode)}</span></h2>
+    ${data.handoffMonitor.errors.length ? `<div class="monitor-errors"><h3>Validation Errors</h3><ul>${data.handoffMonitor.errors.map(err => `<li>${e(err)}</li>`).join('')}</ul></div>` : ''}
+    ${data.handoffMonitor.blocked ? `<div class="monitor-blocked"><h3>Blocked</h3><p>${e(data.handoffMonitor.blocked)}</p></div>` : ''}
+    <div class="monitor-state">
+      <p><strong>Dispatches:</strong> ${data.handoffMonitor.dispatchCount} | <strong>Corrections:</strong> ${data.handoffMonitor.correctionCount}</p>
+      <p><strong>Pending Receipt:</strong> ${data.handoffMonitor.pendingReceipt ? e(data.handoffMonitor.pendingReceipt.id) + ' (Task: ' + e(data.handoffMonitor.pendingReceipt.taskId) + ', Status: ' + e(data.handoffMonitor.pendingReceipt.status) + ', To: ' + e(data.handoffMonitor.pendingReceipt.target) + ')' : 'None'}</p>
+      <p><strong>Current Run:</strong> ${data.handoffMonitor.currentRun ? e(data.handoffMonitor.currentRun.runId) + ' (Role: ' + e(data.handoffMonitor.currentRun.role) + ')' : 'None'}</p>
+    </div>
+  </section>
+  ` : ''}
   ${data.issues.length ? `<section class="signals"><h2>Documentation signals</h2><ul>${data.issues.map((issue) => `<li>${e(issue)}</li>`).join('')}</ul></section>` : ''}
   <section class="wide"><h2>Task history</h2><div class="table-wrap"><table><thead><tr><th>Task</th><th>Status / owner</th><th>Latest round</th><th>Findings</th><th>Handoff prompts</th></tr></thead><tbody>${data.tasks.map((task) => `<tr><td><strong>${e(task.title)}</strong><small>${e(task.file)}</small></td><td>${e(task.status)}<small>${e(task.owner)}</small></td><td>${e(task.round)}</td><td>${e(task.findings.join(', ') || 'None recorded')}</td><td>${task.validPromptCount}/${task.promptCount} valid blocks</td></tr><tr><td colspan="5"><details><summary>Reports and latest handoff</summary><ul>${task.history.map((heading) => `<li>${e(heading)}</li>`).join('')}</ul><pre>${e(task.latestPrompt || 'No handoff recorded')}</pre></details></td></tr>`).join('')}</tbody></table></div></section>
   <section class="wide"><h2>Open work <span>Checklist order</span></h2><ol class="open-work">${data.openItems.map((item) => `<li>${e(item.text)}</li>`).join('')}</ol></section>

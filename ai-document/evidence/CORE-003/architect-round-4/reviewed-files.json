@@ -1,0 +1,11 @@
+{
+  "src/Common/AccessPolicy.php": "f20db8174d0a49ad9b2729592b221dcece73bd6c5672e48831a7aae8783a0c9f",
+  "src/Core/Capabilities.php": "f32a671f2eaebe0fd703f3c3b9c469fd513ff5717be60a4e7584b6250963e42c",
+  "tests/Unit/CapabilitiesTest.php": "501e971c3e45e5123d5b78c10f8faf7c34bc0db99ab16a24901dba94ed39a2bd",
+  "tests/workflow/product-smoke.sh": "1acd88b182d23e3eb5eb0812fa8fa87a939d78bdcd0d94918a4e5e892c065b95",
+  "tests/workflow/product-smoke-controls.sh": "c310a48276d9b031ed01803828be3fc676cd24852ad0400e4c5b4b9802b7dd48",
+  "tests/fixtures/core-003-verify.php": "1bbdcfdfc4a4010ad1de12627a1aafa7ad40974ffcd8c8e2c2fc1d431f69e52d",
+  "scripts/progress-data.mjs": "35b4335efe3066d725788742c2c1d2d2eac10da4492925dd95f39849952f6a2a",
+  "scripts/progress-view.mjs": "ef0feb59775b737803267ba2aae68ecf1e7db0d1ea53e3f6d8c9db6cf70144e5",
+  "tests/workflow/workflow.test.mjs": "db460bb46fd69bdaac7eff3a13827c9e9a8c62635c150651228ff7665986decd"
+}

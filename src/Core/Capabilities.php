@@ -24,7 +24,7 @@ class Capabilities {
 	/**
 	 * Map of roles to their explicitly owned VeLog capabilities.
 	 *
-	 * @var array
+	 * @var array<string, array<string>>
 	 */
 	private static $role_caps = array(
 		'administrator'       => array(
@@ -85,91 +85,196 @@ class Capabilities {
 			}
 		}
 
-		// Snapshot state for rollback.
 		if ( ! function_exists( 'wp_roles' ) ) {
 			require_once ABSPATH . 'wp-includes/capabilities.php';
 		}
 		wp_roles();
 
-		$snapshot          = array(
-			'roles'  => array(), // Copies of roles before mutation.
-			'ledger' => $ledger,
-		);
-		$roles_to_snapshot = array_merge( array( 'administrator' ), $custom_roles );
-		foreach ( $roles_to_snapshot as $r_slug ) {
-			$r_obj = get_role( $r_slug );
-			if ( $r_obj ) {
-				// Save an exact copy of the role's capabilities.
-				$snapshot['roles'][ $r_slug ] = $r_obj->capabilities;
-			} else {
-				$snapshot['roles'][ $r_slug ] = false; // Didn't exist.
-			}
+		try {
+			$snap_schema = self::get_option_snapshot( self::OPTION_SCHEMA_VERSION );
+			$snap_ledger = self::get_option_snapshot( self::OPTION_ROLE_LEDGER );
+			$snap_roles  = self::get_option_snapshot( wp_roles()->role_key );
+		} catch ( \Exception $e ) {
+			return false; // Preflight snapshot read error.
+		}
+
+		$expected_roles = maybe_unserialize( $snap_roles['value'] );
+		if ( ! is_array( $expected_roles ) ) {
+			$expected_roles = array();
 		}
 
 		// Begin mutation.
 		try {
+			$roles_changed = false;
 			foreach ( self::$role_caps as $role_slug => $caps ) {
 				$role_obj = get_role( $role_slug );
 
 				if ( ! $role_obj ) {
 					if ( in_array( $role_slug, $custom_roles, true ) ) {
-						// Create role with 'read' capability for basic dashboard access.
 						$role_obj = add_role( $role_slug, self::get_role_name( $role_slug ), array( 'read' => true ) );
 						if ( ! $role_obj ) {
-							throw new \Exception( 'failed_to_create_role' );
+							throw new \Exception( 'role_creation_failed' );
 						}
-						$ledger[ $role_slug ] = true;
+						$expected_roles[ $role_slug ] = array(
+							'name'         => self::get_role_name( $role_slug ),
+							'capabilities' => array( 'read' => true ),
+						);
+						$ledger[ $role_slug ]         = true;
+						$roles_changed                = true;
 					} else {
-						// Should never happen for admin since we checked.
 						continue;
+					}
+				} else {
+					if ( in_array( $role_slug, $custom_roles, true ) ) {
+						$ledger[ $role_slug ] = true;
+					}
+					// Ensure 'read' is restored for owned roles if removed.
+					if ( in_array( $role_slug, $custom_roles, true ) && ! $role_obj->has_cap( 'read' ) ) {
+						$role_obj->add_cap( 'read' );
+						$expected_roles[ $role_slug ]['capabilities']['read'] = true;
+						$roles_changed                                        = true;
 					}
 				}
 
 				foreach ( $caps as $cap ) {
-					if ( ! $role_obj->has_cap( $cap ) ) {
+					// We must check if the role lacks the capability, OR if it has it explicitly set to false.
+					if ( ! isset( $role_obj->capabilities[ $cap ] ) || empty( $role_obj->capabilities[ $cap ] ) ) {
 						$role_obj->add_cap( $cap );
+						$expected_roles[ $role_slug ]['capabilities'][ $cap ] = true;
+						$roles_changed                                        = true;
 					}
 				}
 			}
 
-			// Persist ledger.
-			update_option( self::OPTION_ROLE_LEDGER, $ledger, false );
+			// Validate roles persistence if changed.
+			if ( $roles_changed ) {
+				$actual = self::get_option_snapshot( wp_roles()->role_key );
+				if ( ! $actual['exists'] ) {
+					throw new \Exception( 'role_persistence_failed: missing' );
+				}
+				$actual_roles = maybe_unserialize( $actual['value'] );
 
-			// Persist schema version last.
+				// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.serialize_serialize
+				if ( serialize( $actual_roles ) !== serialize( $expected_roles ) ) {
+					throw new \Exception( 'role_persistence_failed: structure mismatch' );
+				}
+			}
+
+			update_option( self::OPTION_ROLE_LEDGER, $ledger, false );
+			$actual_ledger      = self::get_option_snapshot( self::OPTION_ROLE_LEDGER );
+			$check_ledger_value = maybe_unserialize( $actual_ledger['value'] );
+			$ledger_mismatch    = $check_ledger_value !== $ledger;
+			// phpcs:ignore Generic.Files.LineLength
+			if ( $actual_ledger['exists'] && ! $ledger_mismatch && ! in_array( $actual_ledger['autoload'], array( 'no', 'off', '0', '' ), true ) ) {
+				global $wpdb;
+				$wpdb->update( // phpcs:ignore WordPress.DB.DirectDatabaseQuery
+					$wpdb->options,
+					array( 'autoload' => 'no' ),
+					array( 'option_name' => self::OPTION_ROLE_LEDGER )
+				);
+				wp_cache_delete( self::OPTION_ROLE_LEDGER, 'options' );
+				wp_cache_delete( 'alloptions', 'options' );
+				wp_cache_delete( 'notoptions', 'options' );
+				$actual_ledger = self::get_option_snapshot( self::OPTION_ROLE_LEDGER );
+			}
+			// phpcs:ignore Generic.Files.LineLength
+			if ( ! $actual_ledger['exists'] || $ledger_mismatch || ! in_array( $actual_ledger['autoload'], array( 'no', 'off', '0', '' ), true ) ) {
+				throw new \Exception( 'ledger_persistence_failed' );
+			}
+
 			update_option( self::OPTION_SCHEMA_VERSION, self::SCHEMA_VERSION, false );
+			$actual_schema      = self::get_option_snapshot( self::OPTION_SCHEMA_VERSION );
+			$check_schema_value = (int) maybe_unserialize( $actual_schema['value'] );
+			$schema_mismatch    = self::SCHEMA_VERSION !== $check_schema_value;
+			// phpcs:ignore Generic.Files.LineLength
+			if ( $actual_schema['exists'] && ! $schema_mismatch && ! in_array( $actual_schema['autoload'], array( 'no', 'off', '0', '' ), true ) ) {
+				global $wpdb;
+				$wpdb->update( // phpcs:ignore WordPress.DB.DirectDatabaseQuery
+					$wpdb->options,
+					array( 'autoload' => 'no' ),
+					array( 'option_name' => self::OPTION_SCHEMA_VERSION )
+				);
+				wp_cache_delete( self::OPTION_SCHEMA_VERSION, 'options' );
+				wp_cache_delete( 'alloptions', 'options' );
+				wp_cache_delete( 'notoptions', 'options' );
+				$actual_schema = self::get_option_snapshot( self::OPTION_SCHEMA_VERSION );
+			}
+			// phpcs:ignore Generic.Files.LineLength
+			if ( ! $actual_schema['exists'] || $schema_mismatch || ! in_array( $actual_schema['autoload'], array( 'no', 'off', '0', '' ), true ) ) {
+				throw new \Exception( 'schema_persistence_failed' );
+			}
 
 			return true;
 		} catch ( \Exception $e ) {
-			// Rollback.
-			foreach ( $snapshot['roles'] as $r_slug => $old_caps ) {
-				if ( false === $old_caps ) {
-					// Role was created during this attempt, remove it.
-					remove_role( $r_slug );
-				} else {
-					$r_obj = get_role( $r_slug );
-					if ( $r_obj ) {
-						// We must restore exact capabilities. The WP API only has add_cap/remove_cap.
-						// Remove any newly added caps that were not in old_caps.
-						$current_caps = $r_obj->capabilities;
-						foreach ( $current_caps as $cap => $granted ) {
-							if ( ! array_key_exists( $cap, $old_caps ) ) {
-								$r_obj->remove_cap( $cap );
-							}
-						}
-						// Technically we should restore granted flags if they changed, but add_cap only adds true.
-					}
+			$restoration_failed = false;
+			foreach ( array(
+				wp_roles()->role_key        => $snap_roles,
+				self::OPTION_ROLE_LEDGER    => $snap_ledger,
+				self::OPTION_SCHEMA_VERSION => $snap_schema,
+			) as $opt => $snap ) {
+				try {
+					self::restore_option( $opt, $snap );
+				} catch ( \Exception $ex ) {
+					$restoration_failed = true;
 				}
 			}
 
-			// Re-save original ledger if it was changed (update_option might have run or not).
-			if ( empty( $snapshot['ledger'] ) ) {
-				delete_option( self::OPTION_ROLE_LEDGER );
-			} else {
-				update_option( self::OPTION_ROLE_LEDGER, $snapshot['ledger'], false );
+			// Verify restoration.
+			try {
+				$check_roles  = self::get_option_snapshot( wp_roles()->role_key );
+				$check_ledger = self::get_option_snapshot( self::OPTION_ROLE_LEDGER );
+				$check_schema = self::get_option_snapshot( self::OPTION_SCHEMA_VERSION );
+
+				$roles_ok  = self::compare_snapshots( $snap_roles, $check_roles );
+				$ledger_ok = self::compare_snapshots( $snap_ledger, $check_ledger );
+				$schema_ok = self::compare_snapshots( $snap_schema, $check_schema );
+
+				if ( ! $roles_ok || ! $ledger_ok || ! $schema_ok || $restoration_failed ) {
+					// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log, Generic.Files.LineLength
+					error_log( 'VeLog: Critical capabilities rollback failure. State mismatched snapshot.' );
+				}
+			} catch ( \Exception $ex ) {
+				// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log, Generic.Files.LineLength
+				error_log( 'VeLog: Critical capabilities rollback failure. State mismatched snapshot.' );
+			}
+
+			// Rebuild role state in memory.
+			wp_roles()->for_site();
+
+			try {
+				$expected_reloaded = $snap_roles['exists'] ? maybe_unserialize( $snap_roles['value'] ) : array();
+				if ( ! is_array( $expected_reloaded ) ) {
+					$expected_reloaded = array();
+				}
+				// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.serialize_serialize
+				if ( serialize( wp_roles()->roles ) !== serialize( $expected_reloaded ) ) {
+					// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log, Generic.Files.LineLength
+					error_log( 'VeLog: Critical capabilities rollback failure. State mismatched snapshot.' );
+				}
+			} catch ( \Exception $ex ) {
+				// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log, Generic.Files.LineLength
+				error_log( 'VeLog: Critical capabilities rollback failure. State mismatched snapshot.' );
 			}
 
 			return false;
 		}
+	}
+
+	/**
+	 * Compare two snapshots.
+	 *
+	 * @param array<string, mixed> $snap1 Snapshot 1.
+	 * @param array<string, mixed> $snap2 Snapshot 2.
+	 * @return bool
+	 */
+	private static function compare_snapshots( $snap1, $snap2 ): bool {
+		if ( $snap1['exists'] !== $snap2['exists'] ) {
+			return false;
+		}
+		if ( ! $snap1['exists'] ) {
+			return true;
+		}
+		return $snap1['value'] === $snap2['value'] && $snap1['autoload'] === $snap2['autoload'];
 	}
 
 	/**
@@ -187,5 +292,81 @@ class Capabilities {
 			default:
 				return $slug;
 		}
+	}
+
+	/**
+	 * Reads a direct snapshot of an option to bypass cache and filters.
+	 *
+	 * @param string $option_name The option name.
+	 * @return array<string, mixed> Snapshot array with keys: exists, value, autoload.
+	 * @throws \Exception If the read query fails.
+	 */
+	private static function get_option_snapshot( $option_name ) {
+		global $wpdb;
+		$wpdb->last_error = '';
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.NotPrepared
+		$row = $wpdb->get_row(
+			$wpdb->prepare( "SELECT option_value, autoload FROM {$wpdb->options} WHERE option_name = %s LIMIT 1", $option_name ) // phpcs:ignore Generic.Files.LineLength
+		);
+		if ( ! empty( $wpdb->last_error ) ) {
+			throw new \Exception( 'snapshot_read_failed' );
+		}
+
+		if ( ! $row ) {
+			return array(
+				'exists'   => false,
+				'value'    => null,
+				'autoload' => 'yes',
+			);
+		}
+		return array(
+			'exists'   => true,
+			'value'    => $row->option_value,
+			'autoload' => $row->autoload,
+		);
+	}
+
+	/**
+	 * Restores an option exactly to its snapshot state.
+	 *
+	 * @param string               $option_name The option name.
+	 * @param array<string, mixed> $snapshot    The snapshot array.
+	 * @return void
+	 */
+	private static function restore_option( $option_name, $snapshot ) {
+		global $wpdb;
+		if ( $snapshot['exists'] ) {
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.NotPrepared
+			$exists = $wpdb->get_var(
+				$wpdb->prepare(
+					"SELECT option_name FROM {$wpdb->options} WHERE option_name = %s LIMIT 1",
+					$option_name
+				)
+			);
+			if ( $exists ) {
+				$wpdb->update( // phpcs:ignore WordPress.DB.DirectDatabaseQuery
+					$wpdb->options,
+					array(
+						'option_value' => $snapshot['value'],
+						'autoload'     => $snapshot['autoload'],
+					),
+					array( 'option_name' => $option_name )
+				);
+			} else {
+				$wpdb->insert( // phpcs:ignore WordPress.DB.DirectDatabaseQuery
+					$wpdb->options,
+					array(
+						'option_name'  => $option_name,
+						'option_value' => $snapshot['value'],
+						'autoload'     => $snapshot['autoload'],
+					)
+				);
+			}
+		} else {
+			delete_option( $option_name );
+		}
+		wp_cache_delete( $option_name, 'options' );
+		wp_cache_delete( 'alloptions', 'options' );
+		wp_cache_delete( 'notoptions', 'options' );
 	}
 }

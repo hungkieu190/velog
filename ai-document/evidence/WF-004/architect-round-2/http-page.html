@@ -1,0 +1,68 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="refresh" content="20"><title>VeLog · Project progress</title><link rel="stylesheet" href="/progress.css"></head><body>
+  <header><a class="brand" href="/">VeLog<span> / Project progress</span></a><a href="/">Refresh ↻</a></header>
+  <main><section class="focus"><p class="eyebrow">CURRENT FOCUS · TEST-001</p><h1>TEST-001: Fixture</h1><p class="status">READY <span> / No round</span></p><p class="next">Create the next task.</p>
+  <div class="caption">Recorded task state &middot; updates every 20s</div>
+  
+  <div class="owners"><div class="owner architect"><svg viewBox="0 0 160 110" class="scene architect" aria-hidden="true" focusable="false">
+        <g class="desk" stroke="currentColor" fill="none" stroke-width="2">
+          <path d="M 20 80 L 140 80 L 120 40 L 40 40 Z"/>
+          <path d="M 50 45 L 110 45 M 45 55 L 115 55 M 35 65 L 125 65 M 30 75 L 130 75" stroke-opacity="0.3"/>
+          <path d="M 60 40 L 40 80 M 80 40 L 65 80 M 100 40 L 90 80" stroke-opacity="0.3"/>
+        </g>
+        <path class="drawn-line" d="M 50 60 L 110 60" stroke="#146f50" stroke-width="3" stroke-linecap="round"/>
+        <g class="engineer" stroke="currentColor" fill="none" stroke-width="2" stroke-linejoin="round">
+          <circle cx="80" cy="20" r="10" fill="currentColor"/>
+          <path d="M 70 30 C 60 40 50 50 50 60" />
+          <path d="M 90 30 C 100 40 110 50 110 60" />
+          <g class="arm" style="transform-origin: 95px 40px;">
+            <path d="M 95 40 L 80 60"/>
+            <path d="M 80 60 L 70 65" stroke="#146f50" stroke-width="3"/>
+          </g>
+        </g>
+      </svg><span>Architect<small>Plan & review</small></span></div><div class="owner builder active mining"><svg viewBox="0 0 160 110" class="scene builder" aria-hidden="true" focusable="false">
+        <g class="rock" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M 10 90 L 40 70 L 60 90 Z"/>
+          <path d="M 20 75 L 30 65 L 50 75 Z" stroke-opacity="0.5"/>
+        </g>
+        <g class="dust" fill="currentColor">
+          <circle cx="35" cy="65" r="2" />
+          <circle cx="45" cy="70" r="2" />
+        </g>
+        <g class="miner" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round">
+          <path class="body" d="M 120 40 C 110 60 100 80 100 90 M 130 50 C 140 70 140 90 140 90"/>
+          <path class="helmet" d="M 115 30 C 115 15 135 15 135 30 Z" fill="#cfe9de" stroke="currentColor"/>
+          <g class="arm" style="transform-origin: 120px 45px;">
+            <path d="M 120 45 L 80 50"/>
+            <path d="M 70 40 C 60 45 60 55 70 60" stroke-width="3"/>
+            <path d="M 90 30 L 60 70" stroke-width="3"/>
+          </g>
+        </g>
+      </svg><span>Builder<small>Ready to start</small></span></div><div class="owner user"><svg viewBox="0 0 160 110" class="scene user" aria-hidden="true" focusable="false">
+        <g class="person" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="80" cy="25" r="12" fill="currentColor"/>
+          <path d="M 65 40 C 60 60 60 90 60 90 M 95 40 C 100 60 100 90 100 90"/>
+          <path d="M 65 45 L 80 60 L 95 45"/>
+        </g>
+        <g class="checklist" fill="#f0e0c2" stroke="currentColor" stroke-width="2">
+          <rect x="65" y="55" width="30" height="40" rx="2"/>
+          <path d="M 70 65 L 85 65 M 70 75 L 85 75 M 70 85 L 80 85" stroke-opacity="0.5"/>
+        </g>
+      </svg><span>User<small>Decide & accept</small></span></div></div></section>
+  <aside><p class="eyebrow">CHECKLIST PROGRESS</p><div class="count">0<span> / 1</span></div><p>1 open items</p><div class="phase"><span>Tests</span><strong>0/1</strong><progress max="1" value="0"></progress><ul class="phase-items"><li class="">TEST-001 / AC1: Test. Status: READY.</li></ul></div></aside>
+  
+  <section class="wide handoff-monitor">
+    <h2>Handoff Monitor <span>Mode: dispatch</span></h2>
+    
+    <div class="monitor-blocked"><h3>Blocked</h3><p>Adapter for builder is not configured or unavailable</p></div>
+    <div class="monitor-state">
+      <p><strong>Dispatches:</strong> 0 | <strong>Corrections:</strong> 0</p>
+      <p><strong>Pending Receipt:</strong> 11111111-1111-4111-8111-111111111111 (Task: TEST-001, Status: READY, To: builder)</p>
+      <p><strong>Current Run:</strong> None</p>
+    </div>
+  </section>
+  
+  
+  <section class="wide"><h2>Task history</h2><div class="table-wrap"><table><thead><tr><th>Task</th><th>Status / owner</th><th>Latest round</th><th>Findings</th><th>Handoff prompts</th></tr></thead><tbody><tr><td><strong>TEST-001: Fixture</strong><small>ai-document/tasks/TEST-001.md</small></td><td>READY<small>Builder</small></td><td></td><td>None recorded</td><td>1/1 valid blocks</td></tr><tr><td colspan="5"><details><summary>Reports and latest handoff</summary><ul></ul><pre>Status: READY
+Read fixture only.</pre></details></td></tr></tbody></table></div></section>
+  <section class="wide"><h2>Open work <span>Checklist order</span></h2><ol class="open-work"><li>TEST-001 / AC1: Test. Status: READY.</li></ol></section>
+  </main><footer>Source updated 2026-09-23T10:17:52.123Z · Refreshes every 20 seconds.<br>Read-only view of ai-document/implementation-checklist.md, ai-document/tasks/TEST-001.md. Task review and verification remain the acceptance authority.</footer></body></html>

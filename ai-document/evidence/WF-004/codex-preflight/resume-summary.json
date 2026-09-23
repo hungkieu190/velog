@@ -1,0 +1,20 @@
+{
+  "evidence_directory": "/tmp/velog-codex-handoff-probe-9y0rzypg",
+  "exit_code": 0,
+  "timed_out": false,
+  "elapsed_seconds": 9.14,
+  "thread_id": "01a0cd4b-3ca2-73d2-b989-23bdfaca5f01",
+  "result": {
+    "task": "PROBE-001",
+    "status": "READY_FOR_REVIEW",
+    "next_actor": "Architect",
+    "marker": "probe-handoff-842917"
+  },
+  "same_result": true,
+  "event_types": [
+    "thread.started",
+    "turn.started",
+    "item.completed",
+    "turn.completed"
+  ]
+}

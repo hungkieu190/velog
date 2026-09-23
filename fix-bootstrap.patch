@@ -1,0 +1,15 @@
+--- tests/fixtures/bootstrap-entry-verify.php
++++ tests/fixtures/bootstrap-entry-verify.php
+@@ -21,6 +21,12 @@
+ function get_locale() { return 'en_US'; }
+ function load_plugin_textdomain( $domain, $path, $plugin_rel_path ) { return true; }
+ function wp_die( $message = '', $title = '', $args = array() ) { echo "wp_die: $message\n"; exit( 255 ); }
++function __( $text, $domain = 'default' ) { return $text; }
++function _x( $text, $context, $domain = 'default' ) { return $text; }
++function register_post_type( $post_type, $args = array() ) { return new stdClass(); }
++function add_role( $role, $display_name, $capabilities = array() ) { return null; }
++function get_role( $role ) { return null; }
++function remove_role( $role ) { return null; }
+ 
+ $mock_actions = array();
+ function add_action( $tag, $function_to_add, $priority = 10, $accepted_args = 1 ) {

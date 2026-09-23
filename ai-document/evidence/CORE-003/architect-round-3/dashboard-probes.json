@@ -1,0 +1,24 @@
+[
+  {
+    "prompt": "Status: READY; return READY_FOR_REVIEW.",
+    "issues": [
+      "Prompt declares READY but task is READY_FOR_REVIEW"
+    ]
+  },
+  {
+    "prompt": "Current status is READY_FOR_REVIEWING",
+    "issues": [
+      "Missing or stale current handoff prompt"
+    ]
+  },
+  {
+    "prompt": "No declaration, future READY_FOR_REVIEW",
+    "issues": [
+      "Missing or stale current handoff prompt"
+    ]
+  },
+  {
+    "case": "missing task actor, status implies Architect, checklist Builder",
+    "issues": []
+  }
+]

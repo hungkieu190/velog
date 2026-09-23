@@ -12,6 +12,10 @@ Before task work, read [agent-roles.json](ai-document/agent-roles.json). This is
 
 Codex loads this project AGENTS.md through its native instruction mechanism. Antigravity's project rule `.agents/rules/project-role.md` directs its agent here; other clients must not adopt that rule's host identity merely by reading the file. These are workflow instructions, not authenticated identity or filesystem access control. Do not claim automatic loading has been tested in another application unless it actually has.
 
+## Active user-authorized WF-004 continuation exception
+
+The user explicitly authorized Codex Architect to code WF-004 and, on 2026-09-23, explicitly instructed that the next session's Architect must continue coding this task to implementation completion. This is a bounded later user instruction overriding the normal Architect no-implementation restriction for WF-004 only. It persists across sessions until that implementation is complete; do not return the work to Antigravity solely because of the default role rule or ask the user to authorize it again. Keep the configured Architect identity and agent-roles.json unchanged. Read the latest checkpoint in [WF-004](ai-document/tasks/WF-004-json-handoff-controller.md), resume the partial changes, finish revision 3 fixes and verification, and record every implementing session as a contributor. This does not authorize self-acceptance: a separate independent reviewer must accept the implementation. All unrelated scope and publication restrictions remain.
+
 ## Authority and required reading
 
 This is the single entry point for VeLog agent instructions, consolidating the former AGENT.md manual. This file and explicitly approved task decisions govern when legacy guidance differs. Detailed workflow, build specifications and domain rules remain in their linked documents; do not duplicate them in new manuals.
@@ -24,6 +28,7 @@ Before planning, reviewing or changing files:
 ## Communication, scope and roles
 
 - Reply to the user in Vietnamese. Write code, comments, identifiers and technical documentation in English.
+- Write all Architect/Builder inter-agent messages, handoff prompts, correction requests and resubmissions in English, including copy-ready prompts shown in chat. User-facing explanations remain Vietnamese. This does not require shorter content: retain all required context and evidence. Follow the workflow's Agent-to-agent language section.
 - Be direct and evidence-based. Identify unsupported assumptions, risks and missing information; do not agree merely to please the user.
 - Explain scope, approach and reasoning before implementation and obtain explicit user approval. Existing approval persists for its approved scope.
 - Inspect discoverable facts first; ask the user about unresolved requirements, product decisions or impact that cannot be determined from the repository.
@@ -38,6 +43,18 @@ Before planning, reviewing or changing files:
 - The user approves product decisions and performs required manual acceptance.
 - Do not refactor outside scope, add unapproved dependencies, or rename existing functions/hooks/filters or change hook priorities without explicit authorization.
 - Commit, push, tag, deploy, publish, production data changes and external messages require explicit user authorization.
+
+## Mandatory handoff intake gate
+
+- Architect and Builder must validate every incoming partner handoff before starting the received work. Follow [Mandatory incoming handoff validation](ai-document/architect-builder-workflow.md#mandatory-incoming-handoff-validation).
+- Compare task status/revision/latest round/next actor/action, latest report and prompt, checklist and index, approval and contributor records. Record intake PASS or FAIL; a consistent status is not product acceptance.
+- If inconsistent or unsupported, stop the received task and give the sending partner a copy-ready correction prompt in chat and the task. Do not silently repair the partner's status or proceed. The partner must synchronize and resend; recheck and record PASS before work resumes. Preserve role authority and history.
+
+## Handoff publication and routing
+
+- Follow [Handoff state and publication contract](ai-document/architect-builder-workflow.md#handoff-state-and-publication-contract). Separate task status from handoff state, immediate handoff actor and intended work recipient; an intake correction returns to its sender without inventing a product status transition.
+- Finish documents and evidence before final publication. Use the exact prompt heading and validate the newest prompt; never fall back to an older prompt. Once the validated publisher is available, publish JSON last and identify the exact receipt when handing off.
+- Until tooling is independently accepted, keep dispatch disabled and identify snapshot checks as manual. Do not claim that a new rule implements a validator. After repeated identical failures, diagnose delivery/workspace/rule-loading and pending writes instead of resending unchanged requests.
 
 ## Mandatory implementation guidance
 

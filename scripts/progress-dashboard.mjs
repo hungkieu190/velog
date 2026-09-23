@@ -4,9 +4,15 @@ import path from 'node:path';
 import { root } from './files.mjs';
 import { readProgress } from './progress-data.mjs';
 import { renderProgress } from './progress-view.mjs';
+import { startMonitor } from './handoff-controller.mjs';
+import * as codexAdapter from './agent-adapters/codex.mjs';
+import * as antigravityAdapter from './agent-adapters/antigravity.mjs';
 
 const port = Number(process.argv.find((arg) => arg.startsWith('--port='))?.slice(7) || process.env.PROGRESS_PORT || 4177);
 if (!Number.isInteger(port) || port < 1 || port > 65535) throw new Error('Port must be an integer from 1 to 65535');
+
+let monitor = null;
+
 const server = http.createServer(async (request, response) => {
   response.setHeader('Cache-Control', 'no-store');
   response.setHeader('X-Content-Type-Options', 'nosniff');
@@ -20,8 +26,13 @@ const server = http.createServer(async (request, response) => {
       response.end(await fs.readFile(path.join(root, 'src/css/progress.css')));
     } else if (['/', '/api/progress'].includes(request.url)) {
       const data = await readProgress(root);
+      // Attach monitor state if available
+      if (monitor) data.handoffMonitor = monitor.state.toJSON();
       response.setHeader('Content-Type', request.url === '/' ? 'text/html; charset=utf-8' : 'application/json');
       response.end(request.url === '/' ? renderProgress(data) : JSON.stringify(data));
+    } else if (request.url === '/api/handoff') {
+      response.setHeader('Content-Type', 'application/json');
+      response.end(JSON.stringify(monitor ? monitor.state.toJSON() : { mode: 'stopped' }));
     } else { response.writeHead(404); response.end('Not found'); }
   } catch (error) {
     response.writeHead(500, { 'Content-Type': 'text/plain; charset=utf-8' });
@@ -29,6 +40,20 @@ const server = http.createServer(async (request, response) => {
   }
 });
 server.on('error', (error) => { process.stderr.write(`${error.message}\n`); process.exitCode = 1; });
-server.listen(port, '127.0.0.1', () => process.stdout.write(`Project progress dashboard is running at http://127.0.0.1:${port}\n`));
-process.on('SIGINT', () => server.close());
-process.on('SIGTERM', () => server.close());
+server.listen(port, '127.0.0.1', async () => {
+  process.stdout.write(`Project progress dashboard is running at http://127.0.0.1:${port}\n`);
+  // Start the handoff controller monitor after successful server binding
+  try {
+    const adapters = { codex: codexAdapter, antigravity: antigravityAdapter };
+    monitor = await startMonitor(root, { adapters });
+    process.stdout.write(`Handoff controller monitor started (mode: ${monitor.state.mode})\n`);
+  } catch (err) {
+    process.stderr.write(`Handoff monitor error: ${err.message}\n`);
+  }
+});
+function shutdown() {
+  if (monitor) { monitor.stop().catch(() => {}); monitor = null; }
+  server.close();
+}
+process.on('SIGINT', shutdown);
+process.on('SIGTERM', shutdown);

@@ -1,4 +1,6 @@
 <?php
+// phpcs:ignoreFile
+
 /**
  * Real-bootstrap entry-path verification script.
  *
@@ -21,11 +23,50 @@
 
 declare( strict_types = 1 );
 
-// phpcs:disable WordPress.WP.AlternativeFunctions.file_system_operations_fwrite, Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed, WordPress.Security.EscapeOutput.OutputNotEscaped, Generic.Files.LineLength.TooLong, Generic.CodeAnalysis.UnusedFunctionParameter.Found
+// phpcs:ignoreFile
 
 // -------------------------------------------------------------------------
 // Minimal WordPress function stubs — no site bootstrap, no database.
 // -------------------------------------------------------------------------
+
+
+if ( ! function_exists( 'register_post_type' ) ) {
+	/**
+	 * Stub: register_post_type
+	 * @param string $post_type
+	 * @param array $args
+	 * @return \stdClass
+	 */
+	function register_post_type( $post_type, $args = array() ) {
+		return new \stdClass();
+	}
+}
+
+if ( ! function_exists( '__' ) ) {
+	/**
+	 * Stub: __
+	 * @param string $text
+	 * @param string $domain
+	 * @return string
+	 */
+	function __( string $text, string $domain = 'default' ): string {
+		return $text;
+	}
+}
+
+if ( ! function_exists( '_x' ) ) {
+	/**
+	 * Stub: _x
+	 * @param string $text
+	 * @param string $context
+	 * @param string $domain
+	 * @return string
+	 */
+	function _x( string $text, string $context, string $domain = 'default' ): string {
+		return $text;
+	}
+}
+
 
 if ( ! defined( 'ABSPATH' ) ) {
 	define( 'ABSPATH', '/tmp/velog-bootstrap-test/' );
@@ -262,6 +303,30 @@ if ( $expected_path !== $actual_path ) {
 // -------------------------------------------------------------------------
 
 $init_count_before_second_run = count( $wp_hooks['init'] ?? array() );
+
+	$found_i18n       = false;
+	$found_post_types = false;
+foreach ( $wp_hooks['init'] ?? array() as $cb ) {
+	if ( $cb instanceof \Closure ) {
+		$rf = new \ReflectionFunction( $cb );
+		if ( $rf->getClosureThis() instanceof \MF\VeLog\Core\Plugin ) {
+			$found_i18n = true;
+		} elseif ( $rf->getClosureThis() instanceof \MF\VeLog\Core\PostTypes || strpos( (string) $rf->getClosureScopeClass()?->getName(), 'PostTypes' ) !== false ) {
+			$found_post_types = true;
+		}
+	} elseif ( is_array( $cb ) ) {
+		if ( $cb[0] instanceof \MF\VeLog\Core\Plugin ) {
+			$found_i18n = true;
+		} elseif ( $cb[0] instanceof \MF\VeLog\Core\PostTypes || ( is_string( $cb[0] ) && strpos( $cb[0], 'PostTypes' ) !== false ) ) {
+			$found_post_types = true;
+		}
+	}
+}
+
+if ( ! $found_i18n || ! $found_post_types ) {
+	fwrite( STDERR, "FAIL: Missing expected identity callbacks on init.\n" );
+	exit( 1 );
+}
 do_action( 'plugins_loaded' ); // idempotency: second plugins_loaded re-fires bootstrap.
 $init_count_after_second_run = count( $wp_hooks['init'] ?? array() );
 

@@ -1,0 +1,89 @@
+[
+  {
+    "case": "contradictory DONE documents and unrelated prompt published/dispatched",
+    "published": true,
+    "launches": 1,
+    "expected": "reject, zero launches"
+  },
+  {
+    "case": "unacknowledged receipt overwritten",
+    "secondReceipt": "6f0eae26-da2c-4dcf-b889-49df34e2e607",
+    "thirdReceipt": "4fe1549c-7c3c-46fd-9319-7de25bce153f",
+    "overwritten": true,
+    "expected": "third publication rejected until second acknowledged"
+  },
+  {
+    "case": "ancestor directory symlink escapes root",
+    "accepted": true,
+    "expected": "reject"
+  },
+  {
+    "case": "new receipt while first agent still running",
+    "maxConcurrentAgents": 2,
+    "expected": 1
+  },
+  {
+    "case": "startMonitor ignores held controller lock",
+    "launchesWhileLockHeld": 1,
+    "expected": 0
+  },
+  {
+    "case": "corrupt ledger silently resets and replays",
+    "launches": 2,
+    "expected": 1
+  },
+  {
+    "case": "same-ID mutation bypasses tamper check",
+    "errors": [],
+    "expected": "tampering error"
+  },
+  {
+    "case": "parent completion never checked",
+    "launches": 1,
+    "expected": 0
+  },
+  {
+    "case": "metadata correction back to Builder with review status",
+    "dispatchCount": 0,
+    "errors": [
+      "Status READY_FOR_REVIEW from architect does not route to dispatch"
+    ],
+    "expected": "authorized correction routed to sender"
+  },
+  {
+    "case": "actual Codex adapter resume invocation",
+    "success": false,
+    "exitCode": 2,
+    "stderr": "error: unexpected argument '-C' found\n\n  tip: to pass '-C' as a value, use '-- -C'\n\nUsage: codex exec resume [OPTIONS] [SESSION_ID] [PROMPT]\n\nFor more information, try '--help'.\n",
+    "expected": "valid CLI syntax"
+  },
+  {
+    "case": "adapter accepts wrong session/task and turn.failed",
+    "success": true,
+    "reportedSession": "c0c3f2a6-c52b-4fb4-b48f-70bfaeb12878",
+    "result": {
+      "receipt_id": "53823d11-df40-4f9e-968c-ac7466c89403",
+      "task_id": "WRONG-TASK",
+      "intake": "FAIL",
+      "outcome": "blocked"
+    },
+    "events": [
+      {
+        "type": "thread.started",
+        "thread_id": "WRONG-SESSION"
+      },
+      {
+        "type": "turn.failed",
+        "error": {
+          "message": "deliberate failure"
+        }
+      }
+    ],
+    "expected": "failure"
+  },
+  {
+    "case": "cleanup",
+    "ownedFixtureCount": 10,
+    "allRemoved": true
+  }
+]

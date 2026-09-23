@@ -1,0 +1,122 @@
+--- src/Core/Capabilities.php
++++ src/Core/Capabilities.php
+@@ -208,21 +208,35 @@
+ 			return true;
+ 		} catch ( \Exception $e ) {
+-			self::restore_option( wp_roles()->role_key, $snap_roles );
+-			self::restore_option( self::OPTION_ROLE_LEDGER, $snap_ledger );
+-			self::restore_option( self::OPTION_SCHEMA_VERSION, $snap_schema );
++			$restoration_failed = false;
++			foreach ( array( wp_roles()->role_key => $snap_roles, self::OPTION_ROLE_LEDGER => $snap_ledger, self::OPTION_SCHEMA_VERSION => $snap_schema ) as $opt => $snap ) {
++				try {
++					self::restore_option( $opt, $snap );
++				} catch ( \Exception $ex ) {
++					$restoration_failed = true;
++				}
++			}
+ 
+ 			// Verify restoration.
+-			$check_roles  = self::get_option_snapshot( wp_roles()->role_key );
+-			$check_ledger = self::get_option_snapshot( self::OPTION_ROLE_LEDGER );
+-			$check_schema = self::get_option_snapshot( self::OPTION_SCHEMA_VERSION );
+-
+-			$roles_ok  = $snap_roles['value'] === $check_roles['value'];
+-			$ledger_ok = $snap_ledger['value'] === $check_ledger['value'];
+-			$schema_ok = $snap_schema['value'] === $check_schema['value'];
+-
+-			if ( ! $roles_ok || ! $ledger_ok || ! $schema_ok ) {
+-				// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log, Generic.Files.LineLength
+-				error_log( 'VeLog: Critical capabilities rollback failure. State mismatched snapshot.' );
++			try {
++				$check_roles  = self::get_option_snapshot( wp_roles()->role_key );
++				$check_ledger = self::get_option_snapshot( self::OPTION_ROLE_LEDGER );
++				$check_schema = self::get_option_snapshot( self::OPTION_SCHEMA_VERSION );
++
++				$roles_ok  = self::compare_snapshots( $snap_roles, $check_roles );
++				$ledger_ok = self::compare_snapshots( $snap_ledger, $check_ledger );
++				$schema_ok = self::compare_snapshots( $snap_schema, $check_schema );
++
++				if ( ! $roles_ok || ! $ledger_ok || ! $schema_ok || $restoration_failed ) {
++					// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log, Generic.Files.LineLength
++					error_log( 'VeLog: Critical capabilities rollback failure. State mismatched snapshot.' );
++				}
++			} catch ( \Exception $ex ) {
++				// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log, Generic.Files.LineLength
++				error_log( 'VeLog: Critical capabilities rollback failure. State mismatched snapshot.' );
+ 			}
+ 
+ 			// Rebuild role state in memory.
+ 			wp_roles()->for_site();
++
++			try {
++				$expected_reloaded = $snap_roles['exists'] ? maybe_unserialize( $snap_roles['value'] ) : array();
++				if ( ! is_array( $expected_reloaded ) ) {
++					$expected_reloaded = array();
++				}
++				// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.serialize_serialize
++				if ( serialize( wp_roles()->roles ) !== serialize( $expected_reloaded ) ) {
++					// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log, Generic.Files.LineLength
++					error_log( 'VeLog: Critical capabilities rollback failure. State mismatched snapshot.' );
++				}
++			} catch ( \Exception $ex ) {
++				// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log, Generic.Files.LineLength
++				error_log( 'VeLog: Critical capabilities rollback failure. State mismatched snapshot.' );
++			}
++
+ 			return false;
+ 		}
+ 	}
+ 
++	/**
++	 * Compare two snapshots.
++	 *
++	 * @param array<string, mixed> $snap1 Snapshot 1.
++	 * @param array<string, mixed> $snap2 Snapshot 2.
++	 * @return bool
++	 */
++	private static function compare_snapshots( $snap1, $snap2 ): bool {
++		if ( $snap1['exists'] !== $snap2['exists'] ) {
++			return false;
++		}
++		if ( ! $snap1['exists'] ) {
++			return true;
++		}
++		return $snap1['value'] === $snap2['value'] && $snap1['autoload'] === $snap2['autoload'];
++	}
++
+ 	/**
+ 	 * Get human readable role name.
+@@ -288,7 +333,33 @@
+ 	private static function restore_option( $option_name, $snapshot ) {
++		global $wpdb;
+ 		if ( $snapshot['exists'] ) {
+-			update_option( $option_name, maybe_unserialize( $snapshot['value'] ), false );
++			// phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.NotPrepared
++			$exists = $wpdb->get_var( $wpdb->prepare( "SELECT option_name FROM {$wpdb->options} WHERE option_name = %s LIMIT 1", $option_name ) );
++			if ( $exists ) {
++				$wpdb->update( // phpcs:ignore WordPress.DB.DirectDatabaseQuery
++					$wpdb->options,
++					array(
++						'option_value' => $snapshot['value'],
++						'autoload'     => $snapshot['autoload'],
++					),
++					array( 'option_name' => $option_name )
++				);
++			} else {
++				$wpdb->insert( // phpcs:ignore WordPress.DB.DirectDatabaseQuery
++					$wpdb->options,
++					array(
++						'option_name'  => $option_name,
++						'option_value' => $snapshot['value'],
++						'autoload'     => $snapshot['autoload'],
++					)
++				);
++			}
+ 		} else {
+ 			delete_option( $option_name );
+ 		}
++		wp_cache_delete( $option_name, 'options' );
++		wp_cache_delete( 'alloptions', 'options' );
++		wp_cache_delete( 'notoptions', 'options' );
+ 	}
+ }

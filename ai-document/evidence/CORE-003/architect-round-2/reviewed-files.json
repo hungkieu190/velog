@@ -1,0 +1,19 @@
+{
+  "src/Common/AccessPolicy.php": "badcea0733f66f170d7205d51bfcbcc432e495e015f57df274554983e39ec62a",
+  "src/Core/Capabilities.php": "e99bbefdf9078582ddbee4144977b087983888117c62e5183aeaf072b67edf26",
+  "src/Core/PostTypes.php": "45bda5dbe4338e1a98254099fee3930c8fe5e81250f1bb3dfbe9a986a5ba2518",
+  "src/Core/Plugin.php": "c5330170a7382aa1409d90e172f162d648edffbda55a1ec0dfef50c7da5bbc55",
+  "src/Core/Activator.php": "c029e0b8ca75f68a3835344e302dede275d4a870c4e35a6cb2b4d8c5eaa080c9",
+  "tests/Unit/AccessPolicyTest.php": "af9aefe7889570d821bc7bb2a1f0b81f0e5e5dc9c1c4e587f23458dceea8c5b8",
+  "tests/Unit/CapabilitiesTest.php": "6ad5bcc393d3eae49d45e5444a9a2ad3cfa8ca43dd191606c97c0ffb741e75f2",
+  "tests/Unit/LoaderRunTest.php": "1c4cbdeffd9e90c1f405adb4d1d1cb751e10140e328ca54d405d419d1dc8fdfd",
+  "tests/Unit/I18nLifecycleTest.php": "a3da533fd1ee45ed29e6e2695b06194475f75bad9d1072f665e20cbd194a1727",
+  "tests/fixtures/bootstrap-entry-verify.php": "6b7d71728f8a2ed654de584a6af16cebc394ce0d57fe85acde053a851fb1b462",
+  "tests/fixtures/core-003-verify.php": "ef186cfd5e9ad807b0f3422c22a06e70316d790037cde74a0779148caac8f421",
+  "tests/workflow/product-smoke.sh": "aa74b87f6987fa8714bb64050e51f275f19ea2273534011b47499f9721f6c751",
+  "tests/workflow/product-smoke-controls.sh": "1a882b6bb70f9a72f78c30a7dbcdf8e264ee721638d81b3c02e2b0becc1c6c03",
+  "scripts/progress-data.mjs": "282c06fdef06376f5fc5e200f4dc880df8bf86bc552d7f584bff680ec10014ff",
+  "scripts/progress-view.mjs": "43dc8c67e228f5d6e35e5cd584752969cc3ab6e0bbd5e21b96b0ff549036510f",
+  "ai-document/evidence/CORE-003/round-2/commands.log": "18652f65142fda97b05817763c494bea9dd6d2cebb8d478b7bb9ec06ae41ea5e",
+  "ai-document/evidence/CORE-003/round-2/verification.md": "0bd282cb69c1fdd210c647dd0edcceaeb6bf3b26051c39a79bce7c532872a055"
+}

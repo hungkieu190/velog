@@ -1,0 +1,57 @@
+ M AGENTS.md
+ M ai-document/README.md
+ M ai-document/architect-builder-workflow.md
+ M ai-document/architecture.md
+ M ai-document/implementation-checklist.md
+ M ai-document/tasks/CORE-003-access-private-types.md
+ M fix_lint.php
+ M fix_lint2.php
+ D patch_task.php
+ M patch_tests.php
+ M rules/ai-agent.md
+ M scripts/progress-dashboard.mjs
+ M scripts/progress-data.mjs
+ M scripts/progress-view.mjs
+ M set-up-new/01-architect-builder-workflow.md
+ M set-up-new/02-source-build-release-workflow.md
+ M src/Common/AccessPolicy.php
+ M src/Core/Capabilities.php
+ M tests/Unit/AccessPolicyTest.php
+ M tests/Unit/I18nLifecycleTest.php
+ M tests/Unit/LoaderRunTest.php
+ M tests/fixtures/bootstrap-entry-verify.php
+ M tests/fixtures/core-003-verify.php
+ M tests/workflow/product-smoke.sh
+ M tests/workflow/progress-roles.test.mjs
+ M tests/workflow/workflow.test.mjs
+?? ai-document/evidence/CORE-003/
+?? ai-document/evidence/WF-003/
+?? ai-document/evidence/WF-004/
+?? ai-document/handoff-signal.json
+?? ai-document/tasks/WF-003-progress-owner-consistency.md
+?? ai-document/tasks/WF-004-json-handoff-controller.md
+?? debug-expected.txt
+?? fix-bootstrap.patch
+?? fix_tests.php
+?? patch_bootstrap_verify.php
+?? patch_cap_test_roles.php
+?? patch_capabilities.patch
+?? patch_loader_test.php
+?? patch_loader_test2.php
+?? print-issues.mjs
+?? scripts/agent-adapters/
+?? scripts/handoff-controller.mjs
+?? scripts/handoff-protocol.mjs
+?? scripts/publish-handoff.mjs
+?? test-debug.php
+?? test-mockery.php
+?? test_cookie.php
+?? test_insert.php
+?? tests/Unit/CapabilitiesTest.php
+?? tests/fixtures/bootstrap-entry-verify.php.orig
+?? tests/fixtures/bootstrap-entry-verify.php.rej
+?? tests/workflow/handoff-controller.test.mjs
+?? tests/workflow/product-smoke-controls.sh
+?? tests/workflow/workflow-test-wf003.patch
+?? update_bootstrap.php
+?? update_bootstrap_again.php

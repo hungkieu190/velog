@@ -1,0 +1,15 @@
+{
+  "scripts/handoff-protocol.mjs": "3202f62bc7fd0ce73313d73bcdf4fa93344767c8cfa3585d6b6fb0ff58ec18a4",
+  "scripts/publish-handoff.mjs": "8809dce5f61755a91b212f207c168650ee98716a298441bc345d94fa89ad50ab",
+  "scripts/handoff-controller.mjs": "7e1b145afc30103e512e6189c1d85507cf769b93586ad5cc13bac2495b897445",
+  "scripts/agent-adapters/codex.mjs": "a45857f8093092147808f45acf9545b220433f1311b88a7feea661938c506020",
+  "scripts/agent-adapters/antigravity.mjs": "445f4ce766e34dd558deae0efc091d9939fa9668bad5d801aa8dcc10d1baa68d",
+  "scripts/progress-dashboard.mjs": "515823a4d906508aa288627c049ca0ffdc766558a02ba4aae5e0fc27e9d76eb4",
+  "scripts/progress-data.mjs": "35b4335efe3066d725788742c2c1d2d2eac10da4492925dd95f39849952f6a2a",
+  "scripts/progress-view.mjs": "ef0feb59775b737803267ba2aae68ecf1e7db0d1ea53e3f6d8c9db6cf70144e5",
+  "tests/workflow/handoff-controller.test.mjs": "9f08b9ede404f8b9c188925d7a5ce61e6b093a5c506e8ba171f81a83038d878f",
+  "ai-document/tasks/WF-004-json-handoff-controller.md": "c76d48a6f095d7f22328a568b0dd99291448ff91bbf2a9cb9b67add9e6a3412f",
+  "ai-document/README.md": "2438572c95706398ae8f9c94fdb9992382731c6b63abd3382038bc807153dff3",
+  "ai-document/implementation-checklist.md": "fed397f1b9198318dbb8da5833db2e19743d10b3cba4bddcd39b7c9321fbcf2f",
+  "ai-document/evidence/WF-004/round-1/verification.md": "5193eb93502ac7359b820c3af43e72855ad925851607f8e52b1b7ee5d2732609"
+}

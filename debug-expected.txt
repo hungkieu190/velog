@@ -1,0 +1,48 @@
+array (
+  'administrator' => 
+  array (
+    'capabilities' => 
+    array (
+      'mf_velog_read_records' => true,
+      'mf_velog_manage_settings' => true,
+      'mf_velog_manage_customers' => true,
+      'mf_velog_read_customer_contacts' => true,
+      'mf_velog_manage_vehicles' => true,
+      'mf_velog_create_services' => true,
+      'mf_velog_edit_own_service_drafts' => true,
+      'mf_velog_finalize_own_services' => true,
+      'mf_velog_correct_services' => true,
+      'mf_velog_manage_reminders' => true,
+    ),
+  ),
+  'mf_velog_manager' => 
+  array (
+    'name' => 'VeLog Manager',
+    'capabilities' => 
+    array (
+      'read' => true,
+      'mf_velog_read_records' => true,
+      'mf_velog_manage_settings' => true,
+      'mf_velog_manage_customers' => true,
+      'mf_velog_read_customer_contacts' => true,
+      'mf_velog_manage_vehicles' => true,
+      'mf_velog_create_services' => true,
+      'mf_velog_edit_own_service_drafts' => true,
+      'mf_velog_finalize_own_services' => true,
+      'mf_velog_correct_services' => true,
+      'mf_velog_manage_reminders' => true,
+    ),
+  ),
+  'mf_velog_technician' => 
+  array (
+    'name' => 'VeLog Technician',
+    'capabilities' => 
+    array (
+      'read' => true,
+      'mf_velog_read_records' => true,
+      'mf_velog_create_services' => true,
+      'mf_velog_edit_own_service_drafts' => true,
+      'mf_velog_finalize_own_services' => true,
+    ),
+  ),
+)
