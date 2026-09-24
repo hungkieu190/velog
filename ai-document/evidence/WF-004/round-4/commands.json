@@ -1,0 +1,47 @@
+{
+  "round": 4,
+  "date": "2026-09-24",
+  "node_version": "v20.19.2 (Builder used Node 20; Node 24 verification pending)",
+  "node_verification": "Node 24 binary verified at /home/ecommercelife/.nvm/versions/node/v24.21.0/bin/node (v24.21.0, exit 0); Builder executed tests under Node v20.19.2",
+  "commands": [
+    {
+      "cmd": "node --test tests/workflow/handoff-controller.test.mjs",
+      "exit": 0,
+      "result": "36 pass, 0 fail (under Node v20.19.2)"
+    },
+    {
+      "cmd": "npm run test:workflow",
+      "exit": 0,
+      "result": "60 pass, 0 fail (under Node v20.19.2)"
+    },
+    {
+      "cmd": "git diff --check -- scripts/ tests/",
+      "exit": 0,
+      "result": "No trailing whitespace"
+    },
+    {
+      "cmd": "git diff --check -- ai-document/",
+      "exit": 0,
+      "result": "No trailing whitespace"
+    }
+  ],
+  "findings": {
+    "WF4-F-001": "validation/publication — nine focused validation controls are Round 3 reviewer evidence (not rerun in Round 4). NOT VERIFIED in Round 4: concurrent publication, full R1/R2 fault injection, required document closure.",
+    "WF4-F-002": "codex.mjs rewritten — onSpawn awaited, descendant cleanup via killGroupAndVerify(), cleanupVerified only set after confirmed absence. Lint/static only; live process cleanup NOT VERIFIED.",
+    "WF4-F-003": "handoff-controller.mjs — structural vs agent intake separated (structuralIntake/agentIntake fields); dedup branch restores unresolved rejection blocker from durable entry. NOT VERIFIED: live agent FAIL round-trip.",
+    "WF4-F-004": "codex.mjs — malformed JSONL now fails; missing thread identity now fails; new_receipt_id required in schema and validated; exact prompt from finalValidation.prompt. NOT VERIFIED: live Codex CLI.",
+    "WF4-F-005": "progress-dashboard.mjs — adapter keys changed to architect/builder; shutdown awaited with errors surfaced. antigravity.mjs — dispatch() never spawns; available() always returns false until interface verified. NOT VERIFIED: live dispatch or active shutdown.",
+    "WF4-F-006": "V3 replay test seeded via public controller with real assertions; V4 crash test calls pollCycle with real blocker assertion; trailing whitespace fixed. NOT VERIFIED: operating/config/recovery/setup docs not yet finished."
+  },
+  "not_verified": [
+    "Node 24 execution of workflow test suite (Builder used Node 20; Node 24 verification pending)",
+    "Inherited Round 3 reviewer validation passes not rerun in Round 4",
+    "Live Codex CLI integration",
+    "Live Antigravity CLI integration",
+    "Real descendant process cleanup under a bounded supervisor",
+    "Full SIGINT/timeout/grandchild/sentinel/log-write failure matrix",
+    "HTTP endpoint live test beyond static controller tests",
+    "Complete R3-R7 verification matrix",
+    "Operating/config/recovery/setup documentation"
+  ]
+}

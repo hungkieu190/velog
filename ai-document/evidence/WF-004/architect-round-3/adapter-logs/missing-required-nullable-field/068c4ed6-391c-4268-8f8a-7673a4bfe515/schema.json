@@ -1,0 +1,39 @@
+{
+  "type": "object",
+  "properties": {
+    "receipt_id": {
+      "type": "string"
+    },
+    "task_id": {
+      "type": "string"
+    },
+    "intake": {
+      "type": "string",
+      "enum": [
+        "PASS",
+        "FAIL"
+      ]
+    },
+    "outcome": {
+      "type": "string",
+      "enum": [
+        "handoff",
+        "needs_user",
+        "blocked"
+      ]
+    },
+    "new_receipt_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "required": [
+    "receipt_id",
+    "task_id",
+    "intake",
+    "outcome"
+  ],
+  "additionalProperties": false
+}

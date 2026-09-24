@@ -1,0 +1,11 @@
+Status: CHANGES_REQUESTED
+Recipient: Builder
+Intent: work
+
+Antigravity Builder: implement WF-004 correction revision 4. Read AGENTS.md, ai-document/README.md, ai-document/implementation-checklist.md, ai-document/tasks/WF-004-json-handoff-controller.md (Contributor Architect Review Round 3 and Correction blueprint Round 4), and ai-document/evidence/WF-004/architect-round-3/review.md plus commands.json, probe-results.json, integration-results.json and validation-results.json. Record intake PASS/FAIL before coding.
+
+Fix existing WF4-F-001–WF4-F-006 using the revision 4 supplement and still-applicable revision 3/R1–R7 blueprint. Prioritize strict Codex result/identity/prompt validation, actual descendant cleanup and awaited spawn persistence, durable agent intake FAIL/correction handling and persistent blockers, dashboard role wiring/awaited shutdown, and Antigravity unavailable-without-spawn. Replace vacuous replay/crash checks with public lifecycle tests; finish operating/setup docs. Preserve the nine passing validation controls.
+
+Verified in this contributor review: Node 24 workflow 60/60 pass, nine validation controls pass, HTTP 200/200/405. Nevertheless probes reproduce false transport success, live descendants despite cleanupVerified:true, dropped agent intake FAIL, cleared rejection blocker, broken dashboard dispatch and unsupported Antigravity spawning. Global diff check exits 2 for changed test whitespace. Real Codex/Antigravity integration and full process/fault matrix remain NOT VERIFIED.
+
+Save per-case commands/exits/logs/cleanup under ai-document/evidence/WF-004/round-4/. Keep active dispatch disabled; no PHP/product changes, dependencies, commits or publication. Return READY_FOR_REVIEW with accurate evidence and the latest English prompt. WF4-I-005 is resolved; do not reopen it or claim aggregate tests prove acceptance. The user authorized Codex contributor self-review for WF-004; preserve contributor identity and do not label that review independent. No acceptance boxes or DONE changes by Builder.

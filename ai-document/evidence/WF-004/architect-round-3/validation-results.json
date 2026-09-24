@@ -1,0 +1,84 @@
+{
+  "results": [
+    {
+      "name": "valid-unpublished",
+      "args": [
+        "--task=ai-document/tasks/TEST-001-fixture.md",
+        "--json"
+      ],
+      "expected": 0,
+      "exit": 0,
+      "stdout": "{\n  \"valid\": true,\n  \"task_id\": \"TEST-001\",\n  \"receipt_id\": null,\n  \"snapshot\": [\n    {\n      \"path\": \"ai-document/tasks/TEST-001-fixture.md\",\n      \"sha256\": \"2b48b741fbc4b6fc979759982421510f3941fcb1df2fa25ac798647cbd4eed76\"\n    },\n    {\n      \"path\": \"ai-document/implementation-checklist.md\",\n      \"sha256\": \"cabbccb89f1f9c0730a942d5dfd402bf77aae4dc85660d7e26b7de69fcca3fac\"\n    },\n    {\n      \"path\": \"ai-document/README.md\",\n      \"sha256\": \"5e7715eb0f40726a72d3359be18d442599caabefe2aa377dbe599eea099ec22c\"\n    },\n    {\n      \"path\": \"ai-document/agent-roles.json\",\n      \"sha256\": \"5f7f332c4f08672db066e7488ddf2d91c933b0455f4cfd92f165eb2184ac482c\"\n    },\n    {\n      \"path\": \"ai-document/evidence.md\",\n      \"sha256\": \"e559026bc78332deb60d8c984cdd6abd09ffc7aae9ad53c22c610e53b61c5c52\"\n    }\n  ],\n  \"errors\": [],\n  \"limitations\": [\n    \"Prose accuracy and reviewer independence require human/independent review; labels are not authentication.\"\n  ],\n  \"prompt\": \"Status: READY\\nRecipient: Builder\\nIntent: work\\nRead the fixture and execute only its approved work.\",\n  \"metadata\": {\n    \"status\": \"READY\",\n    \"revision\": 1,\n    \"round\": 1,\n    \"actor\": \"builder\",\n    \"recipient\": \"builder\",\n    \"state\": \"published\",\n    \"intent\": \"work\"\n  }\n}\n",
+      "stderr": "",
+      "pass": true
+    },
+    {
+      "name": "missing-task",
+      "args": [
+        "--task=ai-document/tasks/MISSING.md",
+        "--json"
+      ],
+      "expected": 1,
+      "exit": 1,
+      "stdout": "{\n  \"valid\": false,\n  \"task_id\": \"MISSING\",\n  \"receipt_id\": null,\n  \"snapshot\": [\n    {\n      \"path\": \"ai-document/implementation-checklist.md\",\n      \"sha256\": \"cabbccb89f1f9c0730a942d5dfd402bf77aae4dc85660d7e26b7de69fcca3fac\"\n    },\n    {\n      \"path\": \"ai-document/README.md\",\n      \"sha256\": \"5e7715eb0f40726a72d3359be18d442599caabefe2aa377dbe599eea099ec22c\"\n    },\n    {\n      \"path\": \"ai-document/agent-roles.json\",\n      \"sha256\": \"5f7f332c4f08672db066e7488ddf2d91c933b0455f4cfd92f165eb2184ac482c\"\n    }\n  ],\n  \"errors\": [\n    {\n      \"code\": \"DOCUMENT\",\n      \"path\": \"ai-document/tasks/MISSING.md\",\n      \"field\": \"file\",\n      \"observed\": \"ENOENT: no such file or directory, lstat '/tmp/wf004-r3-xyxrdh/ai-document/tasks/MISSING.md'\",\n      \"expected\": \"readable safe regular file\"\n    },\n    {\n      \"code\": \"NUMBER\",\n      \"path\": \"ai-document/tasks/MISSING.md\",\n      \"field\": \"Plan revision\",\n      \"observed\": \"\",\n      \"expected\": \"positive integer\"\n    },\n    {\n      \"code\": \"NUMBER\",\n      \"path\": \"ai-document/tasks/MISSING.md\",\n      \"field\": \"Implementation round\",\n      \"observed\": \"\",\n      \"expected\": \"positive integer\"\n    },\n    {\n      \"code\": \"STATUS\",\n      \"path\": \"ai-document/tasks/MISSING.md\",\n      \"field\": \"Status\",\n      \"observed\": \"\",\n      \"expected\": \"known task status\"\n    },\n    {\n      \"code\": \"ROLE\",\n      \"path\": \"ai-document/tasks/MISSING.md\",\n      \"field\": \"actor\",\n      \"observed\": null,\n      \"expected\": \"Architect or Builder\"\n    },\n    {\n      \"code\": \"ROLE\",\n      \"path\": \"ai-document/tasks/MISSING.md\",\n      \"field\": \"recipient\",\n      \"observed\": null,\n      \"expected\": \"Architect or Builder\"\n    },\n    {\n      \"code\": \"HANDOFF_STATE\",\n      \"path\": \"ai-document/tasks/MISSING.md\",\n      \"field\": \"Handoff state\",\n      \"observed\": \"\",\n      \"expected\": \"known handoff state\"\n    },\n    {\n      \"code\": \"INTENT\",\n      \"path\": \"ai-document/tasks/MISSING.md\",\n      \"field\": \"Handoff intent\",\n      \"observed\": \"\",\n      \"expected\": \"work or correct_metadata\"\n    },\n    {\n      \"code\": \"BLUEPRINT\",\n      \"path\": \"ai-document/tasks/MISSING.md\",\n      \"field\": \"Blueprint readiness\",\n      \"observed\": \"\",\n      \"expected\": \"PASS\"\n    },\n    {\n      \"code\": \"REQUIRED\",\n      \"path\": \"ai-document/tasks/MISSING.md\",\n      \"field\": \"Architect session reference\",\n      \"observed\": \"\",\n      \"expected\": \"non-empty current field\"\n    },\n    {\n      \"code\": \"REQUIRED\",\n      \"path\": \"ai-document/tasks/MISSING.md\",\n      \"field\": \"Builder session reference\",\n      \"observed\": \"\",\n      \"expected\": \"non-empty current field\"\n    },\n    {\n      \"code\": \"REQUIRED\",\n      \"path\": \"ai-document/tasks/MISSING.md\",\n      \"field\": \"Implementation contributors and reviewer independence check\",\n      \"observed\": \"\",\n      \"expected\": \"non-empty current field\"\n    },\n    {\n      \"code\": \"REQUIRED\",\n      \"path\": \"ai-document/tasks/MISSING.md\",\n      \"field\": \"User approval reference and approved scope\",\n      \"observed\": \"\",\n      \"expected\": \"non-empty current field\"\n    },\n    {\n      \"code\": \"REQUIRED\",\n      \"path\": \"ai-document/tasks/MISSING.md\",\n      \"field\": \"Latest report\",\n      \"observed\": \"\",\n      \"expected\": \"non-empty current field\"\n    },\n    {\n      \"code\": \"REQUIRED\",\n      \"path\": \"ai-document/tasks/MISSING.md\",\n      \"field\": \"Next actor and exact next action\",\n      \"observed\": \"\",\n      \"expected\": \"non-empty current field\"\n    },\n    {\n      \"code\": \"INDEPENDENCE\",\n      \"path\": \"ai-document/tasks/MISSING.md\",\n      \"field\": \"session references\",\n      \"observed\": \"same references\",\n      \"expected\": \"distinct contributor and reviewer references\"\n    },\n    {\n      \"code\": \"EVIDENCE\",\n      \"path\": \"ai-document/tasks/MISSING.md\",\n      \"field\": \"Evidence\",\n      \"observed\": \"\",\n      \"expected\": \"comma-separated evidence paths\"\n    },\n    {\n      \"code\": \"PROMPT\",\n      \"path\": \"ai-document/tasks/MISSING.md\",\n      \"field\": \"latest prompt\",\n      \"observed\": \"No handoff prompt found\",\n      \"expected\": \"canonical latest nonempty text fence\"\n    },\n    {\n      \"code\": \"CURRENT_FOCUS\",\n      \"path\": \"ai-document/implementation-checklist.md\",\n      \"field\": \"Task\",\n      \"observed\": \"TEST-001\",\n      \"expected\": \"MISSING\"\n    },\n    {\n      \"code\": \"CURRENT_FOCUS\",\n      \"path\": \"ai-document/implementation-checklist.md\",\n      \"field\": \"Status\",\n      \"observed\": \"READY\",\n      \"expected\": \"\"\n    },\n    {\n      \"code\": \"CURRENT_FOCUS\",\n      \"path\": \"ai-document/implementation-checklist.md\",\n      \"field\": \"Next actor\",\n      \"observed\": \"Builder\",\n      \"expected\": null\n    },\n    {\n      \"code\": \"CURRENT_FOCUS\",\n      \"path\": \"ai-document/README.md\",\n      \"field\": \"Task\",\n      \"observed\": \"TEST-001\",\n      \"expected\": \"MISSING\"\n    },\n    {\n      \"code\": \"CURRENT_FOCUS\",\n      \"path\": \"ai-document/README.md\",\n      \"field\": \"Status\",\n      \"observed\": \"READY\",\n      \"expected\": \"\"\n    },\n    {\n      \"code\": \"CURRENT_FOCUS\",\n      \"path\": \"ai-document/README.md\",\n      \"field\": \"Next actor\",\n      \"observed\": \"Builder\",\n      \"expected\": null\n    },\n    {\n      \"code\": \"CHECKLIST\",\n      \"path\": \"ai-document/implementation-checklist.md\",\n      \"field\": \"items\",\n      \"observed\": 0,\n      \"expected\": \"at least one task criterion\"\n    }\n  ],\n  \"limitations\": [\n    \"Prose accuracy and reviewer independence require human/independent review; labels are not authentication.\"\n  ],\n  \"prompt\": \"\",\n  \"metadata\": {\n    \"status\": \"\",\n    \"revision\": 0,\n    \"round\": 0,\n    \"actor\": null,\n    \"recipient\": null,\n    \"state\": \"\",\n    \"intent\": \"\"\n  }\n}\n",
+      "stderr": "",
+      "pass": true
+    },
+    {
+      "name": "missing-receipt",
+      "args": [
+        "--task=ai-document/tasks/TEST-001-fixture.md",
+        "--receipt=060d7aaf-d3cd-4f5b-89ac-2d244375d24d",
+        "--json"
+      ],
+      "expected": 1,
+      "exit": 1,
+      "stdout": "{\n  \"valid\": false,\n  \"task_id\": \"TEST-001\",\n  \"receipt_id\": null,\n  \"snapshot\": [\n    {\n      \"path\": \"ai-document/tasks/TEST-001-fixture.md\",\n      \"sha256\": \"2b48b741fbc4b6fc979759982421510f3941fcb1df2fa25ac798647cbd4eed76\"\n    },\n    {\n      \"path\": \"ai-document/implementation-checklist.md\",\n      \"sha256\": \"cabbccb89f1f9c0730a942d5dfd402bf77aae4dc85660d7e26b7de69fcca3fac\"\n    },\n    {\n      \"path\": \"ai-document/README.md\",\n      \"sha256\": \"5e7715eb0f40726a72d3359be18d442599caabefe2aa377dbe599eea099ec22c\"\n    },\n    {\n      \"path\": \"ai-document/agent-roles.json\",\n      \"sha256\": \"5f7f332c4f08672db066e7488ddf2d91c933b0455f4cfd92f165eb2184ac482c\"\n    },\n    {\n      \"path\": \"ai-document/evidence.md\",\n      \"sha256\": \"e559026bc78332deb60d8c984cdd6abd09ffc7aae9ad53c22c610e53b61c5c52\"\n    }\n  ],\n  \"errors\": [\n    {\n      \"code\": \"RECEIPT_NOT_FOUND\",\n      \"path\": \"ai-document/handoff-signal.json\",\n      \"field\": \"id/task_file\",\n      \"observed\": null,\n      \"expected\": \"060d7aaf-d3cd-4f5b-89ac-2d244375d24d\"\n    }\n  ],\n  \"limitations\": [\n    \"Prose accuracy and reviewer independence require human/independent review; labels are not authentication.\"\n  ],\n  \"prompt\": \"Status: READY\\nRecipient: Builder\\nIntent: work\\nRead the fixture and execute only its approved work.\",\n  \"metadata\": {\n    \"status\": \"READY\",\n    \"revision\": 1,\n    \"round\": 1,\n    \"actor\": \"builder\",\n    \"recipient\": \"builder\",\n    \"state\": \"published\",\n    \"intent\": \"work\"\n  }\n}\n",
+      "stderr": "",
+      "pass": true
+    },
+    {
+      "name": "bad-argument",
+      "args": [
+        "--bogus"
+      ],
+      "expected": 2,
+      "exit": 2,
+      "stdout": "",
+      "stderr": "Invalid or duplicate argument\n",
+      "pass": true
+    },
+    {
+      "name": "valid-published",
+      "exit": 0,
+      "expected": 0,
+      "pass": true,
+      "stdout": "{\n  \"valid\": true,\n  \"task_id\": \"TEST-001\",\n  \"receipt_id\": \"cbf4a10c-f848-4728-9aa8-5cde619f9784\",\n  \"snapshot\": [\n    {\n      \"path\": \"ai-document/tasks/TEST-001-fixture.md\",\n      \"sha256\": \"2b48b741fbc4b6fc979759982421510f3941fcb1df2fa25ac798647cbd4eed76\"\n    },\n    {\n      \"path\": \"ai-document/implementation-checklist.md\",\n      \"sha256\": \"cabbccb89f1f9c0730a942d5dfd402bf77aae4dc85660d7e26b7de69fcca3fac\"\n    },\n    {\n      \"path\": \"ai-document/README.md\",\n      \"sha256\": \"5e7715eb0f40726a72d3359be18d442599caabefe2aa377dbe599eea099ec22c\"\n    },\n    {\n      \"path\": \"ai-document/agent-roles.json\",\n      \"sha256\": \"5f7f332c4f08672db066e7488ddf2d91c933b0455f4cfd92f165eb2184ac482c\"\n    },\n    {\n      \"path\": \"ai-document/evidence.md\",\n      \"sha256\": \"e559026bc78332deb60d8c984cdd6abd09ffc7aae9ad53c22c610e53b61c5c52\"\n    }\n  ],\n  \"errors\": [],\n  \"limitations\": [\n    \"Prose accuracy and reviewer independence require human/independent review; labels are not authentication.\"\n  ],\n  \"prompt\": \"Status: READY\\nRecipient: Builder\\nIntent: work\\nRead the fixture and execute only its approved work.\",\n  \"metadata\": {\n    \"status\": \"READY\",\n    \"revision\": 1,\n    \"round\": 1,\n    \"actor\": \"builder\",\n    \"recipient\": \"builder\",\n    \"state\": \"published\",\n    \"intent\": \"work\"\n  }\n}\n"
+    },
+    {
+      "name": "revision",
+      "error": "RECEIPT_MISMATCH ai-document/handoff-signal.json plan_revision: 1; expected 99",
+      "signalUnchanged": true,
+      "pass": true
+    },
+    {
+      "name": "checklist",
+      "error": "CURRENT_FOCUS ai-document/implementation-checklist.md Status: \"DONE\"; expected READY; CHECKLIST ai-document/implementation-checklist.md criterion: \"TEST-001 / AC1: Fixture. Status: DONE.\"; expected READY, checkbox matches acceptance",
+      "signalUnchanged": true,
+      "pass": true
+    },
+    {
+      "name": "newest-prompt",
+      "error": "PROMPT ai-document/tasks/TEST-001-fixture.md latest prompt: \"Malformed or empty newest handoff prompt heading/fence\"; expected canonical latest nonempty text fence",
+      "signalUnchanged": true,
+      "pass": true
+    },
+    {
+      "name": "unacknowledged",
+      "error": "Existing receipt has no durable intake acknowledgement",
+      "signalUnchanged": true,
+      "pass": true
+    }
+  ],
+  "fixtureRemoved": true
+}

@@ -42,18 +42,28 @@ const server = http.createServer(async (request, response) => {
 server.on('error', (error) => { process.stderr.write(`${error.message}\n`); process.exitCode = 1; });
 server.listen(port, '127.0.0.1', async () => {
   process.stdout.write(`Project progress dashboard is running at http://127.0.0.1:${port}\n`);
-  // Start the handoff controller monitor after successful server binding
+  // Start the handoff controller monitor after successful server binding.
+  // The controller expects role keys architect and builder (not codex/antigravity).
   try {
-    const adapters = { codex: codexAdapter, antigravity: antigravityAdapter };
+    const adapters = { architect: codexAdapter, builder: antigravityAdapter };
     monitor = await startMonitor(root, { adapters });
     process.stdout.write(`Handoff controller monitor started (mode: ${monitor.state.mode})\n`);
   } catch (err) {
     process.stderr.write(`Handoff monitor error: ${err.message}\n`);
   }
 });
-function shutdown() {
-  if (monitor) { monitor.stop().catch(() => {}); monitor = null; }
+
+async function shutdown() {
+  if (monitor) {
+    try {
+      await monitor.stop();
+    } catch (err) {
+      process.stderr.write(`Monitor stop error: ${err.message}\n`);
+      process.exitCode = 1;
+    }
+    monitor = null;
+  }
   server.close();
 }
-process.on('SIGINT', shutdown);
-process.on('SIGTERM', shutdown);
+process.on('SIGINT', () => { shutdown().catch(err => { process.stderr.write(`Shutdown error: ${err.message}\n`); }); });
+process.on('SIGTERM', () => { shutdown().catch(err => { process.stderr.write(`Shutdown error: ${err.message}\n`); }); });

@@ -4,7 +4,7 @@ import path from 'node:path';
 import { randomUUID } from 'node:crypto';
 export const taskPath = 'ai-document/tasks/TEST-001-fixture.md';
 export const sessionId = '11111111-1111-4111-8111-111111111111';
-export const config = () => ({ enabled: true, activationId: randomUUID(), priorityTask: 'TEST-001', adapters: { codex: { executable: process.execPath, sessionId }, antigravity: { executable: process.execPath, sessionId } } });
+export const config = () => ({ enabled: true, activationId: randomUUID(), priorityTask: 'TEST-001', adapters: { architect: { executable: process.execPath, sessionId }, builder: { executable: process.execPath, sessionId } } });
 export async function fixture() {
   const root = await fs.mkdtemp(path.join(os.tmpdir(), 'wf004-r3-'));
   await fs.mkdir(path.join(root, 'ai-document/tasks'), { recursive: true });

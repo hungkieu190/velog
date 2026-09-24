@@ -1,0 +1,49 @@
+{
+  "results": [
+    {
+      "name": "agent-intake-failure-not-journaled",
+      "journalIntake": "PASS",
+      "agentIntake": "FAIL",
+      "status": "completed",
+      "correction": {
+        "published": false,
+        "error": "Correction must return rejected receipt to its original sender"
+      }
+    },
+    {
+      "name": "rejected-receipt-next-poll",
+      "firstBlock": "Intake rejected; metadata correction required. SNAPSHOT ai-document/tasks/TEST-001-fixture.md sha256: \"2b48b741fbc4b6fc979759982421510f3941fcb1df2fa25ac798647cbd4eed76\"; expected 080092d3ec28fe954d3979b189e8ff110410e3ce445974b4bdb8b4912f9fd901; HASH ai-document/handoff-signal.json documents: \"Hash mismatch for ai-document/tasks/TEST-001-fixture.md\"; expected unchanged snapshot",
+      "secondBlock": null,
+      "pending": null
+    },
+    {
+      "name": "actual-dashboard-entrypoint",
+      "get": 200,
+      "head": 200,
+      "post": 405,
+      "monitor": {
+        "mode": "dispatch",
+        "lastPoll": "2026-09-24T02:36:49.578Z",
+        "lastReceiptId": null,
+        "pendingReceipt": {
+          "id": "07cd2e1e-4033-48dc-936d-50d0a90cca52",
+          "taskId": "TEST-001",
+          "status": "READY",
+          "target": "builder"
+        },
+        "currentRun": null,
+        "dispatchCount": 0,
+        "correctionCount": 0,
+        "errors": [],
+        "blocked": "Adapter for builder is not configured or unavailable"
+      },
+      "blockerVisibleInHtml": true,
+      "ledgerExists": false,
+      "exit": 0,
+      "signal": null
+    }
+  ],
+  "cleanup": {
+    "fixtureDirectoriesRemoved": 3
+  }
+}

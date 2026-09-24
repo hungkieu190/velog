@@ -12,9 +12,15 @@ Before task work, read [agent-roles.json](ai-document/agent-roles.json). This is
 
 Codex loads this project AGENTS.md through its native instruction mechanism. Antigravity's project rule `.agents/rules/project-role.md` directs its agent here; other clients must not adopt that rule's host identity merely by reading the file. These are workflow instructions, not authenticated identity or filesystem access control. Do not claim automatic loading has been tested in another application unless it actually has.
 
-## Active user-authorized WF-004 continuation exception
+## WF-004 implementation transfer — 2026-09-24
 
-The user explicitly authorized Codex Architect to code WF-004 and, on 2026-09-23, explicitly instructed that the next session's Architect must continue coding this task to implementation completion. This is a bounded later user instruction overriding the normal Architect no-implementation restriction for WF-004 only. It persists across sessions until that implementation is complete; do not return the work to Antigravity solely because of the default role rule or ask the user to authorize it again. Keep the configured Architect identity and agent-roles.json unchanged. Read the latest checkpoint in [WF-004](ai-document/tasks/WF-004-json-handoff-controller.md), resume the partial changes, finish revision 3 fixes and verification, and record every implementing session as a contributor. This does not authorize self-acceptance: a separate independent reviewer must accept the implementation. All unrelated scope and publication restrictions remain.
+The earlier bounded user authorization allowed Codex Architect to implement WF-004 and continue across sessions. On 2026-09-24 the user explicitly stopped Codex implementation, requested a return to Architect duties and handed implementation back to Builder. This later instruction supersedes the earlier continuation exception: do not automatically resume WF-004 coding in Codex. Preserve the partial implementation and follow the latest [WF-004 Builder transfer checkpoint](ai-document/tasks/WF-004-json-handoff-controller.md). Antigravity Builder must validate intake and complete revision 3 under the existing approved blueprint.
+
+Keep the Architect identity and agent-roles.json unchanged. Both Codex sessions that implemented Round 3 remain contributors and cannot independently accept WF-004. A separate eligible reviewer must perform acceptance after Builder completes implementation. Historical authorization and checkpoints remain in the task; this transfer grants no publication, activation or unrelated scope permission.
+
+### Later bounded WF-004 contributor-review authorization
+
+On 2026-09-24, after the metadata correction, the user explicitly requested this Codex contributor to review its own WF-004 code and reaffirmed that permission. This later user instruction overrides the independent-review prerequisite for this bounded WF-004 review/decision. Keep contributor identity visible and label the review as contributor review, never independent. It does not automatically accept any criterion, authorize implementation fixes by Architect, change agent-roles.json, or authorize dispatch/publication. Round 3 review returned CHANGES_REQUESTED; Builder must implement correction revision 4. Other tasks retain normal role separation. Historical notes about unavailable independent review remain historical, not a blocker to the explicitly authorized contributor review.
 
 ## Authority and required reading
 

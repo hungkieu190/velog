@@ -1,0 +1,55 @@
+[
+  {
+    "name": "node-version",
+    "command": [
+      "node",
+      "--version"
+    ],
+    "exit": 0
+  },
+  {
+    "name": "workflow",
+    "command": [
+      "npm",
+      "run",
+      "test:workflow"
+    ],
+    "exit": 0
+  },
+  {
+    "name": "probes",
+    "command": [
+      "/home/ecommercelife/.nvm/versions/node/v24.21.0/bin/node",
+      "ai-document/evidence/WF-004/architect-round-3/probes.mjs"
+    ],
+    "exit": 0,
+    "meaning": "Harness completed; consult expected/observed results, not aggregate success."
+  },
+  {
+    "name": "integration-probes",
+    "command": [
+      "/home/ecommercelife/.nvm/versions/node/v24.21.0/bin/node",
+      "ai-document/evidence/WF-004/architect-round-3/integration-probes.mjs"
+    ],
+    "exit": 0,
+    "meaning": "Harness completed; consult expected/observed results, not aggregate success."
+  },
+  {
+    "name": "validation-probes",
+    "command": [
+      "/home/ecommercelife/.nvm/versions/node/v24.21.0/bin/node",
+      "ai-document/evidence/WF-004/architect-round-3/validation-probes.mjs"
+    ],
+    "exit": 0,
+    "meaning": "Harness completed; consult expected/observed results, not aggregate success."
+  },
+  {
+    "name": "global-diff-check",
+    "command": [
+      "git",
+      "diff",
+      "--check"
+    ],
+    "exit": 2
+  }
+]

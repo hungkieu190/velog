@@ -1,0 +1,112 @@
+{
+  "observations": [
+    {
+      "name": "valid-control",
+      "success": true,
+      "cleanupVerified": true,
+      "error": null,
+      "spawned": true,
+      "persistenceAwaited": false,
+      "exactPromptDelivered": false
+    },
+    {
+      "name": "wrong-identity-control",
+      "success": false,
+      "cleanupVerified": true,
+      "error": "Thread identity mismatch: expected 11111111-1111-4111-8111-111111111111, got 178c9478-cacb-48e2-ae8c-c7bcccd8d40e",
+      "spawned": true,
+      "persistenceAwaited": false,
+      "exactPromptDelivered": false
+    },
+    {
+      "name": "missing-identity",
+      "success": true,
+      "cleanupVerified": true,
+      "error": null,
+      "spawned": true,
+      "persistenceAwaited": false,
+      "exactPromptDelivered": false
+    },
+    {
+      "name": "malformed-jsonl",
+      "success": true,
+      "cleanupVerified": true,
+      "error": null,
+      "spawned": true,
+      "persistenceAwaited": false,
+      "exactPromptDelivered": false
+    },
+    {
+      "name": "invalid-enums",
+      "success": true,
+      "cleanupVerified": true,
+      "error": null,
+      "spawned": true,
+      "persistenceAwaited": false,
+      "exactPromptDelivered": false
+    },
+    {
+      "name": "missing-required-nullable-field",
+      "success": true,
+      "cleanupVerified": true,
+      "error": null,
+      "spawned": true,
+      "persistenceAwaited": false,
+      "exactPromptDelivered": false
+    },
+    {
+      "name": "nonexistent-successor",
+      "success": true,
+      "cleanupVerified": true,
+      "error": null,
+      "spawned": true,
+      "persistenceAwaited": false,
+      "exactPromptDelivered": false
+    },
+    {
+      "name": "live-descendant-after-success",
+      "success": true,
+      "cleanupVerified": true,
+      "error": null,
+      "spawned": true,
+      "persistenceAwaited": false,
+      "exactPromptDelivered": false,
+      "descendantPid": 42118,
+      "descendantAliveOnSuccess": true,
+      "harnessStoppedDescendant": true
+    },
+    {
+      "name": "unverified-antigravity-executable",
+      "success": true,
+      "cleanupVerified": null,
+      "error": null,
+      "spawned": true,
+      "persistenceAwaited": false,
+      "exactPromptDelivered": false
+    },
+    {
+      "name": "correction-run-intake-ledger",
+      "correction": "d122874f-9f49-42d8-ad77-85b5921f2981",
+      "launches": 1,
+      "blocked": null,
+      "resumed": {
+        "published": true
+      },
+      "ledger": [
+        {
+          "status": "rejected",
+          "intake": "FAIL",
+          "intent": "work"
+        },
+        {
+          "status": "completed",
+          "intake": "PASS",
+          "intent": "correct_metadata"
+        }
+      ]
+    }
+  ],
+  "cleanup": {
+    "fixtureDirectoriesRemoved": 10
+  }
+}

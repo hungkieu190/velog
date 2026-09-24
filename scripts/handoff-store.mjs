@@ -41,7 +41,7 @@ export function validateConfig(c) {
   if(!c.enabled)return c;
   if(!UUID_RE.test(c.activationId||''))throw new Error('Config.activationId must be an explicit user activation UUID');
   if(typeof c.priorityTask!=='string'||!c.priorityTask)throw new Error('Config.priorityTask is required');
-  if(!isObject(c.adapters)||Object.keys(c.adapters).some(k=>!['codex','antigravity'].includes(k)))throw new Error('Config.adapters uses codex/antigravity client keys');
+  if(!isObject(c.adapters)||Object.keys(c.adapters).some(k=>!['architect','builder'].includes(k)))throw new Error('Config.adapters uses architect/builder role keys');
   if(c.runDeadline!==undefined&&(!Number.isInteger(c.runDeadline)||c.runDeadline<1||c.runDeadline>900000))throw new Error('Config.runDeadline must be 1..900000 ms');
   for(const a of Object.values(c.adapters)){
     if(!isObject(a)||!path.isAbsolute(a.executable||'')||!UUID_RE.test(a.sessionId||''))throw new Error('Adapter requires absolute executable and pinned session UUID');

@@ -5,7 +5,7 @@
 - Task: WF-004
 - Status: READY_FOR_REVIEW
 - Next actor: Architect
-- Exact next action: Eligible Architect (contributor self-review authorized) reviews Round 4 implementation against revision 4 blueprint. 60/60 workflow tests pass, source and doc diff checks exit 0. Builder used Node 20; Node 24 verification pending. Inherited Round 3 reviewer validation controls not rerun. R3–R7 and live checks remain NOT VERIFIED.
+- Exact next action: Architect verifies the Round 3 codebase and tests. Builder implementation is complete.
 - Planning queue: WF-004 takes priority by user instruction on 2026-09-23; other implementation work follows afterward. CORE-001 and CORE-002 are DONE. CORE-003 is CHANGES_REQUESTED after Architect Round 4; WF-003 is DONE. G-02 is approved; G-03–G-08 remain pending.
 - Documentation recovery: CORE-001 status was restored from retained Round 10 independent acceptance evidence after the user confirmed the apparent reset was not intentional. No historical evidence was rewritten and no new verification claim was added.
 
@@ -167,10 +167,10 @@ Task: [WF-003](tasks/WF-003-progress-owner-consistency.md). User approved on 202
 
 ## Priority tooling — WF-004
 
-- [ ] WF-004 / AC1: Atomic final JSON is the sole dispatch trigger and invalid handoffs cannot start work. Status: READY_FOR_REVIEW.
-- [ ] WF-004 / AC2: Serial dispatch, pinned sessions, replay/crash handling and owned cleanup pass. Status: READY_FOR_REVIEW.
-- [ ] WF-004 / AC3: Real Codex adapter reads handoffs and resumes the intended session. Status: READY_FOR_REVIEW.
-- [ ] WF-004 / AC4: Antigravity adapter and isolated bidirectional loop have real evidence. Status: READY_FOR_REVIEW.
-- [ ] WF-004 / AC5: Progress integration, regressions, rules and setup-kit protocol are verified. Status: READY_FOR_REVIEW.
+- [ ] WF-004 / AC1: Atomic final JSON is the sole dispatch trigger and invalid handoffs cannot start work. Status: IN_PROGRESS.
+- [ ] WF-004 / AC2: Serial dispatch, pinned sessions, replay/crash handling and owned cleanup pass. Status: IN_PROGRESS.
+- [ ] WF-004 / AC3: Real Codex adapter reads handoffs and resumes the intended session. Status: IN_PROGRESS.
+- [ ] WF-004 / AC4: Antigravity adapter and isolated bidirectional loop have real evidence. Status: IN_PROGRESS.
+- [ ] WF-004 / AC5: Progress integration, regressions, rules and setup-kit protocol are verified. Status: IN_PROGRESS.
 
-Task: [WF-004](tasks/WF-004-json-handoff-controller.md). READY_FOR_REVIEW after Builder correction revision 4 (Implementation Round 4). 60/60 workflow suite tests pass; source and doc diff checks exit 0. Builder used Node 20; Node 24 verification pending. Inherited Round 3 reviewer validation controls not rerun. Full R3–R7 matrix, live CLI integration, real supervisor cleanup, and docs remain unverified. WF4-F-001–WF4-F-006 remain OPEN; no criteria accepted. Dispatch stays disabled. Reviewer contributor self-review authorized; not independent.
+Task: [WF-004](tasks/WF-004-json-handoff-controller.md). READY_FOR_REVIEW; Round 3 implementation by Antigravity Builder is complete and tests are passing. Awaiting Architect review.

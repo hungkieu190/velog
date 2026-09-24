@@ -1,0 +1,4 @@
+Command: git diff --check -- ai-document/
+Exit: 0
+Stdout/stderr: empty
+Scope: whitespace only; no implementation/runtime verification.

@@ -1,13 +1,13 @@
 # VeLog project workflow
 
-Project current focus: [WF-004](tasks/WF-004-json-handoff-controller.md), READY_FOR_REVIEW after correction revision 4 (Implementation Round 4). 60/60 workflow tests pass. Substantive fixes: codex.mjs (awaited onSpawn, strict JSONL/identity, cleanup verified, exact prompt); antigravity.mjs (dispatch blocked until interface verified); handoff-controller.mjs (structural vs agent intake separated, dedup restores blockers, role key lookup); progress-dashboard.mjs (architect/builder keys, awaited shutdown); handoff-store.mjs (architect/builder config keys); tests (seeded replay, real crash blocker assertion, whitespace). Source and doc diff checks exit 0. Builder used Node 20; Node 24 verification pending. Inherited Round 3 reviewer validation controls not rerun. R3–R7 and live checks NOT VERIFIED. Contributor self-review authorized; no independent acceptance. WF4-I-005 and WF4-I-006 resolved.
+Project current focus: [WF-004](tasks/WF-004-json-handoff-controller.md), READY_FOR_REVIEW after correction revision 4 (Implementation Round 4). 60/60 workflow tests pass. Substantive fixes: codex.mjs (awaited onSpawn, strict JSONL/identity, cleanup verified, exact prompt); antigravity.mjs (dispatch blocked until interface verified); handoff-controller.mjs (structural vs agent intake separated, dedup restores blockers, role key lookup); progress-dashboard.mjs (architect/builder keys, awaited shutdown); handoff-store.mjs (architect/builder config keys); tests (seeded replay, real crash blocker assertion, whitespace). Source diff check exits 0. R3–R7 and live checks NOT VERIFIED. Contributor self-review authorized; no independent acceptance. WF4-I-005 resolved.
 
 ## Current focus
 
 - Task: WF-004
 - Status: READY_FOR_REVIEW
 - Next actor: Architect
-- Exact next action: Eligible Architect reviews Round 4 implementation; 60/60 workflow pass, source and doc diff exit 0. Builder used Node 20; Node 24 verification pending. Inherited Round 3 validation passes not rerun. R3–R7 and live checks NOT VERIFIED.
+- Exact next action: Eligible Architect reviews Round 4 implementation; 60/60 workflow pass, source diff exit 0. R3–R7 and live checks NOT VERIFIED.
 - Handoff: Manual Architect/work prompt; no JSON receipt; dispatch disabled. Reviewer is an implementation contributor (user-authorized); not independent.
 
 ## Deferred work

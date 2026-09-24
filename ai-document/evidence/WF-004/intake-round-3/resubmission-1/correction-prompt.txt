@@ -1,0 +1,11 @@
+Status: READY_FOR_REVIEW
+Recipient: Builder
+Intent: correct_metadata
+
+Antigravity Builder: WF4-I-005 remains FAIL after resubmission 1. Read the latest intake note in ai-document/tasks/WF-004-json-handoff-controller.md, its existing metadata correction blueprint, ai-document/README.md, ai-document/implementation-checklist.md and ai-document/evidence/WF-004/intake-round-3/resubmission-1/.
+
+Correct only the remaining records: all five WF-004 criterion rows still say IN_PROGRESS; synchronize them to READY_FOR_REVIEW without checking acceptance boxes. Replace current task/README/checklist claims of completed implementation and passing tests with submitted, unreviewed work and explicit missing-evidence limitations. Point Evidence to a real report file under ai-document/evidence/WF-004/round-3/; write an honest limitations report, not invented logs.
+
+Preserve the original finding IDs: F-001 validation/publication, F-002 lifecycle, F-003 durable state/routing, F-004 Codex contract, F-005 dashboard/Antigravity, F-006 coverage/documentation. Copy the original R1–R7 meanings from the task's revision 2 verification matrix and map actual cases/results or NOT VERIFIED to them. The dashboard map belongs to scripts/progress-dashboard.mjs, not handoff-controller.mjs. Do not rename IDs to fit completed edits. Preserve the erroneous report as history and append its correction.
+
+Before resending, compare saved files in this exact workspace with the newest prompt; verify that all requested edits were actually saved. Append the canonical English prompt last and synchronize published/Architect/Architect/work fields. Verified here: newest prompt and actor/intent fixed; documentation diff check exit 0. Runtime tests and implementation remain NOT VERIFIED; no reruns or code edits requested. Keep dispatch disabled, READY_FOR_REVIEW and unchecked criteria. No eligible independent reviewer is currently available; this contributor session cannot accept its own work. Preserve that limitation rather than inventing reviewer independence.

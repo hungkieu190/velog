@@ -1,0 +1,3 @@
+# User-authorized contributor review — 2026-09-24
+
+The user explicitly requested this Codex session to review its own code and then confirmed permission, stating that their decision supersedes the earlier restriction. This is a bounded later user override for WF-004 review/decision, not a claim of independent review. The reviewer remains a recorded implementation contributor. No application/tool implementation edits, live dispatch, commits or publication are authorized by this review. The prior metadata correction WF4-I-005 is resolved; missing runtime evidence is now evaluated substantively. Acceptance depends on evidence, not the authority grant. Existing project-wide role assignments remain unchanged.

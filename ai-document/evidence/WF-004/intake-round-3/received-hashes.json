@@ -1,0 +1,7 @@
+{
+  "ai-document/tasks/WF-004-json-handoff-controller.md": "07bf8c7e750d326608eb8848f60854f24e278aa4f5b05dc05143c75b07857340",
+  "ai-document/README.md": "128d8d38740c681a58d09eb78a1ae07a7a421d36b45b09a9250894c46fe43c79",
+  "ai-document/implementation-checklist.md": "125ca66822521cb8384c9f0a8d25abbf842ab59d5458127b45b0d6a123dfd553",
+  "scripts/agent-adapters/codex.mjs": "54372f5358daf3c2067cad7ed7ac61b6953d844dd4a55ffe1cf6cff6dedbfbd4",
+  "tests/workflow/handoff-controller.test.mjs": "d221bc87ecb57870322ccd8a79f9af70d01c194f5a2a5d2d0da406212d0e4ff4"
+}
