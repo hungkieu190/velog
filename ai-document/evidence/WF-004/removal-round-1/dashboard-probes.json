@@ -1,0 +1,36 @@
+{
+  "port": 32947,
+  "node_version": "v24.21.0",
+  "checks": {
+    "GET /": {
+      "status": 200,
+      "hasHandoffMonitorSection": false
+    },
+    "HEAD /": {
+      "status": 200
+    },
+    "GET /api/progress": {
+      "status": 200,
+      "hasHandoffMonitorField": false
+    },
+    "GET /progress.css": {
+      "status": 200
+    },
+    "POST /": {
+      "status": 405
+    },
+    "GET /api/handoff": {
+      "status": 404
+    }
+  },
+  "sentinelAliveBefore": true,
+  "sentinelAliveDuring": true,
+  "sentinelAliveAfter": true,
+  "cacheAbsentBefore": true,
+  "cacheAbsentAfter": true,
+  "childProcessesCount": 0,
+  "serverExitCode": 0,
+  "portReleased": true,
+  "sentinelPid": 74869,
+  "serverSignal": null
+}

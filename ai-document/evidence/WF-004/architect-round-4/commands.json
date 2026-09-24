@@ -1,0 +1,19 @@
+{
+  "node": "v24.21.0",
+  "workflow": {
+    "command": "PATH=/home/ecommercelife/.nvm/versions/node/v24.21.0/bin:$PATH npm run test:workflow",
+    "tests": 60,
+    "pass": 60,
+    "fail": 0,
+    "skipped": 0
+  },
+  "probes": {
+    "exit": 0,
+    "meaning": "observations, not passing acceptance assertions"
+  },
+  "integration_probes": {
+    "exit": 0,
+    "meaning": "observations, not passing acceptance assertions"
+  },
+  "dispatch_enabled": false
+}

@@ -10,11 +10,11 @@
 
 Before writing any code, an AI agent MUST:
 
-- [ ] Read `AGENTS.md` completely.
+- [ ] Read or reference `AGENTS.md` instructions (loaded in context; verify once per session).
 - [ ] Pass the Mandatory incoming handoff validation in `ai-document/architect-builder-workflow.md` before starting work received from the partner. On FAIL, stop and return the documented correction prompt; resume only after a corrected handoff passes.
-- [ ] Follow the workflow's Handoff state and publication contract: validate the complete final snapshot, report all errors together, preserve history and identify the exact published receipt when tooling is available. Task status is distinct from the immediate handoff actor.
+- [ ] Follow the workflow's manual handoff contract: validate documents, keep task and checklist synchronized, and provide a copy-ready latest prompt. Task status is distinct from the immediate handoff actor.
 - [ ] Record the session's fixed Architect or Builder role and check task contributor history; never hold both roles or propose switching to self-accept.
-- [ ] Read the relevant rule file(s) in `rules/`.
+- [ ] Read relevant rule file(s) in `rules/` applicable to the affected scope.
 - [ ] Inspect the actual file structure — never assume.
 - [ ] Identify the feature plan in `ai-document/product-inputs/` if applicable.
 - [ ] Understand the full impact of the change.

@@ -619,12 +619,6 @@ Track authoritative sources, scripts/configuration, npm/Composer lockfiles, prod
 
 Do not treat a source checkout as an installable distribution until its autoload/dependencies are installed. Test the actual ZIP independently. Do not count an echo/TODO lint command as a passing quality gate. Only the independent Architect can accept the bounded bootstrap task after inspecting scripts, package contents, failure behavior and real installation evidence; completion of this tooling does not approve or complete the product MVP.
 
-## Final handoff validation integration
+## Manual handoff workflow integration
 
-For a requested handoff controller, follow the installed Architect/Builder workflow's Handoff state and publication contract. Do not build an unsolicited controller during ordinary project setup.
-
-Use one shared read-only validator for the CLI preflight, publisher and dispatcher. Aggregate field-level errors, identify the exact receipt/snapshot, reject an invalid newest prompt instead of falling back, and keep intake correction ownership separate from product-task status. A validator PASS proves the checked structural conditions only, not product correctness.
-
-Verification must include: a valid fixture; invalid newest heading/block with a valid older prompt; contradictory current metadata; stale hashes after a successful check; rejected publication preserving the previous signal bytes; duplicate delivery; same rejected receipt replay; correction routed to sender without changing task status; crash and restart; and an unchanged-invalid receipt stopping after the retry limit. Inner validation exits are 0 valid, 1 content invalid, 2 command/environment failure; outer regression gates pass only for the expected cause and state. Preserve raw results and owned-resource cleanup. Use stub processes before actual CLI integration.
-
-No local rule or JSON file alone proves an agent was awakened or its rules loaded. Verify actual receipt, workspace, role and pinned session during isolated integration. Initialize dispatch disabled until independent acceptance and explicit activation. Do not describe a draft command as implemented or a stub as a live agent loop.
+Cross-agent handoffs between Architect and Builder are conducted manually via synchronized task documents and copy-ready chat prompts. Automated background dispatch, JSON signal polling, and receipt generation are retired. Follow the manual handoff workflow: finish work and logs, update task metadata and checklist, provide the latest English prompt under `### Chat handoff prompt`, and validate intake manually before starting received work.

@@ -31,33 +31,15 @@ Read AGENTS.md, ai-document/product-plan.md, ai-document/decisions.md, ai-docume
 ## Verification instructions
 Compare the plan against repository facts and all four drafts. Review cross-feature consistency and trace each phase to product outcomes. User approval must be an actual recorded response; do not infer it from approval of tooling. Round 2 records the current proposal and verification state; no criterion is accepted until its required review/approval is recorded.
 
-## Planning report — Round 1 (Architect)
-Recorded the missing planning prerequisite and corrected project focus. A completed master plan has not been authored or approved. WF-001 acceptance and historical test evidence remain unchanged.
+## History and archives
 
-### Chat handoff prompt
+- Full task history, rounds 1–2 planning reports, and earlier prompts are archived verbatim at: [ai-document/history/PLAN-001/pre-lean.md](../history/PLAN-001/pre-lean.md) (SHA-256: `6557f201e630ba5811d19a87d4a2fc1b8aa72e9c9a014bad070cd6817a8b289a`).
 
-```text
-Act as Architect. Read AGENTS.md, ai-document/product-plan.md, ai-document/implementation-checklist.md, ai-document/tasks/PLAN-001-master-plan.md and the four feature drafts under ai-document/product-inputs/. WF-001 is DONE for tooling only; PLAN-001 is DRAFT and the product has no approved master plan or MVP. Next: consolidate the drafts into a proposed master plan covering users, end-to-end flows, data/permissions, MVP boundaries, dependencies, milestones and acceptance criteria. List unresolved product decisions for the user and obtain explicit approval before creating READY feature implementation tasks. Prior tooling checks passed; product behavior and master-plan acceptance are NOT VERIFIED. Do not treat bootstrap completion as product completion, invent approved business rules, implement features, commit or deploy.
-```
+## Planning summary — Rounds 1 & 2 (Architect, 2026-09-18)
 
-## Planning report — Round 2 (Architect, 2026-09-18)
+- **Round 1**: Identified missing planning prerequisite and corrected focus.
+- **Round 2**: Authored proposed master-plan revision 2 covering goals, actors, journeys, data/permissions, and P-001–P-006 pending decisions. PLAN-F-001–PLAN-F-005 identified.
 
-- Authorization: user requested returning to the main work and starting the Architect process. Scope is repository inspection and a proposed plan; no product decision approval inferred.
-- Read all four feature drafts, current product/workflow documents, Core runtime, uninstall behavior and existing PHP tests. Created proposed master-plan revision 2 and P-001–P-006 pending decisions.
-- AC1: Proposed goals, actors, journeys, data/permissions and MVP boundary are documented; user review pending. AC2: Dependency-ordered P0–P6 phases and acceptance gates are documented; detailed Builder tasks are intentionally gated by approval. AC3: NOT VERIFIED — explicit product approval missing. No acceptance checkboxes changed.
-- PLAN-F-001: Draft public/shareable passport conflicts with private CPT design. Proposed disposition: private MVP; sharing deferred, pending P-001.
-- PLAN-F-002: Draft authenticated reads and upload capabilities do not define a coherent technician/manager authorization policy. Proposed disposition: P-002 and P0 permission matrix.
-- PLAN-F-003: Photo storage/EXIF draft lacks protected-delivery and privacy decisions. Proposed disposition: photos deferred to P5, pending P-001.
-- PLAN-F-004: Static bootstrap path does not call Plugin::run(); Loader callbacks are therefore not wired by the inspected entry path. Verify and correct within approved P0 scope; runtime reproduction NOT VERIFIED.
-- PLAN-F-005: Draft reminder intervals/email and cost floats need explicit lifecycle and representation decisions. Proposed disposition: P-004/P-006; threshold-only internal MVP and fixed-precision cost.
-- Verification: repository/source and draft comparison completed. Product tests, live WordPress reproduction, performance, manual acceptance and approval remain NOT VERIFIED. No runtime code changed or tests claimed.
-- Decision: retain DRAFT; User is next. WF-001 stays DONE and PLAN-001 checklist criteria remain unchecked until acceptance.
-
-### Chat handoff prompt
-
-```text
-Act as Architect for PLAN-001, DRAFT, revision 2. Read AGENTS.md, ai-document/product-plan.md, ai-document/decisions.md, ai-document/implementation-checklist.md, ai-document/tasks/PLAN-001-master-plan.md and ai-document/product-inputs/{vehicle-passport,service-timeline,photo-checkin,maintenance-reminder}.md. Proposed scope: one-shop private admin MVP for customer/vehicle records, service history and internal maintenance thresholds; photos, public sharing, exports and email are deferred pending user approval. Repository and draft inspection are complete; PLAN-F-001–PLAN-F-005 and P-001–P-006 record gaps and proposed decisions. Product runtime tests, bootstrap reproduction, performance, manual acceptance and product approval are NOT VERIFIED. Next: obtain the user's approval or revisions for P-001–P-006, record exact decisions, then prepare bounded implementation tasks with permissions, validation and verification criteria. Do not infer approval, mark PLAN-001 DONE, issue READY feature work, implement application code, commit or deploy before the required approval. Preserve the existing manual-consolidation changes and WF-001 history.
-```
 
 ## Final acceptance — Round 3 (Architect, 2026-09-18)
 

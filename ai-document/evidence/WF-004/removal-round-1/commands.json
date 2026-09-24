@@ -1,0 +1,58 @@
+{
+  "round": "removal-round-1",
+  "task": "WF-004",
+  "role": "Builder",
+  "date": "2026-09-24",
+  "node_version": "v24.21.0 (/home/ecommercelife/.nvm/versions/node/v24.21.0/bin/node)",
+  "npm_version": "11.19.0",
+  "commands": [
+    {
+      "cmd": "rm -f scripts/handoff-controller.mjs scripts/handoff-protocol.mjs scripts/handoff-store.mjs scripts/publish-handoff.mjs scripts/validate-handoff.mjs scripts/agent-adapters/codex.mjs scripts/agent-adapters/antigravity.mjs ai-document/handoff-signal.json tests/workflow/handoff-controller.test.mjs tests/workflow/handoff-round3.test.mjs tests/workflow/handoff-fixtures.mjs && rmdir scripts/agent-adapters",
+      "exit": 0,
+      "result": "Deleted 11 exclusive WF-004 files and removed scripts/agent-adapters/ directory"
+    },
+    {
+      "cmd": "grep -rnE \"handoff-controller|handoff-protocol|handoff-store|agent-adapters|publish-handoff|validate-handoff|handoff-signal|handoffMonitor|/api/handoff\" scripts/ package.json",
+      "exit": 1,
+      "result": "Zero active/executable references in scripts/ and package.json"
+    },
+    {
+      "cmd": "grep -rnE \"handoff-controller|handoff-protocol|handoff-store|agent-adapters|publish-handoff|validate-handoff|handoff-signal|handoffMonitor|/api/handoff\" tests/",
+      "exit": 1,
+      "result": "Zero references in remaining tests/"
+    },
+    {
+      "cmd": "grep -rnE \"handoff-controller|handoff-protocol|handoff-store|agent-adapters|publish-handoff|validate-handoff|handoff-signal|handoffMonitor|/api/handoff\" rules/ set-up-new/",
+      "exit": 1,
+      "result": "Zero references in rules/ and set-up-new/"
+    },
+    {
+      "cmd": "PATH=\"/home/ecommercelife/.nvm/versions/node/v24.21.0/bin:$PATH\" npm run test:workflow",
+      "exit": 0,
+      "result": "20 pass, 0 fail (under Node v24.21.0, 54.3s duration)"
+    },
+    {
+      "cmd": "git diff --check",
+      "exit": 0,
+      "result": "No trailing whitespace or conflict markers"
+    },
+    {
+      "cmd": "/home/ecommercelife/.nvm/versions/node/v24.21.0/bin/node scratch/test-rm3.mjs",
+      "exit": 0,
+      "result": "Disposable dashboard on ephemeral port 32947 passed all probes (GET/HEAD 200, POST 405, /api/handoff 404, no Handoff Monitor HTML, no .cache/handoff created, clean SIGTERM exit 0, port released, sentinel unharmed)"
+    }
+  ],
+  "verification_matrix": {
+    "RM1": "PASS (exclusive files removed, directory removed, 0 active operational references found by grep)",
+    "RM2": "PASS (Node 24 npm run test:workflow passes 20/20, git diff --check exit 0)",
+    "RM3": "PASS (owned disposable dashboard runs without controller state, passes GET/HEAD/POST/404 checks, no monitor HTML, clean SIGTERM exit 0, sentinel process unharmed)",
+    "RM4": "PASS (active rules and setup-kit prescribe manual handoffs, roles and product code preserved, diff strictly scoped)"
+  },
+  "original_criteria": {
+    "AC1": "ABANDONED (by explicit user direction on 2026-09-24)",
+    "AC2": "ABANDONED (by explicit user direction on 2026-09-24)",
+    "AC3": "ABANDONED (by explicit user direction on 2026-09-24)",
+    "AC4": "ABANDONED (by explicit user direction on 2026-09-24)",
+    "AC5": "ABANDONED (by explicit user direction on 2026-09-24)"
+  }
+}

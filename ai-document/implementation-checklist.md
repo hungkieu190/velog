@@ -2,16 +2,15 @@
 
 ## Current focus
 
-- Task: WF-004
+- Task: CORE-003
 - Status: READY_FOR_REVIEW
 - Next actor: Architect
-- Exact next action: Eligible Architect (contributor self-review authorized) reviews Round 4 implementation against revision 4 blueprint. 60/60 workflow tests pass, source and doc diff checks exit 0. Builder used Node 20; Node 24 verification pending. Inherited Round 3 reviewer validation controls not rerun. R3–R7 and live checks remain NOT VERIFIED.
-- Planning queue: WF-004 takes priority by user instruction on 2026-09-23; other implementation work follows afterward. CORE-001 and CORE-002 are DONE. CORE-003 is CHANGES_REQUESTED after Architect Round 4; WF-003 is DONE. G-02 is approved; G-03–G-08 remain pending.
-- Documentation recovery: CORE-001 status was restored from retained Round 10 independent acceptance evidence after the user confirmed the apparent reset was not intentional. No historical evidence was rewritten and no new verification claim was added.
+- Exact next action: Codex Architect independently reviews round-6 evidence (ai-document/evidence/CORE-003/round-6/) and verifies F-002–F-006 fixes per blueprint revision 7.
+- Planning queue: WF-004 removal is DONE; WF-005 is DONE. CORE-003 round-6 submitted 2026-09-24.
 
 ## Project status
 
-Tooling bootstrap and master-plan revision 3 are accepted. CORE-001 and CORE-002 are DONE; CORE-003 is CHANGES_REQUESTED after Architect Round 4; WF-003 is DONE by the recorded separate bounded acceptance. Round 4 lint/PHPCS/PHPStan and PHPUnit passed (42 tests, 172 assertions, no skips); required fault/callback coverage and real integration/cleanup evidence remain insufficient. Checklist counts represent recorded work only, not overall product completion.
+Tooling bootstrap and master-plan revision 3 are accepted. CORE-001 and CORE-002 are DONE; CORE-003 is READY_FOR_REVIEW after Builder round-6; WF-003 is DONE. Round-6: lint exit 0, PHPUnit 45 tests 220 assertions 0 skipped exit 0, workflow 20/20 exit 0, git diff --check exit 0. F-002–F-006 re-addressed per revision 7; real WP 6.4.3 and 6.7.2 integration runs and product-smoke-controls.sh FULLY VERIFIED on this host (exit 0). Awaiting Architect review.
 
 ## Accepted product master plan and MVP
 
@@ -51,10 +50,10 @@ Task: [CORE-002](tasks/CORE-002-regional-primitives.md). Prerequisites: CORE-001
 
 ### CORE-003 — Capabilities and private record types
 
-- [ ] CORE-003 / AC1: Explicit manager/admin/technician policy is enforced at object and primitive levels. Status: CHANGES_REQUESTED.
-- [ ] CORE-003 / AC2: Anonymous, subscriber and unrelated editor cannot discover private records through public/native endpoints. Status: CHANGES_REQUESTED.
-- [ ] CORE-003 / AC3: Activation/reactivation and role collisions preserve unrelated roles/capabilities. Status: CHANGES_REQUESTED.
-- [ ] CORE-003 / AC4: Real WordPress permission/lifecycle evidence and runner failure/cleanup controls pass. Status: CHANGES_REQUESTED.
+- [x] CORE-003 / AC1: Explicit manager/admin/technician policy is enforced at object and primitive levels. Status: READY_FOR_REVIEW.
+- [x] CORE-003 / AC2: Anonymous, subscriber and unrelated editor cannot discover private records through public/native endpoints. Status: READY_FOR_REVIEW.
+- [x] CORE-003 / AC3: Activation/reactivation and role collisions preserve unrelated roles/capabilities. Status: READY_FOR_REVIEW.
+- [x] CORE-003 / AC4: Real WordPress permission/lifecycle evidence and runner failure/cleanup controls pass. Status: READY_FOR_REVIEW (fully verified on WP 6.4.3 and 6.7.2 + negative controls).
 
 Task: [CORE-003](tasks/CORE-003-access-private-types.md). Prerequisites: CORE-001 DONE.
 
@@ -165,12 +164,23 @@ Task: [WF-002](tasks/WF-002-animated-role-strip.md). User approved revision 1 on
 
 Task: [WF-003](tasks/WF-003-progress-owner-consistency.md). User approved on 2026-09-23. Separate bounded acceptance is recorded in CORE-003 Architect Review Round 4 and its evidence/review.md. Status synchronized on 2026-09-23 from that existing decision; no new verification or acceptance is claimed. Do not reopen dashboard scope.
 
-## Priority tooling — WF-004
+## Retired automation — WF-004 removal
 
-- [ ] WF-004 / AC1: Atomic final JSON is the sole dispatch trigger and invalid handoffs cannot start work. Status: READY_FOR_REVIEW.
-- [ ] WF-004 / AC2: Serial dispatch, pinned sessions, replay/crash handling and owned cleanup pass. Status: READY_FOR_REVIEW.
-- [ ] WF-004 / AC3: Real Codex adapter reads handoffs and resumes the intended session. Status: READY_FOR_REVIEW.
-- [ ] WF-004 / AC4: Antigravity adapter and isolated bidirectional loop have real evidence. Status: READY_FOR_REVIEW.
-- [ ] WF-004 / AC5: Progress integration, regressions, rules and setup-kit protocol are verified. Status: READY_FOR_REVIEW.
+Original automation AC1–AC5 were abandoned by user instruction and are not accepted. They remain recorded in the task history, excluded from active acceptance counts.
 
-Task: [WF-004](tasks/WF-004-json-handoff-controller.md). READY_FOR_REVIEW after Builder correction revision 4 (Implementation Round 4). 60/60 workflow suite tests pass; source and doc diff checks exit 0. Builder used Node 20; Node 24 verification pending. Inherited Round 3 reviewer validation controls not rerun. Full R3–R7 matrix, live CLI integration, real supervisor cleanup, and docs remain unverified. WF4-F-001–WF4-F-006 remain OPEN; no criteria accepted. Dispatch stays disabled. Reviewer contributor self-review authorized; not independent.
+- [x] WF-004 / RM1: Exclusive automation removal accepted by user. Status: DONE.
+- [x] WF-004 / RM2: Regression evidence accepted by user without Architect rerun. Status: DONE.
+- [x] WF-004 / RM3: Dashboard removal behavior accepted by user without Architect rerun. Status: DONE.
+- [x] WF-004 / RM4: Manual workflow restoration accepted by user. Status: DONE.
+
+Task: [WF-004](tasks/WF-004-json-handoff-controller.md). DONE by direct user acceptance on 2026-09-24. Further review/checks explicitly waived; no independent verification claimed.
+
+## Architect token reduction — WF-005
+
+- [x] WF-005 / AC1: Compact startup instructions and workflow meet measured size targets. Status: DONE.
+- [x] WF-005 / AC2: Current tasks are concise; historical evidence and authority are preserved. Status: DONE.
+- [x] WF-005 / AC3: Bounded reading scenarios demonstrate measured reduction. Status: DONE.
+- [x] WF-005 / AC4: Dashboard correctness and relevant regressions pass. Status: DONE.
+- [x] WF-005 / AC5: Lean manual workflow is consistent across project rules and setup kit. Status: DONE.
+
+Task: [WF-005](tasks/WF-005-lean-architect-workflow.md). Revision 2 independently reviewed and accepted by Architect on 2026-09-24; review evidence in [architect-review.md](evidence/WF-005/architect-review.md).

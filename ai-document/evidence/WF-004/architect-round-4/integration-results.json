@@ -1,0 +1,50 @@
+{
+  "results": [
+    {
+      "name": "agent-intake-failure-not-journaled",
+      "journalIntake": "FAIL",
+      "agentIntake": "FAIL",
+      "status": "failed",
+      "correction": {
+        "published": true,
+        "launches": 0,
+        "blocker": "Parent run d888f067-4aff-44d1-9f75-79d7cca7083d has no verified completion/cleanup and matching successor"
+      }
+    },
+    {
+      "name": "rejected-receipt-next-poll",
+      "firstBlock": "Intake rejected; metadata correction required. SNAPSHOT ai-document/tasks/TEST-001-fixture.md sha256: \"2b48b741fbc4b6fc979759982421510f3941fcb1df2fa25ac798647cbd4eed76\"; expected 080092d3ec28fe954d3979b189e8ff110410e3ce445974b4bdb8b4912f9fd901; HASH ai-document/handoff-signal.json documents: \"Hash mismatch for ai-document/tasks/TEST-001-fixture.md\"; expected unchanged snapshot",
+      "secondBlock": "Unresolved prior run (rejected) for receipt 6b8e97a7-9996-4574-ae9e-a08ca7482ed4: [object Object]; [object Object]",
+      "pending": null
+    },
+    {
+      "name": "actual-dashboard-entrypoint",
+      "get": 200,
+      "head": 200,
+      "post": 405,
+      "monitor": {
+        "mode": "dispatch",
+        "lastPoll": "2026-09-24T06:42:05.143Z",
+        "lastReceiptId": null,
+        "pendingReceipt": {
+          "id": "8e2e3853-59b5-49d6-a497-0a6c823d7e4f",
+          "taskId": "TEST-001",
+          "status": "READY",
+          "target": "builder"
+        },
+        "currentRun": null,
+        "dispatchCount": 0,
+        "correctionCount": 0,
+        "errors": [],
+        "blocked": "Antigravity executable found at /home/ecommercelife/.nvm/versions/node/v24.21.0/bin/node but its CLI interface is not verified. Dispatch is blocked until interface verification is complete. This is not a missing-binary error."
+      },
+      "blockerVisibleInHtml": true,
+      "ledgerExists": false,
+      "exit": 0,
+      "signal": null
+    }
+  ],
+  "cleanup": {
+    "fixtureDirectoriesRemoved": 3
+  }
+}

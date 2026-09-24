@@ -1,0 +1,340 @@
+{
+  "timestamp": "2026-09-24T07:57:45.206Z",
+  "coreResults": {
+    "AGENTS.md": {
+      "path": "AGENTS.md",
+      "chars": 3439,
+      "bytes": 3439,
+      "target": 5000,
+      "pass": true
+    },
+    "architect-builder-workflow.md": {
+      "path": "ai-document/architect-builder-workflow.md",
+      "chars": 5620,
+      "bytes": 5622,
+      "target": 10000,
+      "pass": true
+    },
+    "README.md": {
+      "path": "ai-document/README.md",
+      "chars": 1437,
+      "bytes": 1437,
+      "target": 2000,
+      "pass": true
+    },
+    "ai-agent.md": {
+      "path": "rules/ai-agent.md",
+      "chars": 4458,
+      "bytes": 4535,
+      "target": null,
+      "pass": true
+    },
+    "01-architect-builder-workflow.md": {
+      "path": "set-up-new/01-architect-builder-workflow.md",
+      "chars": 5620,
+      "bytes": 5622,
+      "target": 10000,
+      "pass": true
+    },
+    "02-source-build-release-workflow.md": {
+      "path": "set-up-new/02-source-build-release-workflow.md",
+      "chars": 29688,
+      "bytes": 29688,
+      "target": null,
+      "pass": true
+    }
+  },
+  "taskResults": {
+    "CORE-001-bootstrap-i18n.md": {
+      "chars": 3566,
+      "bytes": 3572,
+      "target": 12000,
+      "pass": true,
+      "promptCount": 1
+    },
+    "CORE-002-regional-primitives.md": {
+      "chars": 3628,
+      "bytes": 3642,
+      "target": 12000,
+      "pass": true,
+      "promptCount": 1
+    },
+    "CORE-003-access-private-types.md": {
+      "chars": 4544,
+      "bytes": 4554,
+      "target": 12000,
+      "pass": true,
+      "promptCount": 1
+    },
+    "CORE-004-regional-settings.md": {
+      "chars": 11303,
+      "bytes": 11315,
+      "target": 12000,
+      "pass": true,
+      "promptCount": 1
+    },
+    "CUST-001-customer-records.md": {
+      "chars": 11057,
+      "bytes": 11071,
+      "target": 12000,
+      "pass": true,
+      "promptCount": 1
+    },
+    "DATA-001-record-storage.md": {
+      "chars": 5384,
+      "bytes": 5392,
+      "target": 12000,
+      "pass": true,
+      "promptCount": 1
+    },
+    "HIST-001-service-timeline.md": {
+      "chars": 11604,
+      "bytes": 11616,
+      "target": 12000,
+      "pass": true,
+      "promptCount": 1
+    },
+    "MVP-001-acceptance-package.md": {
+      "chars": 5033,
+      "bytes": 5041,
+      "target": 12000,
+      "pass": true,
+      "promptCount": 1
+    },
+    "PLAN-001-master-plan.md": {
+      "chars": 6211,
+      "bytes": 6252,
+      "target": 12000,
+      "pass": true,
+      "promptCount": 1
+    },
+    "PLAN-002-mvp-task-batch.md": {
+      "chars": 5909,
+      "bytes": 5925,
+      "target": 12000,
+      "pass": true,
+      "promptCount": 1
+    },
+    "REM-001-maintenance-queue.md": {
+      "chars": 11952,
+      "bytes": 11966,
+      "target": 12000,
+      "pass": true,
+      "promptCount": 1
+    },
+    "SERV-001-service-workflow.md": {
+      "chars": 5317,
+      "bytes": 5327,
+      "target": 12000,
+      "pass": true,
+      "promptCount": 1
+    },
+    "TOOL-001-regression-hardening.md": {
+      "chars": 3045,
+      "bytes": 3047,
+      "target": 12000,
+      "pass": true,
+      "promptCount": 1
+    },
+    "VEH-001-vehicle-records.md": {
+      "chars": 5306,
+      "bytes": 5314,
+      "target": 12000,
+      "pass": true,
+      "promptCount": 1
+    },
+    "WF-001-workflow-bootstrap.md": {
+      "chars": 3874,
+      "bytes": 3894,
+      "target": 12000,
+      "pass": true,
+      "promptCount": 1
+    },
+    "WF-002-animated-role-strip.md": {
+      "chars": 2977,
+      "bytes": 2987,
+      "target": 12000,
+      "pass": true,
+      "promptCount": 1
+    },
+    "WF-003-progress-owner-consistency.md": {
+      "chars": 3563,
+      "bytes": 3571,
+      "target": 12000,
+      "pass": true,
+      "promptCount": 1
+    },
+    "WF-004-json-handoff-controller.md": {
+      "chars": 4112,
+      "bytes": 4132,
+      "target": 12000,
+      "pass": true,
+      "promptCount": 1
+    },
+    "WF-005-lean-architect-workflow.md": {
+      "chars": 6439,
+      "bytes": 6445,
+      "target": 12000,
+      "pass": true,
+      "promptCount": 1
+    }
+  },
+  "archiveVerification": [
+    {
+      "taskId": "CORE-001",
+      "archivePath": "ai-document/history/CORE-001/pre-lean.md",
+      "exists": true,
+      "expectedHash": "e946a5dcf07cf75cc7cd675e4a7f09617ea2abc0449eb1a4886b4b0c83b4bc7e",
+      "actualHash": "e946a5dcf07cf75cc7cd675e4a7f09617ea2abc0449eb1a4886b4b0c83b4bc7e",
+      "hashMatch": true,
+      "originalChars": 77664,
+      "archiveChars": 77664
+    },
+    {
+      "taskId": "CORE-002",
+      "archivePath": "ai-document/history/CORE-002/pre-lean.md",
+      "exists": true,
+      "expectedHash": "df3d27f982ac497a0ee8b45a36a7764e142a26e9d296602afb614b46845e30da",
+      "actualHash": "df3d27f982ac497a0ee8b45a36a7764e142a26e9d296602afb614b46845e30da",
+      "hashMatch": true,
+      "originalChars": 37641,
+      "archiveChars": 37641
+    },
+    {
+      "taskId": "CORE-003",
+      "archivePath": "ai-document/history/CORE-003/pre-lean.md",
+      "exists": true,
+      "expectedHash": "f8b68d3192ff11d7c179fef5d5a3a18d466615a4fe13cf2eb31fdcedbf611ddc",
+      "actualHash": "f8b68d3192ff11d7c179fef5d5a3a18d466615a4fe13cf2eb31fdcedbf611ddc",
+      "hashMatch": true,
+      "originalChars": 75758,
+      "archiveChars": 75758
+    },
+    {
+      "taskId": "DATA-001",
+      "archivePath": "ai-document/history/DATA-001/pre-lean.md",
+      "exists": true,
+      "expectedHash": "692d61a1c9f298c847139941d2115b4d70670f8108843044f96ee1f4eb692674",
+      "actualHash": "692d61a1c9f298c847139941d2115b4d70670f8108843044f96ee1f4eb692674",
+      "hashMatch": true,
+      "originalChars": 13138,
+      "archiveChars": 13138
+    },
+    {
+      "taskId": "MVP-001",
+      "archivePath": "ai-document/history/MVP-001/pre-lean.md",
+      "exists": true,
+      "expectedHash": "8f9a5a9b9d032b431e302da104f1844422c5a09039adfd107c149258ec615515",
+      "actualHash": "8f9a5a9b9d032b431e302da104f1844422c5a09039adfd107c149258ec615515",
+      "hashMatch": true,
+      "originalChars": 12638,
+      "archiveChars": 12638
+    },
+    {
+      "taskId": "PLAN-001",
+      "archivePath": "ai-document/history/PLAN-001/pre-lean.md",
+      "exists": true,
+      "expectedHash": "6557f201e630ba5811d19a87d4a2fc1b8aa72e9c9a014bad070cd6817a8b289a",
+      "actualHash": "6557f201e630ba5811d19a87d4a2fc1b8aa72e9c9a014bad070cd6817a8b289a",
+      "hashMatch": true,
+      "originalChars": 9933,
+      "archiveChars": 9933
+    },
+    {
+      "taskId": "PLAN-002",
+      "archivePath": "ai-document/history/PLAN-002/pre-lean.md",
+      "exists": true,
+      "expectedHash": "d75b354f3c04fd54310d8f395313ace05ea78e727aa1ed67dfbdc37e365b26a5",
+      "actualHash": "d75b354f3c04fd54310d8f395313ace05ea78e727aa1ed67dfbdc37e365b26a5",
+      "hashMatch": true,
+      "originalChars": 19632,
+      "archiveChars": 19632
+    },
+    {
+      "taskId": "SERV-001",
+      "archivePath": "ai-document/history/SERV-001/pre-lean.md",
+      "exists": true,
+      "expectedHash": "f38e7598362a3ba89038b5c6a9ca928dc7e251a4a7d6ddb0a759d3c381a81ab6",
+      "actualHash": "f38e7598362a3ba89038b5c6a9ca928dc7e251a4a7d6ddb0a759d3c381a81ab6",
+      "hashMatch": true,
+      "originalChars": 13042,
+      "archiveChars": 13042
+    },
+    {
+      "taskId": "VEH-001",
+      "archivePath": "ai-document/history/VEH-001/pre-lean.md",
+      "exists": true,
+      "expectedHash": "9c70532bffa41123f7e11b9d8d8cf7e525713ceed9aa0b39098437728dce3b44",
+      "actualHash": "9c70532bffa41123f7e11b9d8d8cf7e525713ceed9aa0b39098437728dce3b44",
+      "hashMatch": true,
+      "originalChars": 12160,
+      "archiveChars": 12160
+    },
+    {
+      "taskId": "WF-001",
+      "archivePath": "ai-document/history/WF-001/pre-lean.md",
+      "exists": true,
+      "expectedHash": "a50ca9f7391341e68c3f05100808d330c376b7428c748ecebce08b6b2273ef3f",
+      "actualHash": "a50ca9f7391341e68c3f05100808d330c376b7428c748ecebce08b6b2273ef3f",
+      "hashMatch": true,
+      "originalChars": 22323,
+      "archiveChars": 22323
+    },
+    {
+      "taskId": "WF-002",
+      "archivePath": "ai-document/history/WF-002/pre-lean.md",
+      "exists": true,
+      "expectedHash": "0bf819d5c377015733e8bfebc780c22f0c9a39eebfd9dd894def049d8a718fe7",
+      "actualHash": "0bf819d5c377015733e8bfebc780c22f0c9a39eebfd9dd894def049d8a718fe7",
+      "hashMatch": true,
+      "originalChars": 17461,
+      "archiveChars": 17461
+    },
+    {
+      "taskId": "WF-003",
+      "archivePath": "ai-document/history/WF-003/pre-lean.md",
+      "exists": true,
+      "expectedHash": "fcc337bc2eb3091dc39e255d328157ec3b678a6eac11818229573f9804c3dc86",
+      "actualHash": "fcc337bc2eb3091dc39e255d328157ec3b678a6eac11818229573f9804c3dc86",
+      "hashMatch": true,
+      "originalChars": 24901,
+      "archiveChars": 24901
+    },
+    {
+      "taskId": "WF-004",
+      "archivePath": "ai-document/history/WF-004/pre-lean.md",
+      "exists": true,
+      "expectedHash": "d987fc87cb2c6967735d3ca240eddb3d8b421f398325276030523bfa39c9e27f",
+      "actualHash": "d987fc87cb2c6967735d3ca240eddb3d8b421f398325276030523bfa39c9e27f",
+      "hashMatch": true,
+      "originalChars": 176305,
+      "archiveChars": 176305
+    },
+    {
+      "taskId": "WF-005",
+      "archivePath": "ai-document/history/WF-005/pre-lean.md",
+      "exists": true,
+      "expectedHash": "26ce65456165451ecd3bef87dfac59f0bf9c4c11b4347add9cea4cc1966a9f97",
+      "actualHash": "26ce65456165451ecd3bef87dfac59f0bf9c4c11b4347add9cea4cc1966a9f97",
+      "hashMatch": true,
+      "originalChars": 16850,
+      "archiveChars": 16850
+    }
+  ],
+  "readingScenarios": {
+    "baselineStartup": {
+      "agents": 18708,
+      "checklist": 13929,
+      "taskFull": 75758,
+      "total": 108395
+    },
+    "leanStartup": {
+      "agents": 3439,
+      "checklistFocus": 499,
+      "taskHandoff": 1018,
+      "total": 4956,
+      "reductionChars": 103439,
+      "reductionPercent": "95.43%"
+    }
+  }
+}

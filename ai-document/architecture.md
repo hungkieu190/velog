@@ -35,10 +35,11 @@ The `MF\VeLog\Common\Regional` namespace provides pure PHP helpers for distance,
 
 ## Capability and Private Types (CORE-003)
 
-The `MF\VeLog\Core\Capabilities` namespace provides the strict schema definitions and persistence implementation for VeLog roles and types.
-- **Table/Context**: The plugin leverages standard WordPress `$wpdb->options` (specifically the `wp_roles` payload) but uses deep transactional verification (`get_option_snapshot` + direct schema evaluation).
+The `MF\VeLog\Core\Capabilities` class owns strict schema definitions and persistence for VeLog roles and capabilities.
+- **Table/Context**: The plugin leverages standard WordPress `$wpdb->options` (specifically the `wp_user_roles` payload) but uses deep transactional verification (`get_option_snapshot` + direct schema evaluation).
 - **Lifecycle Contract**: Activation triggers capability install. A missing database read, serialization mismatch, or failed option rollback immediately aborts activation and restores exact rows with cache invalidation (`alloptions`, `notoptions`, and the specific option key).
-- **Context Enforcement**: `AccessPolicy` guarantees that private service reads/mutations are strictly filtered to `vehicle_visible`, preventing leakages through search, feeds, or REST without the `mf_velog_manage_customers` capability.
+- **Private CPT Enforcement**: Record types (`mf_velog_customer`, `mf_velog_vehicle`, `mf_velog_service`, `mf_velog_reminder`) are registered with `public => false`, `publicly_queryable => false`, and `show_in_rest => false`. This prevents exposure via search, feeds, sitemaps, REST, and direct permalink lookup for all actors. Capability checks (`edit_post => do_not_allow`) are applied at registration level to enforce native WordPress access control.
+- **AccessPolicy**: `MF\VeLog\Common\AccessPolicy` is a callable authorization service that evaluates action/type/state/author context for application-level decisions. It is not a search, feed, or REST hook; it enforces business-level read/mutation rules on top of the WordPress capability layer.
 
 ## Dashboard and Workflow Parser (WF-003)
 

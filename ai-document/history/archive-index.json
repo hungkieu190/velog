@@ -1,0 +1,192 @@
+[
+  {
+    "taskId": "CORE-001",
+    "fileName": "CORE-001-bootstrap-i18n.md",
+    "originalPath": "ai-document/tasks/CORE-001-bootstrap-i18n.md",
+    "charCount": 77664,
+    "byteCount": 77817,
+    "sha256": "e946a5dcf07cf75cc7cd675e4a7f09617ea2abc0449eb1a4886b4b0c83b4bc7e",
+    "archived": true,
+    "archivePath": "ai-document/history/CORE-001/pre-lean.md"
+  },
+  {
+    "taskId": "CORE-002",
+    "fileName": "CORE-002-regional-primitives.md",
+    "originalPath": "ai-document/tasks/CORE-002-regional-primitives.md",
+    "charCount": 37641,
+    "byteCount": 37734,
+    "sha256": "df3d27f982ac497a0ee8b45a36a7764e142a26e9d296602afb614b46845e30da",
+    "archived": true,
+    "archivePath": "ai-document/history/CORE-002/pre-lean.md"
+  },
+  {
+    "taskId": "CORE-003",
+    "fileName": "CORE-003-access-private-types.md",
+    "originalPath": "ai-document/tasks/CORE-003-access-private-types.md",
+    "charCount": 75758,
+    "byteCount": 75872,
+    "sha256": "f8b68d3192ff11d7c179fef5d5a3a18d466615a4fe13cf2eb31fdcedbf611ddc",
+    "archived": true,
+    "archivePath": "ai-document/history/CORE-003/pre-lean.md"
+  },
+  {
+    "taskId": "CORE-004",
+    "fileName": "CORE-004-regional-settings.md",
+    "originalPath": "ai-document/tasks/CORE-004-regional-settings.md",
+    "charCount": 11303,
+    "byteCount": 11315,
+    "sha256": "74948e8011e8d69f070b38acf2c667f0b063900a948dc86efbe8704bf0c450d4",
+    "archived": false,
+    "archivePath": null
+  },
+  {
+    "taskId": "CUST-001",
+    "fileName": "CUST-001-customer-records.md",
+    "originalPath": "ai-document/tasks/CUST-001-customer-records.md",
+    "charCount": 11057,
+    "byteCount": 11071,
+    "sha256": "77408a002d56c5e8b76e0b65f0270259ef16e56774cc585224367e460df4a9e9",
+    "archived": false,
+    "archivePath": null
+  },
+  {
+    "taskId": "DATA-001",
+    "fileName": "DATA-001-record-storage.md",
+    "originalPath": "ai-document/tasks/DATA-001-record-storage.md",
+    "charCount": 13138,
+    "byteCount": 13150,
+    "sha256": "692d61a1c9f298c847139941d2115b4d70670f8108843044f96ee1f4eb692674",
+    "archived": true,
+    "archivePath": "ai-document/history/DATA-001/pre-lean.md"
+  },
+  {
+    "taskId": "HIST-001",
+    "fileName": "HIST-001-service-timeline.md",
+    "originalPath": "ai-document/tasks/HIST-001-service-timeline.md",
+    "charCount": 11604,
+    "byteCount": 11616,
+    "sha256": "da2506e65eb244347f03afc7321c21ce123e56a3e7f71123b82c93ba6f7630aa",
+    "archived": false,
+    "archivePath": null
+  },
+  {
+    "taskId": "MVP-001",
+    "fileName": "MVP-001-acceptance-package.md",
+    "originalPath": "ai-document/tasks/MVP-001-acceptance-package.md",
+    "charCount": 12638,
+    "byteCount": 12650,
+    "sha256": "8f9a5a9b9d032b431e302da104f1844422c5a09039adfd107c149258ec615515",
+    "archived": true,
+    "archivePath": "ai-document/history/MVP-001/pre-lean.md"
+  },
+  {
+    "taskId": "PLAN-001",
+    "fileName": "PLAN-001-master-plan.md",
+    "originalPath": "ai-document/tasks/PLAN-001-master-plan.md",
+    "charCount": 9933,
+    "byteCount": 9982,
+    "sha256": "6557f201e630ba5811d19a87d4a2fc1b8aa72e9c9a014bad070cd6817a8b289a",
+    "archived": true,
+    "archivePath": "ai-document/history/PLAN-001/pre-lean.md"
+  },
+  {
+    "taskId": "PLAN-002",
+    "fileName": "PLAN-002-mvp-task-batch.md",
+    "originalPath": "ai-document/tasks/PLAN-002-mvp-task-batch.md",
+    "charCount": 19632,
+    "byteCount": 19658,
+    "sha256": "d75b354f3c04fd54310d8f395313ace05ea78e727aa1ed67dfbdc37e365b26a5",
+    "archived": true,
+    "archivePath": "ai-document/history/PLAN-002/pre-lean.md"
+  },
+  {
+    "taskId": "REM-001",
+    "fileName": "REM-001-maintenance-queue.md",
+    "originalPath": "ai-document/tasks/REM-001-maintenance-queue.md",
+    "charCount": 11952,
+    "byteCount": 11966,
+    "sha256": "db4c40d2016b1adf4dcbd9ec64b0db49389bea5f2175a688725a08d669b692fe",
+    "archived": false,
+    "archivePath": null
+  },
+  {
+    "taskId": "SERV-001",
+    "fileName": "SERV-001-service-workflow.md",
+    "originalPath": "ai-document/tasks/SERV-001-service-workflow.md",
+    "charCount": 13042,
+    "byteCount": 13056,
+    "sha256": "f38e7598362a3ba89038b5c6a9ca928dc7e251a4a7d6ddb0a759d3c381a81ab6",
+    "archived": true,
+    "archivePath": "ai-document/history/SERV-001/pre-lean.md"
+  },
+  {
+    "taskId": "TOOL-001",
+    "fileName": "TOOL-001-regression-hardening.md",
+    "originalPath": "ai-document/tasks/TOOL-001-regression-hardening.md",
+    "charCount": 3045,
+    "byteCount": 3047,
+    "sha256": "95577745cc5d4fb74711661c5e98f017e33fe3fc3f21aba457aca10c7a615f72",
+    "archived": false,
+    "archivePath": null
+  },
+  {
+    "taskId": "VEH-001",
+    "fileName": "VEH-001-vehicle-records.md",
+    "originalPath": "ai-document/tasks/VEH-001-vehicle-records.md",
+    "charCount": 12160,
+    "byteCount": 12172,
+    "sha256": "9c70532bffa41123f7e11b9d8d8cf7e525713ceed9aa0b39098437728dce3b44",
+    "archived": true,
+    "archivePath": "ai-document/history/VEH-001/pre-lean.md"
+  },
+  {
+    "taskId": "WF-001",
+    "fileName": "WF-001-workflow-bootstrap.md",
+    "originalPath": "ai-document/tasks/WF-001-workflow-bootstrap.md",
+    "charCount": 22323,
+    "byteCount": 22399,
+    "sha256": "a50ca9f7391341e68c3f05100808d330c376b7428c748ecebce08b6b2273ef3f",
+    "archived": true,
+    "archivePath": "ai-document/history/WF-001/pre-lean.md"
+  },
+  {
+    "taskId": "WF-002",
+    "fileName": "WF-002-animated-role-strip.md",
+    "originalPath": "ai-document/tasks/WF-002-animated-role-strip.md",
+    "charCount": 17461,
+    "byteCount": 17498,
+    "sha256": "0bf819d5c377015733e8bfebc780c22f0c9a39eebfd9dd894def049d8a718fe7",
+    "archived": true,
+    "archivePath": "ai-document/history/WF-002/pre-lean.md"
+  },
+  {
+    "taskId": "WF-003",
+    "fileName": "WF-003-progress-owner-consistency.md",
+    "originalPath": "ai-document/tasks/WF-003-progress-owner-consistency.md",
+    "charCount": 24901,
+    "byteCount": 24943,
+    "sha256": "fcc337bc2eb3091dc39e255d328157ec3b678a6eac11818229573f9804c3dc86",
+    "archived": true,
+    "archivePath": "ai-document/history/WF-003/pre-lean.md"
+  },
+  {
+    "taskId": "WF-004",
+    "fileName": "WF-004-json-handoff-controller.md",
+    "originalPath": "ai-document/tasks/WF-004-json-handoff-controller.md",
+    "charCount": 176305,
+    "byteCount": 176577,
+    "sha256": "d987fc87cb2c6967735d3ca240eddb3d8b421f398325276030523bfa39c9e27f",
+    "archived": true,
+    "archivePath": "ai-document/history/WF-004/pre-lean.md"
+  },
+  {
+    "taskId": "WF-005",
+    "fileName": "WF-005-lean-architect-workflow.md",
+    "originalPath": "ai-document/tasks/WF-005-lean-architect-workflow.md",
+    "charCount": 16850,
+    "byteCount": 16852,
+    "sha256": "26ce65456165451ecd3bef87dfac59f0bf9c4c11b4347add9cea4cc1966a9f97",
+    "archived": true,
+    "archivePath": "ai-document/history/WF-005/pre-lean.md"
+  }
+]

@@ -1,0 +1,121 @@
+{
+  "observations": [
+    {
+      "name": "valid-control",
+      "inputExistedBeforePersistence": true,
+      "success": false,
+      "cleanupVerified": true,
+      "error": "Agent outcome is needs_user, not handoff; no successor authorized",
+      "spawned": true,
+      "persistenceAwaited": true,
+      "exactPromptDelivered": true
+    },
+    {
+      "name": "wrong-identity-control",
+      "inputExistedBeforePersistence": true,
+      "success": false,
+      "cleanupVerified": true,
+      "error": "Thread identity mismatch: expected 11111111-1111-4111-8111-111111111111, got d8e39e02-e2b7-4c68-b5ce-49bfe3d9fcd4",
+      "spawned": true,
+      "persistenceAwaited": true,
+      "exactPromptDelivered": true
+    },
+    {
+      "name": "missing-identity",
+      "inputExistedBeforePersistence": true,
+      "success": false,
+      "cleanupVerified": true,
+      "error": "Missing thread identity in stdout (no thread.started event with thread_id)",
+      "spawned": true,
+      "persistenceAwaited": true,
+      "exactPromptDelivered": true
+    },
+    {
+      "name": "malformed-jsonl",
+      "inputExistedBeforePersistence": true,
+      "success": false,
+      "cleanupVerified": true,
+      "error": "Malformed JSONL in stdout: NOT JSON",
+      "spawned": true,
+      "persistenceAwaited": true,
+      "exactPromptDelivered": true
+    },
+    {
+      "name": "invalid-enums",
+      "inputExistedBeforePersistence": true,
+      "success": false,
+      "cleanupVerified": true,
+      "error": "Invalid result fields: invalid intake enum: INVALID; invalid outcome enum: INVALID",
+      "spawned": true,
+      "persistenceAwaited": true,
+      "exactPromptDelivered": true
+    },
+    {
+      "name": "missing-required-nullable-field",
+      "inputExistedBeforePersistence": true,
+      "success": false,
+      "cleanupVerified": true,
+      "error": "Invalid result fields: new_receipt_id field missing",
+      "spawned": true,
+      "persistenceAwaited": true,
+      "exactPromptDelivered": true
+    },
+    {
+      "name": "nonexistent-successor",
+      "inputExistedBeforePersistence": true,
+      "success": true,
+      "cleanupVerified": true,
+      "error": null,
+      "spawned": true,
+      "persistenceAwaited": true,
+      "exactPromptDelivered": true
+    },
+    {
+      "name": "live-descendant-after-success",
+      "inputExistedBeforePersistence": true,
+      "success": false,
+      "cleanupVerified": true,
+      "error": "Agent outcome is needs_user, not handoff; no successor authorized",
+      "spawned": true,
+      "persistenceAwaited": true,
+      "exactPromptDelivered": true,
+      "descendantPid": 65438,
+      "descendantAliveOnSuccess": false,
+      "harnessStoppedDescendant": true
+    },
+    {
+      "name": "unverified-antigravity-executable",
+      "inputExistedBeforePersistence": false,
+      "success": false,
+      "cleanupVerified": true,
+      "error": "Antigravity adapter: dispatch blocked — executable present at /tmp/wf004-r3-NiUI0S/fake-cli.mjs but interface unverified. Interface must be verified before this adapter may spawn.",
+      "spawned": false,
+      "persistenceAwaited": false,
+      "exactPromptDelivered": false
+    },
+    {
+      "name": "correction-run-intake-ledger",
+      "correction": "24a5b002-8cbe-4e9c-94a9-4398ce1247fb",
+      "launches": 1,
+      "blocked": null,
+      "resumed": {
+        "published": true
+      },
+      "ledger": [
+        {
+          "status": "rejected",
+          "intake": "FAIL",
+          "intent": "work"
+        },
+        {
+          "status": "completed",
+          "intake": "PASS",
+          "intent": "correct_metadata"
+        }
+      ]
+    }
+  ],
+  "cleanup": {
+    "fixtureDirectoriesRemoved": 10
+  }
+}
