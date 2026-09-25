@@ -1,0 +1,478 @@
++ set -euo pipefail
++ TASK=
++ WP_VERSION=
++ NEGATIVE_MODE=
++ for arg in "$@"
++ case $arg in
++ TASK=CORE-003
++ for arg in "$@"
++ case $arg in
++ WP_VERSION=6.7.2
++ '[' CORE-003 '!=' CORE-003 ']'
++ '[' 6.7.2 '!=' 6.4.3 ']'
++ '[' 6.7.2 '!=' 6.7.2 ']'
++ for cmd in wp mariadbd mysql mysqladmin mysql_install_db php curl
++ command -v wp
++ for cmd in wp mariadbd mysql mysqladmin mysql_install_db php curl
++ command -v mariadbd
++ for cmd in wp mariadbd mysql mysqladmin mysql_install_db php curl
++ command -v mysql
++ for cmd in wp mariadbd mysql mysqladmin mysql_install_db php curl
++ command -v mysqladmin
++ for cmd in wp mariadbd mysql mysqladmin mysql_install_db php curl
++ command -v mysql_install_db
++ for cmd in wp mariadbd mysql mysqladmin mysql_install_db php curl
++ command -v php
++ for cmd in wp mariadbd mysql mysqladmin mysql_install_db php curl
++ command -v curl
+++ mktemp -d /tmp/velog-product-smoke.XXXXXXXX
++ DIR=/tmp/velog-product-smoke.Mimjl42E
++ chmod 0700 /tmp/velog-product-smoke.Mimjl42E
++ echo 'Allocated /tmp/velog-product-smoke.Mimjl42E for WP 6.7.2 mode=normal'
+Allocated /tmp/velog-product-smoke.Mimjl42E for WP 6.7.2 mode=normal
++ PHP_PID_FILE=/tmp/velog-product-smoke.Mimjl42E/php.pid
++ DB_PID_FILE=/tmp/velog-product-smoke.Mimjl42E/db.pid
++ CAUSE_LOG=/tmp/velog-product-smoke.Mimjl42E/cause.log
++ touch /tmp/velog-product-smoke.Mimjl42E/cause.log
++ CLEANUP_DONE=0
++ CLEANUP_FAILED=0
++ trap cleanup EXIT
++ trap 'exit 1' INT TERM
++ trap 'EC=$?; exit $EC' ERR
++ mkdir -p /tmp/velog-product-smoke.Mimjl42E/db_data
++ '[' '' = db-start-failure ']'
++ mysql_install_db --datadir=/tmp/velog-product-smoke.Mimjl42E/db_data --auth-root-authentication-method=normal
++ echo 32428
++ mariadbd --datadir=/tmp/velog-product-smoke.Mimjl42E/db_data --socket=/tmp/velog-product-smoke.Mimjl42E/mysql.sock --skip-networking --pid-file=/tmp/velog-product-smoke.Mimjl42E/db.pid
++ '[' '' = db-never-ready ']'
++ DB_SOCKET=/tmp/velog-product-smoke.Mimjl42E/mysql.sock
++ echo 'Waiting for DB...'
+Waiting for DB...
++ DB_READY=0
++ for i in {1..30}
++ mysqladmin ping -S /tmp/velog-product-smoke.Mimjl42E/mysql.sock -u root --silent
+++ cat /tmp/velog-product-smoke.Mimjl42E/db.pid
++ DB_PID_NOW=32428
++ '[' 32428 '!=' 0 ']'
++ kill -0 32428
++ sleep 1
++ for i in {1..30}
++ mysqladmin ping -S /tmp/velog-product-smoke.Mimjl42E/mysql.sock -u root --silent
+++ cat /tmp/velog-product-smoke.Mimjl42E/db.pid
++ DB_PID_NOW=32428
++ '[' 32428 '!=' 0 ']'
++ kill -0 32428
++ sleep 1
++ for i in {1..30}
++ mysqladmin ping -S /tmp/velog-product-smoke.Mimjl42E/mysql.sock -u root --silent
+++ cat /tmp/velog-product-smoke.Mimjl42E/db.pid
++ DB_PID_NOW=32428
++ '[' 32428 '!=' 0 ']'
++ kill -0 32428
++ sleep 1
++ for i in {1..30}
++ mysqladmin ping -S /tmp/velog-product-smoke.Mimjl42E/mysql.sock -u root --silent
+mysqld is alive
++ DB_READY=1
++ break
++ '[' 1 -eq 0 ']'
++ mysql -S /tmp/velog-product-smoke.Mimjl42E/mysql.sock -u root -e 'CREATE DATABASE velog_test;'
++ WP_DIR=/tmp/velog-product-smoke.Mimjl42E/wp
++ mkdir -p /tmp/velog-product-smoke.Mimjl42E/wp
++ wp core download --version=6.7.2 --path=/tmp/velog-product-smoke.Mimjl42E/wp
++ wp config create --dbname=velog_test --dbuser=root --dbhost=localhost:/tmp/velog-product-smoke.Mimjl42E/mysql.sock --path=/tmp/velog-product-smoke.Mimjl42E/wp
++ wp config set DISABLE_WP_CRON true --raw --path=/tmp/velog-product-smoke.Mimjl42E/wp
+Success: Added the constant 'DISABLE_WP_CRON' to the 'wp-config.php' file with the raw value 'true'.
++ PORT=0
++ for i in {1..10}
+++ shuf -i 8000-9999 -n 1
++ P=9646
++ ss -tuln
++ grep -q ':9646\b'
++ PORT=9646
++ break
++ '[' 9646 -eq 0 ']'
++ wp core install --url=http://localhost:9646 '--title=VeLog Smoke Test 6.7.2' --admin_user=admin --admin_password=admin --admin_email=admin@example.com --path=/tmp/velog-product-smoke.Mimjl42E/wp
++ echo '=== Runtime versions ==='
++ echo WP_VERSION=6.7.2
++ php --version
++ wp --version --path=/tmp/velog-product-smoke.Mimjl42E/wp
+++ basename /tmp/velog-product-smoke.Mimjl42E
++ MARKER=velog-marker-velog-product-smoke.Mimjl42E
++ echo '<?php echo '\''velog-marker-velog-product-smoke.Mimjl42E'\'';'
++ mkdir -p /tmp/velog-product-smoke.Mimjl42E/wp/wp-content/mu-plugins
++ cat
++ '[' '' = http-never-ready ']'
++ echo 33277
++ php -S localhost:9646 -t /tmp/velog-product-smoke.Mimjl42E/wp
++ echo 'Waiting for HTTP...'
+Waiting for HTTP...
++ HTTP_READY=0
++ for i in {1..30}
+++ curl -s --connect-timeout 2 --max-time 5 http://localhost:9646/marker.php
+++ true
++ HTTP_RESP=
++ '[' '' = velog-marker-velog-product-smoke.Mimjl42E ']'
+++ cat /tmp/velog-product-smoke.Mimjl42E/php.pid
++ PHP_PID_NOW=33277
++ '[' 33277 '!=' 0 ']'
++ kill -0 33277
++ sleep 1
++ for i in {1..30}
+++ curl -s --connect-timeout 2 --max-time 5 http://localhost:9646/marker.php
++ HTTP_RESP=velog-marker-velog-product-smoke.Mimjl42E
++ '[' velog-marker-velog-product-smoke.Mimjl42E = velog-marker-velog-product-smoke.Mimjl42E ']'
++ HTTP_READY=1
++ break
++ '[' 1 -eq 0 ']'
+++ cat /tmp/velog-product-smoke.Mimjl42E/php.pid
++ PHP_PID_LAUNCHED=33277
++ kill -0 33277
++ PLUGIN_DIR=/tmp/velog-product-smoke.Mimjl42E/wp/wp-content/plugins/velog
++ mkdir -p /tmp/velog-product-smoke.Mimjl42E/wp/wp-content/plugins/velog
++++ dirname tests/workflow/product-smoke.sh
+++ cd tests/workflow/../..
+++ pwd
++ cp -a '/home/ecommercelife/Local Sites/velog/app/public/wp-content/plugins/velog/.' /tmp/velog-product-smoke.Mimjl42E/wp/wp-content/plugins/velog/
++ wp plugin activate velog --path=/tmp/velog-product-smoke.Mimjl42E/wp
+Plugin 'velog' activated.
+Success: Activated 1 of 1 plugins.
++ export NEGATIVE_MODE
++ FIXTURE_LOG=/tmp/velog-product-smoke.Mimjl42E/fixture.log
++ '[' -f /tmp/velog-product-smoke.Mimjl42E/wp/wp-content/plugins/velog/tests/fixtures/core-003-verify.php ']'
++ set +e
++ wp eval-file /tmp/velog-product-smoke.Mimjl42E/wp/wp-content/plugins/velog/tests/fixtures/core-003-verify.php 9646 --path=/tmp/velog-product-smoke.Mimjl42E/wp
++ tee /tmp/velog-product-smoke.Mimjl42E/fixture.log
+
+=== CPT flag checks ===
+PASS: Post type mf_velog_customer registered
+PASS: mf_velog_customer public flag is false
+PASS: mf_velog_customer publicly_queryable is false
+PASS: mf_velog_customer show_in_rest is false
+PASS: mf_velog_customer edit_post is do_not_allow
+PASS: Post type mf_velog_vehicle registered
+PASS: mf_velog_vehicle public flag is false
+PASS: mf_velog_vehicle publicly_queryable is false
+PASS: mf_velog_vehicle show_in_rest is false
+PASS: mf_velog_vehicle edit_post is do_not_allow
+PASS: Post type mf_velog_service registered
+PASS: mf_velog_service public flag is false
+PASS: mf_velog_service publicly_queryable is false
+PASS: mf_velog_service show_in_rest is false
+PASS: mf_velog_service edit_post is do_not_allow
+PASS: Post type mf_velog_reminder registered
+PASS: mf_velog_reminder public flag is false
+PASS: mf_velog_reminder publicly_queryable is false
+PASS: mf_velog_reminder show_in_rest is false
+PASS: mf_velog_reminder edit_post is do_not_allow
+
+=== Authenticated positive controls ===
+PASS: subscriber authenticated positive: can access profile.php (code 200)
+PASS: editor authenticated positive: can edit public post (code 200)
+PASS: administrator authenticated positive: can edit public post (code 200)
+PASS: mf_velog_manager authenticated positive: wp-admin accessible (code 200)
+PASS: mf_velog_technician authenticated positive: wp-admin accessible (code 200)
+
+=== Discovery denial matrix ===
+PASS: anonymous direct ID mf_velog_customer returns 404 (code 404)
+PASS: anonymous search does not leak mf_velog_customer
+PASS: anonymous feed does not leak mf_velog_customer
+PASS: anonymous sitemap does not expose mf_velog_customer
+PASS: anonymous REST mf_velog_customer rejects with 404 or 403 (code 404)
+PASS: anonymous direct ID mf_velog_vehicle returns 404 (code 404)
+PASS: anonymous search does not leak mf_velog_vehicle
+PASS: anonymous feed does not leak mf_velog_vehicle
+PASS: anonymous sitemap does not expose mf_velog_vehicle
+PASS: anonymous REST mf_velog_vehicle rejects with 404 or 403 (code 404)
+PASS: anonymous direct ID mf_velog_service returns 404 (code 404)
+PASS: anonymous search does not leak mf_velog_service
+PASS: anonymous feed does not leak mf_velog_service
+PASS: anonymous sitemap does not expose mf_velog_service
+PASS: anonymous REST mf_velog_service rejects with 404 or 403 (code 404)
+PASS: anonymous direct ID mf_velog_reminder returns 404 (code 404)
+PASS: anonymous search does not leak mf_velog_reminder
+PASS: anonymous feed does not leak mf_velog_reminder
+PASS: anonymous sitemap does not expose mf_velog_reminder
+PASS: anonymous REST mf_velog_reminder rejects with 404 or 403 (code 404)
+PASS: subscriber direct ID mf_velog_customer returns 404 (code 404)
+PASS: subscriber search does not leak mf_velog_customer
+PASS: subscriber feed does not leak mf_velog_customer
+PASS: subscriber sitemap does not expose mf_velog_customer
+PASS: subscriber REST mf_velog_customer rejects with 404 or 403 (code 404)
+PASS: subscriber direct ID mf_velog_vehicle returns 404 (code 404)
+PASS: subscriber search does not leak mf_velog_vehicle
+PASS: subscriber feed does not leak mf_velog_vehicle
+PASS: subscriber sitemap does not expose mf_velog_vehicle
+PASS: subscriber REST mf_velog_vehicle rejects with 404 or 403 (code 404)
+PASS: subscriber direct ID mf_velog_service returns 404 (code 404)
+PASS: subscriber search does not leak mf_velog_service
+PASS: subscriber feed does not leak mf_velog_service
+PASS: subscriber sitemap does not expose mf_velog_service
+PASS: subscriber REST mf_velog_service rejects with 404 or 403 (code 404)
+PASS: subscriber direct ID mf_velog_reminder returns 404 (code 404)
+PASS: subscriber search does not leak mf_velog_reminder
+PASS: subscriber feed does not leak mf_velog_reminder
+PASS: subscriber sitemap does not expose mf_velog_reminder
+PASS: subscriber REST mf_velog_reminder rejects with 404 or 403 (code 404)
+PASS: editor direct ID mf_velog_customer returns 404 (code 404)
+PASS: editor search does not leak mf_velog_customer
+PASS: editor feed does not leak mf_velog_customer
+PASS: editor sitemap does not expose mf_velog_customer
+PASS: editor REST mf_velog_customer rejects with 404 or 403 (code 404)
+PASS: editor direct ID mf_velog_vehicle returns 404 (code 404)
+PASS: editor search does not leak mf_velog_vehicle
+PASS: editor feed does not leak mf_velog_vehicle
+PASS: editor sitemap does not expose mf_velog_vehicle
+PASS: editor REST mf_velog_vehicle rejects with 404 or 403 (code 404)
+PASS: editor direct ID mf_velog_service returns 404 (code 404)
+PASS: editor search does not leak mf_velog_service
+PASS: editor feed does not leak mf_velog_service
+PASS: editor sitemap does not expose mf_velog_service
+PASS: editor REST mf_velog_service rejects with 404 or 403 (code 404)
+PASS: editor direct ID mf_velog_reminder returns 404 (code 404)
+PASS: editor search does not leak mf_velog_reminder
+PASS: editor feed does not leak mf_velog_reminder
+PASS: editor sitemap does not expose mf_velog_reminder
+PASS: editor REST mf_velog_reminder rejects with 404 or 403 (code 404)
+PASS: administrator direct ID mf_velog_customer returns 404 (code 404)
+PASS: administrator search does not leak mf_velog_customer
+PASS: administrator feed does not leak mf_velog_customer
+PASS: administrator sitemap does not expose mf_velog_customer
+PASS: administrator REST mf_velog_customer rejects with 404 or 403 (code 404)
+PASS: administrator direct ID mf_velog_vehicle returns 404 (code 404)
+PASS: administrator search does not leak mf_velog_vehicle
+PASS: administrator feed does not leak mf_velog_vehicle
+PASS: administrator sitemap does not expose mf_velog_vehicle
+PASS: administrator REST mf_velog_vehicle rejects with 404 or 403 (code 404)
+PASS: administrator direct ID mf_velog_service returns 404 (code 404)
+PASS: administrator search does not leak mf_velog_service
+PASS: administrator feed does not leak mf_velog_service
+PASS: administrator sitemap does not expose mf_velog_service
+PASS: administrator REST mf_velog_service rejects with 404 or 403 (code 404)
+PASS: administrator direct ID mf_velog_reminder returns 404 (code 404)
+PASS: administrator search does not leak mf_velog_reminder
+PASS: administrator feed does not leak mf_velog_reminder
+PASS: administrator sitemap does not expose mf_velog_reminder
+PASS: administrator REST mf_velog_reminder rejects with 404 or 403 (code 404)
+PASS: mf_velog_manager direct ID mf_velog_customer returns 404 (code 404)
+PASS: mf_velog_manager search does not leak mf_velog_customer
+PASS: mf_velog_manager feed does not leak mf_velog_customer
+PASS: mf_velog_manager sitemap does not expose mf_velog_customer
+PASS: mf_velog_manager REST mf_velog_customer rejects with 404 or 403 (code 404)
+PASS: mf_velog_manager direct ID mf_velog_vehicle returns 404 (code 404)
+PASS: mf_velog_manager search does not leak mf_velog_vehicle
+PASS: mf_velog_manager feed does not leak mf_velog_vehicle
+PASS: mf_velog_manager sitemap does not expose mf_velog_vehicle
+PASS: mf_velog_manager REST mf_velog_vehicle rejects with 404 or 403 (code 404)
+PASS: mf_velog_manager direct ID mf_velog_service returns 404 (code 404)
+PASS: mf_velog_manager search does not leak mf_velog_service
+PASS: mf_velog_manager feed does not leak mf_velog_service
+PASS: mf_velog_manager sitemap does not expose mf_velog_service
+PASS: mf_velog_manager REST mf_velog_service rejects with 404 or 403 (code 404)
+PASS: mf_velog_manager direct ID mf_velog_reminder returns 404 (code 404)
+PASS: mf_velog_manager search does not leak mf_velog_reminder
+PASS: mf_velog_manager feed does not leak mf_velog_reminder
+PASS: mf_velog_manager sitemap does not expose mf_velog_reminder
+PASS: mf_velog_manager REST mf_velog_reminder rejects with 404 or 403 (code 404)
+PASS: mf_velog_technician direct ID mf_velog_customer returns 404 (code 404)
+PASS: mf_velog_technician search does not leak mf_velog_customer
+PASS: mf_velog_technician feed does not leak mf_velog_customer
+PASS: mf_velog_technician sitemap does not expose mf_velog_customer
+PASS: mf_velog_technician REST mf_velog_customer rejects with 404 or 403 (code 404)
+PASS: mf_velog_technician direct ID mf_velog_vehicle returns 404 (code 404)
+PASS: mf_velog_technician search does not leak mf_velog_vehicle
+PASS: mf_velog_technician feed does not leak mf_velog_vehicle
+PASS: mf_velog_technician sitemap does not expose mf_velog_vehicle
+PASS: mf_velog_technician REST mf_velog_vehicle rejects with 404 or 403 (code 404)
+PASS: mf_velog_technician direct ID mf_velog_service returns 404 (code 404)
+PASS: mf_velog_technician search does not leak mf_velog_service
+PASS: mf_velog_technician feed does not leak mf_velog_service
+PASS: mf_velog_technician sitemap does not expose mf_velog_service
+PASS: mf_velog_technician REST mf_velog_service rejects with 404 or 403 (code 404)
+PASS: mf_velog_technician direct ID mf_velog_reminder returns 404 (code 404)
+PASS: mf_velog_technician search does not leak mf_velog_reminder
+PASS: mf_velog_technician feed does not leak mf_velog_reminder
+PASS: mf_velog_technician sitemap does not expose mf_velog_reminder
+PASS: mf_velog_technician REST mf_velog_reminder rejects with 404 or 403 (code 404)
+
+=== Native admin denial matrix ===
+PASS: subscriber edit mf_velog_customer GET: 5xx rejected (code 403)
+PASS: subscriber edit mf_velog_customer GET denied with 403 (code 403)
+PASS: subscriber new mf_velog_customer GET: 5xx rejected (code 403)
+PASS: subscriber new mf_velog_customer GET denied with 403 (code 403)
+PASS: subscriber POST mutation mf_velog_customer: 5xx rejected (code 403)
+PASS: subscriber POST mutation mf_velog_customer denied with 403 (code 403)
+PASS: mf_velog_customer state unchanged after mutation attempt by subscriber
+PASS: subscriber edit mf_velog_vehicle GET: 5xx rejected (code 403)
+PASS: subscriber edit mf_velog_vehicle GET denied with 403 (code 403)
+PASS: subscriber new mf_velog_vehicle GET: 5xx rejected (code 403)
+PASS: subscriber new mf_velog_vehicle GET denied with 403 (code 403)
+PASS: subscriber POST mutation mf_velog_vehicle: 5xx rejected (code 403)
+PASS: subscriber POST mutation mf_velog_vehicle denied with 403 (code 403)
+PASS: mf_velog_vehicle state unchanged after mutation attempt by subscriber
+PASS: subscriber edit mf_velog_service GET: 5xx rejected (code 403)
+PASS: subscriber edit mf_velog_service GET denied with 403 (code 403)
+PASS: subscriber new mf_velog_service GET: 5xx rejected (code 403)
+PASS: subscriber new mf_velog_service GET denied with 403 (code 403)
+PASS: subscriber POST mutation mf_velog_service: 5xx rejected (code 403)
+PASS: subscriber POST mutation mf_velog_service denied with 403 (code 403)
+PASS: mf_velog_service state unchanged after mutation attempt by subscriber
+PASS: subscriber edit mf_velog_reminder GET: 5xx rejected (code 403)
+PASS: subscriber edit mf_velog_reminder GET denied with 403 (code 403)
+PASS: subscriber new mf_velog_reminder GET: 5xx rejected (code 403)
+PASS: subscriber new mf_velog_reminder GET denied with 403 (code 403)
+PASS: subscriber POST mutation mf_velog_reminder: 5xx rejected (code 403)
+PASS: subscriber POST mutation mf_velog_reminder denied with 403 (code 403)
+PASS: mf_velog_reminder state unchanged after mutation attempt by subscriber
+PASS: editor edit mf_velog_customer GET: 5xx rejected (code 403)
+PASS: editor edit mf_velog_customer GET denied with 403 (code 403)
+PASS: editor new mf_velog_customer GET: 5xx rejected (code 403)
+PASS: editor new mf_velog_customer GET denied with 403 (code 403)
+PASS: editor POST mutation mf_velog_customer: 5xx rejected (code 403)
+PASS: editor POST mutation mf_velog_customer denied with 403 (code 403)
+PASS: mf_velog_customer state unchanged after mutation attempt by editor
+PASS: editor edit mf_velog_vehicle GET: 5xx rejected (code 403)
+PASS: editor edit mf_velog_vehicle GET denied with 403 (code 403)
+PASS: editor new mf_velog_vehicle GET: 5xx rejected (code 403)
+PASS: editor new mf_velog_vehicle GET denied with 403 (code 403)
+PASS: editor POST mutation mf_velog_vehicle: 5xx rejected (code 403)
+PASS: editor POST mutation mf_velog_vehicle denied with 403 (code 403)
+PASS: mf_velog_vehicle state unchanged after mutation attempt by editor
+PASS: editor edit mf_velog_service GET: 5xx rejected (code 403)
+PASS: editor edit mf_velog_service GET denied with 403 (code 403)
+PASS: editor new mf_velog_service GET: 5xx rejected (code 403)
+PASS: editor new mf_velog_service GET denied with 403 (code 403)
+PASS: editor POST mutation mf_velog_service: 5xx rejected (code 403)
+PASS: editor POST mutation mf_velog_service denied with 403 (code 403)
+PASS: mf_velog_service state unchanged after mutation attempt by editor
+PASS: editor edit mf_velog_reminder GET: 5xx rejected (code 403)
+PASS: editor edit mf_velog_reminder GET denied with 403 (code 403)
+PASS: editor new mf_velog_reminder GET: 5xx rejected (code 403)
+PASS: editor new mf_velog_reminder GET denied with 403 (code 403)
+PASS: editor POST mutation mf_velog_reminder: 5xx rejected (code 403)
+PASS: editor POST mutation mf_velog_reminder denied with 403 (code 403)
+PASS: mf_velog_reminder state unchanged after mutation attempt by editor
+
+=== Capability grant matrix ===
+PASS: administrator has mf_velog_read_records
+PASS: administrator has mf_velog_manage_settings
+PASS: administrator has mf_velog_manage_customers
+PASS: administrator has mf_velog_read_customer_contacts
+PASS: administrator has mf_velog_manage_vehicles
+PASS: administrator has mf_velog_create_services
+PASS: administrator has mf_velog_edit_own_service_drafts
+PASS: administrator has mf_velog_finalize_own_services
+PASS: administrator has mf_velog_correct_services
+PASS: administrator has mf_velog_manage_reminders
+PASS: mf_velog_manager has mf_velog_read_records
+PASS: mf_velog_manager has mf_velog_manage_settings
+PASS: mf_velog_manager has mf_velog_manage_customers
+PASS: mf_velog_manager has mf_velog_read_customer_contacts
+PASS: mf_velog_manager has mf_velog_manage_vehicles
+PASS: mf_velog_manager has mf_velog_create_services
+PASS: mf_velog_manager has mf_velog_edit_own_service_drafts
+PASS: mf_velog_manager has mf_velog_finalize_own_services
+PASS: mf_velog_manager has mf_velog_correct_services
+PASS: mf_velog_manager has mf_velog_manage_reminders
+PASS: mf_velog_technician has mf_velog_read_records
+PASS: mf_velog_technician has mf_velog_create_services
+PASS: mf_velog_technician has mf_velog_edit_own_service_drafts
+PASS: mf_velog_technician has mf_velog_finalize_own_services
+PASS: mf_velog_technician does NOT have mf_velog_manage_settings
+PASS: mf_velog_technician does NOT have mf_velog_manage_customers
+PASS: mf_velog_technician does NOT have mf_velog_read_customer_contacts
+PASS: mf_velog_technician does NOT have mf_velog_manage_vehicles
+PASS: mf_velog_technician does NOT have mf_velog_correct_services
+PASS: mf_velog_technician does NOT have mf_velog_manage_reminders
+PASS: subscriber does NOT have mf_velog_read_records
+PASS: subscriber does NOT have mf_velog_manage_settings
+PASS: subscriber does NOT have mf_velog_manage_customers
+PASS: subscriber does NOT have mf_velog_read_customer_contacts
+PASS: subscriber does NOT have mf_velog_manage_vehicles
+PASS: subscriber does NOT have mf_velog_create_services
+PASS: subscriber does NOT have mf_velog_edit_own_service_drafts
+PASS: subscriber does NOT have mf_velog_finalize_own_services
+PASS: subscriber does NOT have mf_velog_correct_services
+PASS: subscriber does NOT have mf_velog_manage_reminders
+PASS: editor does NOT have mf_velog_read_records
+PASS: editor does NOT have mf_velog_manage_settings
+PASS: editor does NOT have mf_velog_manage_customers
+PASS: editor does NOT have mf_velog_read_customer_contacts
+PASS: editor does NOT have mf_velog_manage_vehicles
+PASS: editor does NOT have mf_velog_create_services
+PASS: editor does NOT have mf_velog_edit_own_service_drafts
+PASS: editor does NOT have mf_velog_finalize_own_services
+PASS: editor does NOT have mf_velog_correct_services
+PASS: editor does NOT have mf_velog_manage_reminders
+
+=== Lifecycle tests ===
+PASS: Removed mf_velog_read_records for repair test
+PASS: Repair install returned true
+PASS: Repair restored mf_velog_read_records
+PASS: Repair: schema value unchanged
+PASS: Repair: ledger existence unchanged
+PASS: Collision: install returned false
+PASS: Collision: technician caps unchanged
+PASS: Rollback: install returned false after injected failure
+PASS: Rollback: schema existence matches pre-mutation snapshot
+PASS: Rollback: schema value matches pre-mutation snapshot
+PASS: Rollback: schema autoload matches pre-mutation snapshot
+PASS: Rollback: ledger existence matches pre-mutation snapshot
+PASS: Rollback: ledger value matches pre-mutation snapshot
+PASS: Rollback: ledger autoload matches pre-mutation snapshot
+PASS: Rollback: in-memory technician role state restored
+PASS: Reactivation after rollback succeeded
+PASS: Reactivation restored mf_velog_read_records
+Fixture tests passed.
++ FIXTURE_EXIT=0
++ set -e
++ '[' '' = fixture-failure ']'
++ '[' 0 -ne 0 ']'
++ echo 'NORMAL_RUN: WP=6.7.2 exit=0'
++ echo 'All tests passed for 6.7.2'
+All tests passed for 6.7.2
++ exit 0
++ cleanup
++ local exit_code=0
++ '[' 0 -eq 1 ']'
++ CLEANUP_DONE=1
++ set +e
++ '[' -f /tmp/velog-product-smoke.Mimjl42E/php.pid ']'
+++ cat /tmp/velog-product-smoke.Mimjl42E/php.pid
++ PHP_PID=33277
++ kill -0 33277
++ kill -TERM 33277
++ for i in {1..5}
++ kill -0 33277
++ sleep 1
++ for i in {1..5}
++ kill -0 33277
++ break
++ kill -0 33277
++ kill -0 33277
++ '[' -f /tmp/velog-product-smoke.Mimjl42E/db.pid ']'
+++ cat /tmp/velog-product-smoke.Mimjl42E/db.pid
++ DB_PID=32428
++ kill -0 32428
++ kill -TERM 32428
++ for i in {1..10}
++ kill -0 32428
++ sleep 1
++ for i in {1..10}
++ kill -0 32428
++ sleep 1
++ for i in {1..10}
++ kill -0 32428
++ sleep 1
++ for i in {1..10}
++ kill -0 32428
++ break
++ kill -0 32428
+++ basename /tmp/velog-product-smoke.Mimjl42E
++ cp /tmp/velog-product-smoke.Mimjl42E/cause.log /tmp/velog-cause-velog-product-smoke.Mimjl42E.log
+++ basename /tmp/velog-product-smoke.Mimjl42E
++ cp /tmp/velog-product-smoke.Mimjl42E/php.log /tmp/velog-php-velog-product-smoke.Mimjl42E.log
++ rm -rf /tmp/velog-product-smoke.Mimjl42E
++ '[' -d /tmp/velog-product-smoke.Mimjl42E ']'
++ '[' 0 -ne 0 ']'
++ exit 0

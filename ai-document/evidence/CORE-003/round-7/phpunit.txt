@@ -1,0 +1,12 @@
+> phpunit --configuration=tests/phpunit.xml '--display-skipped'
+PHPUnit 10.5.64 by Sebastian Bergmann and contributors.
+
+Runtime:       PHP 8.3.6
+Configuration: /home/ecommercelife/Local Sites/velog/app/public/wp-content/plugins/velog/tests/phpunit.xml
+
+...........VeLog: Critical capabilities rollback failure. State mismatched snapshot.
+..................................                     45 / 45 (100%)
+
+Time: 00:00.335, Memory: 16.00 MB
+
+OK (45 tests, 224 assertions)

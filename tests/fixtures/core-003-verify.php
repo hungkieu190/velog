@@ -143,6 +143,11 @@ foreach ( $cpts as $cpt ) {
 // Establish that each authenticated actor's session cookie works.
 // ======================================================================
 echo "\n=== Authenticated positive controls ===\n";
+// Subscriber: can access profile.php — proves session cookie works.
+$res  = do_request( "$base_url/wp-admin/profile.php", $roles['subscriber'] );
+$code = wp_remote_retrieve_response_code( $res );
+velog_assert( 200 === $code, "subscriber authenticated positive: can access profile.php (code $code)" );
+
 // Editor and admin can edit a public post — proves authentication works.
 foreach ( array( 'editor', 'administrator' ) as $auth_role ) {
 	$res  = do_request( "$base_url/wp-admin/post.php?post=$public_pid&action=edit", $roles[ $auth_role ] );
@@ -155,9 +160,9 @@ foreach ( array( 'mf_velog_manager', 'mf_velog_technician' ) as $auth_role ) {
 	$code = wp_remote_retrieve_response_code( $res );
 	velog_assert( in_array( $code, array( 200, 302 ), true ), "$auth_role authenticated positive: wp-admin accessible (code $code)" );
 	if ( 302 === $code ) {
-		$location = wp_remote_retrieve_header( $res, 'location' );
-		// Must redirect within wp-admin, not to login.
-		velog_assert( false === strpos( $location, 'wp-login.php' ), "$auth_role authenticated redirect goes within admin (location: $location)" );
+		$location      = wp_remote_retrieve_header( $res, 'location' );
+		$is_valid_dest = ( false !== strpos( $location, 'wp-admin/index.php' ) || false !== strpos( $location, 'wp-admin/profile.php' ) );
+		velog_assert( $is_valid_dest && false === strpos( $location, 'wp-login.php' ), "$auth_role authenticated redirect goes to expected admin destination (location: $location)" );
 	}
 }
 
@@ -208,23 +213,28 @@ foreach ( $denied_auth_roles as $current_role ) {
 	foreach ( $cpts as $cpt ) {
 		$pid = $post_ids[ $cpt ];
 
-		// GET post.php — must 403 or redirect to wp-login.php, never 500.
+		// GET post.php — must 403 or redirect to specific deny destination, never 500, never back to resource.
 		$res  = do_request( "$base_url/wp-admin/post.php?post=$pid&action=edit", $uid );
 		$code = wp_remote_retrieve_response_code( $res );
-		// 302 only if to wp-login.php.
+		velog_assert( 500 !== $code, "$current_role edit $cpt GET: 5xx rejected (code $code)" );
 		if ( 302 === $code ) {
-			$location = wp_remote_retrieve_header( $res, 'location' );
-			velog_assert( false !== strpos( $location, 'wp-login.php' ) || false !== strpos( $location, 'wp-admin' ), "$current_role edit $cpt GET: redirect to deny destination (location: $location)" );
+			$location   = wp_remote_retrieve_header( $res, 'location' );
+			$not_back   = ( false === strpos( $location, "post=$pid" ) && false === strpos( $location, 'post.php' ) );
+			$valid_dest = ( false !== strpos( $location, 'wp-login.php' ) || false !== strpos( $location, 'wp-admin/index.php' ) || false !== strpos( $location, 'wp-admin/profile.php' ) );
+			velog_assert( $not_back && $valid_dest, "$current_role edit $cpt GET: redirect to specific deny destination (location: $location)" );
 		} else {
 			velog_assert( 403 === $code, "$current_role edit $cpt GET denied with 403 (code $code)" );
 		}
 
-		// GET post-new.php — must 403 or redirect to wp-login.php, never 500.
+		// GET post-new.php — must 403 or redirect to specific deny destination, never 500, never back to resource.
 		$res  = do_request( "$base_url/wp-admin/post-new.php?post_type=$cpt", $uid );
 		$code = wp_remote_retrieve_response_code( $res );
+		velog_assert( 500 !== $code, "$current_role new $cpt GET: 5xx rejected (code $code)" );
 		if ( 302 === $code ) {
-			$location = wp_remote_retrieve_header( $res, 'location' );
-			velog_assert( false !== strpos( $location, 'wp-login.php' ) || false !== strpos( $location, 'wp-admin' ), "$current_role new $cpt GET: redirect to deny destination (location: $location)" );
+			$location   = wp_remote_retrieve_header( $res, 'location' );
+			$not_back   = ( false === strpos( $location, "post_type=$cpt" ) && false === strpos( $location, 'post-new.php' ) );
+			$valid_dest = ( false !== strpos( $location, 'wp-login.php' ) || false !== strpos( $location, 'wp-admin/index.php' ) || false !== strpos( $location, 'wp-admin/profile.php' ) );
+			velog_assert( $not_back && $valid_dest, "$current_role new $cpt GET: redirect to specific deny destination (location: $location)" );
 		} else {
 			velog_assert( 403 === $code, "$current_role new $cpt GET denied with 403 (code $code)" );
 		}
@@ -240,9 +250,11 @@ foreach ( $denied_auth_roles as $current_role ) {
 		);
 		$res      = do_request( "$base_url/wp-admin/post.php", $uid, 'POST', $req_body );
 		$code     = wp_remote_retrieve_response_code( $res );
+		velog_assert( 500 !== $code, "$current_role POST mutation $cpt: 5xx rejected (code $code)" );
 		if ( 302 === $code ) {
 			$location = wp_remote_retrieve_header( $res, 'location' );
-			velog_assert( false !== strpos( $location, 'wp-login.php' ), "$current_role POST mutation $cpt: redirect to login (location: $location)" );
+			$not_back = ( false === strpos( $location, "post=$pid" ) && false === strpos( $location, 'post.php' ) );
+			velog_assert( $not_back && false !== strpos( $location, 'wp-login.php' ), "$current_role POST mutation $cpt: redirect to login (location: $location)" );
 		} else {
 			velog_assert( 403 === $code, "$current_role POST mutation $cpt denied with 403 (code $code)" );
 		}

@@ -1,0 +1,13 @@
+Transaction-state variable:
+in_transaction
+0
+Contender while row locked:
+contender_exit=1
+--------------
+SELECT option_id FROM wp_options WHERE option_name='mf_velog_write_lock' FOR UPDATE
+--------------
+
+ERROR 1205 (HY000) at line 1: Lock wait timeout exceeded; try restarting transaction
+Contender after holder commit:
+option_id
+1

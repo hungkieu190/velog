@@ -1,0 +1,4 @@
+=== git diff --check (unstaged) ===
+Exit: 0
+=== git diff --cached --check (staged) ===
+Exit: 0

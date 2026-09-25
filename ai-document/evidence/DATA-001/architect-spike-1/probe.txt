@@ -1,0 +1,26 @@
+WordPress=6.7.2
+MariaDB=mariadbd  Ver 10.11.14-MariaDB-0ubuntu0.24.04.1 for debian-linux-gnu on x86_64 (Ubuntu 24.04)
+Storage engines:
+Name Engine
+wp_options InnoDB
+wp_postmeta InnoDB
+wp_posts InnoDB
+Transaction rollback probe:
+inside_transaction
+1
+posts_after_rollback
+0
+meta_after_rollback
+0
+Named lock contention probe:
+contender_acquired_within_1s
+0
+holder_acquired
+1
+holder_released
+1
+acquired_after_release
+1
+released
+1
+Probe complete.

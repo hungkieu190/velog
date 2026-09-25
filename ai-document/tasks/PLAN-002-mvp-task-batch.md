@@ -2,20 +2,20 @@
 
 ## Current handoff
 - Status: DRAFT
-- Plan revision: 1
+- Plan revision: 2
 - Architect session reference: Codex conversation started 2026-09-21.
-- Builder session reference: CORE-003 assigned to Antigravity Builder; remaining draft tasks unassigned.
+- Builder session reference: CORE-003 completed by Antigravity Builder; remaining draft tasks unassigned.
 - Implementation contributors and reviewer independence check: Planning documents only; no implementation.
 - Related checklist items: PLAN-002 / AC1–AC3; tasks CORE-002 through MVP-001.
 - Baseline branch and commit: `main` at `2aa3b8d`.
-- User approval reference and approved scope: Continuous planning requested 2026-09-21; G-02 approved 2026-09-22 for CORE-003. Other proposed business rules remain pending.
-- Latest round: CORE-003 dispatch update — 2026-09-22.
+- User approval reference and approved scope: Continuous planning requested 2026-09-21; G-02 approved 2026-09-22; G-08 benchmark target approved for planning 2026-09-25. Other proposed business rules remain pending.
+- Latest round: CORE-003 accepted; DATA-001 draft revision 2 prepared — 2026-09-25.
 - Next actor: Architect
-- Next actor and exact next action: Builder implements CORE-003 revision 2. Architect maintains remaining draft queue and resolves G-03–G-08 before future assignments.
+- Next actor and exact next action: Architect presents DATA-001 revision 2 for Builder implementation approval and maintains remaining draft queue.
 
 ## Problem and intended behavior
 
-PLAN-001 approved the international private single-shop MVP. CORE-001 and CORE-002 are accepted; CORE-003 is the next bounded assignment. This batch defines ten bounded blueprints across P0–P4 so implementation can proceed across clear dependency boundaries.
+PLAN-001 approved the international private single-shop MVP. CORE-001, CORE-002 and CORE-003 are accepted; DATA-001 is the next bounded assignment candidate. This batch defines ten bounded blueprints across P0–P4 so implementation can proceed across clear dependency boundaries.
 
 ## Scope and references
 
@@ -28,7 +28,7 @@ PLAN-001 approved the international private single-shop MVP. CORE-001 and CORE-0
 |---|---|---|---|
 | 0 | [CORE-001](CORE-001-bootstrap-i18n.md) | Existing approved scope | Bootstrap hooks & translation (DONE) |
 | 1 | [CORE-002](CORE-002-regional-primitives.md) | CORE-001 | Distance/money/date primitives (DONE) |
-| 2 | [CORE-003](CORE-003-access-private-types.md) | CORE-001 | Roles/capabilities & private CPTs (IN_PROGRESS) |
+| 2 | [CORE-003](CORE-003-access-private-types.md) | CORE-001 | Roles/capabilities & private CPTs (DONE) |
 | 3 | [DATA-001](DATA-001-record-storage.md) | CORE-002, CORE-003 | Versioned storage & retention |
 | 4 | [CORE-004](CORE-004-regional-settings.md) | CORE-002, CORE-003, DATA-001 | Explicit setup & shared admin shell |
 | 5 | [CUST-001](CUST-001-customer-records.md) | CORE-004, DATA-001 | Customer create/edit/search/archive |
@@ -47,7 +47,7 @@ PLAN-001 approved the international private single-shop MVP. CORE-001 and CORE-0
 - **G-05**: Service finalization requires odometer reading/date; decrease requires manager reason; backdated insertion rules. Pending.
 - **G-06**: Drafts editable by creator/manager; finalization snapshotting; corrections manager-only with reason and before/after audit; active service type required. Pending.
 - **G-07**: Reminders by date/distance; snooze to calendar date; completed is terminal. Pending.
-- **G-08**: Acceptance dataset (1k customers, 2k vehicles, 20k services, 5k reminders); warm p95 <= 2s; operational retention on uninstall. Pending.
+- **G-08 (APPROVED for planning 2026-09-25)**: Acceptance dataset (1k customers, 2k vehicles, 20k services, 5k reminders); warm p95 <= 2s on specified list/search queries with recorded environment; operational retention on uninstall. Actual benchmark results remain NOT VERIFIED until the domain queries exist.
 
 ## Shared blueprint contract summary
 
@@ -68,5 +68,9 @@ PLAN-001 approved the international private single-shop MVP. CORE-001 and CORE-0
 ### Chat handoff prompt
 
 ```text
-Continue as Architect for PLAN-002, DRAFT revision 1. Read AGENTS.md, ai-document/tasks/PLAN-002-mvp-task-batch.md, ai-document/implementation-checklist.md and all ten task links in the Dependency queue. Draft scope covers CORE-002 through MVP-001. Next: resolve G-01–G-08, complete technical gates, and reinspect accepted dependencies before any READY assignment. Preserve role separation and checklist acceptance state. Do not implement application code, start Builder, commit, deploy or touch the active database.
+Status: DRAFT
+Recipient: Architect
+Intent: work
+
+Continue PLAN-002 revision 2 planning. CORE-001 through CORE-003 are DONE, and G-02 and G-08 are approved. DATA-001 revision 2 has blueprint readiness PASS but still requires explicit approval of its bounded Builder implementation scope. Resolve remaining G-01/G-03–G-07 decisions in their owning tasks. Preserve role separation and checklist state; do not implement application code, dispatch Builder, commit, deploy or use the active database without authorization.
 ```

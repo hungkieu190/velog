@@ -2,15 +2,15 @@
 
 ## Current focus
 
-- Task: CORE-003
-- Status: READY_FOR_REVIEW
+- Task: DATA-001
+- Status: DRAFT
 - Next actor: Architect
-- Exact next action: Codex Architect independently reviews round-6 evidence (ai-document/evidence/CORE-003/round-6/) and verifies F-002–F-006 fixes per blueprint revision 7.
-- Planning queue: WF-004 removal is DONE; WF-005 is DONE. CORE-003 round-6 submitted 2026-09-24.
+- Exact next action: Codex Architect presents DATA-001 revision 2 and its pinned-connection contract for explicit Builder implementation approval.
+- Planning queue: CORE-003, WF-004 and WF-005 are DONE; DATA-001 draft revision 2 is ready for scope approval.
 
 ## Project status
 
-Tooling bootstrap and master-plan revision 3 are accepted. CORE-001 and CORE-002 are DONE; CORE-003 is READY_FOR_REVIEW after Builder round-6; WF-003 is DONE. Round-6: lint exit 0, PHPUnit 45 tests 220 assertions 0 skipped exit 0, workflow 20/20 exit 0, git diff --check exit 0. F-002–F-006 re-addressed per revision 7; real WP 6.4.3 and 6.7.2 integration runs and product-smoke-controls.sh FULLY VERIFIED on this host (exit 0). Awaiting Architect review.
+Tooling bootstrap and master-plan revision 3 are accepted. CORE-001, CORE-002 and CORE-003 are DONE; WF-003 is DONE. DATA-001 is DRAFT revision 2 with blueprint readiness PASS after disposable storage probes and an executable contract; Builder implementation approval is pending. G-08 benchmark target was approved for planning on 2026-09-25; actual benchmark and DATA-001 application behavior are NOT VERIFIED.
 
 ## Accepted product master plan and MVP
 
@@ -50,10 +50,10 @@ Task: [CORE-002](tasks/CORE-002-regional-primitives.md). Prerequisites: CORE-001
 
 ### CORE-003 — Capabilities and private record types
 
-- [x] CORE-003 / AC1: Explicit manager/admin/technician policy is enforced at object and primitive levels. Status: READY_FOR_REVIEW.
-- [x] CORE-003 / AC2: Anonymous, subscriber and unrelated editor cannot discover private records through public/native endpoints. Status: READY_FOR_REVIEW.
-- [x] CORE-003 / AC3: Activation/reactivation and role collisions preserve unrelated roles/capabilities. Status: READY_FOR_REVIEW.
-- [x] CORE-003 / AC4: Real WordPress permission/lifecycle evidence and runner failure/cleanup controls pass. Status: READY_FOR_REVIEW (fully verified on WP 6.4.3 and 6.7.2 + negative controls).
+- [x] CORE-003 / AC1: Explicit manager/admin/technician policy is enforced at object and primitive levels. Status: DONE.
+- [x] CORE-003 / AC2: Anonymous, subscriber and unrelated editor cannot discover private records through public/native endpoints. Status: DONE.
+- [x] CORE-003 / AC3: Activation/reactivation and role collisions preserve unrelated roles/capabilities. Status: DONE.
+- [x] CORE-003 / AC4: Real WordPress permission/lifecycle evidence and runner failure/cleanup controls pass. Status: DONE (fully verified on WP 6.4.3 and 6.7.2 + negative controls).
 
 Task: [CORE-003](tasks/CORE-003-access-private-types.md). Prerequisites: CORE-001 DONE.
 

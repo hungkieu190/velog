@@ -1,0 +1,114 @@
+
+> velog@0.1.0 test:workflow
+> node --test tests/workflow/*.test.mjs
+
+TAP version 13
+# Subtest: normalizeRole normalizes correct roles
+ok 1 - normalizeRole normalizes correct roles
+  ---
+  duration_ms: 2.26172
+  ...
+# Subtest: W3-V1: rolePresentation maps DRAFT correctly
+ok 2 - W3-V1: rolePresentation maps DRAFT correctly
+  ---
+  duration_ms: 0.703961
+  ...
+# Subtest: W3-V1: rolePresentation maps READY correctly
+ok 3 - W3-V1: rolePresentation maps READY correctly
+  ---
+  duration_ms: 0.205228
+  ...
+# Subtest: W3-V1: rolePresentation maps READY_FOR_REVIEW correctly
+ok 4 - W3-V1: rolePresentation maps READY_FOR_REVIEW correctly
+  ---
+  duration_ms: 0.14348
+  ...
+# Subtest: W3-V1: rolePresentation maps DONE correctly
+ok 5 - W3-V1: rolePresentation maps DONE correctly
+  ---
+  duration_ms: 0.196879
+  ...
+# Subtest: W3-V1: rolePresentation maps BLOCKED with valid declared owner
+ok 6 - W3-V1: rolePresentation maps BLOCKED with valid declared owner
+  ---
+  duration_ms: 0.131346
+  ...
+# Subtest: rolePresentation maps missing focus correctly
+ok 7 - rolePresentation maps missing focus correctly
+  ---
+  duration_ms: 0.120046
+  ...
+# Subtest: W3-V2: rolePresentation detects contradiction (READY_FOR_REVIEW vs Builder)
+ok 8 - W3-V2: rolePresentation detects contradiction (READY_FOR_REVIEW vs Builder)
+  ---
+  duration_ms: 0.130907
+  ...
+# Subtest: W3-V2: rolePresentation handles malicious owner
+ok 9 - W3-V2: rolePresentation handles malicious owner
+  ---
+  duration_ms: 0.28216
+  ...
+# Subtest: W3-V2: rolePresentation handles unknown status
+ok 10 - W3-V2: rolePresentation handles unknown status
+  ---
+  duration_ms: 0.231336
+  ...
+# Subtest: build ownership, maps, repeatability and safe failure
+ok 11 - build ownership, maps, repeatability and safe failure
+  ---
+  duration_ms: 3693.828719
+  ...
+# Subtest: dashboard surfaces contradictions and escapes untrusted Markdown
+ok 12 - dashboard surfaces contradictions and escapes untrusted Markdown
+  ---
+  duration_ms: 6.284344
+  ...
+# Subtest: W3-V3: prompt extraction does not fall back to older sections
+ok 13 - W3-V3: prompt extraction does not fall back to older sections
+  ---
+  duration_ms: 0.417201
+  ...
+# Subtest: W3-V4: prompt declaration exact token match
+ok 14 - W3-V4: prompt declaration exact token match
+  ---
+  duration_ms: 0.257785
+  ...
+# Subtest: W3-V4: unverified status mentions
+ok 15 - W3-V4: unverified status mentions
+  ---
+  duration_ms: 0.200596
+  ...
+# Subtest: release package boundaries and failures preserve the last successful archive
+ok 16 - release package boundaries and failures preserve the last successful archive
+  ---
+  duration_ms: 30177.339443
+  ...
+# Subtest: quality gate propagates tool startup failure
+ok 17 - quality gate propagates tool startup failure
+  ---
+  duration_ms: 419.511844
+  ...
+# Subtest: manifest destination cannot overwrite backend source
+ok 18 - manifest destination cannot overwrite backend source
+  ---
+  duration_ms: 277.007878
+  ...
+# Subtest: rejected release destination leaves no temporary staging
+ok 19 - rejected release destination leaves no temporary staging
+  ---
+  duration_ms: 10101.330346
+  ...
+# Subtest: W3-V2: status-derived fallback and actor conflict
+ok 20 - W3-V2: status-derived fallback and actor conflict
+  ---
+  duration_ms: 55.712883
+  ...
+1..20
+# tests 20
+# suites 0
+# pass 20
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 44809.176249

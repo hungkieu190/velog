@@ -1,0 +1,289 @@
+Allocated /tmp/velog-product-smoke.dnK3ZLNH for WP 6.4.3 mode=normal
+Waiting for DB...
+mysqld is alive
+Success: Added the constant 'DISABLE_WP_CRON' to the 'wp-config.php' file with the raw value 'true'.
+Waiting for HTTP...
+Plugin 'velog' activated.
+Success: Activated 1 of 1 plugins.
+
+=== CPT flag checks ===
+PASS: Post type mf_velog_customer registered
+PASS: mf_velog_customer public flag is false
+PASS: mf_velog_customer publicly_queryable is false
+PASS: mf_velog_customer show_in_rest is false
+PASS: mf_velog_customer edit_post is do_not_allow
+PASS: Post type mf_velog_vehicle registered
+PASS: mf_velog_vehicle public flag is false
+PASS: mf_velog_vehicle publicly_queryable is false
+PASS: mf_velog_vehicle show_in_rest is false
+PASS: mf_velog_vehicle edit_post is do_not_allow
+PASS: Post type mf_velog_service registered
+PASS: mf_velog_service public flag is false
+PASS: mf_velog_service publicly_queryable is false
+PASS: mf_velog_service show_in_rest is false
+PASS: mf_velog_service edit_post is do_not_allow
+PASS: Post type mf_velog_reminder registered
+PASS: mf_velog_reminder public flag is false
+PASS: mf_velog_reminder publicly_queryable is false
+PASS: mf_velog_reminder show_in_rest is false
+PASS: mf_velog_reminder edit_post is do_not_allow
+
+=== Authenticated positive controls ===
+PASS: subscriber authenticated positive: can access profile.php (code 200)
+PASS: editor authenticated positive: can edit public post (code 200)
+PASS: administrator authenticated positive: can edit public post (code 200)
+PASS: mf_velog_manager authenticated positive: wp-admin accessible (code 200)
+PASS: mf_velog_technician authenticated positive: wp-admin accessible (code 200)
+
+=== Discovery denial matrix ===
+PASS: anonymous direct ID mf_velog_customer returns 404 (code 404)
+PASS: anonymous search does not leak mf_velog_customer
+PASS: anonymous feed does not leak mf_velog_customer
+PASS: anonymous sitemap does not expose mf_velog_customer
+PASS: anonymous REST mf_velog_customer rejects with 404 or 403 (code 404)
+PASS: anonymous direct ID mf_velog_vehicle returns 404 (code 404)
+PASS: anonymous search does not leak mf_velog_vehicle
+PASS: anonymous feed does not leak mf_velog_vehicle
+PASS: anonymous sitemap does not expose mf_velog_vehicle
+PASS: anonymous REST mf_velog_vehicle rejects with 404 or 403 (code 404)
+PASS: anonymous direct ID mf_velog_service returns 404 (code 404)
+PASS: anonymous search does not leak mf_velog_service
+PASS: anonymous feed does not leak mf_velog_service
+PASS: anonymous sitemap does not expose mf_velog_service
+PASS: anonymous REST mf_velog_service rejects with 404 or 403 (code 404)
+PASS: anonymous direct ID mf_velog_reminder returns 404 (code 404)
+PASS: anonymous search does not leak mf_velog_reminder
+PASS: anonymous feed does not leak mf_velog_reminder
+PASS: anonymous sitemap does not expose mf_velog_reminder
+PASS: anonymous REST mf_velog_reminder rejects with 404 or 403 (code 404)
+PASS: subscriber direct ID mf_velog_customer returns 404 (code 404)
+PASS: subscriber search does not leak mf_velog_customer
+PASS: subscriber feed does not leak mf_velog_customer
+PASS: subscriber sitemap does not expose mf_velog_customer
+PASS: subscriber REST mf_velog_customer rejects with 404 or 403 (code 404)
+PASS: subscriber direct ID mf_velog_vehicle returns 404 (code 404)
+PASS: subscriber search does not leak mf_velog_vehicle
+PASS: subscriber feed does not leak mf_velog_vehicle
+PASS: subscriber sitemap does not expose mf_velog_vehicle
+PASS: subscriber REST mf_velog_vehicle rejects with 404 or 403 (code 404)
+PASS: subscriber direct ID mf_velog_service returns 404 (code 404)
+PASS: subscriber search does not leak mf_velog_service
+PASS: subscriber feed does not leak mf_velog_service
+PASS: subscriber sitemap does not expose mf_velog_service
+PASS: subscriber REST mf_velog_service rejects with 404 or 403 (code 404)
+PASS: subscriber direct ID mf_velog_reminder returns 404 (code 404)
+PASS: subscriber search does not leak mf_velog_reminder
+PASS: subscriber feed does not leak mf_velog_reminder
+PASS: subscriber sitemap does not expose mf_velog_reminder
+PASS: subscriber REST mf_velog_reminder rejects with 404 or 403 (code 404)
+PASS: editor direct ID mf_velog_customer returns 404 (code 404)
+PASS: editor search does not leak mf_velog_customer
+PASS: editor feed does not leak mf_velog_customer
+PASS: editor sitemap does not expose mf_velog_customer
+PASS: editor REST mf_velog_customer rejects with 404 or 403 (code 404)
+PASS: editor direct ID mf_velog_vehicle returns 404 (code 404)
+PASS: editor search does not leak mf_velog_vehicle
+PASS: editor feed does not leak mf_velog_vehicle
+PASS: editor sitemap does not expose mf_velog_vehicle
+PASS: editor REST mf_velog_vehicle rejects with 404 or 403 (code 404)
+PASS: editor direct ID mf_velog_service returns 404 (code 404)
+PASS: editor search does not leak mf_velog_service
+PASS: editor feed does not leak mf_velog_service
+PASS: editor sitemap does not expose mf_velog_service
+PASS: editor REST mf_velog_service rejects with 404 or 403 (code 404)
+PASS: editor direct ID mf_velog_reminder returns 404 (code 404)
+PASS: editor search does not leak mf_velog_reminder
+PASS: editor feed does not leak mf_velog_reminder
+PASS: editor sitemap does not expose mf_velog_reminder
+PASS: editor REST mf_velog_reminder rejects with 404 or 403 (code 404)
+PASS: administrator direct ID mf_velog_customer returns 404 (code 404)
+PASS: administrator search does not leak mf_velog_customer
+PASS: administrator feed does not leak mf_velog_customer
+PASS: administrator sitemap does not expose mf_velog_customer
+PASS: administrator REST mf_velog_customer rejects with 404 or 403 (code 404)
+PASS: administrator direct ID mf_velog_vehicle returns 404 (code 404)
+PASS: administrator search does not leak mf_velog_vehicle
+PASS: administrator feed does not leak mf_velog_vehicle
+PASS: administrator sitemap does not expose mf_velog_vehicle
+PASS: administrator REST mf_velog_vehicle rejects with 404 or 403 (code 404)
+PASS: administrator direct ID mf_velog_service returns 404 (code 404)
+PASS: administrator search does not leak mf_velog_service
+PASS: administrator feed does not leak mf_velog_service
+PASS: administrator sitemap does not expose mf_velog_service
+PASS: administrator REST mf_velog_service rejects with 404 or 403 (code 404)
+PASS: administrator direct ID mf_velog_reminder returns 404 (code 404)
+PASS: administrator search does not leak mf_velog_reminder
+PASS: administrator feed does not leak mf_velog_reminder
+PASS: administrator sitemap does not expose mf_velog_reminder
+PASS: administrator REST mf_velog_reminder rejects with 404 or 403 (code 404)
+PASS: mf_velog_manager direct ID mf_velog_customer returns 404 (code 404)
+PASS: mf_velog_manager search does not leak mf_velog_customer
+PASS: mf_velog_manager feed does not leak mf_velog_customer
+PASS: mf_velog_manager sitemap does not expose mf_velog_customer
+PASS: mf_velog_manager REST mf_velog_customer rejects with 404 or 403 (code 404)
+PASS: mf_velog_manager direct ID mf_velog_vehicle returns 404 (code 404)
+PASS: mf_velog_manager search does not leak mf_velog_vehicle
+PASS: mf_velog_manager feed does not leak mf_velog_vehicle
+PASS: mf_velog_manager sitemap does not expose mf_velog_vehicle
+PASS: mf_velog_manager REST mf_velog_vehicle rejects with 404 or 403 (code 404)
+PASS: mf_velog_manager direct ID mf_velog_service returns 404 (code 404)
+PASS: mf_velog_manager search does not leak mf_velog_service
+PASS: mf_velog_manager feed does not leak mf_velog_service
+PASS: mf_velog_manager sitemap does not expose mf_velog_service
+PASS: mf_velog_manager REST mf_velog_service rejects with 404 or 403 (code 404)
+PASS: mf_velog_manager direct ID mf_velog_reminder returns 404 (code 404)
+PASS: mf_velog_manager search does not leak mf_velog_reminder
+PASS: mf_velog_manager feed does not leak mf_velog_reminder
+PASS: mf_velog_manager sitemap does not expose mf_velog_reminder
+PASS: mf_velog_manager REST mf_velog_reminder rejects with 404 or 403 (code 404)
+PASS: mf_velog_technician direct ID mf_velog_customer returns 404 (code 404)
+PASS: mf_velog_technician search does not leak mf_velog_customer
+PASS: mf_velog_technician feed does not leak mf_velog_customer
+PASS: mf_velog_technician sitemap does not expose mf_velog_customer
+PASS: mf_velog_technician REST mf_velog_customer rejects with 404 or 403 (code 404)
+PASS: mf_velog_technician direct ID mf_velog_vehicle returns 404 (code 404)
+PASS: mf_velog_technician search does not leak mf_velog_vehicle
+PASS: mf_velog_technician feed does not leak mf_velog_vehicle
+PASS: mf_velog_technician sitemap does not expose mf_velog_vehicle
+PASS: mf_velog_technician REST mf_velog_vehicle rejects with 404 or 403 (code 404)
+PASS: mf_velog_technician direct ID mf_velog_service returns 404 (code 404)
+PASS: mf_velog_technician search does not leak mf_velog_service
+PASS: mf_velog_technician feed does not leak mf_velog_service
+PASS: mf_velog_technician sitemap does not expose mf_velog_service
+PASS: mf_velog_technician REST mf_velog_service rejects with 404 or 403 (code 404)
+PASS: mf_velog_technician direct ID mf_velog_reminder returns 404 (code 404)
+PASS: mf_velog_technician search does not leak mf_velog_reminder
+PASS: mf_velog_technician feed does not leak mf_velog_reminder
+PASS: mf_velog_technician sitemap does not expose mf_velog_reminder
+PASS: mf_velog_technician REST mf_velog_reminder rejects with 404 or 403 (code 404)
+
+=== Native admin denial matrix ===
+PASS: subscriber edit mf_velog_customer GET: 5xx rejected (code 403)
+PASS: subscriber edit mf_velog_customer GET denied with 403 (code 403)
+PASS: subscriber new mf_velog_customer GET: 5xx rejected (code 403)
+PASS: subscriber new mf_velog_customer GET denied with 403 (code 403)
+PASS: subscriber POST mutation mf_velog_customer: 5xx rejected (code 403)
+PASS: subscriber POST mutation mf_velog_customer denied with 403 (code 403)
+PASS: mf_velog_customer state unchanged after mutation attempt by subscriber
+PASS: subscriber edit mf_velog_vehicle GET: 5xx rejected (code 403)
+PASS: subscriber edit mf_velog_vehicle GET denied with 403 (code 403)
+PASS: subscriber new mf_velog_vehicle GET: 5xx rejected (code 403)
+PASS: subscriber new mf_velog_vehicle GET denied with 403 (code 403)
+PASS: subscriber POST mutation mf_velog_vehicle: 5xx rejected (code 403)
+PASS: subscriber POST mutation mf_velog_vehicle denied with 403 (code 403)
+PASS: mf_velog_vehicle state unchanged after mutation attempt by subscriber
+PASS: subscriber edit mf_velog_service GET: 5xx rejected (code 403)
+PASS: subscriber edit mf_velog_service GET denied with 403 (code 403)
+PASS: subscriber new mf_velog_service GET: 5xx rejected (code 403)
+PASS: subscriber new mf_velog_service GET denied with 403 (code 403)
+PASS: subscriber POST mutation mf_velog_service: 5xx rejected (code 403)
+PASS: subscriber POST mutation mf_velog_service denied with 403 (code 403)
+PASS: mf_velog_service state unchanged after mutation attempt by subscriber
+PASS: subscriber edit mf_velog_reminder GET: 5xx rejected (code 403)
+PASS: subscriber edit mf_velog_reminder GET denied with 403 (code 403)
+PASS: subscriber new mf_velog_reminder GET: 5xx rejected (code 403)
+PASS: subscriber new mf_velog_reminder GET denied with 403 (code 403)
+PASS: subscriber POST mutation mf_velog_reminder: 5xx rejected (code 403)
+PASS: subscriber POST mutation mf_velog_reminder denied with 403 (code 403)
+PASS: mf_velog_reminder state unchanged after mutation attempt by subscriber
+PASS: editor edit mf_velog_customer GET: 5xx rejected (code 403)
+PASS: editor edit mf_velog_customer GET denied with 403 (code 403)
+PASS: editor new mf_velog_customer GET: 5xx rejected (code 403)
+PASS: editor new mf_velog_customer GET denied with 403 (code 403)
+PASS: editor POST mutation mf_velog_customer: 5xx rejected (code 403)
+PASS: editor POST mutation mf_velog_customer denied with 403 (code 403)
+PASS: mf_velog_customer state unchanged after mutation attempt by editor
+PASS: editor edit mf_velog_vehicle GET: 5xx rejected (code 403)
+PASS: editor edit mf_velog_vehicle GET denied with 403 (code 403)
+PASS: editor new mf_velog_vehicle GET: 5xx rejected (code 403)
+PASS: editor new mf_velog_vehicle GET denied with 403 (code 403)
+PASS: editor POST mutation mf_velog_vehicle: 5xx rejected (code 403)
+PASS: editor POST mutation mf_velog_vehicle denied with 403 (code 403)
+PASS: mf_velog_vehicle state unchanged after mutation attempt by editor
+PASS: editor edit mf_velog_service GET: 5xx rejected (code 403)
+PASS: editor edit mf_velog_service GET denied with 403 (code 403)
+PASS: editor new mf_velog_service GET: 5xx rejected (code 403)
+PASS: editor new mf_velog_service GET denied with 403 (code 403)
+PASS: editor POST mutation mf_velog_service: 5xx rejected (code 403)
+PASS: editor POST mutation mf_velog_service denied with 403 (code 403)
+PASS: mf_velog_service state unchanged after mutation attempt by editor
+PASS: editor edit mf_velog_reminder GET: 5xx rejected (code 403)
+PASS: editor edit mf_velog_reminder GET denied with 403 (code 403)
+PASS: editor new mf_velog_reminder GET: 5xx rejected (code 403)
+PASS: editor new mf_velog_reminder GET denied with 403 (code 403)
+PASS: editor POST mutation mf_velog_reminder: 5xx rejected (code 403)
+PASS: editor POST mutation mf_velog_reminder denied with 403 (code 403)
+PASS: mf_velog_reminder state unchanged after mutation attempt by editor
+
+=== Capability grant matrix ===
+PASS: administrator has mf_velog_read_records
+PASS: administrator has mf_velog_manage_settings
+PASS: administrator has mf_velog_manage_customers
+PASS: administrator has mf_velog_read_customer_contacts
+PASS: administrator has mf_velog_manage_vehicles
+PASS: administrator has mf_velog_create_services
+PASS: administrator has mf_velog_edit_own_service_drafts
+PASS: administrator has mf_velog_finalize_own_services
+PASS: administrator has mf_velog_correct_services
+PASS: administrator has mf_velog_manage_reminders
+PASS: mf_velog_manager has mf_velog_read_records
+PASS: mf_velog_manager has mf_velog_manage_settings
+PASS: mf_velog_manager has mf_velog_manage_customers
+PASS: mf_velog_manager has mf_velog_read_customer_contacts
+PASS: mf_velog_manager has mf_velog_manage_vehicles
+PASS: mf_velog_manager has mf_velog_create_services
+PASS: mf_velog_manager has mf_velog_edit_own_service_drafts
+PASS: mf_velog_manager has mf_velog_finalize_own_services
+PASS: mf_velog_manager has mf_velog_correct_services
+PASS: mf_velog_manager has mf_velog_manage_reminders
+PASS: mf_velog_technician has mf_velog_read_records
+PASS: mf_velog_technician has mf_velog_create_services
+PASS: mf_velog_technician has mf_velog_edit_own_service_drafts
+PASS: mf_velog_technician has mf_velog_finalize_own_services
+PASS: mf_velog_technician does NOT have mf_velog_manage_settings
+PASS: mf_velog_technician does NOT have mf_velog_manage_customers
+PASS: mf_velog_technician does NOT have mf_velog_read_customer_contacts
+PASS: mf_velog_technician does NOT have mf_velog_manage_vehicles
+PASS: mf_velog_technician does NOT have mf_velog_correct_services
+PASS: mf_velog_technician does NOT have mf_velog_manage_reminders
+PASS: subscriber does NOT have mf_velog_read_records
+PASS: subscriber does NOT have mf_velog_manage_settings
+PASS: subscriber does NOT have mf_velog_manage_customers
+PASS: subscriber does NOT have mf_velog_read_customer_contacts
+PASS: subscriber does NOT have mf_velog_manage_vehicles
+PASS: subscriber does NOT have mf_velog_create_services
+PASS: subscriber does NOT have mf_velog_edit_own_service_drafts
+PASS: subscriber does NOT have mf_velog_finalize_own_services
+PASS: subscriber does NOT have mf_velog_correct_services
+PASS: subscriber does NOT have mf_velog_manage_reminders
+PASS: editor does NOT have mf_velog_read_records
+PASS: editor does NOT have mf_velog_manage_settings
+PASS: editor does NOT have mf_velog_manage_customers
+PASS: editor does NOT have mf_velog_read_customer_contacts
+PASS: editor does NOT have mf_velog_manage_vehicles
+PASS: editor does NOT have mf_velog_create_services
+PASS: editor does NOT have mf_velog_edit_own_service_drafts
+PASS: editor does NOT have mf_velog_finalize_own_services
+PASS: editor does NOT have mf_velog_correct_services
+PASS: editor does NOT have mf_velog_manage_reminders
+
+=== Lifecycle tests ===
+PASS: Removed mf_velog_read_records for repair test
+PASS: Repair install returned true
+PASS: Repair restored mf_velog_read_records
+PASS: Repair: schema value unchanged
+PASS: Repair: ledger existence unchanged
+PASS: Collision: install returned false
+PASS: Collision: technician caps unchanged
+PASS: Rollback: install returned false after injected failure
+PASS: Rollback: schema existence matches pre-mutation snapshot
+PASS: Rollback: schema value matches pre-mutation snapshot
+PASS: Rollback: schema autoload matches pre-mutation snapshot
+PASS: Rollback: ledger existence matches pre-mutation snapshot
+PASS: Rollback: ledger value matches pre-mutation snapshot
+PASS: Rollback: ledger autoload matches pre-mutation snapshot
+PASS: Rollback: in-memory technician role state restored
+PASS: Reactivation after rollback succeeded
+PASS: Reactivation restored mf_velog_read_records
+Fixture tests passed.
+All tests passed for 6.4.3

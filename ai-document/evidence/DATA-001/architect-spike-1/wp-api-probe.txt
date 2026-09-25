@@ -1,0 +1,5 @@
+inside_transaction=1
+post_after_rollback=0
+meta_after_rollback=0
+get_post_after_rollback_before_clear=1
+get_post_after_cache_clear=0

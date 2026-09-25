@@ -1,0 +1,8 @@
+Immediate contender after client kill:
+acquired_within_1s
+0
+Contender after server query completes:
+acquired_after_query
+1
+rows_after_disconnect
+0

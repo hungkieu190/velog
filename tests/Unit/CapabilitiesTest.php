@@ -58,7 +58,7 @@ class CapabilitiesTest extends TestCase {
 	 * @param bool $fail_restore  Fail restore.
 	 * @return \Mockery\MockInterface
 	 */
-	private function setup_wpdb_mock( $fail_snapshot = false, $fail_restore = false ) {
+	private function setup_wpdb_mock( $fail_snapshot = false, $fail_restore = false, &$restore_failure_called = null ) {
 		global $wpdb;
 		// phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 		$wpdb          = \Mockery::mock();
@@ -99,8 +99,11 @@ class CapabilitiesTest extends TestCase {
 		);
 
 		$wpdb->shouldReceive( 'update' )->andReturnUsing(
-			function ( $table, $data, $where ) use ( $fail_restore ) {
+			function ( $table, $data, $where ) use ( $fail_restore, &$restore_failure_called ) {
 				if ( $fail_restore && 'mf_velog_role_ledger' === $where['option_name'] ) {
+					if ( null !== $restore_failure_called ) {
+						$restore_failure_called = true;
+					}
 					throw new \Exception( 'DB Update Failed' );
 				}
 				$opt = $where['option_name'];
@@ -498,15 +501,28 @@ class CapabilitiesTest extends TestCase {
 
 	/**
 	 * Test that restore_option failure during rollback is caught (not re-thrown) and
-	 * that the rollback loop completes. Verify resulting state of all three options.
+	 * that the rollback loop completes. Verify reachable execution and resulting state.
 	 *
-	 * Setup: schema option preexists (autoload=no), ledger absent, roles empty.
-	 * Trigger: update_option throws on ledger write; wpdb->update throws when restoring ledger.
-	 * Expected: install() returns false; schema is restored to original; ledger stays absent.
+	 * Setup: preexisting roles, schema (autoload=no), and ledger (autoload=no, manager owned).
+	 * Trigger: update_option throws on schema write; wpdb->update throws when restoring ledger.
+	 * Expected: wpdb->update failure is reached; install() returns false; schema/roles are restored;
+	 *           ledger stays at modified state demonstrating the failed restore was caught safely.
 	 */
 	public function test_restore_failure_does_not_propagate() {
+		$initial_roles = array(
+			'administrator'    => array(
+				'name'         => 'Administrator',
+				'capabilities' => array( 'read' => true ),
+			),
+			'mf_velog_manager' => array(
+				'name'         => 'VeLog Manager',
+				'capabilities' => array( 'read' => true ),
+			),
+		);
+		$initial_ledger = array( 'mf_velog_manager' => true );
+
 		$admin               = \Mockery::mock();
-		$admin->capabilities = array();
+		$admin->capabilities = array( 'read' => true );
 		$admin->shouldReceive( 'has_cap' )->andReturn( false );
 		$admin->shouldReceive( 'add_cap' )->andReturnUsing(
 			function ( $cap ) use ( &$admin ) {
@@ -517,25 +533,40 @@ class CapabilitiesTest extends TestCase {
 			}
 		);
 
+		$manager               = \Mockery::mock();
+		$manager->capabilities = array( 'read' => true );
+		$manager->shouldReceive( 'has_cap' )->andReturn( true );
+		$manager->shouldReceive( 'add_cap' )->andReturnUsing(
+			function ( $cap ) use ( &$manager ) {
+				$manager->capabilities[ $cap ] = true;
+				$roles                         = @unserialize( $this->db_store['wp_user_roles']['value'] );
+				$roles['mf_velog_manager']['capabilities'][ $cap ] = true;
+				$this->db_store['wp_user_roles']['value']         = serialize( $roles );
+			}
+		);
+
 		Functions\when( 'get_role' )->alias(
-			function ( $role ) use ( $admin ) {
+			function ( $role ) use ( $admin, $manager ) {
 				if ( 'administrator' === $role ) {
 					return $admin;
+				}
+				if ( 'mf_velog_manager' === $role ) {
+					return $manager;
 				}
 				return null;
 			}
 		);
-		Functions\expect( 'get_option' )->with( Capabilities::OPTION_ROLE_LEDGER, array() )->andReturn( array() );
+		Functions\expect( 'get_option' )->with( Capabilities::OPTION_ROLE_LEDGER, array() )->andReturn( $initial_ledger );
 		$wp_roles_mock           = \Mockery::mock();
 		$wp_roles_mock->role_key = 'wp_user_roles';
-		$wp_roles_mock->roles    = array();
+		$wp_roles_mock->roles    = $initial_roles;
 		$wp_roles_mock->shouldReceive( 'for_site' );
 		Functions\expect( 'wp_roles' )->andReturn( $wp_roles_mock );
 
-		// Preexisting: roles option (autoload=yes), schema option (autoload=no, value=0), ledger absent.
+		// Preexisting options: roles (yes), schema (no, 0), ledger (no, initial).
 		// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.serialize_serialize
 		$this->db_store['wp_user_roles'] = array(
-			'value'    => serialize( array() ),
+			'value'    => serialize( $initial_roles ),
 			'autoload' => 'yes',
 		);
 		// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.serialize_serialize
@@ -543,10 +574,15 @@ class CapabilitiesTest extends TestCase {
 			'value'    => serialize( 0 ),
 			'autoload' => 'no',
 		);
-		// Ledger absent — not in db_store.
+		// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.serialize_serialize
+		$this->db_store[ Capabilities::OPTION_ROLE_LEDGER ] = array(
+			'value'    => serialize( $initial_ledger ),
+			'autoload' => 'no',
+		);
 
+		$restore_failure_invoked = false;
 		// fail_restore=true: wpdb->update throws when option_name = mf_velog_role_ledger.
-		$this->setup_wpdb_mock( false, true );
+		$this->setup_wpdb_mock( false, true, $restore_failure_invoked );
 
 		Functions\when( 'add_role' )->alias(
 			function ( $role, $name, $caps ) {
@@ -579,29 +615,34 @@ class CapabilitiesTest extends TestCase {
 				return $str;
 			}
 		);
-		// update_option throws on ledger write — triggers rollback catch block.
-		// wpdb->update (fail_restore=true) then throws when restore_option tries to update ledger row.
+
+		// Mutation updates ledger, but throws when updating schema version to trigger rollback.
 		Functions\when( 'update_option' )->alias(
 			function ( $opt, $val, $autoload ) {
-				if ( 'mf_velog_role_ledger' === $opt ) {
-					throw new \Exception( 'Mock ledger update failure — triggers rollback' );
+				if ( Capabilities::OPTION_SCHEMA_VERSION === $opt ) {
+					throw new \Exception( 'Mock schema update failure — triggers rollback' );
 				}
 				// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.serialize_serialize
 				$this->db_store[ $opt ] = array(
 					'value'    => serialize( $val ),
-					'autoload' => 'yes',
+					'autoload' => 'no',
 				);
 				return true;
 			}
 		);
 
-		// install() must return false — restore failure must not propagate as exception.
+		// Execute install() — must return false, catching restore failure without throwing.
 		$result = Capabilities::install();
-		$this->assertFalse( $result, 'install() returns false when ledger update and restore both fail' );
+		$this->assertFalse( $result, 'install() returns false when schema update and ledger restore both fail' );
+
+		// Assert that the configured failing wpdb->update path was genuinely reached.
+		$this->assertTrue( $restore_failure_invoked, 'Failing wpdb->update path was invoked during rollback' );
 
 		// Resulting state invariants:
-		// 1. wp_user_roles must still exist (restore_option uses update/insert, not the failing ledger path).
-		$this->assertArrayHasKey( 'wp_user_roles', $this->db_store, 'wp_user_roles remains in store after failed rollback' );
+		// 1. wp_user_roles was restored back to initial roles snapshot.
+		$this->assertArrayHasKey( 'wp_user_roles', $this->db_store, 'wp_user_roles remains in store after rollback' );
+		// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.serialize_serialize
+		$this->assertEquals( serialize( $initial_roles ), $this->db_store['wp_user_roles']['value'], 'wp_user_roles restored to initial snapshot' );
 
 		// 2. Schema option was preexisting. restore_option updates it. Since fail_restore only
 		//    affects mf_velog_role_ledger, schema restore succeeds with original value and autoload.
@@ -610,8 +651,17 @@ class CapabilitiesTest extends TestCase {
 		$this->assertEquals( serialize( 0 ), $this->db_store[ Capabilities::OPTION_SCHEMA_VERSION ]['value'], 'schema value restored to original (0)' );
 		$this->assertEquals( 'no', $this->db_store[ Capabilities::OPTION_SCHEMA_VERSION ]['autoload'], 'schema autoload restored to no' );
 
-		// 3. Ledger was absent. restore_option calls delete_option (not update/insert) so the
-		//    fail_restore path is not triggered. Ledger must remain absent.
-		$this->assertArrayNotHasKey( Capabilities::OPTION_ROLE_LEDGER, $this->db_store, 'ledger remains absent after rollback' );
+		// 3. Ledger was preexisting and was mutated during install before schema update failed.
+		//    During rollback, restore_option called wpdb->update which threw and failed.
+		//    Therefore, ledger was NOT restored to initial_ledger and retains the unrolled-back mutated value.
+		$this->assertArrayHasKey( Capabilities::OPTION_ROLE_LEDGER, $this->db_store, 'ledger option remains in store' );
+		$expected_mutated_ledger = array(
+			'mf_velog_manager'    => true,
+			'mf_velog_technician' => true,
+		);
+		// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.serialize_serialize
+		$this->assertNotEquals( serialize( $initial_ledger ), $this->db_store[ Capabilities::OPTION_ROLE_LEDGER ]['value'], 'ledger value was NOT restored because wpdb->update threw during restore' );
+		// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.serialize_serialize
+		$this->assertEquals( serialize( $expected_mutated_ledger ), $this->db_store[ Capabilities::OPTION_ROLE_LEDGER ]['value'], 'ledger retains unrolled-back mutated value demonstrating restore failure' );
 	}
 }

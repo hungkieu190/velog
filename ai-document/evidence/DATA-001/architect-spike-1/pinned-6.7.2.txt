@@ -1,0 +1,7 @@
+WordPress=6.7.2
+inside_rollback_visible=1
+rollback_db_count=0
+stale_after_rollback=1
+visible_after_cache_clear=0
+committed_post_visible=1
+committed_meta=probe

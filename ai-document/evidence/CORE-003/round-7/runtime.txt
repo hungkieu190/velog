@@ -1,0 +1,9 @@
+=== Runtime Information ===
+Date: 2026-09-25 02:48:50 UTC
+PHP: PHP 8.3.6 (cli) (built: Sep  2 2026 12:56:02) (NTS)
+Composer: Composer version 2.7.1 2024-02-09 15:26:28
+MariaDB: mariadbd  Ver 10.11.14-MariaDB-0ubuntu0.24.04.1 for debian-linux-gnu on x86_64 (Ubuntu 24.04)
+mysql_install_db: Installing MariaDB/MySQL system tables in '/var/lib/mysql' ...
+WP-CLI: WP-CLI 2.12.0
+Node: v20.19.2
+npm: 10.8.2
