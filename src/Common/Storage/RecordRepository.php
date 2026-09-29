@@ -1659,7 +1659,13 @@ final class RecordRepository {
 
 		return WriteCoordinator::run(
 			$actor,
-			static function ( WriteUnit $unit ) use ( $type, $canonical, $actor, $idem_key, $request_id ): array|\WP_Error {
+			static function ( WriteUnit $unit ) use (
+				$type,
+				$canonical,
+				$actor,
+				$idem_key,
+				$request_id
+			): array|\WP_Error {
 				$dbh    = $unit->get_dbh();
 				$prefix = $unit->get_prefix();
 
@@ -1739,7 +1745,7 @@ final class RecordRepository {
 				) {
 					return new \WP_Error( 'storage_unavailable', 'Candidate record missing valid create audit entry.' );
 				}
-				
+
 				$req_hash = hash( 'sha256', $request_id );
 				if ( $first_entry['request_id_sha256'] !== $req_hash ) {
 					return new \WP_Error( 'storage_unavailable', 'Create audit entry request hash mismatch.' );
@@ -1747,7 +1753,7 @@ final class RecordRepository {
 				if ( (int) $first_entry['actor_id'] !== (int) $actor->ID ) {
 					return new \WP_Error( 'storage_unavailable', 'Create audit entry actor mismatch.' );
 				}
-				
+
 				$first_after = (array) $first_entry['after'];
 				ksort( $first_after );
 				$canon_copy = $canonical;
@@ -1888,8 +1894,16 @@ final class RecordRepository {
 					}
 					// D1-F-019: Each 'save' entry must carry before and after states.
 					if ( 'save' === $entry['op'] ) {
-						if ( ! isset( $entry['before'] ) || ! is_array( $entry['before'] ) || ! isset( $entry['after'] ) || ! is_array( $entry['after'] ) ) {
-							return new \WP_Error( 'indeterminate', 'Malformed save audit entry: missing before/after.' );
+						if (
+							! isset( $entry['before'] )
+							|| ! is_array( $entry['before'] )
+							|| ! isset( $entry['after'] )
+							|| ! is_array( $entry['after'] )
+						) {
+							return new \WP_Error(
+								'indeterminate',
+								'Malformed save audit entry: missing before/after.'
+							);
 						}
 					}
 					if (
@@ -1924,7 +1938,8 @@ final class RecordRepository {
 					if ( serialize( $simulated_after ) !== serialize( $matched_after ) ) {
 						return new \WP_Error(
 							'conflict',
-							'Matched audit entry transition differs from requested changes; request ID reused with different payload.'
+							'Matched audit entry transition differs from requested changes; ' .
+							'request ID reused with different payload.'
 						);
 					}
 
