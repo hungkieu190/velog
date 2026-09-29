@@ -33,15 +33,24 @@ Architect provides an actionable implementation blueprint before dispatching to 
 4. **Verification matrix**: Expected commands, positive/negative controls, exit codes, and evidence paths.
 5. **Blueprint readiness**: Architect marks `PASS` before setting `READY`. Builder reports design gaps if incomplete.
 
+### Escalation after repeated implementation review failure
+
+The normal path is direct Builder implementation of a `READY` blueprint or `CHANGES_REQUESTED` corrections, followed by independent Architect review. A proposal review is not required for every round. Architect keeps a finding ledger in the task or review evidence: stable finding ID, underlying defect, implementation review rounds where it failed, and current disposition. Count implementation reviews, not proposal reviews. A finding first reported in a review has one failure. If the same underlying defect remains unresolved at the next independent implementation review, it has two consecutive failures and is escalated before a third implementation attempt. Splitting or renaming its ID does not reset the count; a newly discovered, unrelated defect starts at one. An intervening verified closure ends the sequence.
+
+At escalation, Architect writes a proportionate, decision-complete correction blueprint: affected symbols and order of changes, security/data invariants, result and failure classification, executable positive/negative test oracles, and scope limits. Architect states any genuine architectural gap explicitly and does not hand a bare list of defects back to Builder. Builder then investigates read-only and submits a concise proposed correction for the escalated defect, mapping the blueprint to files/functions, verification and cleanup. Builder may identify a concrete contradiction with evidence rather than inventing a fallback.
+
+Architect responds `APPROVED FOR IMPLEMENTATION` or `REVISE PROPOSAL`, with reasons, and records the decision and proposal reference in the task. Builder may edit implementation files for that escalated defect only after approval; a revised proposal receives a fresh review. This gate applies only to escalated defects. New findings and unrelated approved work continue through the normal path. Neither the gate nor its approval changes product scope or task status; scope changes still require user approval.
+
 ## 4. Manual handoff workflow
 
 Handoffs between Architect and Builder are manual via synchronized documents and copy-ready chat prompts. Automated dispatch, JSON signals, and receipts are retired.
 
 ### Finalization
 1. Finish code, tests, and evidence logs.
-2. Append report to task file; preserve historical reports or link to archived rounds under `ai-document/history/<TASK-ID>/`.
-3. Synchronize task file, `ai-document/implementation-checklist.md`, and `ai-document/README.md`.
-4. Provide exactly one copy-ready prompt under `### Chat handoff prompt`. Format:
+2. Remove task-owned temporary scripts, generated PHP probes, disposable fixtures, directories, databases and child processes on success and failure. Retain only approved reusable tests and required evidence. Inspect `git status --short` and compare it with the task change map; record any remaining temporary path or cleanup failure in the report. Never delete pre-existing or tracked files through a broad filename pattern; propose a separate reviewed cleanup scope for legacy files.
+3. Append report to task file; preserve historical reports or link to archived rounds under `ai-document/history/<TASK-ID>/`.
+4. Synchronize task file, `ai-document/implementation-checklist.md`, and `ai-document/README.md`.
+5. Provide exactly one copy-ready prompt under `### Chat handoff prompt`. Format:
 ```text
 Status: <STATUS>
 Recipient: <Architect|Builder>
@@ -61,6 +70,7 @@ Before starting received work, the receiving agent must validate:
 ## 5. Review and verification contract
 
 - **Diff-based review**: Architect reviews the git diff first, verifying affected callers, security boundaries, and negative controls.
+- **Temporary-file ownership**: Create short-lived test scripts in a unique task/run directory outside plugin source when practical. Record paths when created and clean only resources owned by that run. A fixture needed for repeatable verification belongs in the approved test change map; an ad hoc root-level `fix_*.php`, `patch_*.php` or `test-*.php` does not. Reviewers verify the handoff cleanup statement against `git status --short`.
 - **Verification execution**: Reviewer verifies evidence and runs relevant gates:
   - PHP: `composer run lint` (PHPCS + PHPStan), `composer run test` (PHPUnit).
   - Workflow/tooling: `npm run test:workflow` (Node 24).
@@ -87,6 +97,7 @@ All new tasks follow this compact structure (target <=12,000 characters):
 - Latest round:
 - Latest report: <evidence/path>
 - Evidence: <evidence/path>
+- Temporary resource cleanup: <owned paths/processes removed; retained reusable fixtures; remaining issues>
 - Next actor: <Architect|Builder|User>
 - Next actor and exact next action:
 

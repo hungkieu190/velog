@@ -11,7 +11,7 @@ if (!Number.isInteger(port) || port < 1 || port > 65535) throw new Error('Port m
 const server = http.createServer(async (request, response) => {
   response.setHeader('Cache-Control', 'no-store');
   response.setHeader('X-Content-Type-Options', 'nosniff');
-  response.setHeader('Content-Security-Policy', "default-src 'none'; style-src 'self'; base-uri 'none'; frame-ancestors 'none'");
+  response.setHeader('Content-Security-Policy', "default-src 'none'; style-src 'self'; script-src 'self'; connect-src 'self'; img-src 'self' data:; base-uri 'none'; frame-ancestors 'none'");
   if (!['GET', 'HEAD'].includes(request.method)) { response.writeHead(405); response.end(); return; }
   if (!['127.0.0.1', 'localhost'].includes((request.headers.host || '').split(':')[0])) { response.writeHead(403); response.end(); return; }
   try {
@@ -19,6 +19,9 @@ const server = http.createServer(async (request, response) => {
       response.setHeader('Content-Type', 'text/css');
       // Read authoritative tool stylesheet so progress works before the first build.
       response.end(await fs.readFile(path.join(root, 'src/css/progress.css')));
+    } else if (request.url === '/progress-client.mjs') {
+      response.setHeader('Content-Type', 'text/javascript; charset=utf-8');
+      response.end(await fs.readFile(path.join(root, 'scripts/progress-client.mjs')));
     } else if (['/', '/api/progress'].includes(request.url)) {
       const data = await readProgress(root);
       response.setHeader('Content-Type', request.url === '/' ? 'text/html; charset=utf-8' : 'application/json');

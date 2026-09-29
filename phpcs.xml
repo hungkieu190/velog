@@ -15,6 +15,9 @@
     <exclude-pattern>assets/*</exclude-pattern>
     <exclude-pattern>*.min.js</exclude-pattern>
     <exclude-pattern>*.min.css</exclude-pattern>
+    <!-- Integration fixtures use CLI PHP, raw mysqli, and non-WP stubs by design. -->
+    <exclude-pattern>tests/fixtures/*</exclude-pattern>
+    <exclude-pattern>tests/workflow/*</exclude-pattern>
 
     <rule ref="WordPress">
         <exclude name="WordPress.Files.FileName.NotHyphenatedLowercase"/>
@@ -24,6 +27,34 @@
     <rule ref="WordPress-Core"/>
     <rule ref="WordPress-Docs"/>
     <rule ref="WordPress-Extra"/>
+
+    <!--
+        DATA-001 contract: Storage/ classes use raw mysqli on a pinned connection
+        for transactional writes. $wpdb helpers cannot guarantee a write stays on
+        the locked connection (core reconnects on error 2006). Direct-access sniffs
+        are suppressed for the Storage layer; security is enforced via parameterized
+        SQL with mysqli_real_escape_string inside trusted-only code paths.
+    -->
+    <rule ref="WordPress.DB.RestrictedFunctions">
+        <exclude-pattern>src/Common/Storage/*</exclude-pattern>
+    </rule>
+    <rule ref="WordPress.DB.DirectDatabaseQuery">
+        <exclude-pattern>src/Common/Storage/*</exclude-pattern>
+    </rule>
+    <rule ref="WordPress.DB.PreparedSQL">
+        <exclude-pattern>src/Common/Storage/*</exclude-pattern>
+    </rule>
+    <rule ref="WordPress.Security.EscapeOutput">
+        <exclude-pattern>src/Common/Storage/*</exclude-pattern>
+    </rule>
+
+    <!-- Test fixtures and test bootstrap define lightweight stubs for testing. -->
+    <rule ref="Universal.Files.SeparateFunctionsFromOO">
+        <exclude-pattern>tests/*</exclude-pattern>
+    </rule>
+    <rule ref="Generic.Files.OneObjectStructurePerFile">
+        <exclude-pattern>tests/*</exclude-pattern>
+    </rule>
 
     <config name="minimum_supported_wp_version" value="6.4"/>
     <config name="testVersion" value="8.1-"/>

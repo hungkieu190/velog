@@ -599,6 +599,7 @@ All build/package/WordPress smoke checks must have reproducible positive, negati
 - For translation-sensitive tasks, install a real non-English catalog and assert a different expected translation after the natural lifecycle. Install diagnostics before bootstrap. A late replay of init/plugins_loaded is not early-lifecycle testing.
 - Positive and negative controls use the SAME validator/detector. Prove a known broken condition fails that validator. Record inner expected failure separately from overall test success. Do not grep for an unrelated warning, mask errors with a success echo, or infer success from text/file existence alone.
 - Capture exact commands, exit codes, test totals, versions, relevant raw output and cleanup proof under the task's evidence directory. Sanitize secrets; preserve failed-run history and append corrections to unsupported claims.
+- Keep ad hoc PHP probes and generated test scripts in a unique run-owned temporary directory outside the project source when practical. Delete only those owned temporary files on every exit path; keep approved reusable fixtures and evidence. Before handoff, inspect `git status --short`, reconcile every new file with the approved change map, and report any remaining scratch file or cleanup failure. Legacy tracked scripts require a separate reviewed cleanup scope; do not delete them by filename pattern.
 - A failed connection to the active site's database does not establish inability to create a disposable instance. Report actual isolated-setup attempts and precise blockers.
 
 ### Evidence lessons for integration and failure controls
@@ -614,6 +615,8 @@ Apply these when the approved task includes the relevant behavior; do not add un
 ## 15. Dashboard and source-control boundaries
 
 The dashboard is local development tooling, owned by the approved workflow task. Its stylesheet may live in src/css/progress.css and be read directly by the localhost server; exclude it from plugin runtime compilation/release. Do not add runtime enqueues solely to satisfy dashboard/build tests.
+
+For handoff alerts, a small same-origin browser module may poll the read-only progress API. Trigger alerts only when the current task's structured handoff prompt changes after an initial baseline. Use a visible tab title/banner even when audio is unavailable, require a user click to enable browser audio, and avoid duplicate alerts across page refreshes in that tab. Polling must not dispatch agents or write workflow state. Keep the module outside plugin runtime/release assets.
 
 Track authoritative sources, scripts/configuration, npm/Composer lockfiles, production assets and generated ownership manifest for the WordPress profile. Ignore installed dependencies, development maps, release output, private staging/caches and temporary fixtures. Keep sanitized environment examples. Test representative paths with git check-ignore; do not untrack unrelated files or commit automatically.
 

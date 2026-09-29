@@ -29,7 +29,7 @@ Use `npm install` only for intentional dependency changes; use `npm ci` for veri
 
 `src/css/_variables.scss` is imported by both Sass entries. Sass is the approved CSS-preprocessor variation. PHP remains in its existing src/ namespaces. The previous src/assets/ sources were removed only after replacement development and production builds passed.
 
-The dashboard's development-only CSS is `src/css/progress.css`, read directly by its local tool server. It is not plugin runtime CSS and is not included in build output or release packages. Dashboard HTML is rendered server-side by scripts/progress-view.mjs; there is no client JavaScript bundle.
+The dashboard's development-only CSS is `src/css/progress.css`, read directly by its local tool server. Its small browser module `scripts/progress-client.mjs` polls the read-only progress API every 20 seconds and refreshes the visible dashboard without a page reload. Neither file is plugin runtime code or included in build output or release packages. Dashboard HTML is rendered server-side by `scripts/progress-view.mjs`; there is no compiled client bundle.
 
 `build.config.mjs` owns entry mapping, ES2020 target, IIFE format, externals, static mapping and the generated-file manifest. No external frontend library or real image/font resource is currently required. Add explicit static mappings when real resources are introduced; CSS references to unconfigured local outputs fail validation. Do not bundle WordPress-provided libraries without a reviewed dependency plan.
 
@@ -41,7 +41,7 @@ The dashboard's development-only CSS is `src/css/progress.css`, read directly by
 | npm run production | Fresh bundled/minified JS and minified CSS, legal notices retained, no maps, then exit. |
 | npm run build | Compatibility alias for production. |
 | npm run release | Validate version/configuration/prerequisites, run quality gates and PHPUnit, fresh production build, validate staging, create ZIP. |
-| npm run progress | Read-only localhost dashboard, port 4177; `-- --port=4187` or PROGRESS_PORT overrides it; Ctrl+C stops it. |
+| npm run progress | Read-only localhost dashboard, port 4177; `-- --port=4187` or PROGRESS_PORT overrides it; Ctrl+C stops it. New Builder/Architect handoff prompts raise a tab title/banner alert. Click **Enable sound** once in the tab to allow a chime; browser audio policy requires that user gesture. The first observed handoff is a baseline and does not chime. |
 | npm run check | PHP syntax, PHPCS and PHPStan using actual exit codes; saves a report under reports/. |
 | npm run test:workflow | Disposable-fixture checks for build ownership/failure, dashboard parsing/escaping, release boundaries/failure and quality-gate propagation. |
 

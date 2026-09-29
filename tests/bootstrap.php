@@ -64,3 +64,89 @@ if ( ! class_exists( 'WP_User' ) ) {
 		}
 	}
 }
+
+if ( ! class_exists( 'WP_Error' ) ) {
+	/**
+	 * WP_Error stub for unit tests.
+	 */
+	class WP_Error {
+		/**
+		 * Error codes and messages.
+		 *
+		 * @var array<string, array<int, string>>
+		 */
+		protected $errors = array();
+
+		/**
+		 * Error data.
+		 *
+		 * @var array<string, mixed>
+		 */
+		protected $error_data = array();
+
+		/**
+		 * Constructor.
+		 *
+		 * @param string $code    Error code.
+		 * @param string $message Error message.
+		 * @param mixed  $data    Error data.
+		 */
+		public function __construct( $code = '', $message = '', $data = '' ) {
+			if ( ! empty( $code ) ) {
+				$this->errors[ $code ][] = (string) $message;
+				if ( ! empty( $data ) ) {
+					$this->error_data[ $code ] = $data;
+				}
+			}
+		}
+
+		/**
+		 * Retrieve the first error code.
+		 *
+		 * @return string
+		 */
+		public function get_error_code(): string {
+			$codes = array_keys( $this->errors );
+			return empty( $codes ) ? '' : (string) $codes[0];
+		}
+
+		/**
+		 * Retrieve the first error message.
+		 *
+		 * @param string $code Optional error code.
+		 * @return string
+		 */
+		public function get_error_message( string $code = '' ): string {
+			if ( empty( $code ) ) {
+				$code = $this->get_error_code();
+			}
+			$messages = $this->errors[ $code ] ?? array();
+			return empty( $messages ) ? '' : (string) $messages[0];
+		}
+
+		/**
+		 * Retrieve error data.
+		 *
+		 * @param string $code Optional error code.
+		 * @return mixed
+		 */
+		public function get_error_data( string $code = '' ): mixed {
+			if ( empty( $code ) ) {
+				$code = $this->get_error_code();
+			}
+			return $this->error_data[ $code ] ?? null;
+		}
+	}
+}
+
+if ( ! function_exists( 'is_wp_error' ) ) {
+	/**
+	 * Checks whether the given variable is a WordPress Error.
+	 *
+	 * @param mixed $thing Variable to check.
+	 * @return bool
+	 */
+	function is_wp_error( mixed $thing ): bool {
+		return ( $thing instanceof WP_Error );
+	}
+}

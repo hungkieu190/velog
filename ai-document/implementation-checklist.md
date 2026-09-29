@@ -3,14 +3,14 @@
 ## Current focus
 
 - Task: DATA-001
-- Status: DRAFT
+- Status: READY_FOR_REVIEW
 - Next actor: Architect
-- Exact next action: Codex Architect presents DATA-001 revision 2 and its pinned-connection contract for explicit Builder implementation approval.
-- Planning queue: CORE-003, WF-004 and WF-005 are DONE; DATA-001 draft revision 2 is ready for scope approval.
+- Exact next action: Codex Architect reviews D1-F-021 read-only cleanup proposal revision 2 and D1-F-019/020/022/023 code corrections.
+- Planning queue: CORE-003, WF-004 and WF-005 are DONE; DATA-001 Builder round-4 (part 2) partial work submitted for review.
 
 ## Project status
 
-Tooling bootstrap and master-plan revision 3 are accepted. CORE-001, CORE-002 and CORE-003 are DONE; WF-003 is DONE. DATA-001 is DRAFT revision 2 with blueprint readiness PASS after disposable storage probes and an executable contract; Builder implementation approval is pending. G-08 benchmark target was approved for planning on 2026-09-25; actual benchmark and DATA-001 application behavior are NOT VERIFIED.
+Tooling bootstrap and master-plan revision 3 are accepted. CORE-001, CORE-002 and CORE-003 are DONE; WF-003 is DONE. DATA-001 is READY_FOR_REVIEW for Builder round 4 (part 2): D1-F-019/020/022/023 corrected (negative controls revised) and D1-F-021 cleanup read-only design revision 2 submitted. G-08 full benchmark, persistent-cache compatibility, MariaDB live-handle COMMIT failure and coordinator 1213 deadlock remain NOT VERIFIED. Task is not yet complete.
 
 ## Accepted product master plan and MVP
 
@@ -59,10 +59,10 @@ Task: [CORE-003](tasks/CORE-003-access-private-types.md). Prerequisites: CORE-00
 
 ### DATA-001 — Versioned private storage and retained data
 
-- [ ] DATA-001 / AC1: Typed versioned repository preserves canonical regional values and rejects forged/invalid payloads. Status: DRAFT.
-- [ ] DATA-001 / AC2: Concurrent/stale/multi-record writes either commit coherently or fail without lost history/duplicates. Status: DRAFT.
-- [ ] DATA-001 / AC3: Uninstall/reinstall retains records, configuration and semantic identity; no automatic purge. Status: DRAFT.
-- [ ] DATA-001 / AC4: Metadata privacy, real storage failure/recovery and cache consistency verified. Status: DRAFT.
+- [ ] DATA-001 / AC1: Typed versioned repository preserves canonical regional values and rejects forged/invalid payloads. Status: CHANGES_REQUESTED.
+- [ ] DATA-001 / AC2: Concurrent/stale/multi-record writes either commit coherently or fail without lost history/duplicates. Status: CHANGES_REQUESTED.
+- [ ] DATA-001 / AC3: Uninstall/reinstall retains records, configuration and semantic identity; no automatic purge. Status: CHANGES_REQUESTED.
+- [ ] DATA-001 / AC4: Metadata privacy, real storage failure/recovery and cache consistency verified. Status: CHANGES_REQUESTED.
 
 Task: [DATA-001](tasks/DATA-001-record-storage.md). Prerequisites: CORE-002 and CORE-003 DONE.
 

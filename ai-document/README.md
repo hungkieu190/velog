@@ -4,9 +4,9 @@ Authoritative technical and workflow documentation for VeLog.
 
 ## Current focus
 - Task: [DATA-001](tasks/DATA-001-record-storage.md)
-- Status: DRAFT
+- Status: READY_FOR_REVIEW
 - Next actor: Architect
-- Exact next action: Present DATA-001 revision 2 and its pinned-connection contract for explicit Builder implementation approval.
+- Exact next action: Codex Architect reviews D1-F-021 read-only cleanup proposal revision 2 and D1-F-019/020/022/023 code corrections.
 - Lean workflow: [WF-005](tasks/WF-005-lean-architect-workflow.md) (DONE after independent review).
 - Closed workflow removal: [WF-004](tasks/WF-004-json-handoff-controller.md) (DONE by direct user acceptance).
 

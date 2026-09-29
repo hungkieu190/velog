@@ -1,21 +1,22 @@
 # DATA-001: Versioned private storage and retained data
 
 ## Current handoff
-- Status: DRAFT
-- Plan revision: 2
-- Implementation round: 0
-- Blueprint readiness: PASS (implementation approval pending)
-- Architect session reference: Codex planning 2026-09-21; isolated storage spike 2026-09-25.
-- Builder session reference: Unassigned.
-- Implementation contributors and reviewer independence check: No application implementation; Codex Architect owns planning and must independently review later Builder code.
+- Status: READY_FOR_REVIEW
+- Plan revision: 5
+- Implementation round: 4
+- Blueprint readiness: PASS for approved revision-5 storage approach; D1-F-021 cleanup proposal revision 2 submitted for review.
+- Builder implementation approach: Builder round 4 — corrected D1-F-019/020/022/023 in `RecordRepository.php`; revised V4-J/V4-L negative controls in `v4_cache_failure.php`; submitted D1-F-021 read-only cleanup design revision 2 at `ai-document/evidence/DATA-001/builder-round-4/cleanup-proposal-d1f021.md`.
+- Architect session reference: Codex planning 2026-09-21; isolated storage spike 2026-09-25; review round 1 2026-09-29; proposal review 5 2026-09-29; round 4 review 2026-09-29.
+- Builder session reference: Antigravity implementation round 4 on 2026-09-29.
+- Implementation contributors and reviewer independence check: Antigravity corrected D1-F-019/020/022/023 and submitted D1-F-021 read-only proposal rev 2; Codex Architect must independently review proposal and diffs.
 - Related checklist items: DATA-001 / AC1–AC4.
-- Baseline branch and commit: `main` at `a70b985` plus staged accepted CORE-003 work; preserve that state.
-- User approval reference and approved scope: PLAN-001 revision 3; on 2026-09-25 the user approved the proposed DATA-001 planning/verification approach and G-08 benchmark target. Builder implementation has not been dispatched.
-- Latest round: Architect draft revision 2 and disposable storage spike.
-- Latest report: `ai-document/evidence/DATA-001/architect-spike-1/review.md`.
-- Evidence: `ai-document/evidence/DATA-001/architect-spike-1/`.
+- Baseline branch and commit: `main` at `d438715` before this handoff's documentation changes; preserve accepted CORE-002/CORE-003 work.
+- User approval reference and approved scope: PLAN-001 revision 3; on 2026-09-25 the user approved the proposed DATA-001 planning/verification approach and G-08 benchmark target. On 2026-09-29 the user explicitly approved DATA-001 revision 2 Builder implementation after the Architect presented its pinned-connection contract, scope and verification matrix.
+- Latest round: Builder implementation round 4.
+- Latest evidence: `ai-document/evidence/DATA-001/builder-round-4/cleanup-proposal-d1f021.md` (Revision 2).
+- Temporary resource cleanup: No disposable WordPress fixtures run this round (blocked until D1-F-021 cleanup is approved and fixed per task instruction).
 - Next actor: Architect
-- Next actor and exact next action: Present revision 2 and its bounded pinned-connection contract for explicit user approval of Builder implementation; then set READY and hand off to Antigravity Builder.
+- Next actor and exact next action: Codex Architect reviews D1-F-021 read-only cleanup proposal revision 2 at `ai-document/evidence/DATA-001/builder-round-4/cleanup-proposal-d1f021.md` and records APPROVED FOR IMPLEMENTATION or REVISE PROPOSAL. Also reviews D1-F-019/020/022/023 corrections in `src/Common/Storage/RecordRepository.php` and negative controls in `tests/fixtures/wp-integration/data001/v4_cache_failure.php`. Do not manually accept or claim the task is fully complete.
 
 ## Problem and intended behavior
 
@@ -58,14 +59,31 @@ The bounded execution contract is [contract.md](../evidence/DATA-001/architect-s
 - **R2 PASS for planning**: The isolated tests demonstrated stale `get_post()` after rollback and its removal with `clean_post_cache()` on both versions. The contract requires invalidation on commit and rollback and warmed-cache integration tests. A persistent cache drop-in remains NOT VERIFIED and is a Builder verification requirement, not a claim of compatibility.
 - **R3 PASS for planning**: `contract.md` freezes the public API, errors, type registry, storage map, request-ID reconciliation and transaction/cache sequence. Entity-specific field/identifier rules stay in their later tasks and cannot be invented by Builder.
 - **R4 PASS for planning**: The verification matrix below and `contract.md` specify failure, concurrency, cleanup and evidence controls. Actual DATA-001 application results remain NOT VERIFIED.
-- User approved the planning approach and G-08 target. Explicit approval of this detailed revision 2 Builder scope is still required before changing status to READY or dispatching implementation.
+- User approved the planning approach and G-08 target, then explicitly approved this detailed revision 2 Builder scope on 2026-09-29. Application behavior remains NOT VERIFIED.
 
 ## Acceptance criteria
 
-- [ ] DATA-001 / AC1: Typed versioned repository preserves canonical regional values and rejects forged/invalid payloads. Status: DRAFT.
-- [ ] DATA-001 / AC2: Concurrent/stale/multi-record writes either commit coherently or fail without lost history/duplicates. Status: DRAFT.
-- [ ] DATA-001 / AC3: Uninstall/reinstall retains records, configuration and semantic identity; no automatic purge. Status: DRAFT.
-- [ ] DATA-001 / AC4: Metadata privacy, real storage failure/recovery and cache consistency verified. Status: DRAFT.
+- [ ] DATA-001 / AC1: Typed versioned repository preserves canonical regional values and rejects forged/invalid payloads. Status: CHANGES_REQUESTED.
+- [ ] DATA-001 / AC2: Concurrent/stale/multi-record writes either commit coherently or fail without lost history/duplicates. Status: CHANGES_REQUESTED.
+- [ ] DATA-001 / AC3: Uninstall/reinstall retains records, configuration and semantic identity; no automatic purge. Status: CHANGES_REQUESTED.
+- [ ] DATA-001 / AC4: Metadata privacy, real storage failure/recovery and cache consistency verified. Status: CHANGES_REQUESTED.
+
+## Repeated-finding escalation ledger
+
+Implementation reviews count by underlying defect, even when the review assigns a new ID. The round-3 proposal review is not an implementation review and does not increase these counts.
+
+| Underlying defect | Review history | Consecutive failed implementation reviews | Next attempt |
+|---|---|---:|---|
+| Authorized bounded query/count | D1-F-001 (round 0), D1-F-010 (round 1), D1-F-013 (round 2) | 3 | Escalated: approved correction approach required |
+| Unique/projection integrity | D1-F-003 (round 0), retained as open in round 1, D1-F-014 (round 2) | 3 | Escalated: approved correction approach required |
+| Transaction classification/reconciliation | D1-F-002 and D1-F-004 (round 0), D1-F-008 and retained reconciliation obligation (round 1), D1-F-015 (round 2) | 3 | Escalated: approved correction approach required |
+| Real failure and multi-record controls | D1-F-005 (round 0), D1-F-012 (round 1), D1-F-016 (round 2) | 3 | Escalated: approved correction approach required |
+| Owned-process cleanup | D1-F-017 (round 2), D1-F-021 (round 3) | 2 | Escalated: cleanup design submitted at `builder-round-4/cleanup-proposal-d1f021.md`; AWAITING ARCHITECT APPROVAL |
+| Extensible sensitive-field policy | D1-F-018 (round 2) | 1 | Normal Builder correction |
+
+The ledger tracks review failure, not whether every subpart was unchanged. Independent review must verify closure per subpart. New findings do not inherit an unrelated defect's count.
+
+Approach gate result: D1-F-013–D1-F-016 are **APPROVED FOR IMPLEMENTATION** by Architect approach review 5, subject to its binding constraints. The review counts and findings remain open until independent implementation review. Live-handle COMMIT failure and coordinator 1213 controls are NOT VERIFIED and are not waived by approach approval.
 
 ## Verification matrix
 
@@ -81,13 +99,35 @@ The bounded execution contract is [contract.md](../evidence/DATA-001/architect-s
 
 - Revision 1 and extended draft rationale: [pre-lean archive](../history/DATA-001/pre-lean.md).
 - Planning spike: [architect-spike-1](../evidence/DATA-001/architect-spike-1/review.md). These observations are not application verification.
+- Builder round 0 report: [builder-round-0](../evidence/DATA-001/builder-round-0/report.md).
+- Architect round 0 review and correction blueprint revision 3: [architect-round-0](../evidence/DATA-001/architect-round-0/review.md). D1-F-001–D1-F-006 identified.
+- Builder round 1 report: [builder-round-1](../evidence/DATA-001/builder-round-1/report.md). Builder claimed D1-F-001–D1-F-006 resolved; Architect round 1 rejected the verification claim.
+- Architect round 1 review and correction blueprint revision 4: [architect-round-1](../evidence/DATA-001/architect-round-1/review.md). The claimed fixture passes were invalid; D1-F-007–D1-F-012 opened.
+- Builder round 2 report: [builder-round-2](../evidence/DATA-001/builder-round-2/report.md). Negative control and submitted V1–V4 fixtures passed on disposable WordPress 6.4.3 and 6.7.2; the Builder's full-resolution claim was not accepted.
+- Architect round 2 review and correction blueprint revision 5: [architect-round-2](../evidence/DATA-001/architect-round-2/review.md). D1-F-013–D1-F-018 and overlapping prior obligations remain open.
+- Builder round-3 proposal: [proposal](../evidence/DATA-001/builder-round-3/proposal.md). Architect approach review 1: [REVISE PROPOSAL](../evidence/DATA-001/architect-proposal-review-1/review.md) for escalated defects. The subsequent workflow change limits the approach gate to repeatedly failed defects; D1-F-017 and D1-F-018 remain normal corrections.
+- Builder proposal revision 2: [proposal](../evidence/DATA-001/builder-round-3/proposal.md). Architect approach review 2: [REVISE PROPOSAL](../evidence/DATA-001/architect-proposal-review-2/review.md) for D1-F-013–D1-F-016; no implementation approval for these escalated defects.
+- Builder proposal revision 3: [proposal-rev3](../evidence/DATA-001/builder-round-3/proposal-rev3.md). Architect approach review 3: [REVISE PROPOSAL](../evidence/DATA-001/architect-proposal-review-3/review.md) for D1-F-013–D1-F-016; the escalated approach is still unapproved.
+- Builder proposal revision 4: [proposal](../evidence/DATA-001/builder-round-3/proposal.md) (prior revision preserved as `proposal-rev3.md`). Architect approach review 4: [REVISE PROPOSAL](../evidence/DATA-001/architect-proposal-review-4/review.md) for D1-F-013–D1-F-016.
+- Builder proposal revision 5: [proposal-rev5](../evidence/DATA-001/builder-round-3/proposal-rev5.md) (also synchronized at [proposal](../evidence/DATA-001/builder-round-3/proposal.md); revision 4 preserved as [proposal-rev4](../evidence/DATA-001/builder-round-3/proposal-rev4.md)). Addresses all four blocking points from Architect approach review 4.
+- Architect approach review 5: [APPROVED FOR IMPLEMENTATION](../evidence/DATA-001/architect-proposal-review-5/review.md) for D1-F-013–D1-F-016, subject to the review's binding constraints. Implementation, V4 gaps and acceptance remain open.
+- Builder round 3 report: [builder-round-3](../evidence/DATA-001/builder-round-3/report.md). Implementation of proposal revision 5 and D1-F-017/D1-F-018; negative control and V1–V4 fixtures pass on WP 6.4.3 and 6.7.2.
+- Architect round 3 review: [CHANGES_REQUESTED](../evidence/DATA-001/architect-round-3/review.md). D1-F-019–D1-F-023 remain open; the owned-process cleanup defect has reached the repeated-finding gate.
+- Builder round 4 partial: D1-F-019/020/022/023 corrected in `RecordRepository.php`; D1-F-023 negative controls (V4-J–V4-M) added in `v4_cache_failure.php`; D1-F-021 read-only cleanup design submitted at `ai-document/evidence/DATA-001/builder-round-4/cleanup-proposal-d1f021.md`. Lint exits 0; 80 unit tests, 283 assertions pass. No disposable WP fixtures run (blocked until D1-F-021 cleanup approved).
+- Architect round 4 review: [CHANGES_REQUESTED; D1-F-021 REVISE PROPOSAL](../evidence/DATA-001/architect-round-4/review.md). The partial corrections have blocking semantic and evidence gaps.
 
 ### Chat handoff prompt
 
 ```text
-Status: DRAFT
+Status: READY_FOR_REVIEW
 Recipient: Architect
-Intent: work
+Intent: review + approach-gate
 
-DATA-001 revision 2 has Blueprint readiness PASS and is ready for user review. CORE-002 and CORE-003 are DONE; the user approved the planning approach and G-08 target on 2026-09-25. Present the pinned-connection contract and verification matrix for explicit Builder implementation approval. Application behavior, persistent-cache compatibility and G-08 performance remain NOT VERIFIED. Do not dispatch Builder, change application code, commit, deploy or use the active site database before approval.
+Act as Codex Architect for DATA-001, reviewing Builder round 4 (part 2) work.
+
+First: Review the D1-F-021 cleanup design proposal revision 2 at ai-document/evidence/DATA-001/builder-round-4/cleanup-proposal-d1f021.md. Record APPROVED FOR IMPLEMENTATION or REVISE PROPOSAL before Builder may change run.php.
+
+Second: Review D1-F-019/D1-F-020/D1-F-022/D1-F-023 corrections in src/Common/Storage/RecordRepository.php and negative controls revised in tests/fixtures/wp-integration/data001/v4_cache_failure.php. No disposable WP fixtures were run this round per task instruction.
+
+Live-handle COMMIT failure, coordinator 1213 deadlock, persistent-cache compatibility, and full G-08 product performance remain NOT VERIFIED. Do not self-accept, claim DATA-001 is complete, or touch the active site/database.
 ```

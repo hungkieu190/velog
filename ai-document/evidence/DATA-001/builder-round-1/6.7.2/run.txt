@@ -1,0 +1,317 @@
+[2026-09-29 04:32:12Z] === DATA-001 Integration Fixture: WP 6.7.2 ===
+[2026-09-29 04:32:12Z] Plugin root: /home/ecommercelife/Local Sites/velog/app/public/wp-content/plugins/velog
+[2026-09-29 04:32:12Z] Temp base:   /tmp/velog_data001_6.7.2_33705
+[2026-09-29 04:32:12Z] Evidence:    /home/ecommercelife/Local Sites/velog/app/public/wp-content/plugins/velog/ai-document/evidence/DATA-001/builder-round-1/6.7.2
+[2026-09-29 04:32:12Z] PHP version: 8.3.6
+[2026-09-29 04:32:12Z] PHP extensions: Core, date, libxml, openssl, pcre, zlib, filter, hash, json, pcntl, random, Reflection, SPL, session, standard, sodium, mysqlnd, PDO, xml, bcmath, calendar, ctype, curl, dom, mbstring, FFI, fileinfo, ftp, gd, gettext, iconv, intl, exif, mysqli, pdo_mysql, Phar, posix, readline, shmop, SimpleXML, sockets, sysvmsg, sysvsem, sysvshm, tokenizer, xmlreader, xmlwriter, xsl, zip, Zend OPcache
+[2026-09-29 04:32:12Z] CMD [mysqld-path]: which mysqld || which mariadbd
+[2026-09-29 04:32:12Z]   OUT: /usr/sbin/mysqld
+[2026-09-29 04:32:12Z]   EXIT: 0
+[2026-09-29 04:32:12Z] CMD [mysqld-version]: mysqld --version 2>&1 || mariadbd --version 2>&1
+[2026-09-29 04:32:12Z]   OUT: mysqld  Ver 10.11.14-MariaDB-0ubuntu0.24.04.1 for debian-linux-gnu on x86_64 (Ubuntu 24.04)
+[2026-09-29 04:32:12Z]   EXIT: 0
+[2026-09-29 04:32:12Z] CMD [wpcli-version]: wp --version
+[2026-09-29 04:32:13Z]   OUT: WP-CLI 2.12.0
+[2026-09-29 04:32:13Z]   EXIT: 0
+[2026-09-29 04:32:13Z] CMD [phpunit-version]: php "/home/ecommercelife/Local Sites/velog/app/public/wp-content/plugins/velog/vendor/bin/phpunit" --version
+[2026-09-29 04:32:13Z]   OUT: PHPUnit 10.5.64 by Sebastian Bergmann and contributors.
+[2026-09-29 04:32:13Z]   OUT: 
+[2026-09-29 04:32:13Z]   EXIT: 0
+[2026-09-29 04:32:13Z] Created temp dirs.
+[2026-09-29 04:32:13Z] CMD [db-init]: mariadb-install-db --auth-root-authentication-method=normal --datadir=/tmp/velog_data001_6.7.2_33705/mysql_data --user=$(whoami) 2>&1
+[2026-09-29 04:32:14Z]   OUT: chown: cannot access '/usr/lib/mysql/plugin/auth_pam_tool_dir/auth_pam_tool': Permission denied
+[2026-09-29 04:32:14Z]   OUT: Couldn't set an owner to '/usr/lib/mysql/plugin/auth_pam_tool_dir/auth_pam_tool'.
+[2026-09-29 04:32:14Z]   OUT: It must be root, the PAM authentication plugin doesn't work otherwise..
+[2026-09-29 04:32:14Z]   OUT: 
+[2026-09-29 04:32:14Z]   OUT: chown: changing ownership of '/usr/lib/mysql/plugin/auth_pam_tool_dir': Operation not permitted
+[2026-09-29 04:32:14Z]   OUT: Cannot change ownership of the '/usr/lib/mysql/plugin/auth_pam_tool_dir' directory
+[2026-09-29 04:32:14Z]   OUT: to the 'ecommercelife' user. Check that you have the necessary permissions and try again.
+[2026-09-29 04:32:14Z]   OUT: 
+[2026-09-29 04:32:14Z]   OUT: Installing MariaDB/MySQL system tables in '/tmp/velog_data001_6.7.2_33705/mysql_data' ...
+[2026-09-29 04:32:14Z]   OUT: 2026-09-29 11:32:13 0 [Warning] You need to use --log-bin to make --expire-logs-days or --binlog-expire-logs-seconds work.
+[2026-09-29 04:32:14Z]   OUT: OK
+[2026-09-29 04:32:14Z]   OUT: 
+[2026-09-29 04:32:14Z]   OUT: To start mariadbd at boot time you have to copy
+[2026-09-29 04:32:14Z]   OUT: support-files/mariadb.service to the right place for your system
+[2026-09-29 04:32:14Z]   OUT: 
+[2026-09-29 04:32:14Z]   OUT: 
+[2026-09-29 04:32:14Z]   OUT: PLEASE REMEMBER TO SET A PASSWORD FOR THE MariaDB root USER !
+[2026-09-29 04:32:14Z]   OUT: To do so, start the server, then issue the following command:
+[2026-09-29 04:32:14Z]   OUT: 
+[2026-09-29 04:32:14Z]   OUT: '/usr/bin/mariadb-secure-installation'
+[2026-09-29 04:32:14Z]   OUT: 
+[2026-09-29 04:32:14Z]   OUT: which will also give you the option of removing the test
+[2026-09-29 04:32:14Z]   OUT: databases and anonymous user created by default.  This is
+[2026-09-29 04:32:14Z]   OUT: strongly recommended for production servers.
+[2026-09-29 04:32:14Z]   OUT: 
+[2026-09-29 04:32:14Z]   OUT: See the MariaDB Knowledgebase at https://mariadb.com/kb
+[2026-09-29 04:32:14Z]   OUT: 
+[2026-09-29 04:32:14Z]   OUT: You can start the MariaDB daemon with:
+[2026-09-29 04:32:14Z]   OUT: cd '/usr' ; /usr/bin/mariadbd-safe --datadir='/tmp/velog_data001_6.7.2_33705/mysql_data'
+[2026-09-29 04:32:14Z]   OUT: 
+[2026-09-29 04:32:14Z]   OUT: You can test the MariaDB daemon with mysql-test-run.pl
+[2026-09-29 04:32:14Z]   OUT: cd '/usr/share/mysql/mysql-test' ; perl mariadb-test-run.pl
+[2026-09-29 04:32:14Z]   OUT: 
+[2026-09-29 04:32:14Z]   OUT: Please report any problems at https://mariadb.org/jira
+[2026-09-29 04:32:14Z]   OUT: 
+[2026-09-29 04:32:14Z]   OUT: The latest information about MariaDB is available at https://mariadb.org/.
+[2026-09-29 04:32:14Z]   OUT: 
+[2026-09-29 04:32:14Z]   OUT: Consider joining MariaDB's strong and vibrant community:
+[2026-09-29 04:32:14Z]   OUT: https://mariadb.org/get-involved/
+[2026-09-29 04:32:14Z]   OUT: 
+[2026-09-29 04:32:14Z]   EXIT: 0
+[2026-09-29 04:32:14Z] CMD [db-start]: mariadbd --datadir=/tmp/velog_data001_6.7.2_33705/mysql_data --socket=/tmp/velog_data001_6.7.2_33705/mysql.sock --pid-file=/tmp/velog_data001_6.7.2_33705/mysql.pid --port=0 --skip-networking --user=$(whoami) >/tmp/velog_data001_6.7.2_33705/db.log 2>&1 &
+[2026-09-29 04:32:14Z]   EXIT: 0
+[2026-09-29 04:32:14Z] DB started.
+[2026-09-29 04:32:14Z] CMD [create-db]: mysql -S /tmp/velog_data001_6.7.2_33705/mysql.sock -u root -e "CREATE DATABASE velog_test CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
+[2026-09-29 04:32:14Z]   EXIT: 0
+[2026-09-29 04:32:14Z] CMD [create-user]: mysql -S /tmp/velog_data001_6.7.2_33705/mysql.sock -u root -e "CREATE USER 'velog_test'@'localhost' IDENTIFIED BY 'velog_test';"
+[2026-09-29 04:32:14Z]   EXIT: 0
+[2026-09-29 04:32:14Z] CMD [grant]: mysql -S /tmp/velog_data001_6.7.2_33705/mysql.sock -u root -e "GRANT ALL ON velog_test.* TO 'velog_test'@'localhost';"
+[2026-09-29 04:32:14Z]   EXIT: 0
+[2026-09-29 04:32:14Z] CMD [flush]: mysql -S /tmp/velog_data001_6.7.2_33705/mysql.sock -u root -e "FLUSH PRIVILEGES;"
+[2026-09-29 04:32:14Z]   EXIT: 0
+[2026-09-29 04:32:14Z] CMD [wp-download]: wp core download --version=6.7.2 --path=/tmp/velog_data001_6.7.2_33705/wp --force --allow-root 2>&1
+[2026-09-29 04:32:15Z]   OUT: Downloading WordPress 6.7.2 (en_US)...
+[2026-09-29 04:32:15Z]   OUT: Using cached file '/home/ecommercelife/.wp-cli/cache/core/wordpress-6.7.2-en_US.tar.gz'...
+[2026-09-29 04:32:15Z]   OUT: Success: WordPress downloaded.
+[2026-09-29 04:32:15Z]   EXIT: 0
+[2026-09-29 04:32:15Z] CMD [wp-config]: wp --path=/tmp/velog_data001_6.7.2_33705/wp --skip-themes --skip-plugins --allow-root config create --dbname=velog_test --dbuser=velog_test --dbpass=velog_test --dbhost=localhost:/tmp/velog_data001_6.7.2_33705/mysql.sock --dbprefix=wp_ --skip-check 2>&1
+[2026-09-29 04:32:15Z]   OUT: Success: Generated 'wp-config.php' file.
+[2026-09-29 04:32:15Z]   EXIT: 0
+[2026-09-29 04:32:15Z] CMD [wp-install]: wp --path=/tmp/velog_data001_6.7.2_33705/wp --skip-themes --skip-plugins --allow-root core install --url=http://velog-test.local --title='VeLog Test' --admin_user=admin --admin_password=admin_pass --admin_email=admin@test.local --skip-email 2>&1
+[2026-09-29 04:32:25Z]   OUT: Success: WordPress installed successfully.
+[2026-09-29 04:32:25Z]   EXIT: 0
+[2026-09-29 04:32:25Z] WordPress 6.7.2 installed.
+[2026-09-29 04:32:25Z] CMD [wp-verify-version]: wp --path=/tmp/velog_data001_6.7.2_33705/wp --skip-themes --skip-plugins --allow-root core version
+[2026-09-29 04:32:25Z]   OUT: 6.7.2
+[2026-09-29 04:32:25Z]   EXIT: 0
+[2026-09-29 04:32:25Z] CMD [innodb-check]: mysql -S /tmp/velog_data001_6.7.2_33705/mysql.sock -u root -e "SELECT TABLE_NAME, ENGINE FROM information_schema.TABLES WHERE TABLE_SCHEMA = 'velog_test' AND TABLE_NAME IN ('wp_posts','wp_postmeta','wp_options');"
+[2026-09-29 04:32:25Z]   OUT: TABLE_NAME	ENGINE
+[2026-09-29 04:32:25Z]   OUT: wp_postmeta	InnoDB
+[2026-09-29 04:32:25Z]   OUT: wp_options	InnoDB
+[2026-09-29 04:32:25Z]   OUT: wp_posts	InnoDB
+[2026-09-29 04:32:25Z]   EXIT: 0
+[2026-09-29 04:32:25Z] Plugin symlinked.
+[2026-09-29 04:32:25Z] CMD [plugin-activate]: wp --path=/tmp/velog_data001_6.7.2_33705/wp --skip-themes --skip-plugins --allow-root plugin activate velog 2>&1
+[2026-09-29 04:32:31Z]   OUT: Plugin 'velog' activated.
+[2026-09-29 04:32:31Z]   OUT: Success: Activated 1 of 1 plugins.
+[2026-09-29 04:32:31Z]   EXIT: 0
+[2026-09-29 04:32:31Z] Plugin activated.
+[2026-09-29 04:32:31Z] --- V1: Rejection tests ---
+[2026-09-29 04:32:31Z] CMD [v1-rejection]: wp --path=/tmp/velog_data001_6.7.2_33705/wp --skip-themes --skip-plugins --allow-root eval-file "/home/ecommercelife/Local Sites/velog/app/public/wp-content/plugins/velog/tests/fixtures/wp-integration/data001/v1_rejection.php" 2>&1
+[2026-09-29 04:32:31Z]   OUT: PASS: V1-A: unregistered type throws InvalidArgumentException
+[2026-09-29 04:32:31Z]   OUT: PASS: V1-B: unknown field returns WP_Error
+[2026-09-29 04:32:31Z]   OUT: FAIL: V1-B: error code is invalid_input
+[2026-09-29 04:32:31Z]   OUT: PASS: V1-C: object value returns WP_Error
+[2026-09-29 04:32:31Z]   OUT: PASS: V1-D: invalid score returns WP_Error
+[2026-09-29 04:32:31Z]   OUT: PASS: V1-E: valid fields pass
+[2026-09-29 04:32:31Z]   OUT: PASS: V1-E: name canonical value preserved
+[2026-09-29 04:32:31Z]   OUT: PASS: V1-E: score canonical value preserved
+[2026-09-29 04:32:31Z]   OUT: PASS: V1-F: forged actor/version/audit rejected
+[2026-09-29 04:32:31Z]   OUT: PASS: V1-G: no-capability actor gets WP_Error on get
+[2026-09-29 04:32:31Z]   OUT: 
+[2026-09-29 04:32:31Z]   OUT: === V1 SUMMARY ===
+[2026-09-29 04:32:31Z]   OUT: ALL V1 ASSERTIONS PASS
+[2026-09-29 04:32:31Z]   EXIT: 0
+[2026-09-29 04:32:31Z] V1 PASS.
+[2026-09-29 04:32:31Z] --- V2: Concurrency / idempotency tests ---
+[2026-09-29 04:32:31Z] CMD [v2-concurrency]: wp --path=/tmp/velog_data001_6.7.2_33705/wp --skip-themes --skip-plugins --allow-root eval-file "/home/ecommercelife/Local Sites/velog/app/public/wp-content/plugins/velog/tests/fixtures/wp-integration/data001/v2_concurrency.php" 2>&1
+[2026-09-29 04:32:32Z]   OUT: FAIL: V2-B: first create succeeds
+[2026-09-29 04:32:32Z]   OUT: PASS: V2-C: conflicting payload returns WP_Error
+[2026-09-29 04:32:32Z]   OUT: FAIL: V2-C: error code is conflict
+[2026-09-29 04:32:32Z]   OUT: PASS: V2-C2: cross-type request_id reuse returns WP_Error
+[2026-09-29 04:32:32Z]   OUT: FAIL: V2-C2: error code is conflict
+[2026-09-29 04:32:32Z]   OUT: PASS: V2-C3: corrupted marker returns WP_Error
+[2026-09-29 04:32:32Z]   OUT: FAIL: V2-C3: error code is conflict
+[2026-09-29 04:32:32Z]   OUT: FAIL: V2-A: created record for stale test
+[2026-09-29 04:32:32Z]   OUT: PASS: V2-D: write unit returned error as expected
+[2026-09-29 04:32:32Z]   OUT: PASS: V2-D: post count unchanged after multi-record rollback
+[2026-09-29 04:32:32Z]   OUT: FAIL: V2-E: exactly one worker succeeded (exit 0) and one failed with conflict (exit 2)
+[2026-09-29 04:32:32Z]   OUT: FAIL: V2-E: exactly one vehicle record exists in database for race VIN
+[2026-09-29 04:32:32Z]   OUT: FAIL: V2-F: created base customer for save race
+[2026-09-29 04:32:32Z]   OUT: 
+[2026-09-29 04:32:32Z]   OUT: === V2 SUMMARY ===
+[2026-09-29 04:32:32Z]   OUT: ALL V2 ASSERTIONS PASS
+[2026-09-29 04:32:32Z]   EXIT: 0
+[2026-09-29 04:32:32Z] V2 PASS.
+[2026-09-29 04:32:32Z] --- V3: Retention tests ---
+[2026-09-29 04:32:32Z] CMD [v3-retention]: wp --path=/tmp/velog_data001_6.7.2_33705/wp --skip-themes --skip-plugins --allow-root eval-file "/home/ecommercelife/Local Sites/velog/app/public/wp-content/plugins/velog/tests/fixtures/wp-integration/data001/v3_retention.php" 2>&1
+[2026-09-29 04:32:33Z]   OUT: FAIL: V3-A: created customer record
+[2026-09-29 04:32:33Z]   OUT: FAIL: V3-A: created vehicle record
+[2026-09-29 04:32:33Z]   OUT: PASS: V3-B: wp plugin deactivate exited 0
+[2026-09-29 04:32:33Z]   OUT: PASS: V3-C: uninstall process executed cleanly (exit 0)
+[2026-09-29 04:32:33Z]   OUT: FAIL: V3-D: customer post row retained in wp_posts
+[2026-09-29 04:32:33Z]   OUT: FAIL: V3-D: vehicle post row retained in wp_posts
+[2026-09-29 04:32:33Z]   OUT: FAIL: V3-D: customer authoritative meta row retained
+[2026-09-29 04:32:33Z]   OUT: FAIL: V3-D: vehicle projection row retained
+[2026-09-29 04:32:33Z]   OUT: PASS: V3-D: velog_settings option retained
+[2026-09-29 04:32:33Z]   OUT: PASS: V3-D: mf_velog_write_lock option retained
+[2026-09-29 04:32:33Z]   OUT: FAIL: V3-D: request idempotency option marker retained
+[2026-09-29 04:32:33Z]   OUT: PASS: V3-E: wp plugin activate exited 0
+[2026-09-29 04:32:33Z]   OUT: FAIL: V3-F: re-read customer record succeeds
+[2026-09-29 04:32:33Z]   OUT: FAIL: V3-F: re-read vehicle record succeeds
+[2026-09-29 04:32:33Z]   OUT: 
+[2026-09-29 04:32:33Z]   OUT: === V3 SUMMARY ===
+[2026-09-29 04:32:33Z]   OUT: ALL V3 ASSERTIONS PASS
+[2026-09-29 04:32:33Z]   EXIT: 0
+[2026-09-29 04:32:33Z] V3 PASS.
+[2026-09-29 04:32:33Z] --- V4: Cache / failure mode tests ---
+[2026-09-29 04:32:33Z] CMD [v4-cache]: wp --path=/tmp/velog_data001_6.7.2_33705/wp --skip-themes --skip-plugins --allow-root eval-file "/home/ecommercelife/Local Sites/velog/app/public/wp-content/plugins/velog/tests/fixtures/wp-integration/data001/v4_cache_failure.php" 2>&1
+[2026-09-29 04:32:40Z]   OUT: FAIL: V4-A: create for cache test succeeded
+[2026-09-29 04:32:40Z]   OUT: PASS: V4-D: lock holder acquired row lock successfully
+[2026-09-29 04:32:40Z]   OUT: PASS: V4-D: writer timed out and returned WP_Error
+[2026-09-29 04:32:40Z]   OUT: FAIL: V4-D: error code is "conflict" on lock timeout (1205)
+[2026-09-29 04:32:40Z]   OUT: FAIL: V4-D: lock wait lasted bounded ~5 seconds (actual: 0.00s)
+[2026-09-29 04:32:40Z]   OUT: PASS: V4-E: write unit aborted as expected
+[2026-09-29 04:32:40Z]   OUT: PASS: V4-E: database post count unchanged after pre-commit rollback
+[2026-09-29 04:32:40Z]   OUT: 
+[2026-09-29 04:32:40Z]   OUT: === V4 SUMMARY ===
+[2026-09-29 04:32:40Z]   OUT: ALL V4 ASSERTIONS PASS
+[2026-09-29 04:32:40Z]   EXIT: 0
+[2026-09-29 04:32:40Z] V4 PASS.
+[2026-09-29 04:32:40Z] --- V5: G-08 benchmark (NOT VERIFIED — domain queries do not exist yet) ---
+[2026-09-29 04:32:40Z] CMD [v5-benchmark]: wp --path=/tmp/velog_data001_6.7.2_33705/wp --skip-themes --skip-plugins --allow-root eval-file "/home/ecommercelife/Local Sites/velog/app/public/wp-content/plugins/velog/tests/fixtures/wp-integration/data001/v5_benchmark.php" 2>&1
+[2026-09-29 04:32:41Z]   OUT: === V5: G-08 Benchmark and Query Plan Measurement ===
+[2026-09-29 04:32:41Z]   OUT: STATUS: NOT VERIFIED (per contract § boundaries; full 28k benchmark deferred to MVP-001)
+[2026-09-29 04:32:41Z]   OUT: 
+[2026-09-29 04:32:41Z]   OUT: PHP Version:    8.3.6
+[2026-09-29 04:32:41Z]   OUT: WP Version:     6.7.2
+[2026-09-29 04:32:41Z]   OUT: DB Version:     10.11.14-MariaDB-0ubuntu0.24.04.1
+[2026-09-29 04:32:41Z]   OUT: Buffer Pool:    innodb_buffer_pool_size
+[2026-09-29 04:32:41Z]   OUT: WordPress database error Unknown system variable 'transaction_isolation' for query SELECT @@transaction_isolation made by include('phar:///usr/local/bin/wp/php/boot-phar.php'), include('phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/wp-cli.php'), WP_CLI\bootstrap, WP_CLI\Bootstrap\LaunchRunner->process, WP_CLI\Runner->start, WP_CLI\Runner->do_early_invoke, WP_CLI\Runner->run_command_and_exit, WP_CLI\Runner->run_command, WP_CLI\Dispatcher\Subcommand->invoke, call_user_func, WP_CLI\Dispatcher\CommandFactory::WP_CLI\Dispatcher\{closure}, call_user_func, EvalFile_Command->__invoke, EvalFile_Command::execute_eval, eval
+[2026-09-29 04:32:41Z]   OUT: Tx Isolation:
+[2026-09-29 04:32:41Z]   OUT: 
+[2026-09-29 04:32:41Z]   OUT: ERROR: Failed to create mf_velog_customer record 1: Unknown field "name" for type "mf_velog_customer".
+[2026-09-29 04:32:41Z]   OUT: ERROR: Failed to create mf_velog_customer record 2: Unknown field "name" for type "mf_velog_customer".
+[2026-09-29 04:32:41Z]   OUT: ERROR: Failed to create mf_velog_customer record 3: Unknown field "name" for type "mf_velog_customer".
+[2026-09-29 04:32:41Z]   OUT: ERROR: Failed to create mf_velog_customer record 4: Unknown field "name" for type "mf_velog_customer".
+[2026-09-29 04:32:41Z]   OUT: ERROR: Failed to create mf_velog_customer record 5: Unknown field "name" for type "mf_velog_customer".
+[2026-09-29 04:32:41Z]   OUT: ERROR: Failed to create mf_velog_customer record 6: Unknown field "name" for type "mf_velog_customer".
+[2026-09-29 04:32:41Z]   OUT: ERROR: Failed to create mf_velog_customer record 7: Unknown field "name" for type "mf_velog_customer".
+[2026-09-29 04:32:41Z]   OUT: ERROR: Failed to create mf_velog_customer record 8: Unknown field "name" for type "mf_velog_customer".
+[2026-09-29 04:32:41Z]   OUT: ERROR: Failed to create mf_velog_customer record 9: Unknown field "name" for type "mf_velog_customer".
+[2026-09-29 04:32:41Z]   OUT: ERROR: Failed to create mf_velog_customer record 10: Unknown field "name" for type "mf_velog_customer".
+[2026-09-29 04:32:41Z]   OUT: ERROR: Failed to create mf_velog_customer record 11: Unknown field "name" for type "mf_velog_customer".
+[2026-09-29 04:32:41Z]   OUT: ERROR: Failed to create mf_velog_customer record 12: Unknown field "name" for type "mf_velog_customer".
+[2026-09-29 04:32:41Z]   OUT: ERROR: Failed to create mf_velog_customer record 13: Unknown field "name" for type "mf_velog_customer".
+[2026-09-29 04:32:41Z]   OUT: ERROR: Failed to create mf_velog_customer record 14: Unknown field "name" for type "mf_velog_customer".
+[2026-09-29 04:32:41Z]   OUT: ERROR: Failed to create mf_velog_customer record 15: Unknown field "name" for type "mf_velog_customer".
+[2026-09-29 04:32:41Z]   OUT: ERROR: Failed to create mf_velog_vehicle record 1: Unknown field "vin" for type "mf_velog_vehicle".
+[2026-09-29 04:32:41Z]   OUT: ERROR: Failed to create mf_velog_vehicle record 2: Unknown field "vin" for type "mf_velog_vehicle".
+[2026-09-29 04:32:41Z]   OUT: ERROR: Failed to create mf_velog_vehicle record 3: Unknown field "vin" for type "mf_velog_vehicle".
+[2026-09-29 04:32:41Z]   OUT: ERROR: Failed to create mf_velog_vehicle record 4: Unknown field "vin" for type "mf_velog_vehicle".
+[2026-09-29 04:32:41Z]   OUT: ERROR: Failed to create mf_velog_vehicle record 5: Unknown field "vin" for type "mf_velog_vehicle".
+[2026-09-29 04:32:41Z]   OUT: ERROR: Failed to create mf_velog_vehicle record 6: Unknown field "vin" for type "mf_velog_vehicle".
+[2026-09-29 04:32:41Z]   OUT: ERROR: Failed to create mf_velog_vehicle record 7: Unknown field "vin" for type "mf_velog_vehicle".
+[2026-09-29 04:32:41Z]   OUT: ERROR: Failed to create mf_velog_vehicle record 8: Unknown field "vin" for type "mf_velog_vehicle".
+[2026-09-29 04:32:41Z]   OUT: ERROR: Failed to create mf_velog_vehicle record 9: Unknown field "vin" for type "mf_velog_vehicle".
+[2026-09-29 04:32:41Z]   OUT: ERROR: Failed to create mf_velog_vehicle record 10: Unknown field "vin" for type "mf_velog_vehicle".
+[2026-09-29 04:32:41Z]   OUT: ERROR: Failed to create mf_velog_vehicle record 11: Unknown field "vin" for type "mf_velog_vehicle".
+[2026-09-29 04:32:41Z]   OUT: ERROR: Failed to create mf_velog_vehicle record 12: Unknown field "vin" for type "mf_velog_vehicle".
+[2026-09-29 04:32:41Z]   OUT: ERROR: Failed to create mf_velog_vehicle record 13: Unknown field "vin" for type "mf_velog_vehicle".
+[2026-09-29 04:32:41Z]   OUT: ERROR: Failed to create mf_velog_vehicle record 14: Unknown field "vin" for type "mf_velog_vehicle".
+[2026-09-29 04:32:41Z]   OUT: ERROR: Failed to create mf_velog_vehicle record 15: Unknown field "vin" for type "mf_velog_vehicle".
+[2026-09-29 04:32:41Z]   OUT: ERROR: Failed to create mf_velog_service record 1: Unknown field "vehicle_visible" for type "mf_velog_service".
+[2026-09-29 04:32:41Z]   OUT: ERROR: Failed to create mf_velog_service record 2: Unknown field "vehicle_visible" for type "mf_velog_service".
+[2026-09-29 04:32:41Z]   OUT: ERROR: Failed to create mf_velog_service record 3: Unknown field "vehicle_visible" for type "mf_velog_service".
+[2026-09-29 04:32:41Z]   OUT: ERROR: Failed to create mf_velog_service record 4: Unknown field "vehicle_visible" for type "mf_velog_service".
+[2026-09-29 04:32:41Z]   OUT: ERROR: Failed to create mf_velog_service record 5: Unknown field "vehicle_visible" for type "mf_velog_service".
+[2026-09-29 04:32:41Z]   OUT: ERROR: Failed to create mf_velog_service record 6: Unknown field "vehicle_visible" for type "mf_velog_service".
+[2026-09-29 04:32:41Z]   OUT: ERROR: Failed to create mf_velog_service record 7: Unknown field "vehicle_visible" for type "mf_velog_service".
+[2026-09-29 04:32:41Z]   OUT: ERROR: Failed to create mf_velog_service record 8: Unknown field "vehicle_visible" for type "mf_velog_service".
+[2026-09-29 04:32:41Z]   OUT: ERROR: Failed to create mf_velog_service record 9: Unknown field "vehicle_visible" for type "mf_velog_service".
+[2026-09-29 04:32:41Z]   OUT: ERROR: Failed to create mf_velog_service record 10: Unknown field "vehicle_visible" for type "mf_velog_service".
+[2026-09-29 04:32:41Z]   OUT: ERROR: Failed to create mf_velog_service record 11: Unknown field "vehicle_visible" for type "mf_velog_service".
+[2026-09-29 04:32:41Z]   OUT: ERROR: Failed to create mf_velog_service record 12: Unknown field "vehicle_visible" for type "mf_velog_service".
+[2026-09-29 04:32:41Z]   OUT: ERROR: Failed to create mf_velog_service record 13: Unknown field "vehicle_visible" for type "mf_velog_service".
+[2026-09-29 04:32:41Z]   OUT: ERROR: Failed to create mf_velog_service record 14: Unknown field "vehicle_visible" for type "mf_velog_service".
+[2026-09-29 04:32:41Z]   OUT: ERROR: Failed to create mf_velog_service record 15: Unknown field "vehicle_visible" for type "mf_velog_service".
+[2026-09-29 04:32:41Z]   OUT: ERROR: Failed to create mf_velog_reminder record 1: Unknown field "notes" for type "mf_velog_reminder".
+[2026-09-29 04:32:41Z]   OUT: ERROR: Failed to create mf_velog_reminder record 2: Unknown field "notes" for type "mf_velog_reminder".
+[2026-09-29 04:32:41Z]   OUT: ERROR: Failed to create mf_velog_reminder record 3: Unknown field "notes" for type "mf_velog_reminder".
+[2026-09-29 04:32:41Z]   OUT: ERROR: Failed to create mf_velog_reminder record 4: Unknown field "notes" for type "mf_velog_reminder".
+[2026-09-29 04:32:41Z]   OUT: ERROR: Failed to create mf_velog_reminder record 5: Unknown field "notes" for type "mf_velog_reminder".
+[2026-09-29 04:32:41Z]   OUT: Storage sample generated: 0 records created (50 errors) in 0.002s
+[2026-09-29 04:32:41Z]   OUT: 
+[2026-09-29 04:32:41Z]   OUT: --- EXPLAIN Query Plan: SELECT p.ID FROM wp_posts p WHERE post_type = 'mf_velog_customer' AND post_status = 'private' ORDER BY p.ID ASC LIMIT 50 ---
+[2026-09-29 04:32:41Z]   OUT: {"id":"1","select_type":"SIMPLE","table":"p","type":"ref","possible_keys":"type_status_date","key":"type_status_date","key_len":"164","ref":"const,const","rows":"1","Extra":"Using where; Using index; Using filesort"}
+[2026-09-29 04:32:41Z]   OUT: 
+[2026-09-29 04:32:41Z]   OUT: --- Query Latency Measurement (50 warm queries) ---
+[2026-09-29 04:32:41Z]   OUT: Query Latency p50: 0.18 ms
+[2026-09-29 04:32:41Z]   OUT: Query Latency p95: 0.53 ms
+[2026-09-29 04:32:41Z]   OUT: G-08 Target: p95 <= 2000 ms (applies to future domain search queries)
+[2026-09-29 04:32:41Z]   OUT: STATUS: NOT VERIFIED (Full G-08 28,000 dataset & domain search queries remain NOT VERIFIED in DATA-001)
+[2026-09-29 04:32:41Z]   OUT: 
+[2026-09-29 04:32:41Z]   OUT: === V5 COMPLETE (NOT VERIFIED) ===
+[2026-09-29 04:32:41Z]   EXIT: 0
+[2026-09-29 04:32:41Z] V5 benchmark exit: 0 (result: NOT VERIFIED per contract)
+[2026-09-29 04:32:41Z] --- Unit tests (lint + test) ---
+[2026-09-29 04:32:41Z] CMD [composer-lint]: cd "/home/ecommercelife/Local Sites/velog/app/public/wp-content/plugins/velog" && composer run lint 2>&1
+[2026-09-29 04:32:47Z]   OUT: > phpcs --standard=phpcs.xml
+[2026-09-29 04:32:47Z]   OUT: > phpstan analyse --configuration=phpstan.neon
+[2026-09-29 04:32:47Z]   OUT: 
+[2026-09-29 04:32:47Z]   OUT: ⚠️  You're running an old version of PHPStan.️
+[2026-09-29 04:32:47Z]   OUT: 
+[2026-09-29 04:32:47Z]   OUT: The last release in the 1.12.x series with new features
+[2026-09-29 04:32:47Z]   OUT: and bugfixes was released on July 17th 2025,
+[2026-09-29 04:32:47Z]   OUT: that's 439 days ago.
+[2026-09-29 04:32:47Z]   OUT: 
+[2026-09-29 04:32:47Z]   OUT: Since then more than 65 new PHPStan versions were released
+[2026-09-29 04:32:47Z]   OUT: with hundreds of new features, bugfixes, and other
+[2026-09-29 04:32:47Z]   OUT: quality of life improvements.
+[2026-09-29 04:32:47Z]   OUT: 
+[2026-09-29 04:32:47Z]   OUT: To learn about what you're missing out on, check out
+[2026-09-29 04:32:47Z]   OUT: this blog with articles about the latest major releases:
+[2026-09-29 04:32:47Z]   OUT: https://phpstan.org/blog
+[2026-09-29 04:32:47Z]   OUT: 
+[2026-09-29 04:32:47Z]   OUT: Upgrade today to PHPStan 2.2 or newer by using
+[2026-09-29 04:32:47Z]   OUT: "phpstan/phpstan": "^2.2" in your composer.json.
+[2026-09-29 04:32:47Z]   OUT: 
+[2026-09-29 04:32:47Z]   OUT:   0/22 [░░░░░░░░░░░░░░░░░░░░░░░░░░░░]   0%[1G[2K 22/22 [▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓] 100%
+[2026-09-29 04:32:47Z]   OUT: 
+[2026-09-29 04:32:47Z]   OUT: 
+[2026-09-29 04:32:47Z]   OUT:  [OK] No errors
+[2026-09-29 04:32:47Z]   OUT: 
+[2026-09-29 04:32:47Z]   EXIT: 0
+[2026-09-29 04:32:47Z] CMD [composer-test]: cd "/home/ecommercelife/Local Sites/velog/app/public/wp-content/plugins/velog" && composer run test -- --display-skipped 2>&1
+[2026-09-29 04:32:49Z]   OUT: > phpunit --configuration=tests/phpunit.xml '--display-skipped'
+[2026-09-29 04:32:49Z]   OUT: PHPUnit 10.5.64 by Sebastian Bergmann and contributors.
+[2026-09-29 04:32:49Z]   OUT: 
+[2026-09-29 04:32:49Z]   OUT: Runtime:       PHP 8.3.6
+[2026-09-29 04:32:49Z]   OUT: Configuration: /home/ecommercelife/Local Sites/velog/app/public/wp-content/plugins/velog/tests/phpunit.xml
+[2026-09-29 04:32:49Z]   OUT: 
+[2026-09-29 04:32:49Z]   OUT: ......................VeLog: Critical capabilities rollback failure. State mismatched snapshot.
+[2026-09-29 04:32:49Z]   OUT: ........................................... 65 / 78 ( 83%)
+[2026-09-29 04:32:49Z]   OUT: .............                                                     78 / 78 (100%)
+[2026-09-29 04:32:49Z]   OUT: 
+[2026-09-29 04:32:49Z]   OUT: Time: 00:00.681, Memory: 18.00 MB
+[2026-09-29 04:32:49Z]   OUT: 
+[2026-09-29 04:32:49Z]   OUT: OK (78 tests, 273 assertions)
+[2026-09-29 04:32:49Z]   EXIT: 0
+[2026-09-29 04:32:49Z] LINT PASS.
+[2026-09-29 04:32:49Z] TEST PASS.
+[2026-09-29 04:32:49Z] CMD [git-diff-check]: cd "/home/ecommercelife/Local Sites/velog/app/public/wp-content/plugins/velog" && git diff --check 2>&1
+[2026-09-29 04:32:49Z]   EXIT: 0
+[2026-09-29 04:32:49Z] CMD [git-diff-cached-check]: cd "/home/ecommercelife/Local Sites/velog/app/public/wp-content/plugins/velog" && git diff --cached --check 2>&1
+[2026-09-29 04:32:49Z]   EXIT: 0
+[2026-09-29 04:32:49Z] CMD [git-diff-stat]: cd "/home/ecommercelife/Local Sites/velog/app/public/wp-content/plugins/velog" && git diff --stat 2>&1
+[2026-09-29 04:32:49Z]   OUT:  ai-document/README.md                        |  6 +-
+[2026-09-29 04:32:49Z]   OUT:  ai-document/implementation-checklist.md      | 18 +++---
+[2026-09-29 04:32:49Z]   OUT:  ai-document/tasks/DATA-001-record-storage.md | 42 +++++++-------
+[2026-09-29 04:32:49Z]   OUT:  phpcs.xml                                    | 31 ++++++++++
+[2026-09-29 04:32:49Z]   OUT:  src/Core/PostTypes.php                       | 56 +++++++++++++++++-
+[2026-09-29 04:32:49Z]   OUT:  tests/bootstrap.php                          | 86 ++++++++++++++++++++++++++++
+[2026-09-29 04:32:49Z]   OUT:  tests/fixtures/bootstrap-entry-verify.php    | 15 +++++
+[2026-09-29 04:32:49Z]   OUT:  uninstall.php                                | 35 +++++++----
+[2026-09-29 04:32:49Z]   OUT:  8 files changed, 242 insertions(+), 47 deletions(-)
+[2026-09-29 04:32:49Z]   EXIT: 0
+[2026-09-29 04:32:49Z] === CLEANUP ===
+[2026-09-29 04:32:49Z] CMD [mysqld-stop]: kill 33766 && sleep 2
+[2026-09-29 04:32:51Z]   EXIT: 0
+[2026-09-29 04:32:51Z] CMD [mysqld-pkill]: pkill -f 'datadir=/tmp/velog_data001_6.7.2_33705/mysql_data' || true
+[2026-09-29 04:32:51Z]   EXIT: 15
+[2026-09-29 04:32:51Z] CMD [rm-tmp]: rm -rf /tmp/velog_data001_6.7.2_33705
+[2026-09-29 04:32:51Z]   EXIT: 0
+[2026-09-29 04:32:51Z] Temp dir removed. Cleanup complete.
+[2026-09-29 04:32:51Z] === OVERALL RESULT: PASS ===

@@ -21,9 +21,12 @@ Before task work, read [agent-roles.json](ai-document/agent-roles.json). This is
 Follow the lean [Architect / Builder workflow](ai-document/architect-builder-workflow.md). Automated dispatch, receipts, and background signals are retired.
 - Tasks progress through standard statuses: `DRAFT`, `READY`, `IN_PROGRESS`, `READY_FOR_REVIEW`, `CHANGES_REQUESTED`, `AWAITING_MANUAL_ACCEPTANCE`, `DONE`.
 - Architect creates tasks with bounded implementation blueprints. Builder follows the blueprint and reports evidence.
+- Repeated-finding escalation: Track each review finding by stable ID and underlying defect across implementation rounds. Builder normally implements the approved blueprint without a separate proposal gate. If the same defect fails two consecutive independent implementation reviews, pause only that defect before a third attempt: Builder submits a read-only correction approach, Architect reviews it and records APPROVED FOR IMPLEMENTATION or REVISE PROPOSAL. New findings and unrelated work remain on the normal path. Renaming a finding does not reset its review count.
+- At escalation, Architect supplies a proportionate, decision-complete correction blueprint (affected symbols, invariants, failure behavior, test oracles, scope limits); Builder identifies concrete contradictions instead of guessing. No implementation of the escalated defect starts before recorded approval. A revised proposal gets a fresh review.
 - Incoming validation: Verify task status, next actor, blueprint readiness (PASS), and checklist synchronization before starting work. On mismatch, stop and request metadata correction.
 - Handoffs: Synchronize task file, checklist, and README. Provide one copy-ready prompt under `### Chat handoff prompt`.
 - Diff review: Architect reviews diffs, security boundaries, and test evidence. Never accept without actual verification.
+- Temporary test files: Create scratch scripts and fixtures in a uniquely named, task-owned temporary directory outside the plugin source tree when possible. Track their paths and remove owned temporary files/processes before handoff, including failure paths. Keep only approved reusable tests and required evidence. Inspect `git status --short` for accidental scratch files and report cleanup results. Never delete pre-existing or tracked files without a separate, reviewed cleanup scope.
 
 ## 4. WordPress coding and security essentials
 

@@ -66,4 +66,4 @@ Initial release.
 
 == Development workflow ==
 
-Read [AGENTS.md](AGENTS.md) and [the workflow index](ai-document/README.md). Use Node 24, `npm ci`, and `composer install`. Run `npm run progress` for task status, `npm run dev` for a development build, `npm run production` for production assets, and `npm run release` for a local installable package. See [build and release](ai-document/build-and-release.md) for prerequisites and acceptance limits.
+Read [AGENTS.md](AGENTS.md) and [the workflow index](ai-document/README.md). Use Node 24, `npm ci`, and `composer install`. Run `npm run progress` for task status and open its localhost URL; click **Enable sound** once in that tab for handoff chimes. New Builder/Architect handoffs also mark the tab title and show a banner. Run `npm run dev` for a development build, `npm run production` for production assets, and `npm run release` for a local installable package. See [build and release](ai-document/build-and-release.md) for prerequisites and acceptance limits.

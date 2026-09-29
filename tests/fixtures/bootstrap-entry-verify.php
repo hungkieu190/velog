@@ -42,6 +42,21 @@ if ( ! function_exists( 'register_post_type' ) ) {
 	}
 }
 
+if ( ! function_exists( 'register_post_meta' ) ) {
+	/**
+	 * Stub: register_post_meta
+	 *
+	 * @param string $post_type CPT slug.
+	 * @param string $meta_key  Meta key.
+	 * @param array  $args      Meta arguments.
+	 * @return bool
+	 */
+	function register_post_meta( string $post_type, string $meta_key, array $args = array() ): bool {
+		return true;
+	}
+}
+
+
 if ( ! function_exists( '__' ) ) {
 	/**
 	 * Stub: __
