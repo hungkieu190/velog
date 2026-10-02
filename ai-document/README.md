@@ -3,10 +3,10 @@
 Authoritative technical and workflow documentation for VeLog.
 
 ## Current focus
-- Task: [DATA-001](tasks/DATA-001-record-storage.md)
+- Task: [CORE-004](tasks/CORE-004-regional-settings.md)
 - Status: READY_FOR_REVIEW
 - Next actor: Architect
-- Exact next action: Codex Architect reviews D1-F-021 read-only cleanup proposal revision 2 and D1-F-019/020/022/023 code corrections.
+- Exact next action: Review CORE-004 proposal revision 2 for F-002/F-004/F-005 and the completed F-001/F-003/F-006 evidence. Record APPROVED FOR IMPLEMENTATION or REVISE PROPOSAL.
 - Lean workflow: [WF-005](tasks/WF-005-lean-architect-workflow.md) (DONE after independent review).
 - Closed workflow removal: [WF-004](tasks/WF-004-json-handoff-controller.md) (DONE by direct user acceptance).
 

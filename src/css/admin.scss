@@ -22,4 +22,29 @@
       font-size: 1.5rem;
     }
   }
+
+  .form-table {
+    th {
+      width: 250px;
+    }
+  }
+
+  .description {
+    margin-top: 5px;
+    color: #646970;
+  }
+
+  select, input[type="text"] {
+    max-width: 300px;
+    width: 100%;
+  }
+}
+
+/* RTL Support */
+.rtl .velog-admin-wrap {
+  .form-table {
+    th {
+      text-align: right;
+    }
+  }
 }

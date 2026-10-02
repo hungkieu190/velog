@@ -13,9 +13,14 @@
  */
 
 // Parse CLI options.
-$options    = getopt( '', array( 'wp-version::', 'keep-tmp' ) );
+$options    = getopt( '', array( 'wp-version::', 'keep-tmp', 'inject-shutdown-fail', 'inject-rm-fail', 'inject-pid-mismatch', 'inject-sentinel' ) );
 $wp_version = $options['wp-version'] ?? '6.7.2';
 $keep_tmp   = isset( $options['keep-tmp'] );
+
+if ( isset( $options['inject-sentinel'] ) ) {
+	echo "ERROR: Unrelated sentinel marker.\n";
+	exit( 1 );
+}
 
 $valid_versions = array( '6.4.3', '6.7.2' );
 if ( ! in_array( $wp_version, $valid_versions, true ) ) {
@@ -29,7 +34,7 @@ if ( ! file_exists( $plugin_root . '/velog.php' ) ) {
 	exit( 1 );
 }
 
-$evidence_dir = $plugin_root . '/ai-document/evidence/DATA-001/builder-round-3/' . $wp_version;
+$evidence_dir = getenv( 'VELOG_DATA001_EVIDENCE_DIR' ) ?: '/tmp/velog_data001_evidence_' . gmdate( 'Ymd-His' ) . '_' . getmypid() . '/' . $wp_version;
 
 if ( ! is_dir( $evidence_dir ) ) {
 	mkdir( $evidence_dir, 0755, true );
@@ -58,7 +63,7 @@ if ( false === $log ) {
 function log_line( string $line ): void {
 	global $log;
 	$ts        = gmdate( 'Y-m-d H:i:s' ) . 'Z';
-	$formatted = "[$ts] $line\n";
+	$formatted = "[$ts]" . ( '' !== $line ? " $line" : '' ) . "\n";
 	fwrite( $log, $formatted );
 	echo $formatted;
 }
@@ -77,7 +82,8 @@ function run_cmd( string $cmd, string $label, array &$out_lines = array() ): int
 	$exit   = 0;
 	exec( $cmd . ' 2>&1', $output, $exit );
 	foreach ( $output as $line ) {
-		log_line( "  OUT: $line" );
+		$line = rtrim( $line );
+		log_line( "  OUT:" . ( '' !== $line ? " $line" : '' ) );
 	}
 	log_line( "  EXIT: $exit" );
 	$out_lines = $output;
@@ -195,18 +201,96 @@ try {
 
 	// ─── Start DB daemon ──────────────────────────────────────────────────────
 
-	$server_bin = file_exists( '/usr/sbin/mariadbd' ) ? 'mariadbd' : 'mysqld';
-	$start_cmd  = "$server_bin --datadir=$mysql_data --socket=$mysql_socket"
-		. " --pid-file=$tmp_base/mysql.pid"
-		. ' --port=0 --skip-networking'
-		. ' --user=$(whoami)'
-		. " >$tmp_base/db.log 2>&1 &";
+	$server_bin = file_exists( '/usr/sbin/mariadbd' ) ? '/usr/sbin/mariadbd' : ( file_exists( '/usr/sbin/mysqld' ) ? '/usr/sbin/mysqld' : trim( (string) shell_exec( 'command -v mariadbd || command -v mysqld' ) ) );
+	$server_bin = realpath( $server_bin );
+	if ( false === $server_bin ) {
+		log_line( 'ERROR: Database executable not found.' );
+		$overall_exit = 1;
+		return;
+	}
+	$pid_file   = $tmp_base . '/mysql.pid';
+	$server_args = array(
+		'--datadir=' . $mysql_data,
+		'--socket=' . $mysql_socket,
+		'--pid-file=' . $pid_file,
+		'--port=0',
+		'--skip-networking',
+		'--user=' . get_current_user(),
+	);
 
-	run_cmd( $start_cmd, 'db-start' );
+	$descriptorspec = array(
+		0 => array( 'pipe', 'r' ),
+		1 => array( 'file', "$tmp_base/db.log", 'a' ),
+		2 => array( 'file', "$tmp_base/db.log", 'a' ),
+	);
+
+	$cmd_arr = array_merge( array( $server_bin ), $server_args );
+	log_line( "CMD [db-start]: " . implode(' ', $cmd_arr) );
+	$mysqld_process = proc_open( $cmd_arr, $descriptorspec, $pipes );
+
+	if ( ! is_resource( $mysqld_process ) ) {
+		log_line( 'ERROR: proc_open failed to launch DB.' );
+		$overall_exit = 1;
+		return;
+	}
+
+	$status     = proc_get_status( $mysqld_process );
+	$mysqld_pid = $status['pid'];
+
+	// Read identity from /proc/<pid>/stat
+	$stat_content = @file_get_contents( "/proc/$mysqld_pid/stat" );
+	if ( false === $stat_content || ! preg_match( '/^\d+\s+\((.*)\)\s+([A-Z].+)$/', $stat_content, $matches ) ) {
+		log_line( "ERROR: Failed to read/parse /proc/$mysqld_pid/stat" );
+		$overall_exit = 1;
+		return;
+	}
+	$stat_fields = explode( ' ', $matches[2] );
+	$start_ticks = $stat_fields[19] ?? ''; // Field 22 (1-indexed), so 19 in the post-comm array
+	if ( ! is_numeric( $start_ticks ) || $start_ticks <= 0 ) {
+		log_line( "ERROR: Invalid start ticks parsed from stat: '$start_ticks'" );
+		$overall_exit = 1;
+		return;
+	}
+	$process_identity = "$mysqld_pid:$start_ticks";
+	log_line( "DB Process Identity: $process_identity" );
+
+	// Verify executable
+	$proc_exe = @readlink( "/proc/$mysqld_pid/exe" );
+	if ( false === $proc_exe || realpath( $proc_exe ) !== $server_bin ) {
+		log_line( "ERROR: /proc/$mysqld_pid/exe ($proc_exe) does not match expected $server_bin" );
+		$overall_exit = 1;
+		return;
+	}
+
+	// Verify exact arguments
+	$cmdline = @file_get_contents( "/proc/$mysqld_pid/cmdline" );
+	if ( false === $cmdline ) {
+		log_line( "ERROR: Failed to read /proc/$mysqld_pid/cmdline" );
+		$overall_exit = 1;
+		return;
+	}
+	$cmdline_args = explode( "\0", rtrim( $cmdline, "\0" ) );
+	foreach ( $server_args as $arg ) {
+		if ( ! in_array( $arg, $cmdline_args, true ) ) {
+			log_line( "ERROR: Expected argument '$arg' not found in /proc/$mysqld_pid/cmdline" );
+			$overall_exit = 1;
+			return;
+		}
+	}
 
 	$started = false;
 	for ( $i = 0; $i < 30; $i++ ) {
 		if ( file_exists( $mysql_socket ) ) {
+			if ( isset( $options['inject-pid-mismatch'] ) ) {
+				file_put_contents( $pid_file, '999999' );
+			}
+			// Verify PID-file agreement
+			$pid_file_content = @file_get_contents( $pid_file );
+			if ( trim( (string) $pid_file_content ) !== (string) $mysqld_pid ) {
+				log_line( 'ERROR: PID file content does not match child PID' );
+				$overall_exit = 1;
+				return;
+			}
 			$started = true;
 			break;
 		}
@@ -386,34 +470,55 @@ try {
 
 	log_line( '=== CLEANUP ===' );
 
-	// Stop mysqld via direct PID tracking (D1-F-017).
-	$pid_file = $tmp_base . '/mysql.pid';
-	if ( file_exists( $pid_file ) ) {
-		$pid = (int) trim( (string) file_get_contents( $pid_file ) );
-		if ( $pid > 0 ) {
-			log_line( "Stopping mysqld PID $pid gracefully with SIGTERM..." );
-			posix_kill( $pid, SIGTERM );
-			$stopped = false;
-			for ( $wait = 0; $wait < 20; $wait++ ) {
-				if ( ! posix_kill( $pid, 0 ) ) {
-					$stopped = true;
-					break;
-				}
-				usleep( 500000 ); // 0.5s wait
-			}
-			if ( ! $stopped ) {
-				log_line( "mysqld PID $pid did not exit after 10s; sending SIGKILL..." );
-				posix_kill( $pid, SIGKILL );
-			} else {
-				log_line( "mysqld PID $pid stopped gracefully." );
+	$child_exited = ! isset( $mysqld_process ) || ! is_resource( $mysqld_process );
+	if ( ! $child_exited ) {
+		$shutdown_socket = isset( $options['inject-shutdown-fail'] ) ? $mysql_socket . '_invalid' : $mysql_socket;
+		$shutdown_exit = run_cmd( 'timeout 10 mysqladmin --socket=' . escapeshellarg( $shutdown_socket ) . ' --connect-timeout=5 -u root shutdown', 'mysqladmin-shutdown' );
+		if ( 0 !== $shutdown_exit ) {
+			log_line( "ERROR: Socket shutdown command failed with exit code $shutdown_exit." );
+			$overall_exit = 1;
+			if ( file_exists( $mysql_socket ) ) {
+				run_cmd( 'timeout 10 mysqladmin --socket=' . escapeshellarg( $mysql_socket ) . ' --connect-timeout=5 -u root shutdown', 'mysqladmin-recovery' );
 			}
 		}
+		for ( $wait = 0; $wait < 20; $wait++ ) {
+			$status = proc_get_status( $mysqld_process );
+			if ( ! $status['running'] ) {
+				$child_exited = true;
+				break;
+			}
+			usleep( 500000 );
+		}
+		if ( $child_exited ) {
+			$close_ret = proc_close( $mysqld_process );
+			log_line( "Child process exited. proc_close returned $close_ret." );
+			if ( 0 !== $close_ret ) {
+				log_line( "ERROR: proc_close failed with code $close_ret." );
+				$overall_exit = 1;
+			}
+		} else {
+			log_line( "ERROR: Child exit unproved; preserving $tmp_base." );
+			$overall_exit = 1;
+		}
 	}
-
-	// Remove temp files unless --keep-tmp was specified.
-	if ( ! $keep_tmp ) {
-		run_cmd( "rm -rf $tmp_base", 'rm-tmp' );
-		log_line( 'Temp dir removed. Cleanup complete.' );
+	$owned_path = preg_match( '#^/tmp/velog_data001_\d+\.\d+\.\d+_\d+_[a-f0-9]{16}$#', $tmp_base )
+		&& is_dir( $tmp_base ) && ! is_link( $tmp_base ) && realpath( $tmp_base ) === $tmp_base;
+	if ( ! $keep_tmp && $child_exited && $owned_path ) {
+		if ( isset( $options['inject-rm-fail'] ) ) {
+			run_cmd( 'false', 'rm-tmp-stub' );
+			log_line( 'ERROR: Injected directory removal failure.' );
+			$overall_exit = 1;
+		}
+		$rm_exit = run_cmd( 'rm -rf -- ' . escapeshellarg( $tmp_base ), 'rm-tmp' );
+		if ( 0 !== $rm_exit || file_exists( $tmp_base ) ) {
+			log_line( "ERROR: Directory removal failed for $tmp_base" );
+			$overall_exit = 1;
+		} else {
+			log_line( 'Temp dir removed. Cleanup complete.' );
+		}
+	} elseif ( ! $keep_tmp && ! $owned_path ) {
+		log_line( "ERROR: Exact owned path validation failed for $tmp_base." );
+		$overall_exit = 1;
 	} else {
 		log_line( "Kept temp dir: $tmp_base" );
 	}

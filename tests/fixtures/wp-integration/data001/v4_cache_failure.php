@@ -73,10 +73,12 @@ RecordSchema::register(
 	'mf_velog_customer',
 	array(
 		'field_policies'  => array(
-			'name' => 'public',
+			'name'       => 'public',
+			'test_field' => 'internal',
 		),
 		'fields'          => array(
-			'name' => static fn ( mixed $v ) => is_string( $v ) && strlen( $v ) > 0 ? $v : null,
+			'name'       => static fn ( mixed $v ) => is_string( $v ) && strlen( $v ) > 0 ? $v : null,
+			'test_field' => static fn ( mixed $v ) => is_string( $v ) ? $v : null,
 		),
 		'states'          => array( 'active', 'archived' ),
 		'capability'      => 'mf_velog_manage_customers',
@@ -409,9 +411,7 @@ if ( ! is_wp_error( $rec_s_base ) ) {
 }
 
 // ─── V4-J (D1-F-023): Query SQL failure returns storage_unavailable (D1-F-020) ────
-// Simulate a SQL failure by dropping the postmeta table temporarily,
-// calling query(), then restoring the table.
-// We use a table rename trick to simulate a missing table within WP's db connection.
+// Simulate a SQL failure without DDL by injecting a syntax error into targeted queries.
 
 $jbase_req = 'v4j-base-' . wp_generate_uuid4();
 $jbase_res = RecordRepository::create(
@@ -423,36 +423,54 @@ $jbase_res = RecordRepository::create(
 v4_assert( ! is_wp_error( $jbase_res ), 'V4-J: base record created for SQL failure test' );
 
 if ( ! is_wp_error( $jbase_res ) ) {
-	$renamed = false;
-	try {
-		// Rename postmeta table to simulate SQL failure on query().
-		$renamed = $wpdb->query( "RENAME TABLE {$wpdb->postmeta} TO {$wpdb->postmeta}_backup_v4j" );
-		v4_assert( false !== $renamed, 'V4-J: postmeta table renamed for SQL failure simulation' );
+	$targets = array(
+		'count'     => 'SELECT COUNT(DISTINCT',
+		'page'      => 'ORDER BY p.ID ASC LIMIT',
+		'preflight' => 'HAVING cnt > 1',
+		'batch'     => "AND meta_key IN ('_mf_velog_record', '_mf_velog_state', '_mf_velog_vehicle_visible')",
+	);
 
-		if ( false !== $renamed ) {
-			// This query will fail because postmeta is gone.
-			$query_result = RecordRepository::query( 'mf_velog_customer', array(), 1, $actor );
-			v4_assert(
-				$query_result instanceof WP_Error,
-				'V4-J: query() returns WP_Error on SQL failure',
-				is_array( $query_result ) ? 'got array instead of error' : ''
-			);
-			if ( $query_result instanceof WP_Error ) {
-				v4_assert(
-					'storage_unavailable' === $query_result->get_error_code(),
-					'V4-J: query SQL failure error code is storage_unavailable',
-					'actual: ' . $query_result->get_error_code()
-				);
+	foreach ( $targets as $target_name => $sql_marker ) {
+		$injection_count = 0;
+		$filter_fn = function( $query ) use ( $sql_marker, &$injection_count ) {
+			$normalized_query  = preg_replace( '/\s+/', ' ', $query );
+			$normalized_marker = preg_replace( '/\s+/', ' ', $sql_marker );
+			if ( strpos( $normalized_query, $normalized_marker ) !== false ) {
+				$injection_count++;
+				return 'SELECT SYNTAX ERROR INJECTED FOR ' . $sql_marker;
 			}
+			return $query;
+		};
+
+		add_filter( 'query', $filter_fn );
+
+		$suppress_prev = $wpdb->suppress_errors( true );
+		try {
+			$query_result = RecordRepository::query( 'mf_velog_customer', array(), 1, $actor );
+		} finally {
+			$wpdb->suppress_errors( $suppress_prev );
+			remove_filter( 'query', $filter_fn );
 		}
-	} finally {
-		if ( false !== $renamed ) {
-			// Restore postmeta table guaranteed.
-			$wpdb->query( "RENAME TABLE {$wpdb->postmeta}_backup_v4j TO {$wpdb->postmeta}" );
+
+		v4_assert( 1 === $injection_count, "V4-J: exact 1 injection fired for $target_name", "actual: $injection_count" );
+
+		v4_assert(
+			$query_result instanceof WP_Error,
+			"V4-J: query() returns WP_Error on SQL failure for $target_name",
+			is_array( $query_result ) ? 'got array instead of error' : ''
+		);
+		if ( $query_result instanceof WP_Error ) {
+			v4_assert(
+				'storage_unavailable' === $query_result->get_error_code(),
+				"V4-J: $target_name SQL failure error code is storage_unavailable",
+				'actual: ' . $query_result->get_error_code()
+			);
+			v4_assert(
+				false === strpos( $query_result->get_error_message(), 'SELECT SYNTAX ERROR' ),
+				"V4-J: $target_name SQL failure does not leak raw SQL detail",
+				'actual message: ' . $query_result->get_error_message()
+			);
 		}
-		// Independently confirm restore success.
-		$restored = $wpdb->get_var( "SHOW TABLES LIKE '{$wpdb->postmeta}'" );
-		v4_assert( ! empty( $restored ), 'V4-J: postmeta table independently confirmed restored' );
 	}
 }
 
@@ -622,6 +640,156 @@ if ( ! is_wp_error( $vm_create ) ) {
 			);
 		}
 	}
+}
+
+// ─── V4-N (D1-F-022): Reconcile_create rejects version-2 corrupt audit history ──
+$vn_req_id = 'v4n-corrupt-' . wp_generate_uuid4();
+$vn_create = RecordRepository::create(
+	'mf_velog_customer',
+	array( 'name' => 'Corrupt Audit Test' ),
+	$actor,
+	$vn_req_id
+);
+v4_assert( ! is_wp_error( $vn_create ), 'V4-N: base create for audit corruption test succeeds' );
+
+if ( ! is_wp_error( $vn_create ) ) {
+	$vn_id = $vn_create['id'];
+
+	// Save to make it version 2
+	$vn_save_req = 'v4n-save-' . wp_generate_uuid4();
+	$vn_save = RecordRepository::save( 'mf_velog_customer', $vn_id, 1, array( 'name' => 'Corrupt Audit Version 2' ), $actor, $vn_save_req, 'v2' );
+	v4_assert( ! is_wp_error( $vn_save ), 'V4-N: save to version 2 succeeds' );
+
+	if ( ! is_wp_error( $vn_save ) ) {
+		$raw_meta = $wpdb->get_var( $wpdb->prepare( "SELECT meta_value FROM {$wpdb->postmeta} WHERE post_id = %d AND meta_key = '_mf_velog_record'", $vn_id ) );
+		v4_assert( ! empty( $raw_meta ), 'V4-N: exact raw envelope read successfully' );
+		if ( ! empty( $raw_meta ) ) {
+			$envelope = unserialize( $raw_meta );
+			// Corrupt original create-after field AND next before field to keep chain link intact
+			$envelope['audit'][0]['after']['name']  = 'INVALID_ORIGINAL';
+			$envelope['audit'][1]['before']['name'] = 'INVALID_ORIGINAL';
+			$update_res = $wpdb->update(
+				$wpdb->postmeta,
+				array( 'meta_value' => serialize( $envelope ) ),
+				array( 'post_id' => $vn_id, 'meta_key' => '_mf_velog_record' ),
+				array( '%s' ),
+				array( '%d', '%s' )
+			);
+		v4_assert( 1 === $update_res, 'V4-N: one-row corruption write succeeded' );
+
+		$proj_check = $wpdb->get_results( $wpdb->prepare( "SELECT meta_value FROM {$wpdb->postmeta} WHERE post_id = %d AND meta_key = '_mf_velog_state'", $vn_id ) );
+		v4_assert( is_array( $proj_check ) && count( $proj_check ) === 1, 'V4-N: exact projection cardinality is 1 before reconciliation' );
+		if ( is_array( $proj_check ) && count( $proj_check ) === 1 ) {
+			v4_assert( 'active' === $proj_check[0]->meta_value, 'V4-N: exact projection value is active before reconciliation' );
+		}
+
+		// Reconcile create with original create request id on version 2
+		$vn_reconcile = RecordRepository::reconcile_create(
+			'mf_velog_customer',
+			array( 'name' => 'Corrupt Audit Test' ),
+			$actor,
+			$vn_req_id
+		);
+		v4_assert(
+			$vn_reconcile instanceof WP_Error,
+			'V4-N: reconcile_create on version 2 corrupt audit history returns WP_Error despite intact projections'
+		);
+		if ( $vn_reconcile instanceof WP_Error ) {
+			v4_assert(
+				'storage_unavailable' === $vn_reconcile->get_error_code(),
+				'V4-N: corrupt audit error code is storage_unavailable',
+				'actual: ' . $vn_reconcile->get_error_code()
+			);
+		}
+	}
+}
+}
+
+// ─── V4-O (D1-F-019): Corrupted save chain and partial save ──
+$vo_req_id = 'v4o-corrupt-save-' . wp_generate_uuid4();
+$vo_create = RecordRepository::create(
+	'mf_velog_customer',
+	array( 'name' => 'VO Base', 'test_field' => 'vo_initial' ),
+	$actor,
+	$vo_req_id
+);
+v4_assert( ! is_wp_error( $vo_create ), 'V4-O: base create succeeds' );
+if ( ! is_wp_error( $vo_create ) ) {
+	$vo_id = $vo_create['id'];
+
+	// Partial save preserving name, changing test_field
+	$vo_save_req1 = 'v4o-save1-' . wp_generate_uuid4();
+	$vo_save1 = RecordRepository::save(
+		'mf_velog_customer',
+		$vo_id,
+		1,
+		array( 'test_field' => 'vo_changed' ),
+		$actor,
+		$vo_save_req1,
+		'partial save'
+	);
+	v4_assert( ! is_wp_error( $vo_save1 ), 'V4-O: partial save succeeds' );
+	if ( ! is_wp_error( $vo_save1 ) ) {
+		v4_assert( 'VO Base' === ( $vo_save1['fields']['name'] ?? '' ), 'V4-O: partial save preserved unmentioned fields' );
+	}
+
+	// Test successful reconciliation of a real partial save
+	$vo_recon_success = RecordRepository::reconcile_save( 'mf_velog_customer', $vo_id, 1, array( 'test_field' => 'vo_changed' ), $actor, $vo_save_req1 );
+	v4_assert( ! is_wp_error( $vo_recon_success ), 'V4-O: exact duplicate request identity successfully reconciled' );
+	if ( ! is_wp_error( $vo_recon_success ) ) {
+		v4_assert( 'vo_changed' === ( $vo_recon_success['fields']['test_field'] ?? '' ), 'V4-O: reconciled snapshot retained changed field' );
+		v4_assert( 'VO Base' === ( $vo_recon_success['fields']['name'] ?? '' ), 'V4-O: reconciled snapshot retained untouched field' );
+		v4_assert( 2 === $vo_recon_success['record_version'], 'V4-O: reconciled snapshot has expected version 2' );
+	}
+
+	// Save again to get 3 versions
+	$vo_save_req2 = 'v4o-save2-' . wp_generate_uuid4();
+	$vo_save2 = RecordRepository::save(
+		'mf_velog_customer',
+		$vo_id,
+		2,
+		array( 'name' => 'VO Modified' ),
+		$actor,
+		$vo_save_req2,
+		'second save'
+	);
+	v4_assert( ! is_wp_error( $vo_save2 ), 'V4-O: second save succeeds' );
+
+	$raw_meta = $wpdb->get_var( $wpdb->prepare( "SELECT meta_value FROM {$wpdb->postmeta} WHERE post_id = %d AND meta_key = '_mf_velog_record'", $vo_id ) );
+	$envelope_orig = unserialize( $raw_meta );
+
+	// 1. Corrupt intermediate before
+	$envelope = $envelope_orig;
+	$envelope['audit'][1]['before']['name'] = 'CORRUPTED';
+	$up_res1 = $wpdb->update( $wpdb->postmeta, array( 'meta_value' => serialize( $envelope ) ), array( 'post_id' => $vo_id, 'meta_key' => '_mf_velog_record' ) );
+	v4_assert( 1 === $up_res1, 'V4-O: one row changed for intermediate before corruption' );
+
+	$vo_recon1 = RecordRepository::reconcile_save( 'mf_velog_customer', $vo_id, 2, array(), $actor, $vo_save_req2 );
+	v4_assert( is_wp_error( $vo_recon1 ) && 'indeterminate' === $vo_recon1->get_error_code(), 'V4-O: corrupt intermediate before returns indeterminate' );
+	$rest_res1 = $wpdb->update( $wpdb->postmeta, array( 'meta_value' => serialize( $envelope_orig ) ), array( 'post_id' => $vo_id, 'meta_key' => '_mf_velog_record' ) ); // Restore
+	v4_assert( 1 === $rest_res1, 'V4-O: one row changed for restoration 1' );
+
+	// 2. Corrupt final after
+	$envelope = $envelope_orig;
+	$envelope['audit'][2]['after']['name'] = 'CORRUPTED FINAL';
+	$up_res2 = $wpdb->update( $wpdb->postmeta, array( 'meta_value' => serialize( $envelope ) ), array( 'post_id' => $vo_id, 'meta_key' => '_mf_velog_record' ) );
+	v4_assert( 1 === $up_res2, 'V4-O: one row changed for final after corruption' );
+
+	$vo_recon2 = RecordRepository::reconcile_save( 'mf_velog_customer', $vo_id, 2, array(), $actor, $vo_save_req2 );
+	v4_assert( is_wp_error( $vo_recon2 ) && 'indeterminate' === $vo_recon2->get_error_code(), 'V4-O: corrupt final after returns indeterminate' );
+	$rest_res2 = $wpdb->update( $wpdb->postmeta, array( 'meta_value' => serialize( $envelope_orig ) ), array( 'post_id' => $vo_id, 'meta_key' => '_mf_velog_record' ) ); // Restore
+	v4_assert( 1 === $rest_res2, 'V4-O: one row changed for restoration 2' );
+
+	// 3. Duplicate exact request hash in audit history
+	$envelope = $envelope_orig;
+	$envelope['audit'][1]['request_id_sha256'] = $envelope['audit'][2]['request_id_sha256'];
+	$up_res3 = $wpdb->update( $wpdb->postmeta, array( 'meta_value' => serialize( $envelope ) ), array( 'post_id' => $vo_id, 'meta_key' => '_mf_velog_record' ) );
+	v4_assert( 1 === $up_res3, 'V4-O: one row changed for duplicate request identity corruption' );
+
+	$vo_recon3 = RecordRepository::reconcile_save( 'mf_velog_customer', $vo_id, 2, array(), $actor, $vo_save_req2 );
+	v4_assert( is_wp_error( $vo_recon3 ) && 'indeterminate' === $vo_recon3->get_error_code(), 'V4-O: duplicate request identity returns indeterminate' );
+	$rest_res3 = $wpdb->update( $wpdb->postmeta, array( 'meta_value' => serialize( $envelope_orig ) ), array( 'post_id' => $vo_id, 'meta_key' => '_mf_velog_record' ) ); // Restore
+	v4_assert( 1 === $rest_res3, 'V4-O: one row changed for restoration 3' );
 }
 
 // ─── NOT VERIFIED constraints ─────────────────────────────────────────────────
