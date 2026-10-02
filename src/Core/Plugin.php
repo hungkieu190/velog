@@ -146,12 +146,17 @@ final class Plugin {
 	}
 
 	/**
-	 * Registers admin-side hooks.
+	 * Define hooks for the admin area.
 	 *
-	 * @since 0.1.0
+	 * @return void
 	 */
 	private function define_admin_hooks(): void {
-		// TODO: Register admin hooks via $this->loader.
+		$assets        = new \MF\VeLog\Admin\Assets( $this->get_version() );
+		$settings_page = new \MF\VeLog\Admin\RegionalSettingsPage();
+		$admin_menu    = new \MF\VeLog\Admin\AdminMenu( $settings_page );
+
+		$assets->register_hooks( $this->loader );
+		$admin_menu->register_hooks( $this->loader );
 	}
 
 	/**

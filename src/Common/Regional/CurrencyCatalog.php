@@ -17,6 +17,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 class CurrencyCatalog {
 
 	/**
+	 * Catalog version.
+	 *
+	 * @var string
+	 */
+	public const VERSION = '48.0.0-2026-09-22';
+
+	/**
 	 * Get all currencies.
 	 *
 	 * @return array<string, array<string, mixed>>

@@ -185,10 +185,10 @@ final class RecordRepository {
 			);
 		}
 
-		// D1-F-020: Distinguish SQL failure (null + last_error) from genuinely zero count.
+		// D1-F-020: Distinguish SQL failure from genuinely zero count.
 		// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared,WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
 		$total_raw = $wpdb->get_var( $count_sql );
-		if ( null === $total_raw ) {
+		if ( ! empty( $wpdb->last_error ) ) {
 			return new \WP_Error( 'storage_unavailable', 'Count query failed due to database error.' );
 		}
 		$total = (int) $total_raw;
@@ -240,10 +240,10 @@ final class RecordRepository {
 			);
 		}
 
-		// D1-F-020: get_results() returns null on SQL failure; distinguish from empty page.
+		// D1-F-020: get_results() returns empty array on SQL failure; distinguish using last_error.
 		// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared,WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
 		$page_rows = $wpdb->get_results( $page_sql, ARRAY_A );
-		if ( null === $page_rows ) {
+		if ( ! empty( $wpdb->last_error ) ) {
 			return new \WP_Error( 'storage_unavailable', 'Page query failed due to database error.' );
 		}
 
@@ -259,7 +259,7 @@ final class RecordRepository {
 		$id_in = implode( ',', $ids );
 
 		// D1-F-020: Preflight duplicate check — treat SQL failure as storage_unavailable,
-		// not as "no duplicates". get_results() returns null on error.
+		// not as "no duplicates". get_results() returns empty array on error; check last_error.
 		// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
 		$dup_rows = $wpdb->get_results(
 			"SELECT post_id, meta_key, COUNT(*) as cnt
@@ -270,7 +270,7 @@ final class RecordRepository {
 			 HAVING cnt > 1",
 			ARRAY_A
 		);
-		if ( null === $dup_rows ) {
+		if ( ! empty( $wpdb->last_error ) ) {
 			return new \WP_Error( 'storage_unavailable', 'Duplicate preflight query failed due to database error.' );
 		}
 		if ( ! empty( $dup_rows ) ) {
@@ -278,7 +278,7 @@ final class RecordRepository {
 		}
 
 		// D1-F-020: Fetch all relevant metadata for page IDs in a single batch.
-		// Treat SQL failure as storage_unavailable, not as empty meta.
+		// Treat SQL failure as storage_unavailable, not as empty meta. Check last_error.
 		// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
 		$meta_batch = $wpdb->get_results(
 			"SELECT post_id, meta_key, meta_value
@@ -287,7 +287,7 @@ final class RecordRepository {
 			   AND meta_key IN ('_mf_velog_record', '_mf_velog_state', '_mf_velog_vehicle_visible')",
 			ARRAY_A
 		);
-		if ( null === $meta_batch ) {
+		if ( ! empty( $wpdb->last_error ) ) {
 			return new \WP_Error( 'storage_unavailable', 'Batch meta query failed due to database error.' );
 		}
 		$pm_by_id = array();
@@ -1733,35 +1733,98 @@ final class RecordRepository {
 				}
 
 				// D1-F-022: Verify marker shape and bind to audit log.
-				$audit_entries = (array) ( $envelope['audit'] ?? array() );
-				if ( empty( $audit_entries ) ) {
+				$audit_entries  = (array) ( $envelope['audit'] ?? array() );
+				$record_version = (int) ( $envelope['record_version'] ?? 0 );
+				if ( empty( $audit_entries ) || $record_version < 1 ) {
 					return new \WP_Error( 'storage_unavailable', 'Candidate record missing audit history.' );
 				}
-				$first_entry = $audit_entries[0];
-				if (
-					! is_array( $first_entry )
-					|| 'create' !== ( $first_entry['op'] ?? '' )
-					|| ! isset( $first_entry['request_id_sha256'], $first_entry['actor_id'], $first_entry['after'] )
-				) {
-					return new \WP_Error( 'storage_unavailable', 'Candidate record missing valid create audit entry.' );
+				if ( count( $audit_entries ) !== $record_version ) {
+					return new \WP_Error(
+						'storage_unavailable',
+						'Audit sequence length does not match record version.'
+					);
 				}
 
-				$req_hash = hash( 'sha256', $request_id );
-				if ( $first_entry['request_id_sha256'] !== $req_hash ) {
-					return new \WP_Error( 'storage_unavailable', 'Create audit entry request hash mismatch.' );
-				}
-				if ( (int) $first_entry['actor_id'] !== (int) $actor->ID ) {
-					return new \WP_Error( 'storage_unavailable', 'Create audit entry actor mismatch.' );
+				$previous_after = array();
+				foreach ( $audit_entries as $idx => $entry ) {
+					if (
+						! is_array( $entry )
+						|| ! isset( $entry['actor_id'], $entry['request_id_sha256'], $entry['op'] )
+					) {
+						return new \WP_Error( 'storage_unavailable', 'Malformed audit entry detected.' );
+					}
+					if ( 0 === $idx ) {
+						if ( 'create' !== $entry['op'] ) {
+							return new \WP_Error( 'storage_unavailable', 'First audit entry must be create.' );
+						}
+						if (
+							! isset( $entry['before'] )
+							|| ! is_array( $entry['before'] )
+							|| ! empty( $entry['before'] )
+						) {
+							return new \WP_Error( 'storage_unavailable', 'Create audit entry must have empty before.' );
+						}
+						if ( ! isset( $entry['after'] ) || ! is_array( $entry['after'] ) ) {
+							return new \WP_Error(
+								'storage_unavailable',
+								'Candidate record missing valid create audit entry.'
+							);
+						}
+						$req_hash = hash( 'sha256', $request_id );
+						if ( $entry['request_id_sha256'] !== $req_hash ) {
+							return new \WP_Error( 'storage_unavailable', 'Create audit entry request hash mismatch.' );
+						}
+						if ( (int) $entry['actor_id'] !== (int) $actor->ID ) {
+							return new \WP_Error( 'storage_unavailable', 'Create audit entry actor mismatch.' );
+						}
+						$previous_after = $entry['after'];
+					} else {
+						if ( 'save' !== $entry['op'] ) {
+							return new \WP_Error( 'storage_unavailable', 'Subsequent audit entries must be save.' );
+						}
+						if (
+							! isset( $entry['before'] )
+							|| ! is_array( $entry['before'] )
+							|| ! isset( $entry['after'] )
+							|| ! is_array( $entry['after'] )
+						) {
+							return new \WP_Error(
+								'storage_unavailable',
+								'Malformed save audit entry: missing before/after.'
+							);
+						}
+						$current_before = $entry['before'];
+						ksort( $current_before );
+						ksort( $previous_after );
+						// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.serialize_serialize
+						if ( serialize( $current_before ) !== serialize( $previous_after ) ) {
+							return new \WP_Error(
+								'storage_unavailable',
+								'Audit chain gap: before does not match previous after.'
+							);
+						}
+						$previous_after = $entry['after'];
+					}
 				}
 
-				$first_after = (array) $first_entry['after'];
-				ksort( $first_after );
-				$canon_copy = $canonical;
+				$first_after = $audit_entries[0]['after'];
+				$canon_copy  = $canonical;
 				ksort( $canon_copy );
+				ksort( $first_after );
 				// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.serialize_serialize
 				if ( serialize( $first_after ) !== serialize( $canon_copy ) ) {
 					return new \WP_Error( 'storage_unavailable', 'Create audit entry fields mismatch.' );
 				}
+
+				$final_fields = $envelope['fields'] ?? array();
+				ksort( $final_fields );
+				ksort( $previous_after );
+				// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.serialize_serialize
+				if ( serialize( $final_fields ) !== serialize( $previous_after ) ) {
+					return new \WP_Error( 'storage_unavailable', 'Final audit after does not match envelope fields.' );
+				}
+
+				$first_entry = $audit_entries[0];
 
 				// D1-F-022: Verify projection rows on the pinned handle using the
 				// bounded integrity check (same logic as verify_write).
@@ -1883,8 +1946,11 @@ final class RecordRepository {
 					return new \WP_Error( 'indeterminate', 'Audit sequence length does not match record version.' );
 				}
 
-				$matched_entry = null;
-				$matched_idx   = -1;
+				$matched_entry  = null;
+				$matched_idx    = -1;
+				$match_count    = 0;
+				$previous_after = array();
+
 				foreach ( $audit_entries as $idx => $entry ) {
 					if (
 						! is_array( $entry )
@@ -1892,8 +1958,29 @@ final class RecordRepository {
 					) {
 						return new \WP_Error( 'indeterminate', 'Malformed audit entry detected.' );
 					}
-					// D1-F-019: Each 'save' entry must carry before and after states.
-					if ( 'save' === $entry['op'] ) {
+
+					if ( 0 === $idx ) {
+						if ( 'create' !== $entry['op'] ) {
+							return new \WP_Error( 'indeterminate', 'First audit entry must be create.' );
+						}
+						if (
+							! isset( $entry['before'] )
+							|| ! is_array( $entry['before'] )
+							|| ! empty( $entry['before'] )
+						) {
+							return new \WP_Error( 'indeterminate', 'Create audit entry must have empty before.' );
+						}
+						if ( ! isset( $entry['after'] ) || ! is_array( $entry['after'] ) ) {
+							return new \WP_Error(
+								'indeterminate',
+								'Candidate record missing valid create audit entry.'
+							);
+						}
+						$previous_after = $entry['after'];
+					} else {
+						if ( 'save' !== $entry['op'] ) {
+							return new \WP_Error( 'indeterminate', 'Subsequent audit entries must be save.' );
+						}
 						if (
 							! isset( $entry['before'] )
 							|| ! is_array( $entry['before'] )
@@ -1905,7 +1992,19 @@ final class RecordRepository {
 								'Malformed save audit entry: missing before/after.'
 							);
 						}
+						$current_before = $entry['before'];
+						ksort( $current_before );
+						ksort( $previous_after );
+						// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.serialize_serialize
+						if ( serialize( $current_before ) !== serialize( $previous_after ) ) {
+							return new \WP_Error(
+								'indeterminate',
+								'Audit chain gap: before does not match previous after.'
+							);
+						}
+						$previous_after = $entry['after'];
 					}
+
 					if (
 						$entry['request_id_sha256'] === $req_hash
 						&& (int) $entry['actor_id'] === (int) $actor->ID
@@ -1913,7 +2012,20 @@ final class RecordRepository {
 					) {
 						$matched_entry = $entry;
 						$matched_idx   = $idx;
+						$match_count++;
 					}
+				}
+
+				if ( $match_count > 1 ) {
+					return new \WP_Error( 'indeterminate', 'Duplicate request identity found in audit history.' );
+				}
+
+				$final_fields = $envelope['fields'] ?? array();
+				ksort( $final_fields );
+				ksort( $previous_after );
+				// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.serialize_serialize
+				if ( serialize( $final_fields ) !== serialize( $previous_after ) ) {
+					return new \WP_Error( 'indeterminate', 'Final audit after does not match envelope fields.' );
 				}
 
 				if ( null !== $matched_entry ) {

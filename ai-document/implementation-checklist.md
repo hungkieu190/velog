@@ -2,15 +2,15 @@
 
 ## Current focus
 
-- Task: DATA-001
+- Task: CORE-004
 - Status: READY_FOR_REVIEW
 - Next actor: Architect
-- Exact next action: Codex Architect reviews D1-F-021 read-only cleanup proposal revision 2 and D1-F-019/020/022/023 code corrections.
-- Planning queue: CORE-003, WF-004 and WF-005 are DONE; DATA-001 Builder round-4 (part 2) partial work submitted for review.
+- Exact next action: Review CORE-004 proposal revision 2 for F-002/F-004/F-005 and the completed F-001/F-003/F-006 evidence. Record APPROVED FOR IMPLEMENTATION or REVISE PROPOSAL.
+- Planning queue: DATA-001 was directly accepted by the user on 2026-10-02 with explicit NOT VERIFIED exclusions; CORE-004 review round 2 found repeat defects requiring a proposal gate.
 
 ## Project status
 
-Tooling bootstrap and master-plan revision 3 are accepted. CORE-001, CORE-002 and CORE-003 are DONE; WF-003 is DONE. DATA-001 is READY_FOR_REVIEW for Builder round 4 (part 2): D1-F-019/020/022/023 corrected (negative controls revised) and D1-F-021 cleanup read-only design revision 2 submitted. G-08 full benchmark, persistent-cache compatibility, MariaDB live-handle COMMIT failure and coordinator 1213 deadlock remain NOT VERIFIED. Task is not yet complete.
+Tooling bootstrap and master-plan revision 3 are accepted. CORE-001, CORE-002, CORE-003 and DATA-001 are DONE. DATA-001 was directly accepted by the user on 2026-10-02 without independent review of Codex's final cleanup implementation. Its live-handle COMMIT failure, coordinator 1213 deadlock and persistent-cache compatibility remain NOT VERIFIED; full G-08 product performance belongs to MVP-001 and is NOT VERIFIED. CORE-004 revision 3 is CHANGES_REQUESTED after Architect review round 2.
 
 ## Accepted product master plan and MVP
 
@@ -59,19 +59,19 @@ Task: [CORE-003](tasks/CORE-003-access-private-types.md). Prerequisites: CORE-00
 
 ### DATA-001 — Versioned private storage and retained data
 
-- [ ] DATA-001 / AC1: Typed versioned repository preserves canonical regional values and rejects forged/invalid payloads. Status: CHANGES_REQUESTED.
-- [ ] DATA-001 / AC2: Concurrent/stale/multi-record writes either commit coherently or fail without lost history/duplicates. Status: CHANGES_REQUESTED.
-- [ ] DATA-001 / AC3: Uninstall/reinstall retains records, configuration and semantic identity; no automatic purge. Status: CHANGES_REQUESTED.
-- [ ] DATA-001 / AC4: Metadata privacy, real storage failure/recovery and cache consistency verified. Status: CHANGES_REQUESTED.
+- [x] DATA-001 / AC1: Typed versioned repository preserves canonical regional values and rejects forged/invalid payloads. Status: DONE by direct user acceptance; V1 fixture passed.
+- [x] DATA-001 / AC2: Concurrent/stale/multi-record writes either commit coherently or fail without lost history/duplicates. Status: DONE by direct user acceptance; coordinator 1213 deadlock NOT VERIFIED.
+- [x] DATA-001 / AC3: Uninstall/reinstall retains records, configuration and semantic identity; no automatic purge. Status: DONE by direct user acceptance; V3 fixture passed.
+- [x] DATA-001 / AC4: Metadata privacy, real storage failure/recovery and cache consistency verified. Status: DONE by direct user acceptance; live-handle COMMIT failure and persistent-cache compatibility NOT VERIFIED.
 
 Task: [DATA-001](tasks/DATA-001-record-storage.md). Prerequisites: CORE-002 and CORE-003 DONE.
 
 ### CORE-004 — Explicit regional setup and admin shell
 
-- [ ] CORE-004 / AC1: Manager explicitly configures units/currency; invalid/unconfigured values cannot silently default. Status: DRAFT.
-- [ ] CORE-004 / AC2: Capability, nonce and stale-version checks protect writes. Status: DRAFT.
-- [ ] CORE-004 / AC3: Preference/locale changes preserve historical value identity. Status: DRAFT.
-- [ ] CORE-004 / AC4: Accessible translated/RTL admin UI and scoped generated assets pass verification. Status: DRAFT.
+- [ ] CORE-004 / AC1: Manager explicitly configures units/currency; invalid/unconfigured values cannot silently default. Status: READY_FOR_REVIEW.
+- [ ] CORE-004 / AC2: Capability, nonce and stale-version checks protect writes. Status: READY_FOR_REVIEW.
+- [ ] CORE-004 / AC3: Preference/locale changes preserve historical value identity. Status: READY_FOR_REVIEW.
+- [ ] CORE-004 / AC4: Accessible translated/RTL admin UI and scoped generated assets pass verification. Status: READY_FOR_REVIEW.
 
 Task: [CORE-004](tasks/CORE-004-regional-settings.md). Prerequisites: CORE-002, CORE-003 and DATA-001 DONE.
 

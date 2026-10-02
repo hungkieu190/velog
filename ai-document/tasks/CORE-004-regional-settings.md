@@ -1,17 +1,18 @@
 # CORE-004: Explicit regional setup and admin shell
 
 ## Current handoff
-- Status: DRAFT
-- Plan revision: 1
-- Architect session reference (planner): Codex planning conversation of 2026-09-21; descriptive reference recorded in PLAN-002, not an asserted machine session ID.
-- Builder session reference (implementer): Unassigned.
-- Implementation contributors and reviewer independence check: No implementation by this session; future Builder must identify all contributors before review.
+- Status: READY_FOR_REVIEW
+- Plan revision: 3
+- Architect session reference (planner): Codex planning 2026-09-21 and 2026-10-02; descriptive references, not asserted machine session IDs.
+- Builder session reference (implementer): Antigravity Builder 2026-10-02
+- Implementation contributors and reviewer independence check: Codex briefly created CORE-004 application files on 2026-10-02, then removed those changes before this handoff. Architect independence for any future review requires a different reviewer for code substantially derived from that attempt; Builder must identify contributors. Antigravity Builder implemented the current version and applied fixes.
 - Related checklist items: CORE-004 / AC1–AC4.
-- Baseline branch and commit; pre-existing relevant changes: main at 2aa3b8d, clean before PLAN-002 documentation work; all new classes below are proposed, not inspected existing implementations.
-- User approval reference and approved scope: PLAN-001 revision 3 approves MVP direction; 2026-09-21 user authorizes batch planning only. Detailed pending proposals are not approved implementation.
-- Latest round: Architect draft blueprint — Round 1.
+- Baseline branch and commit; pre-existing relevant changes: current working tree contains uncommitted DATA-001 source, fixture, and documentation changes. No CORE-004 application code remains after withdrawal of Codex's premature implementation. Preserve the existing working tree.
+- User approval reference and approved scope: PLAN-001 revision 3 approves MVP direction; on 2026-10-02 the user directly accepted DATA-001 with recorded verification exclusions and directed work to start on the next task. G-01 was explicitly approved by the user in the current conversation on 2026-10-02.
+- Latest round: Architect proposal review round 3 — 2026-10-02.
+- Latest report: ai-document/evidence/CORE-004/architect-round-3/proposal-review.md.
 - Next actor: Architect
-- Next actor and exact next action: Resolve readiness gates below; require CORE-002, CORE-003 and DATA-001 DONE; reinspect accepted files/interfaces and record Blueprint readiness PASS before considering READY. Builder execution is deferred by user request.
+- Next actor and exact next action: Review CORE-004 proposal revision 2 for F-002/F-004/F-005 and the completed F-001/F-003/F-006 evidence. Record APPROVED FOR IMPLEMENTATION or REVISE PROPOSAL.
 
 ## Problem and intended behavior
 The shop currently has no settings screen or explicit configured units/currency. Future financial/distance writes must not silently assume a regional default.
@@ -28,11 +29,19 @@ Read AGENTS.md; [PLAN-002 Shared blueprint contract — revision 1](PLAN-002-mvp
 - Update `ai-document/internationalization.md` configuration details and `ai-document/architecture.md` composition. No record CRUD or third-party frontend framework.
 
 ## Implementation blueprint
-- Revision and covered criteria: 1; AC1–AC4.
-- Blueprint readiness: INCOMPLETE — concrete draft, not executable authorization or product acceptance.
-- Required accepted prerequisites: CORE-002, CORE-003 and DATA-001 DONE.
-- Remaining readiness gates: G-01/G-02; resolved locale/catalog strategy, approved capability mapping, accepted storage interfaces. Native list bulk-action exceptions resolved where applicable.
-- Baseline rationale: inspected repository has Core bootstrap scaffolding and no product services; reuse WordPress/private CPT architecture and existing Composer/Loader conventions rather than adding a framework. Future dependency interfaces are proposals until their tasks are accepted.
+- Revision and covered criteria: 3; AC1–AC4.
+- Blueprint readiness: PASS for CORE-004 implementation after the user approved G-01 and directed work to proceed on 2026-10-02.
+- Required accepted prerequisites: CORE-002 and CORE-003 DONE; DATA-001 DONE by direct user acceptance on 2026-10-02 with documented NOT VERIFIED cases.
+- Readiness gates: G-01 regional input policy approved by the user on 2026-10-02; G-02 capability mapping is approved; bundled CORE-002 currency catalog and DATA-001 interfaces exist. Native list bulk actions are outside this settings form.
+- Baseline rationale: repository inspection on 2026-10-02 found `Distance`, `Money`, `DecimalInput`, and a bundled `CurrencyCatalog`; `Capabilities` grants `mf_velog_manage_settings` to manager and administrator; `AccessPolicy` explicitly excludes settings from object authorization. `Plugin::define_admin_hooks()` is still a TODO and no `src/Admin/` directory exists. Use a dedicated option service and existing Loader conventions.
+
+### Architect planning intake — 2026-10-02
+
+- **PASS for planning:** CORE-002/003 are DONE and DATA-001 has direct user acceptance. The accepted regional and capability symbols above exist. No CORE-004 implementation or runtime evidence is claimed.
+- **G-01 decision proposal:** Accept ASCII digits, a locale-specific decimal separator, no thousands grouping in inputs, at most three decimals for km/mi, and the existing 15-digit money bound. `DecimalInput` and `Money` already enforce this shape; the settings screen should describe it. The user approved this policy on 2026-10-02.
+- **Settings persistence boundary:** `velog_settings` is retained on uninstall. A new unconfigured installation has no implicit km or currency. The selected currency's scale and catalog version come from `CurrencyCatalog`, not submitted scale fields. Use a single non-autoloaded option with a schema/version envelope. For create, rely on the unique option name; for updates, use an atomic compare-and-swap against the previously read option value and expected record version. A stale or failed write preserves the prior envelope. Avoid a read-then-`update_option()` version check without an atomic condition.
+- **HTTP boundary:** The admin handler checks `current_user_can( 'mf_velog_manage_settings' )` and a settings-specific nonce before parsing allowlisted scalar POST fields. The service validates the manager capability again for direct callers. Redirect with a fixed notice code; submitted values and raw SQL never enter the URL. All rendered values and labels are escaped for context.
+- **Verification design:** Unit test missing setup, catalog-derived scale, invalid scalar/array inputs and stale versions. Disposable WordPress tests must cover manager success, technician/subscriber denial with valid nonce, manager denial with invalid nonce, concurrent stale update, retained settings after uninstall/reinstall, and unchanged historical DATA-001 record payloads after preference changes. Manual keyboard, RTL, 320px and unrelated-admin-screen asset checks remain required before AC4 closure.
 
 ### Required design and interfaces
 The settings form starts unconfigured, with explicit empty selections for distance and currency. Proposed schema: schema_version, record_version, configured, distance_unit, currency_code, currency_scale; optional region string is a suggestion/context only, never replaces unit/currency. WordPress locale/timezone remains authoritative and is displayed with an explanation; no duplicated timezone setting. Manager must explicitly submit a valid unit and currency/scale; invalid fields keep prior settings atomically unchanged.
@@ -87,10 +96,27 @@ External fixture resource ownership, bounded readiness/cleanup and error propaga
 ## Evidence and Builder completion contract
 - Evidence directory: `ai-document/evidence/CORE-004/round-1/`; commands.log for commands/exits/versions, verification.md mapping S/AC/V IDs to changed files and actual evidence; named manual walkthrough where applicable. Append later rounds without replacing old results.
 - Complete the PLAN-002 pre-handoff checklist: identity/contributors, exact changes, test totals/negative controls, deviations, NOT VERIFIED checks, cleanup and matching task/checklist state. No self-acceptance.
-- Implementation report: not started. Architect review: not performed. All runtime/integration/performance/manual acceptance results for this task are NOT VERIFIED.
+- Implementation reports: ai-document/evidence/CORE-004/builder-round-1/report.md and builder-round-2/report.md. Latest Architect review: ai-document/evidence/CORE-004/architect-round-2/review.md. No CORE-004 acceptance criterion is independently verified; lint failed and required integration/manual evidence is incomplete.
+
+## Open findings
+- CORE4-F-001: Conditional SQL CAS added; competing-writer and exact-value proof still missing. Status: OPEN, verification pending.
+- CORE4-F-002: Stored and submitted settings validation incomplete. Status: ESCALATED after two consecutive implementation review failures; read-only proposal required.
+- CORE4-F-003: Asset path/hook code revised; real URL/scoping evidence missing. Status: OPEN, verification pending.
+- CORE4-F-004: Fixture still lacks concurrent writers and real DATA-001 history oracle. Status: ESCALATED after two consecutive implementation review failures; read-only proposal required.
+- CORE4-F-005: Lint fails and documentation/UI/handoff evidence remains incomplete. Status: ESCALATED after two consecutive implementation review failures; read-only proposal required.
+- CORE4-F-006: Top-level menu uses a capability granted to no role and has no landing callback. Status: OPEN, first implementation review failure.
+
+## Escalated proposal decision
+- Proposal rev1: ai-document/evidence/CORE-004/builder-round-3/F-002-F-004-F-005-proposal-rev1.md.
+- Architect decision: REVISE PROPOSAL — ai-document/evidence/CORE-004/architect-round-3/proposal-review.md.
+- F-002/F-004/F-005 implementation gate remains closed pending an APPROVED FOR IMPLEMENTATION decision on a revised read-only proposal. F-001/F-003/F-006 may proceed under the normal path.
 
 ### Chat handoff prompt
 
 ```text
-Continue as Architect for CORE-004, DRAFT revision 1. Read AGENTS.md, ai-document/tasks/PLAN-002-mvp-task-batch.md (Shared blueprint contract revision 1), ai-document/tasks/CORE-004-regional-settings.md (Implementation blueprint revision 1), ai-document/implementation-checklist.md and the accepted dependency task files. Scope is explicit regional setup and admin shell, AC1–AC4. Require CORE-002, CORE-003 and DATA-001 DONE and resolve Remaining readiness gates before a bounded READY assignment. The user requested batch planning and Builder execution later. Baseline source inspection and planning documentation checks are the only evidence; all new runtime, integration and manual checks are NOT VERIFIED. Reinspect concrete callers/interfaces, complete the verification setup and record Blueprint readiness PASS only when genuinely complete and approved. Do not implement, dispatch Builder, mark DONE, commit, deploy or use the active database.
+Status: CHANGES_REQUESTED
+Recipient: Builder
+Intent: work
+
+REVISE PROPOSAL for escalated CORE4-F-002/F-004/F-005. Read ai-document/evidence/CORE-004/architect-round-3/proposal-review.md and submit a read-only proposal revision 2. Specify the exact raw-option/CAS read contract and error behavior, a synchronized two-writer test, a valid RecordRepository::create historical fixture, the real phpcs.xml changes, and owned-resource cleanup. Do not edit code for these three findings until Architect records APPROVED FOR IMPLEMENTATION. Separately provide durable logs or executable assertions for F-001/F-003/F-006; their code may proceed on the normal path. Preserve unrelated DATA-001 changes, synchronize task/checklist/README, and do not self-accept.
 ```

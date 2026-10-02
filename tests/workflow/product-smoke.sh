@@ -17,8 +17,8 @@ for arg in "$@"; do
     esac
 done
 
-if [ "$TASK" != "CORE-003" ]; then
-    echo "Fail: Only --task=CORE-003 is supported"
+if [ "$TASK" != "CORE-003" ] && [ "$TASK" != "CORE-004" ] && [ "$TASK" != "F-001-F-003-F-006" ]; then
+    echo "Fail: Only --task=CORE-003, CORE-004 or F-001-F-003-F-006 are supported"
     exit 1
 fi
 
@@ -296,9 +296,15 @@ export NEGATIVE_MODE
 
 # Run fixture and retain full per-case output.
 FIXTURE_LOG="$DIR/fixture.log"
-if [ -f "$PLUGIN_DIR/tests/fixtures/core-003-verify.php" ]; then
+FIXTURE_FILE="core-003-verify.php"
+if [ "$TASK" = "CORE-004" ]; then
+    FIXTURE_FILE="core-004-verify.php"
+elif [ "$TASK" = "F-001-F-003-F-006" ]; then
+    FIXTURE_FILE="f-001-f-003-f-006-verify.php"
+fi
+if [ -f "$PLUGIN_DIR/tests/fixtures/$FIXTURE_FILE" ]; then
     set +e
-    wp eval-file "$PLUGIN_DIR/tests/fixtures/core-003-verify.php" "$PORT" \
+    wp eval-file "$PLUGIN_DIR/tests/fixtures/$FIXTURE_FILE" "$PORT" \
         --path="$WP_DIR" 2>&1 | tee "$FIXTURE_LOG"
     FIXTURE_EXIT=${PIPESTATUS[0]}
     set -e
