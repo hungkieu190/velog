@@ -87,3 +87,9 @@ This decision authorizes the bounded CORE-003 capability lifecycle and private r
 ## G-08 — Storage planning and acceptance benchmark (2026-09-25)
 
 The user approved the proposed DATA-001 planning/verification approach. The benchmark target is 1,000 customers, 2,000 vehicles, 20,000 services and 5,000 reminders, with warm p95 <= 2 seconds for specified operational list/search queries on a recorded isolated environment. Operational data and configuration are retained on uninstall. This approves the target and disposable design investigation, not a claim that the benchmark has passed or that the DATA-001 blueprint is READY. Application implementation, active-site database changes, commit, push and deployment remain outside this authorization.
+
+## G-03 — Customer archive and restore policy (2026-10-06)
+
+APPROVED. A customer may be archived only when no active vehicle currently links to that customer. An active link requires vehicle reassignment or vehicle archive first, and a rejected customer archive changes neither record. Archive and restore require manager authorization, action-specific nonce validation at the HTTP boundary, exact expected-version checks, unique request IDs, version increments, and audit entries. Restore is allowed for a valid archived customer. There is no hard delete. Bulk transitions authorize and report each customer independently rather than claiming a cross-customer transaction.
+
+This decision approves the CUST-001 product rule and blueprint completion. It does not by itself authorize source implementation, commit, deployment, or active-site database changes.

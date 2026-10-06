@@ -41,6 +41,22 @@ The `MF\VeLog\Core\Capabilities` class owns strict schema definitions and persis
 - **Private CPT Enforcement**: Record types (`mf_velog_customer`, `mf_velog_vehicle`, `mf_velog_service`, `mf_velog_reminder`) are registered with `public => false`, `publicly_queryable => false`, and `show_in_rest => false`. This prevents exposure via search, feeds, sitemaps, REST, and direct permalink lookup for all actors. Capability checks (`edit_post => do_not_allow`) are applied at registration level to enforce native WordPress access control.
 - **AccessPolicy**: `MF\VeLog\Common\AccessPolicy` is a callable authorization service that evaluates action/type/state/author context for application-level decisions. It is not a search, feed, or REST hook; it enforces business-level read/mutation rules on top of the WordPress capability layer.
 
+## Regional Settings and Admin Shell (CORE-004)
+
+`MF\VeLog\Common\Regional\ShopSettings` owns the non-autoloaded `velog_settings` option. An absent row means unconfigured. A present row must match the closed schema, exact PHP types, supported schema/catalog versions, km/mi allowlist, and catalog-derived currency scale. Corrupt rows return a typed error and are never normalized into valid configuration.
+
+Settings writes use one raw database snapshot for validation, record-version checking, and a byte-exact conditional update. The first write relies on the unique option name and maps only native database error 1062 to `stale_version`. Later writes compare `BINARY option_value` against the same raw snapshot. Successful direct writes invalidate the option, `alloptions`, and `notoptions` caches. Failed or stale writes leave the prior bytes unchanged.
+
+## Private Customer Management (CUST-001)
+
+`MF\VeLog\Common\Customer\CustomerService` validates Unicode customer names and optional phone/email fields, then delegates authoritative writes to DATA-001. Customer phone and email use the `contact` exposure policy and are removed from snapshots and audit payloads returned to actors without `mf_velog_read_customer_contacts`.
+
+`CustomerQuery` performs manager-only, bounded prepared searches over schema-derived name/phone/email projections with state filters and deterministic name/ID ordering. Results remain private and are hydrated through `RecordRepository`. `CustomerRelations` reserves `_mf_velog_current_customer_id` for VEH-001 and checks it under the DATA-001 write lock before customer archive. State transitions use schema-allowlisted states, exact versions, audit entries, and the same projection verification as field saves.
+
+`CustomerPage` and `CustomerListTable` provide manager-only native WordPress forms, list/search/pagination, per-row archive/restore, and bounded per-customer bulk transitions. All mutations use action-specific nonces and fixed notice codes. The generated admin stylesheet is allowlisted only on the exact customer page hook in addition to the existing VeLog pages.
+
+`MF\VeLog\Admin\RegionalSettingsPage` owns the manager-only POST/redirect/get boundary. It validates capability, nonce type/value, canonical nonnegative record version, and scalar field shapes before calling the service. `AdminMenu` and `Assets` provide the VeLog admin shell and restrict generated admin CSS to approved VeLog hook suffixes. WordPress locale and timezone remain authoritative; regional preferences affect future defaults and never rewrite DATA-001 envelopes.
+
 ## Dashboard and Workflow Parser (WF-003)
 
 The `scripts/progress-data.mjs` script acts as the authoritative parser for the project's task and checklist tracking mechanism.

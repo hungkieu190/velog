@@ -1,17 +1,31 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "project": "velog",
   "assignments": {
     "codex": {
-      "role": "architect"
+      "role": "backend_architect",
+      "display_name": "Backend Architect"
     },
     "antigravity": {
-      "role": "builder"
+      "role": "frontend_developer",
+      "display_name": "Frontend Developer"
+    },
+    "user": {
+      "role": "tester",
+      "display_name": "Tester / Product Owner"
     }
   },
   "policy": {
     "allow_role_switch": false,
-    "allow_self_acceptance": false,
+    "backend_ownership": "codex_only",
+    "frontend_ownership": "antigravity_only",
+    "allow_backend_self_review": true,
+    "backend_self_review_label": "SELF_REVIEWED_BACKEND",
+    "allow_frontend_self_acceptance": false,
+    "frontend_reviewer": "backend_architect",
+    "feature_acceptance_owner": "tester",
+    "manual_test_required_for_major_tasks": true,
+    "manual_test_task_suffix": "-UAT",
     "announce_on_session_start": true,
     "unknown_client": "stop_and_request_client_identification",
     "assignment_changes": "explicit_user_request_only",

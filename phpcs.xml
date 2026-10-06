@@ -24,6 +24,19 @@
         <exclude name="WordPress.Files.FileName.InvalidClassFileName"/>
     </rule>
 
+    <rule ref="WordPress.WP.Capabilities">
+        <properties>
+            <property name="custom_capabilities" type="array">
+                <element value="mf_velog_manage_customers"/>
+                <element value="mf_velog_manage_vehicles"/>
+                <element value="mf_velog_create_services"/>
+                <element value="mf_velog_read_records"/>
+                <element value="mf_velog_manage_reminders"/>
+                <element value="mf_velog_manage_settings"/>
+            </property>
+        </properties>
+    </rule>
+
     <rule ref="WordPress-Core"/>
     <rule ref="WordPress-Docs"/>
     <rule ref="WordPress-Extra"/>

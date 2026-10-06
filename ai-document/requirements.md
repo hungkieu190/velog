@@ -2,7 +2,7 @@
 
 - R1: Separate Architect planning/review from Builder implementation; User approves scope. Only Architect accepts tasks and checks project items.
 - R2: Every handoff includes a self-contained prompt in both task and chat, with exact files, status, scope, criteria/findings, checks, NOT VERIFIED checks, and next action.
-- R3: Implement a read-only local npm run progress dashboard reading checklist/tasks, including ownership, phases, history, findings, mismatches, prompt coverage, timestamps, and exact next action.
+- R3: Implement a read-only local `npm run process` dashboard reading checklist/tasks, including workstream, ownership, phases, history, findings, mismatches, prompt coverage, timestamps, and exact next action. Keep `npm run progress` as a compatibility alias.
 - R4: Frontend authoring belongs under src/js/ and src/css/; build tools under scripts/; production outputs under assets/. Backend PHP remains under src/.
 - R5: dev builds once with maps; production builds once with minification, notices, safe cleanup and validation; release awaits a fresh production build.
 - R6: Explicit runtime allowlist, validated version, safe staging, top-level velog/ ZIP directory, no development files/secrets; preserve required Composer autoloading.

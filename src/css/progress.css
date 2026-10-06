@@ -27,17 +27,18 @@ h2 span { font-size: 13px; font-weight: 400; margin-left: 12px; color: #586966; 
 .owner.active span { border-color: #146f50; font-weight: 700; color: #076647; }
 .scene { width: 100%; height: auto; display: block; color: #586966; }
 .scene.architect .engineer circle { color: #172a2a; }
-.scene.builder .miner .helmet { color: #172a2a; }
-.scene.user .person circle { color: #172a2a; }
+.scene.frontend .developer circle { color: #172a2a; }
+.scene.tester .person circle { color: #172a2a; }
 
 .drawn-line { transform: scaleX(0); opacity: 0; }
-.dust { opacity: 0; transform-origin: 40px 65px; }
+.code-line { transform: scaleX(0); transform-origin: left; opacity: .25; }
 
 .drawing .engineer .arm { animation: draw-arm 4.5s ease-in-out infinite; }
 .drawing .drawn-line { transform-origin: 50px 60px; animation: draw-line 4.5s ease-in-out infinite; }
-.mining .miner .arm { animation: mine-arm 4.5s ease-in-out infinite; }
-.mining .miner .body, .mining .miner .helmet { animation: mine-body 4.5s infinite; }
-.mining .dust { animation: mine-dust 4.5s infinite; }
+.coding .typing-hand { animation: type-hand 3s ease-in-out infinite; }
+.coding .code-line-one { animation: type-code 3s ease-out infinite; }
+.coding .code-line-two { animation: type-code 3s .35s ease-out infinite; }
+.coding .code-line-three { animation: type-code 3s .7s ease-out infinite; }
 
 @keyframes draw-arm {
 	0%, 15% { transform: rotate(0deg); }
@@ -52,28 +53,16 @@ h2 span { font-size: 13px; font-weight: 400; margin-left: 12px; color: #586966; 
 	30%, 45% { transform: scaleX(0.4); opacity: 1; }
 	60%, 100% { transform: scaleX(1); opacity: 1; }
 }
-@keyframes mine-arm {
-	0%, 10% { transform: rotate(0deg); }
-	20% { transform: rotate(45deg); }
-	25% { transform: rotate(-10deg); }
-	35% { transform: rotate(-10deg); }
-	45% { transform: rotate(45deg); }
-	50% { transform: rotate(-10deg); }
-	60%, 100% { transform: rotate(-10deg); }
+@keyframes type-hand {
+	0%, 100% { transform: translateY(0); }
+	25% { transform: translateY(2px); }
+	50% { transform: translateY(-1px); }
+	75% { transform: translateY(2px); }
 }
-@keyframes mine-body {
-	0%, 24% { transform: translateY(0); }
-	25%, 35% { transform: translateY(2px); }
-	36%, 49% { transform: translateY(0); }
-	50%, 100% { transform: translateY(2px); }
-}
-@keyframes mine-dust {
-	0%, 24% { opacity: 0; transform: scale(0.5) translateY(0); }
-	25% { opacity: 1; transform: scale(1) translateY(0); }
-	35% { opacity: 0; transform: scale(1.5) translateY(-10px); }
-	36%, 49% { opacity: 0; transform: scale(0.5) translateY(0); }
-	50% { opacity: 1; transform: scale(1) translateY(0); }
-	60%, 100% { opacity: 0; transform: scale(1.5) translateY(-10px); }
+@keyframes type-code {
+	0% { opacity: .25; transform: scaleX(0); }
+	20%, 75% { opacity: 1; transform: scaleX(1); }
+	100% { opacity: .25; transform: scaleX(1); }
 }
 
 small { display: block; font-size: 11px; font-weight: 400; color: #586966; overflow-wrap: anywhere; margin-top: 2px; }
@@ -105,9 +94,8 @@ section { animation: appear .3s ease-out; }
 	section { animation: none; }
 	summary { transition: none; }
 	.drawing .engineer .arm, .drawing .drawn-line,
-	.mining .miner .arm, .mining .miner .body, .mining .miner .helmet, .mining .dust { animation: none; }
+	.coding .typing-hand, .coding .code-line { animation: none; }
 	.drawing .drawn-line { transform: scaleX(1); opacity: 1; }
 	.drawing .engineer .arm { transform: rotate(-25deg); }
-	.mining .miner .arm { transform: rotate(-10deg); }
-	.mining .miner .body, .mining .miner .helmet { transform: translateY(2px); }
+	.coding .code-line { transform: scaleX(1); opacity: 1; }
 }

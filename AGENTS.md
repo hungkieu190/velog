@@ -2,10 +2,10 @@
 
 ## 1. Startup: Role resolution and announcement
 
-Before task work, read [agent-roles.json](ai-document/agent-roles.json). This is static role mapping: `codex` is Architect; `antigravity` is Builder.
+Before task work, read [agent-roles.json](ai-document/agent-roles.json). This is static role mapping: `codex` is Backend Architect; `antigravity` is Frontend Developer; the user is Tester / Product Owner.
 1. Identify client from host runtime. Resolve assigned role from `assignments[client].role`. Never switch or infer roles.
 2. Send a short Vietnamese acknowledgement once per session: confirm reading AGENTS.md, project, role, and client. Do not repeat every turn or pause for confirmation.
-3. Role separation: Architect plans, creates tasks, and independently reviews. Builder implements and verifies. Neither may self-review or accept work. Contributor sessions cannot accept their own work.
+3. Role separation: Backend Architect plans all work, implements and self-reviews backend code, and reviews Frontend Developer code. Frontend Developer implements only explicitly assigned presentation work and never self-accepts. Tester / Product Owner performs mandatory manual feature tests and is the only role that accepts a major feature as functionally DONE.
 4. Host-injected rules count as read; verify role mapping once per session. Re-read instructions when modified on disk.
 
 ## 2. Communication and language
@@ -18,14 +18,20 @@ Before task work, read [agent-roles.json](ai-document/agent-roles.json). This is
 
 ## 3. Workflow and manual handoffs
 
-Follow the lean [Architect / Builder workflow](ai-document/architect-builder-workflow.md). Automated dispatch, receipts, and background signals are retired.
-- Tasks progress through standard statuses: `DRAFT`, `READY`, `IN_PROGRESS`, `READY_FOR_REVIEW`, `CHANGES_REQUESTED`, `AWAITING_MANUAL_ACCEPTANCE`, `DONE`.
-- Architect creates tasks with bounded implementation blueprints. Builder follows the blueprint and reports evidence.
-- Repeated-finding escalation: Track each review finding by stable ID and underlying defect across implementation rounds. Builder normally implements the approved blueprint without a separate proposal gate. If the same defect fails two consecutive independent implementation reviews, pause only that defect before a third attempt: Builder submits a read-only correction approach, Architect reviews it and records APPROVED FOR IMPLEMENTATION or REVISE PROPOSAL. New findings and unrelated work remain on the normal path. Renaming a finding does not reset its review count.
-- At escalation, Architect supplies a proportionate, decision-complete correction blueprint (affected symbols, invariants, failure behavior, test oracles, scope limits); Builder identifies concrete contradictions instead of guessing. No implementation of the escalated defect starts before recorded approval. A revised proposal gets a fresh review.
+Follow the lean [Backend Architect / Frontend Developer / Tester workflow](ai-document/backend-frontend-workflow.md). Automated dispatch, receipts, and background signals are retired.
+- Tasks progress through standard statuses: `DRAFT`, `READY`, `IN_PROGRESS`, `READY_FOR_REVIEW`, `CHANGES_REQUESTED`, `BLOCKED`, `AWAITING_MANUAL_ACCEPTANCE`, `DONE`.
+- Backend Architect creates backend, frontend, and manual test tasks. Every major feature uses `<ID>-BE`, `<ID>-FE` when presentation exists, and mandatory `<ID>-UAT` owned by Tester.
+- Backend Architect owns every backend change, including PHP, WordPress hooks, capabilities, nonces, validation, storage, SQL, concurrency, server-side tests, integration fixtures, and backend documentation. It implements directly, inspects its own diff, runs applicable gates, and records `SELF_REVIEWED_BACKEND`. This review is intentionally non-independent under the user's 2026-10-05 workflow decision.
+- Frontend Developer owns only assigned JavaScript, Sass/CSS, visual components, responsive/RTL/accessibility presentation, generated frontend assets, and approved view-only templates. It must not edit backend behavior or tests and must hand completed work to Backend Architect for review.
+- Backend Architect review is code/architecture/security review only. It must not claim that a feature works for the user or mark a major parent task DONE.
+- Tester / Product Owner receives a Vietnamese `<ID>-UAT` task with prerequisites, test data, exact steps, expected results, negative/permission cases, visual/accessibility checks where applicable, and a required PASS/FAIL result format.
+- A major parent task moves to `AWAITING_MANUAL_ACCEPTANCE` with `Next actor: Tester` only after required code reviews pass. It moves to `DONE` only after Tester explicitly records manual PASS. A manual FAIL moves the affected BE or FE workstream to `CHANGES_REQUESTED` after Backend Architect triage.
+- `Next actor` is authoritative. Do not infer an owner from task status.
 - Incoming validation: Verify task status, next actor, blueprint readiness (PASS), and checklist synchronization before starting work. On mismatch, stop and request metadata correction.
-- Handoffs: Synchronize task file, checklist, and README. Provide one copy-ready prompt under `### Chat handoff prompt`.
-- Diff review: Architect reviews diffs, security boundaries, and test evidence. Never accept without actual verification.
+- Handoffs: Synchronize task file, checklist, and README. Provide exactly one copy-ready prompt under `### Chat handoff prompt`.
+- Mandatory final-response prompt: Any turn that records or changes a task status, `Next actor`, review decision, workstream ownership, or manual-acceptance handoff is incomplete until the agent's final user-facing response includes exactly one copy-ready handoff prompt. Reproduce the task file's `### Chat handoff prompt` verbatim. Never refer the user to a prompt from an earlier message, omit it because it was previously supplied, or provide multiple competing prompts.
+- Prompt consistency: The final-response prompt must match the synchronized task, checklist, and README status, recipient, intent, evidence reference, and exact next action. A missing or mismatched prompt is a failed handoff and must be corrected before ending the turn.
+- Diff review: Backend Architect reviews its backend diff and all Frontend Developer diffs, security boundaries, generated assets, and test evidence. Never accept without actual verification.
 - Temporary test files: Create scratch scripts and fixtures in a uniquely named, task-owned temporary directory outside the plugin source tree when possible. Track their paths and remove owned temporary files/processes before handoff, including failure paths. Keep only approved reusable tests and required evidence. Inspect `git status --short` for accidental scratch files and report cleanup results. Never delete pre-existing or tracked files without a separate, reviewed cleanup scope.
 
 ## 4. WordPress coding and security essentials
@@ -42,7 +48,7 @@ Security takes precedence over performance and convenience. Follow `rules/` and 
 
 - Read only what is needed for the assigned scope:
   - Architecture: [architecture.md](ai-document/architecture.md)
-  - Workflow & task template: [architect-builder-workflow.md](ai-document/architect-builder-workflow.md)
+  - Workflow & task template: [backend-frontend-workflow.md](ai-document/backend-frontend-workflow.md)
   - Build & release: [build-and-release.md](ai-document/build-and-release.md) (assets built via `npm run dev`/`npm run production`; release via `npm run release`)
   - Project checklist: [implementation-checklist.md](ai-document/implementation-checklist.md)
   - Security rules: [rules/security.md](rules/security.md)

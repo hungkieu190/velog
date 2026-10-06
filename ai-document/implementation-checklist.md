@@ -2,15 +2,14 @@
 
 ## Current focus
 
-- Task: CORE-004
-- Status: READY_FOR_REVIEW
-- Next actor: Architect
-- Exact next action: Review CORE-004 proposal revision 2 for F-002/F-004/F-005 and the completed F-001/F-003/F-006 evidence. Record APPROVED FOR IMPLEMENTATION or REVISE PROPOSAL.
-- Planning queue: DATA-001 was directly accepted by the user on 2026-10-02 with explicit NOT VERIFIED exclusions; CORE-004 review round 2 found repeat defects requiring a proposal gate.
+- Task: CUST-001-FE
+- Status: BLOCKED
+- Next actor: Backend Architect
+- Exact next action: Fix HTML contract defect (missing type="text" on search input) in CustomerPage.php, then return to Frontend Developer.
 
 ## Project status
 
-Tooling bootstrap and master-plan revision 3 are accepted. CORE-001, CORE-002, CORE-003 and DATA-001 are DONE. DATA-001 was directly accepted by the user on 2026-10-02 without independent review of Codex's final cleanup implementation. Its live-handle COMMIT failure, coordinator 1213 deadlock and persistent-cache compatibility remain NOT VERIFIED; full G-08 product performance belongs to MVP-001 and is NOT VERIFIED. CORE-004 revision 3 is CHANGES_REQUESTED after Architect review round 2.
+Tooling bootstrap and master-plan revision 3 are accepted. CORE-001, CORE-002, CORE-003 and DATA-001 are DONE. DATA-001 was directly accepted by the user on 2026-10-02 without independent review of Codex's final cleanup implementation. Its live-handle COMMIT failure, coordinator 1213 deadlock and persistent-cache compatibility remain NOT VERIFIED; full G-08 product performance belongs to MVP-001 and is NOT VERIFIED. PLAN-003 is active: Backend Architect owns and self-reviews backend code, Frontend Developer owns bounded presentation work reviewed for code by Backend Architect, and Tester / Product Owner performs mandatory manual acceptance for every major feature.
 
 ## Accepted product master plan and MVP
 
@@ -68,12 +67,16 @@ Task: [DATA-001](tasks/DATA-001-record-storage.md). Prerequisites: CORE-002 and 
 
 ### CORE-004 — Explicit regional setup and admin shell
 
-- [ ] CORE-004 / AC1: Manager explicitly configures units/currency; invalid/unconfigured values cannot silently default. Status: READY_FOR_REVIEW.
-- [ ] CORE-004 / AC2: Capability, nonce and stale-version checks protect writes. Status: READY_FOR_REVIEW.
-- [ ] CORE-004 / AC3: Preference/locale changes preserve historical value identity. Status: READY_FOR_REVIEW.
-- [ ] CORE-004 / AC4: Accessible translated/RTL admin UI and scoped generated assets pass verification. Status: READY_FOR_REVIEW.
+- [x] CORE-004 / AC1: Manager explicitly configures units/currency; invalid/unconfigured values cannot silently default. Status: DONE.
+- [x] CORE-004 / AC2: Capability, nonce and stale-version checks protect writes. Status: DONE.
+- [x] CORE-004 / AC3: Preference/locale changes preserve historical value identity. Status: DONE.
+- [x] CORE-004 / AC4: Accessible translated/RTL admin UI and scoped generated assets pass verification. Status: DONE by direct Product Owner manual acceptance on 2026-10-06; retained Round 3 screenshots do not independently demonstrate the rendered form state.
 
 Task: [CORE-004](tasks/CORE-004-regional-settings.md). Prerequisites: CORE-002, CORE-003 and DATA-001 DONE.
+
+- [x] CORE-004-FE: Regional settings responsive, RTL, keyboard, focus, long-content, and asset-scope presentation evidence. Status: DONE by direct Product Owner manual acceptance on 2026-10-06.
+
+Task: [CORE-004-FE](tasks/CORE-004-FE-regional-settings-ui.md). Owner: Frontend Developer; reviewer: Backend Architect.
 
 ### CUST-001 — Private customer management
 
@@ -82,7 +85,13 @@ Task: [CORE-004](tasks/CORE-004-regional-settings.md). Prerequisites: CORE-002, 
 - [ ] CUST-001 / AC3: Archive/restore preserves records and rejects active-vehicle linkage; stale writes/bulk checks behave correctly. Status: DRAFT.
 - [ ] CUST-001 / AC4: Real WordPress CRUD, negative controls and accessible admin journey have evidence. Status: DRAFT.
 
+Readiness: G-02 contact visibility and G-03 archive/restore policy are approved. Parent blueprint revision 3 is PASS. `CUST-001-BE` awaits implementation authorization; `CUST-001-FE` remains DRAFT until the backend view contract is stable.
+
 Task: [CUST-001](tasks/CUST-001-customer-records.md). Prerequisites: CORE-004 and DATA-001 DONE.
+
+- [x] CUST-001-BE: Customer backend, secure admin contract, query/search, and archive/restore. Status: DONE — `SELF_REVIEWED_BACKEND`.
+- [ ] CUST-001-FE: Customer admin presentation and browser evidence. Status: BLOCKED; Blueprint readiness: FAIL.
+- [ ] CUST-001-UAT: Kiểm thử thủ công quản lý khách hàng bằng tiếng Việt. Status: BLOCKED pending Backend Architect approval of CUST-001-FE; owner: Tester.
 
 ### VEH-001 — Vehicle identity and current customer
 

@@ -8,6 +8,9 @@
 .velog-admin-wrap {
   font-family: $mf-font-family;
   margin: 20px 0;
+  max-width: 100%;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
 
   .velog-header {
     background: #fff;
@@ -20,31 +23,139 @@
       margin: 0;
       color: $mf-secondary;
       font-size: 1.5rem;
+      line-height: 1.3;
     }
   }
 
   .form-table {
     th {
       width: 250px;
+      word-break: break-word; /* Ensure extremely long single words wrap */
+      /* On mobile, reset width so it doesn't cause horizontal scroll on 320px screens */
+      @media screen and (max-width: 782px) {
+        width: 100%;
+        display: block;
+      }
+    }
+
+    td {
+      word-break: break-word;
+      @media screen and (max-width: 782px) {
+        display: block;
+        padding-top: 0;
+      }
     }
   }
 
   .description {
     margin-top: 5px;
     color: #646970;
+    max-width: 100%;
   }
 
-  select, input[type="text"] {
+  select, input[type="text"], input[type="email"] {
     max-width: 300px;
     width: 100%;
+
+    &:focus {
+      outline: 2px solid $mf-primary;
+      outline-offset: -2px;
+    }
+  }
+
+  /* Customers Page Specific */
+  &.velog-customers > h1 {
+    background: #fff;
+    border: 1px solid #ccd0d4;
+    border-left: 4px solid $mf-primary;
+    padding: 15px 20px;
+    margin-bottom: 20px;
+    color: $mf-secondary;
+    font-size: 1.5rem;
+    line-height: 1.3;
+  }
+
+  .velog-customer-form {
+    background: #fff;
+    border: 1px solid #ccd0d4;
+    padding: 20px;
+    margin-bottom: 30px;
+
+    .form-table {
+      margin-top: 0;
+      th {
+        width: 150px;
+      }
+    }
+
+    .submit {
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+  }
+
+  .velog-customer-search,
+  #velog-customer-bulk {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+
+    label {
+      font-weight: 600;
+    }
+
+    input[type="text"] {
+      width: 250px;
+      margin: 0;
+    }
+    
+    select {
+      min-width: 150px;
+      margin: 0;
+    }
+
+    .button {
+      margin: 0;
+    }
+
+    @media screen and (max-width: 782px) {
+      flex-direction: column;
+      align-items: flex-start;
+      input[type="text"], select {
+        width: 100%;
+        max-width: 100%;
+      }
+    }
+  }
+
+  .velog-customer-table {
+    margin-top: 10px;
+
+    th.check-column, td.check-column {
+      width: 50px;
+      padding: 8px 10px;
+      vertical-align: middle;
+      text-align: center;
+    }
+
+    td {
+      vertical-align: middle;
+    }
+
+    .velog-customer-state-form {
+      display: inline-block;
+      margin: 0;
+    }
   }
 }
 
 /* RTL Support */
 .rtl .velog-admin-wrap {
-  .form-table {
-    th {
-      text-align: right;
-    }
+  .velog-header,
+  &.velog-customers > h1 {
+    border-left: 1px solid #ccd0d4;
+    border-right: 4px solid $mf-primary;
   }
 }

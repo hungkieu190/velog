@@ -12,6 +12,7 @@
         "lint:js": "echo 'TODO: Add ESLint'",
         "lint:css": "echo 'TODO: Add Stylelint'",
         "production": "node scripts/build.mjs --mode=production",
+        "process": "node scripts/progress-dashboard.mjs",
         "progress": "node scripts/progress-dashboard.mjs",
         "test:workflow": "node --test tests/workflow/*.test.mjs"
     },

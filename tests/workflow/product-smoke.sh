@@ -17,8 +17,8 @@ for arg in "$@"; do
     esac
 done
 
-if [ "$TASK" != "CORE-003" ] && [ "$TASK" != "CORE-004" ] && [ "$TASK" != "F-001-F-003-F-006" ]; then
-    echo "Fail: Only --task=CORE-003, CORE-004 or F-001-F-003-F-006 are supported"
+if [ "$TASK" != "CORE-003" ] && [ "$TASK" != "CORE-004" ] && [ "$TASK" != "CUST-001" ] && [ "$TASK" != "F-001-F-003-F-006" ]; then
+    echo "Fail: Unsupported product-smoke task"
     exit 1
 fi
 
@@ -101,9 +101,11 @@ cleanup() {
         fi
     fi
 
-    # --- Remove owned directory ---
-    cp "$CAUSE_LOG" "/tmp/velog-cause-$(basename "$DIR").log" 2>/dev/null || true
-    cp "$DIR/php.log" "/tmp/velog-php-$(basename "$DIR").log" 2>/dev/null || true
+    # Preserve diagnostics only for failed runs. Successful runs leave no owned files.
+    if [ "$exit_code" -ne 0 ]; then
+        cp "$CAUSE_LOG" "/tmp/velog-cause-$(basename "$DIR").log" 2>/dev/null || true
+        cp "$DIR/php.log" "/tmp/velog-php-$(basename "$DIR").log" 2>/dev/null || true
+    fi
     rm -rf "$DIR"
     if [ -d "$DIR" ]; then
         echo "CLEANUP_FAIL: Could not remove $DIR"
@@ -243,6 +245,16 @@ add_filter( 'wp_die_handler', function() {
 } );
 EOF
 
+if [ "$TASK" = "CORE-004" ]; then
+cat << 'EOF' > "$WP_DIR/wp-content/mu-plugins/test-nonce-endpoint.php"
+<?php
+add_action( 'wp_ajax_test_get_velog_nonce', function() {
+    echo wp_create_nonce( 'velog_save_settings' );
+    wp_die();
+} );
+EOF
+fi
+
 # ============================================================
 # http-never-ready: validator is the HTTP readiness loop below.
 # ============================================================
@@ -299,6 +311,8 @@ FIXTURE_LOG="$DIR/fixture.log"
 FIXTURE_FILE="core-003-verify.php"
 if [ "$TASK" = "CORE-004" ]; then
     FIXTURE_FILE="core-004-verify.php"
+elif [ "$TASK" = "CUST-001" ]; then
+    FIXTURE_FILE="cust-001-verify.php"
 elif [ "$TASK" = "F-001-F-003-F-006" ]; then
     FIXTURE_FILE="f-001-f-003-f-006-verify.php"
 fi
@@ -322,6 +336,10 @@ if [ -f "$PLUGIN_DIR/tests/fixtures/$FIXTURE_FILE" ]; then
     if [ $FIXTURE_EXIT -ne 0 ]; then
         echo "Fail: Fixture exited $FIXTURE_EXIT"
         exit $FIXTURE_EXIT
+    fi
+
+    if [ "$TASK" = "CORE-004" ]; then
+        bash "$PLUGIN_DIR/tests/workflow/core-004-endpoint.sh" "$PORT" "$WP_DIR" || exit 1
     fi
 else
     echo "Fail: Fixture not found!"

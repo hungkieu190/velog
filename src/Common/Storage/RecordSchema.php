@@ -208,6 +208,17 @@ final class RecordSchema {
 		if ( ! isset( $definition['projections'] ) || ! is_array( $definition['projections'] ) ) {
 			$definition['projections'] = array();
 		}
+		if ( ! isset( $definition['projection_builders'] ) || ! is_array( $definition['projection_builders'] ) ) {
+			$definition['projection_builders'] = array();
+		}
+		foreach ( $definition['projection_builders'] as $projection_key => $builder ) {
+			if ( ! is_string( $projection_key ) || ! str_starts_with( $projection_key, '_mf_velog_' ) ) {
+				throw new \InvalidArgumentException( 'RecordSchema: projection keys must use the _mf_velog_ prefix.' );
+			}
+			if ( ! is_callable( $builder ) ) {
+				throw new \InvalidArgumentException( 'RecordSchema: projection builders must be callable.' );
+			}
+		}
 
 		// 'states': allowed state values.
 		if ( ! isset( $definition['states'] ) || ! is_array( $definition['states'] ) ) {
@@ -266,6 +277,9 @@ final class RecordSchema {
 				$keys[] = $k;
 			}
 		}
+		foreach ( array_keys( $definition['projection_builders'] ?? array() ) as $projection_key ) {
+			$keys[] = (string) $projection_key;
+		}
 		return array_values( array_unique( $keys ) );
 	}
 
@@ -315,6 +329,12 @@ final class RecordSchema {
 				$projections[ $proj_key ] = (string) $fields[ $proj_key ];
 			}
 		}
+		foreach ( $definition['projection_builders'] ?? array() as $proj_key => $builder ) {
+			$value = $builder( $fields, $envelope );
+			if ( null !== $value ) {
+				$projections[ $proj_key ] = (string) $value;
+			}
+		}
 
 		return $projections;
 	}
@@ -362,11 +382,26 @@ final class RecordSchema {
 			self::register(
 				'mf_velog_customer',
 				array(
-					'capability'      => 'mf_velog_manage_customers',
-					'read_capability' => 'mf_velog_read_records',
-					'states'          => array( 'active', 'archived' ),
-					'contact_fields'  => array(),
-					'fields'          => array(),
+					'capability'          => 'mf_velog_manage_customers',
+					'read_capability'     => 'mf_velog_read_records',
+					'states'              => array( 'active', 'archived' ),
+					'field_policies'      => array(
+						'name'  => 'public',
+						'phone' => 'contact',
+						'email' => 'contact',
+					),
+					'fields'              => array(
+						'name'  => array( \MF\VeLog\Common\Customer\CustomerService::class, 'validate_name' ),
+						'phone' => array( \MF\VeLog\Common\Customer\CustomerService::class, 'validate_phone' ),
+						'email' => array( \MF\VeLog\Common\Customer\CustomerService::class, 'validate_email' ),
+					),
+					// phpcs:disable Generic.Files.LineLength.TooLong
+					'projection_builders' => array(
+						'_mf_velog_customer_name'  => array( \MF\VeLog\Common\Customer\CustomerService::class, 'project_name' ),
+						'_mf_velog_customer_phone' => array( \MF\VeLog\Common\Customer\CustomerService::class, 'project_phone' ),
+						'_mf_velog_customer_email' => array( \MF\VeLog\Common\Customer\CustomerService::class, 'project_email' ),
+					),
+					// phpcs:enable Generic.Files.LineLength.TooLong
 				)
 			);
 		}
@@ -376,10 +411,23 @@ final class RecordSchema {
 			self::register(
 				'mf_velog_vehicle',
 				array(
-					'capability'      => 'mf_velog_manage_vehicles',
-					'read_capability' => 'mf_velog_read_records',
-					'states'          => array( 'active', 'archived' ),
-					'fields'          => array(),
+					'capability'          => 'mf_velog_manage_vehicles',
+					'read_capability'     => 'mf_velog_read_records',
+					'states'              => array( 'active', 'archived' ),
+					'field_policies'      => array(
+						'current_customer_id' => 'internal',
+					),
+					// phpcs:disable Generic.Files.LineLength.TooLong
+					'fields'              => array(
+						'current_customer_id' => array( \MF\VeLog\Common\Customer\CustomerRelations::class, 'validate_customer_id' ),
+					),
+					// phpcs:enable Generic.Files.LineLength.TooLong
+					'projection_builders' => array(
+						'_mf_velog_current_customer_id' => array(
+							\MF\VeLog\Common\Customer\CustomerRelations::class,
+							'project_customer_id',
+						),
+					),
 				)
 			);
 		}

@@ -76,4 +76,6 @@ The catalog metadata is a pinned snapshot, and its specific version (code, scale
 
 - **PHP Ext dependency:** The regional primitive math and formatting do not rely on `BCMath` or `intl` extensions, which improves portability but restricts operations to custom exact-string manipulation (`DecimalMath`).
 - **No Exchange Rates:** The bundled currency catalog includes metadata like scale and symbols but does not provide dynamic exchange rates.
-- **Product UI:** Settings UI, database storage, and WordPress admin interfaces for regional configuration remain out of scope for these foundation primitives.
+- **Product UI:** CORE-004 adds a manager-only WordPress admin form for explicit km/mi and currency selection. The form stores the catalog-derived scale and catalog version, accepts no implicit currency default, and displays WordPress locale/timezone as authoritative context.
+- **Settings persistence:** The non-autoloaded `velog_settings` envelope is versioned and written with byte-exact compare-and-swap semantics. JPY, USD, and KWD verify zero-, two-, and three-decimal scales. Preference and locale changes apply to future defaults and do not rewrite historical record envelopes.
+- **Current boundary:** Exchange rates, tax behavior, translated language packs, and automatic country-to-currency selection remain outside CORE-004.

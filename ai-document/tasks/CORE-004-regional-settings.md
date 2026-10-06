@@ -1,24 +1,27 @@
 # CORE-004: Explicit regional setup and admin shell
 
 ## Current handoff
-- Status: READY_FOR_REVIEW
-- Plan revision: 3
+- Workstream: Backend
+- Status: DONE
+- Plan revision: 11
+- Owner: Backend Architect
 - Architect session reference (planner): Codex planning 2026-09-21 and 2026-10-02; descriptive references, not asserted machine session IDs.
 - Builder session reference (implementer): Antigravity Builder 2026-10-02
-- Implementation contributors and reviewer independence check: Codex briefly created CORE-004 application files on 2026-10-02, then removed those changes before this handoff. Architect independence for any future review requires a different reviewer for code substantially derived from that attempt; Builder must identify contributors. Antigravity Builder implemented the current version and applied fixes.
+- Implementation contributors and review mode: Antigravity Builder implemented historical rounds 1–2. Codex completed the historical takeover for F-002/F-004/F-005. Under the user-approved 2026-10-05 workflow, Codex Backend Architect now owns and self-reviews all remaining backend work as `SELF_REVIEWED_BACKEND`.
+- Architect takeover: CLOSED — CORE4-F-002/F-004/F-005; `SELF_ACCEPTED_UNDER_ARCHITECT_TAKEOVER`; evidence `ai-document/evidence/CORE-004/architect-takeover-round-1/closure.md`.
 - Related checklist items: CORE-004 / AC1–AC4.
-- Baseline branch and commit; pre-existing relevant changes: current working tree contains uncommitted DATA-001 source, fixture, and documentation changes. No CORE-004 application code remains after withdrawal of Codex's premature implementation. Preserve the existing working tree.
+- Baseline branch and commit; pre-existing relevant changes: the working tree contains uncommitted DATA-001 and earlier CORE-004 work. This round changed only the admin asset URL, the integration fixture, and task/evidence documentation; preserve unrelated changes.
 - User approval reference and approved scope: PLAN-001 revision 3 approves MVP direction; on 2026-10-02 the user directly accepted DATA-001 with recorded verification exclusions and directed work to start on the next task. G-01 was explicitly approved by the user in the current conversation on 2026-10-02.
-- Latest round: Architect proposal review round 3 — 2026-10-02.
-- Latest report: ai-document/evidence/CORE-004/architect-round-3/proposal-review.md.
-- Next actor: Architect
-- Next actor and exact next action: Review CORE-004 proposal revision 2 for F-002/F-004/F-005 and the completed F-001/F-003/F-006 evidence. Record APPROVED FOR IMPLEMENTATION or REVISE PROPOSAL.
+- Latest round: Product Owner manual acceptance — 2026-10-06.
+- Latest report: ai-document/evidence/CORE-004-FE/manual-acceptance-2026-10-06/review.md.
+- Next actor: None
+- Next actor and exact next action: None; CORE-004 backend findings are closed and AC4 is accepted by direct Product Owner manual verification.
 
 ## Problem and intended behavior
 The shop currently has no settings screen or explicit configured units/currency. Future financial/distance writes must not silently assume a regional default.
 
 ## Scope and references
-Read AGENTS.md; [PLAN-002 Shared blueprint contract — revision 1](PLAN-002-mvp-task-batch.md#shared-blueprint-contract--revision-1); product-plan.md, internationalization.md, architecture.md, testing-strategy.md and architect-builder-workflow.md under ai-document/. Apply rules/architecture.md, security.md, coding-style.md and UI/accessibility rules when screens change. Read build-and-release.md for lifecycle, asset or packaging changes. The shared contract supplies required commands, isolation, evidence and pre-handoff gates; the scope below is task-specific.
+Read AGENTS.md; [PLAN-002 Shared blueprint contract — revision 1](PLAN-002-mvp-task-batch.md#shared-blueprint-contract--revision-1); product-plan.md, internationalization.md, architecture.md, testing-strategy.md and backend-frontend-workflow.md under ai-document/. Apply rules/architecture.md, security.md, coding-style.md and UI/accessibility rules when screens change. Read build-and-release.md for lifecycle, asset or packaging changes. The shared contract supplies required commands, isolation, evidence and pre-handoff gates; the scope below is task-specific.
 
 - New `src/Common/Regional/ShopSettings.php`: validate/read/save versioned explicit setup in velog_settings; no historical rewrite.
 - New `src/Admin/AdminMenu.php`: private VeLog menu and approved subpage registrations.
@@ -93,30 +96,38 @@ External fixture resource ownership, bounded readiness/cleanup and error propaga
 - Follow the same real handlers/validators for positive and negative cases; include valid nonce with denied actor, permitted actor with invalid nonce, stale version and malformed/foreign IDs where relevant. Mocked PHPUnit is not proof of real WordPress authorization/persistence.
 - Manual UI checks must record observations and actual user verdict where required; screenshots or automated checks do not substitute for unperformed keyboard/screen-reader/manual acceptance.
 
-## Evidence and Builder completion contract
+## Evidence and backend completion contract
 - Evidence directory: `ai-document/evidence/CORE-004/round-1/`; commands.log for commands/exits/versions, verification.md mapping S/AC/V IDs to changed files and actual evidence; named manual walkthrough where applicable. Append later rounds without replacing old results.
-- Complete the PLAN-002 pre-handoff checklist: identity/contributors, exact changes, test totals/negative controls, deviations, NOT VERIFIED checks, cleanup and matching task/checklist state. No self-acceptance.
-- Implementation reports: ai-document/evidence/CORE-004/builder-round-1/report.md and builder-round-2/report.md. Latest Architect review: ai-document/evidence/CORE-004/architect-round-2/review.md. No CORE-004 acceptance criterion is independently verified; lint failed and required integration/manual evidence is incomplete.
+- Complete the PLAN-002 pre-handoff checklist: identity/contributors, exact changes, test totals/negative controls, deviations, NOT VERIFIED checks, cleanup and matching task/checklist state. Backend closure requires `SELF_REVIEWED_BACKEND` with explicit non-independent review evidence.
+- Historical implementation reports remain at ai-document/evidence/CORE-004/builder-round-1/report.md, builder-round-2/report.md, and implementation-round-3/report.md. Takeover closure: ai-document/evidence/CORE-004/architect-takeover-round-1/closure.md. Current backend evidence belongs under `ai-document/evidence/CORE-004/backend-round-1/`.
 
 ## Open findings
-- CORE4-F-001: Conditional SQL CAS added; competing-writer and exact-value proof still missing. Status: OPEN, verification pending.
-- CORE4-F-002: Stored and submitted settings validation incomplete. Status: ESCALATED after two consecutive implementation review failures; read-only proposal required.
-- CORE4-F-003: Asset path/hook code revised; real URL/scoping evidence missing. Status: OPEN, verification pending.
-- CORE4-F-004: Fixture still lacks concurrent writers and real DATA-001 history oracle. Status: ESCALATED after two consecutive implementation review failures; read-only proposal required.
-- CORE4-F-005: Lint fails and documentation/UI/handoff evidence remains incomplete. Status: ESCALATED after two consecutive implementation review failures; read-only proposal required.
-- CORE4-F-006: Top-level menu uses a capability granted to no role and has no landing callback. Status: OPEN, first implementation review failure.
+- CORE4-F-001: Exact-byte conditional SQL CAS, two-process race, duplicate errno classification, and cache consistency verified. Status: CLOSED — SELF_REVIEWED_BACKEND.
+- CORE4-F-002: Stored and submitted settings validation incomplete. Status: CLOSED — SELF_ACCEPTED_UNDER_ARCHITECT_TAKEOVER.
+- CORE4-F-003: Plugin-root generated CSS URL and exact hook scoping verified in isolated WordPress; browser layout remains in CORE-004-FE. Backend portion: CLOSED — SELF_REVIEWED_BACKEND.
+- CORE4-F-004: Fixture still lacks concurrent writers and real DATA-001 history oracle. Status: CLOSED — SELF_ACCEPTED_UNDER_ARCHITECT_TAKEOVER.
+- CORE4-F-005: Lint fails and documentation/UI/handoff evidence remains incomplete. Status: CLOSED — SELF_ACCEPTED_UNDER_ARCHITECT_TAKEOVER.
+- CORE4-F-006: Root and settings capabilities, role grants, and callable landing page verified in isolated WordPress. Status: CLOSED — SELF_REVIEWED_BACKEND.
+- CORE4-F-007: A valid seven-key settings envelope was rejected after `catalog_version` became mandatory without migration. Exact-shape validation, catalog checks, byte-exact CAS migration, idempotence, and the LocalWP upgrade are verified. Status: CLOSED — SELF_REVIEWED_BACKEND.
 
 ## Escalated proposal decision
 - Proposal rev1: ai-document/evidence/CORE-004/builder-round-3/F-002-F-004-F-005-proposal-rev1.md.
-- Architect decision: REVISE PROPOSAL — ai-document/evidence/CORE-004/architect-round-3/proposal-review.md.
-- F-002/F-004/F-005 implementation gate remains closed pending an APPROVED FOR IMPLEMENTATION decision on a revised read-only proposal. F-001/F-003/F-006 may proceed under the normal path.
+- Proposal rev2: ai-document/evidence/CORE-004/builder-round-4/proposal-rev2.md.
+- Proposal rev3: ai-document/evidence/CORE-004/builder-round-5/proposal-rev3.md.
+- Proposal rev4: ai-document/evidence/CORE-004/builder-round-6/proposal-rev4.md.
+- Proposal rev5: ai-document/evidence/CORE-004/builder-round-7/proposal-rev5.md.
+- Proposal rev6: ai-document/evidence/CORE-004/builder-round-8/proposal-rev6.md.
+- Proposal rev7: ai-document/evidence/CORE-004/builder-round-9/proposal-rev7.md.
+- Proposal rev8: ai-document/evidence/CORE-004/builder-round-10/proposal-rev8.md.
+- Latest Architect decision: SELF_ACCEPTED_UNDER_ARCHITECT_TAKEOVER — ai-document/evidence/CORE-004/architect-takeover-round-1/closure.md.
+- The proposal gate and Architect/Builder process are historical. F-002/F-004/F-005 remain closed under the recorded takeover. F-001/F-003/F-006 are now owned by Backend Architect under the current workflow.
 
 ### Chat handoff prompt
 
 ```text
-Status: CHANGES_REQUESTED
-Recipient: Builder
-Intent: work
+Status: DONE
+Recipient: Backend Architect
+Intent: plan
 
-REVISE PROPOSAL for escalated CORE4-F-002/F-004/F-005. Read ai-document/evidence/CORE-004/architect-round-3/proposal-review.md and submit a read-only proposal revision 2. Specify the exact raw-option/CAS read contract and error behavior, a synchronized two-writer test, a valid RecordRepository::create historical fixture, the real phpcs.xml changes, and owned-resource cleanup. Do not edit code for these three findings until Architect records APPROVED FOR IMPLEMENTATION. Separately provide durable logs or executable assertions for F-001/F-003/F-006; their code may proceed on the normal path. Preserve unrelated DATA-001 changes, synchronize task/checklist/README, and do not self-accept.
+CORE-004 and CORE-004-FE are DONE by direct Product Owner manual acceptance on 2026-10-06. Backend findings CORE4-F-001, F-003, F-006, and F-007 remain closed as `SELF_REVIEWED_BACKEND`; preserve the historical takeover closure for F-002/F-004/F-005. Preserve the recorded frontend evidence limitation and continue with CUST-001 readiness planning before any implementation.
 ```

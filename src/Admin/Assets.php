@@ -50,14 +50,14 @@ class Assets {
 	 */
 	public function enqueue_styles( string $hook_suffix ): void {
 		// Only enqueue on exact VeLog pages (F-003).
-		$allowed_hooks = array( 'toplevel_page_velog', 'velog_page_velog-settings' );
+		$allowed_hooks = array( 'toplevel_page_velog', 'velog_page_velog-customers', 'velog_page_velog-settings' );
 		if ( ! in_array( $hook_suffix, $allowed_hooks, true ) ) {
 			return;
 		}
 
 		wp_enqueue_style(
 			'velog-admin',
-			plugin_dir_url( dirname( __DIR__, 1 ) ) . 'assets/css/admin.css',
+			plugin_dir_url( VELOG_PLUGIN_FILE ) . 'assets/css/admin.css',
 			array(),
 			$this->version
 		);

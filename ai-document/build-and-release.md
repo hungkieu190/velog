@@ -13,7 +13,7 @@ nvm install
 nvm use
 npm ci
 composer install
-npm run progress
+npm run process
 ```
 
 Use `npm install` only for intentional dependency changes; use `npm ci` for verification/CI. Both lockfiles are included in the proposed version-controlled changes. No commit has been created. npm ci passed without changing the npm lockfile (matching SHA-256 files in evidence/). Existing dependencies were retained; no new npm library was added.
@@ -41,7 +41,8 @@ The dashboard's development-only CSS is `src/css/progress.css`, read directly by
 | npm run production | Fresh bundled/minified JS and minified CSS, legal notices retained, no maps, then exit. |
 | npm run build | Compatibility alias for production. |
 | npm run release | Validate version/configuration/prerequisites, run quality gates and PHPUnit, fresh production build, validate staging, create ZIP. |
-| npm run progress | Read-only localhost dashboard, port 4177; `-- --port=4187` or PROGRESS_PORT overrides it; Ctrl+C stops it. New Builder/Architect handoff prompts raise a tab title/banner alert. Click **Enable sound** once in the tab to allow a chime; browser audio policy requires that user gesture. The first observed handoff is a baseline and does not chime. |
+| npm run process | Read-only localhost dashboard, port 4177; `-- --port=4187` or PROGRESS_PORT overrides it; Ctrl+C stops it. It shows the declared workstream and `Next actor`, plus Frontend Developer/Backend Architect handoff alerts. Click **Enable sound** once in the tab to allow a chime; browser audio policy requires that user gesture. The first observed handoff is a baseline and does not chime. |
+| npm run progress | Compatibility alias for `npm run process`. |
 | npm run check | PHP syntax, PHPCS and PHPStan using actual exit codes; saves a report under reports/. |
 | npm run test:workflow | Disposable-fixture checks for build ownership/failure, dashboard parsing/escaping, release boundaries/failure and quality-gate propagation. |
 

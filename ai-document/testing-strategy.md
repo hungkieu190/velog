@@ -3,7 +3,7 @@
 Execution results are recorded in evidence/README.md and the WF-001 Builder report. The matrix below defines expected checks; it does not imply independent acceptance.
 
 - AC1: Read reconciled instructions for contradictions; verify copied reference docs and checklist/task links.
-- AC2: npm run progress -- --port=4187; fetch /api/progress (current focus, summary, tasks) and / (HTML); test conflicting statuses, missing prompts and HTML escaping with temporary fixtures. Record URL, process shutdown and cleanup.
+- AC2: `npm run process -- --port=4187`; fetch `/api/progress` (current focus, workstream, owner, summary, tasks) and `/` (HTML); test conflicting statuses, missing prompts and HTML escaping with temporary fixtures. Record URL, process shutdown and cleanup.
 - AC3: npm ci without lockfile rewrite; dev exits with readable output and valid maps; production exits with actual JS/CSS minification, notices, valid local resources and no maps. Modify a temporary source fixture, rebuild, observe output change; delete generated fixture output and rebuild; restore fixtures.
 - AC4: npm run release invokes production itself; inspect staging and ZIP in a clean temporary directory; verify required PHP/autoload files, root folder, version, and excluded content. Confirm autoload resolves Core classes without repository vendor.
 - AC5: git check-ignore checks dependencies/releases/maps and confirms source/scripts/lockfiles/production assets are not ignored; document existing tracked state. npm run build and legacy wrappers remain consistent. Validate changed CI without claiming an unexecuted hosted run passed.

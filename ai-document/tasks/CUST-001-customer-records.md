@@ -1,17 +1,20 @@
 # CUST-001: Private customer management
 
 ## Current handoff
-- Status: DRAFT
-- Plan revision: 1
+- Workstream: Backend planning
+- Status: IN_PROGRESS
+- Plan revision: 3
+- Blueprint readiness: PASS — G-02 and G-03 are approved; executable workstreams are defined.
+- Owner: Backend Architect
 - Architect session reference (planner): Codex planning conversation of 2026-09-21; descriptive reference recorded in PLAN-002, not an asserted machine session ID.
 - Builder session reference (implementer): Unassigned.
 - Implementation contributors and reviewer independence check: No implementation by this session; future Builder must identify all contributors before review.
 - Related checklist items: CUST-001 / AC1–AC4.
 - Baseline branch and commit; pre-existing relevant changes: main at 2aa3b8d, clean before PLAN-002 documentation work; all new classes below are proposed, not inspected existing implementations.
 - User approval reference and approved scope: PLAN-001 revision 3 approves MVP direction; 2026-09-21 user authorizes batch planning only. Detailed pending proposals are not approved implementation.
-- Latest round: Architect draft blueprint — Round 1.
-- Next actor: Architect
-- Next actor and exact next action: Resolve readiness gates below; require CORE-004 and DATA-001 DONE; reinspect accepted files/interfaces and record Blueprint readiness PASS before considering READY. Builder execution is deferred by user request.
+- Latest round: Backend Architect executable blueprint — Round 3, 2026-10-06.
+- Next actor: Frontend Developer
+- Next actor and exact next action: Implement CUST-001-FE against the stable backend view contract and return browser/build evidence for Backend Architect review.
 
 ## Problem and intended behavior
 Managers cannot yet create or find customers; technician access to vehicle history must not imply unrestricted access to customer contact information.
@@ -27,16 +30,32 @@ Read AGENTS.md; [PLAN-002 Shared blueprint contract — revision 1](PLAN-002-mvp
 - Update `ai-document/architecture.md` customer schema and `ai-document/features/customer-records.md` user behavior. No customer WP accounts, marketing consent, export/erasure or vehicle CRUD.
 
 ## Implementation blueprint
-- Revision and covered criteria: 1; AC1–AC4.
-- Blueprint readiness: INCOMPLETE — concrete draft, not executable authorization or product acceptance.
+- Revision and covered criteria: 3; AC1–AC4.
+- Blueprint readiness: PASS — repository/admin interfaces were reinspected and product gates G-02/G-03 are approved.
 - Required accepted prerequisites: CORE-004 and DATA-001 DONE.
-- Remaining readiness gates: G-02/G-03; confirm contact-field visibility and archive/restore policy. Reinspect accepted repository/admin interfaces before READY.
-- Baseline rationale: inspected repository has Core bootstrap scaffolding and no product services; reuse WordPress/private CPT architecture and existing Composer/Loader conventions rather than adding a framework. Future dependency interfaces are proposals until their tasks are accepted.
+- Resolved gate: G-02 already establishes that only manager/administrator can read customer phone/email. Technician projections are limited to `{id, name, state}` and must never contain contact fields in HTML, URLs, notices, or data attributes.
+- Approved gate: G-03 customer archive/restore policy was accepted by the Product Owner on 2026-10-06.
+- Baseline rationale: `RecordRepository` already supplies versioned create/save/get and state-only pagination, contact redaction, transactional writes, and stable ID ordering. It does not supply customer text search, allowlisted customer sorting, bulk transition orchestration, or an active-vehicle relation query. `AdminMenu`, `Assets`, and `Plugin` provide the accepted admin composition points. CUST-001 must extend those contracts without bypassing DATA-001.
+
+### G-03 decision — approved 2026-10-06
+
+- A customer may be archived only when no vehicle in `active` state has that customer as its current owner.
+- When an active vehicle link exists, archive fails atomically with a manager-safe error that requires vehicle reassignment or vehicle archive first. No customer or vehicle record is changed.
+- Customer restore is allowed when the archived record is valid. Archive and restore both require manager capability, a valid action-specific nonce, an exact expected record version, a unique request ID, and an audit entry; successful transitions increment the record version.
+- There is no hard-delete or bulk all-or-nothing promise. Bulk actions authorize and report each customer separately.
+- CUST-001 defines the relation-query contract and reserved current-customer projection consumed by VEH-001. VEH-001 owns vehicle assignment behavior and must write that projection atomically with the vehicle envelope.
 
 ### Required design and interfaces
 Payload: name, optional phone/email, active/archived state and standard DATA-001 version/audit. Trim outer whitespace; plain-text name 1–200, phone <=64, email <=254 and validate if nonempty. Reject disallowed controls/markup rather than accepting changed identifiers silently; support Unicode names and international phone text without country regex. Duplicate customer names/contacts are allowed; internal ID disambiguates selection.
 
 Manager reads/changes contacts; technician vehicle/service association views receive only {id,name,state}, never hidden contact fields in HTML/data attributes. No standalone contact search for technician. Search uses bounded <=100-character terms, 50 rows/page, parameterized query values, stable name/ID sort. Archive checks active vehicle relations through repository under write coordination; reject while any exist with links only visible to authorized manager. Restore increments version and audit; no physical delete action. Every bulk object separately authorized and reports success/failure without claiming all-or-nothing across unrelated customers.
+
+### Workstream split after G-03 approval
+
+- `CUST-001-BE` — Backend Architect: customer schema/validation, service and query contracts, current-customer relation guard, PHP admin handlers and markup, capabilities/nonces, persistence/concurrency, unit and WordPress fixtures, and backend documentation.
+- `CUST-001-FE` — Frontend Developer: assigned Sass/CSS and generated assets only, plus responsive, RTL, focus, keyboard presentation and browser evidence. It starts only after the backend view contract is stable.
+- `CUST-001-UAT` — Tester / Product Owner: mandatory Vietnamese manual test of the real customer journey after BE and FE code review pass.
+- The Backend Architect self-reviews `CUST-001-BE` as `SELF_REVIEWED_BACKEND` and reviews `CUST-001-FE` code. Frontend Developer must not edit PHP, storage, queries, validation, authorization, tests, or fixtures. Backend Architect cannot mark CUST-001 DONE; only explicit `PASS CUST-001-UAT` provides functional acceptance.
 
 ### Ordered implementation steps
 1. S1: Builder preflight only after READY: read accepted dependencies, record identity/baseline, inspect callers/hooks and preserve unrelated changes. Return precise gaps to Architect rather than guessing.
@@ -64,6 +83,7 @@ External fixture resource ownership, bounded readiness/cleanup and error propaga
 - AC2: Customer contact data and every write are protected across list/detail/direct request paths.
 - AC3: Archive/restore preserves records and rejects active-vehicle linkage; stale writes/bulk checks behave correctly.
 - AC4: Real WordPress CRUD, negative controls and accessible admin journey have evidence.
+- Final acceptance: `CUST-001-UAT` is executed by Tester and records explicit PASS. Automated/backend/frontend evidence cannot substitute for this result.
 
 ## Verification matrix
 | Case | AC | Fixture/input | Command or test entry point | Expected result |
@@ -88,5 +108,9 @@ External fixture resource ownership, bounded readiness/cleanup and error propaga
 ### Chat handoff prompt
 
 ```text
-Continue as Architect for CUST-001, DRAFT revision 1. Read AGENTS.md, ai-document/tasks/PLAN-002-mvp-task-batch.md (Shared blueprint contract revision 1), ai-document/tasks/CUST-001-customer-records.md (Implementation blueprint revision 1), ai-document/implementation-checklist.md and the accepted dependency task files. Scope is private customer management, AC1–AC4. Require CORE-004 and DATA-001 DONE and resolve Remaining readiness gates before a bounded READY assignment. The user requested batch planning and Builder execution later. Baseline source inspection and planning documentation checks are the only evidence; all new runtime, integration and manual checks are NOT VERIFIED. Reinspect concrete callers/interfaces, complete the verification setup and record Blueprint readiness PASS only when genuinely complete and approved. Do not implement, dispatch Builder, mark DONE, commit, deploy or use the active database.
+Status: IN_PROGRESS
+Recipient: Frontend Developer
+Intent: work
+
+CUST-001-BE is DONE as `SELF_REVIEWED_BACKEND`; evidence is in `ai-document/evidence/CUST-001-BE/backend-round-1/report.md`. Implement CUST-001-FE from `ai-document/tasks/CUST-001-FE-customer-presentation.md` against the stable selectors and `velog_page_velog-customers` hook. Restrict changes to approved presentation source/generated assets and frontend evidence, then return READY_FOR_REVIEW to Backend Architect for code review. After approval, Backend Architect will activate the Vietnamese CUST-001-UAT task for Tester. Do not mark CUST-001 DONE without explicit UAT PASS.
 ```

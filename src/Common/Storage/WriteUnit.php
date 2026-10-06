@@ -139,6 +139,7 @@ final class WriteUnit {
 	 * @param array<string, mixed> $changes          Fields to update.
 	 * @param string               $request_id       Caller UUID.
 	 * @param string               $reason           Audit reason.
+	 * @param string|null          $new_state        Optional allowlisted state transition.
 	 * @return array<string, mixed>|\WP_Error
 	 */
 	public function save(
@@ -147,7 +148,8 @@ final class WriteUnit {
 		int $expected_version,
 		array $changes,
 		string $request_id,
-		string $reason = ''
+		string $reason = '',
+		?string $new_state = null
 	): array|\WP_Error {
 		return RecordRepository::execute_save(
 			$this->dbh,
@@ -159,7 +161,8 @@ final class WriteUnit {
 			$this->actor,
 			$request_id,
 			$reason,
-			$this
+			$this,
+			$new_state
 		);
 	}
 

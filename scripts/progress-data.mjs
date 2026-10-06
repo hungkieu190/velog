@@ -2,15 +2,19 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 
 export const owners = {
-  DRAFT: 'Architect', READY: 'Builder', IN_PROGRESS: 'Builder', BLOCKED: null,
-  READY_FOR_REVIEW: 'Architect', CHANGES_REQUESTED: 'Builder', AWAITING_MANUAL_ACCEPTANCE: 'User', DONE: 'Architect',
+  DRAFT: null, READY: null, IN_PROGRESS: null, BLOCKED: null,
+  READY_FOR_REVIEW: null, CHANGES_REQUESTED: null, AWAITING_MANUAL_ACCEPTANCE: null, DONE: null,
 };
-const handedOff = new Set(['READY', 'READY_FOR_REVIEW', 'CHANGES_REQUESTED', 'AWAITING_MANUAL_ACCEPTANCE', 'DONE']);
+const handedOff = new Set(['READY', 'READY_FOR_REVIEW', 'CHANGES_REQUESTED', 'AWAITING_MANUAL_ACCEPTANCE']);
 
 export function normalizeRole(role) {
   if (!role) return null;
-  const match = role.trim().match(/^(Architect|Builder|User)(?:\s+\([^)]*\S[^)]*\))?$/);
-  return match ? match[1] : null;
+  const match = role.trim().match(/^(Backend Architect|Frontend Developer|Tester|Architect|Builder|User|Product Owner)(?:\s+\([^)]*\S[^)]*\))?$/);
+  if (!match) return null;
+  if (match[1] === 'Architect') return 'Backend Architect';
+  if (match[1] === 'Builder') return 'Frontend Developer';
+  if (match[1] === 'User' || match[1] === 'Product Owner') return 'Tester';
+  return match[1];
 }
 
 function section(markdown, heading) {
@@ -53,7 +57,7 @@ export function parseTask(markdown, file) {
   const status = field(current, 'Status');
   const declaredOwnerRaw = field(current, 'Next actor');
   const declaredOwner = normalizeRole(declaredOwnerRaw);
-  const owner = owners[status] || declaredOwner || 'Unassigned';
+  const owner = status === 'DONE' ? 'Completed' : (declaredOwner || 'Unassigned');
   const rawSections = [...markdown.matchAll(/(?:^|\n)### Chat handoff prompt/g)];
 
   const extraction = extractLatestPrompt(markdown);
@@ -66,7 +70,7 @@ export function parseTask(markdown, file) {
   }
   if (!(status in owners)) issues.push(`Unknown status: ${status || '(missing)'}`);
   if (declaredOwnerRaw && !declaredOwner) issues.push(`Invalid Next actor: ${declaredOwnerRaw}`);
-  if (declaredOwner && owners[status] && declaredOwner !== owner) issues.push(`Status implies ${owner}; Next actor says ${declaredOwnerRaw}`);
+  if (status !== 'DONE' && !declaredOwnerRaw) issues.push('Missing Next actor declaration');
 
   if (handedOff.has(status)) {
     let unverified = true;
@@ -89,7 +93,9 @@ export function parseTask(markdown, file) {
   }
   return {
     id: markdown.match(/^# ([^:]+):/m)?.[1] || path.basename(file, '.md'),
-    title: markdown.match(/^# (.+)$/m)?.[1] || file, file, status, owner, declaredOwner, declaredOwnerRaw,
+    title: markdown.match(/^# (.+)$/m)?.[1] || file, file, status,
+    workstream: field(current, 'Workstream') || 'Unspecified',
+    owner, declaredOwner, declaredOwnerRaw,
     round: field(current, 'Latest round') || field(current, 'Latest implementation/review round'),
     nextAction: field(current, 'Next actor and exact next action'),
     findings: [...new Set(markdown.match(/\bF-\d{3,}\b/g) || [])],
@@ -106,7 +112,7 @@ export function parseChecklist(markdown) {
   for (const line of markdown.split('\n')) {
     if (line.startsWith('## ')) phase = line.slice(3);
     const match = line.match(/^- \[([ xX])\] (.*)$/);
-    if (match) items.push({ done: match[1].toLowerCase() === 'x', text: match[2], phase, taskId: match[2].match(/\b[A-Z]+-\d+\b/)?.[0], status: match[2].match(/Status:\s*([A-Z_]+)/)?.[1] });
+    if (match) items.push({ done: match[1].toLowerCase() === 'x', text: match[2], phase, taskId: match[2].match(/\b[A-Z]+-\d+(?:-[A-Z]+)?\b/)?.[0], status: match[2].match(/Status:\s*([A-Z_]+)/)?.[1] });
   }
   const phases = [...new Set(items.map((item) => item.phase))].map((name) => {
     const group = items.filter((item) => item.phase === name);
@@ -154,13 +160,9 @@ export async function readProgress(projectRoot) {
           unresolvedReason = `task declaration is invalid (${focus.declaredOwnerRaw})`;
         }
       } else {
-        if (focus.status === 'BLOCKED') {
-          unresolvedReason = 'task is BLOCKED and has no explicit declaration';
-        } else if (focus.status === 'DONE') {
-          unresolvedReason = 'task is DONE and requires no next actor';
-        } else {
-          expectedRole = owners[focus.status];
-        }
+        unresolvedReason = focus.status === 'DONE'
+          ? 'task is DONE and requires no next actor'
+          : 'task has no explicit Next actor declaration';
       }
 
       if (unresolvedReason) {

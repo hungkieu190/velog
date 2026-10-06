@@ -79,18 +79,18 @@ test('dashboard surfaces contradictions and escapes untrusted Markdown', async (
   const directory = await fs.mkdtemp(path.join(os.tmpdir(), 'velog-progress-'));
   try {
     await fs.mkdir(path.join(directory, 'ai-document/tasks'), { recursive: true });
-    await fs.writeFile(path.join(directory, 'ai-document/implementation-checklist.md'), '# Checklist\n## Current focus\n- Task: WF-999\n- Status: CHANGES_REQUESTED\n- Next actor: Builder\n- Exact next action: Builder action\n## Phase 1\n- [ ] WF-999: Example. Status: CHANGES_REQUESTED.\n');
-    const markdown = '# WF-999: <script>alert(1)</script>\n## Current handoff\n- Status: DONE\n- Next actor: User\n- Latest round: Review 3\n- Next actor and exact next action: Review F-003\n### Chat handoff prompt\n```\ninvalid bare block\n```\n### Chat handoff prompt\n```javascript\nStatus: IN_PROGRESS\n```\n### Chat handoff prompt\n```text\nStatus: IN_PROGRESS\n```';
+    await fs.writeFile(path.join(directory, 'ai-document/implementation-checklist.md'), '# Checklist\n## Current focus\n- Task: WF-999\n- Status: CHANGES_REQUESTED\n- Next actor: Frontend Developer\n- Exact next action: Frontend action\n## Phase 1\n- [ ] WF-999: Example. Status: CHANGES_REQUESTED.\n');
+    const markdown = '# WF-999: <script>alert(1)</script>\n## Current handoff\n- Status: CHANGES_REQUESTED\n- Next actor: User\n- Latest round: Review 3\n- Next actor and exact next action: Review F-003\n### Chat handoff prompt\n```\ninvalid bare block\n```\n### Chat handoff prompt\n```javascript\nStatus: IN_PROGRESS\n```\n### Chat handoff prompt\n```text\nStatus: IN_PROGRESS\n```';
     const task = parseTask(markdown, 'task.md');
-    assert.equal(task.owner, 'Architect');
+    assert.equal(task.owner, 'Tester');
     assert.equal(task.promptCount, 3);
     assert.equal(task.validPromptCount, 2);
     assert.equal(task.latestPrompt, 'Status: IN_PROGRESS');
-    assert.equal(task.issues.length, 2);
+    assert.equal(task.issues.length, 1);
     await fs.writeFile(path.join(directory, 'ai-document/tasks/task.md'), markdown);
     const data = await readProgress(directory);
-    assert.ok(data.issues.length >= 4);
-    assert.ok(data.issues.some(i => i.includes('Checklist next actor says Builder but task expects User')));
+    assert.ok(data.issues.length >= 2);
+    assert.ok(data.issues.some(i => i.includes('Checklist next actor says Frontend Developer but task expects Tester')));
     assert.equal(data.summary.open, 1);
     const html = renderProgress(data);
     assert.doesNotMatch(html, /<script>/);
@@ -204,31 +204,33 @@ test('rejected release destination leaves no temporary staging', async () => {
   } finally { await fs.rm(directory, { recursive: true, force: true }); }
 });
 
-test('W3-V2: status-derived fallback and actor conflict', async () => {
+test('Next actor declaration is authoritative across statuses', async () => {
   const directory = await fs.mkdtemp(path.join(os.tmpdir(), 'velog-progress-'));
   try {
     await fs.mkdir(path.join(directory, 'ai-document/tasks'), { recursive: true });
-    await fs.writeFile(path.join(directory, 'ai-document/implementation-checklist.md'), '# Checklist\n## Current focus\n- Task: WF-111\n- Status: READY_FOR_REVIEW\n- Next actor: Builder\n');
+    await fs.writeFile(path.join(directory, 'ai-document/implementation-checklist.md'), '# Checklist\n## Current focus\n- Task: WF-111\n- Status: READY_FOR_REVIEW\n- Next actor: Frontend Developer\n');
     const markdown = '# WF-111: Task\n## Current handoff\n- Status: READY_FOR_REVIEW\n';
     await fs.writeFile(path.join(directory, 'ai-document/tasks/WF-111-task.md'), markdown);
     const data = await readProgress(directory);
-    assert.ok(data.issues.some(i => i.includes('Checklist next actor says Builder but task expects Architect')));
+    assert.ok(data.issues.some(i => i.includes('task has no explicit Next actor declaration')));
 
-    await fs.writeFile(path.join(directory, 'ai-document/implementation-checklist.md'), '# Checklist\n## Current focus\n- Task: WF-111\n- Status: READY_FOR_REVIEW\n- Next actor: Architect\n');
+    await fs.writeFile(path.join(directory, 'ai-document/implementation-checklist.md'), '# Checklist\n## Current focus\n- Task: WF-111\n- Status: READY_FOR_REVIEW\n- Next actor: Backend Architect\n');
+    const markdownBackend = '# WF-111: Task\n## Current handoff\n- Status: READY_FOR_REVIEW\n- Next actor: Backend Architect\n';
+    await fs.writeFile(path.join(directory, 'ai-document/tasks/WF-111-task.md'), markdownBackend);
     const data2 = await readProgress(directory);
     assert.ok(!data2.issues.some(i => i.includes('Checklist next actor says')));
 
-    await fs.writeFile(path.join(directory, 'ai-document/implementation-checklist.md'), '# Checklist\n## Current focus\n- Task: WF-111\n- Status: BLOCKED\n- Next actor: Builder\n');
+    await fs.writeFile(path.join(directory, 'ai-document/implementation-checklist.md'), '# Checklist\n## Current focus\n- Task: WF-111\n- Status: BLOCKED\n- Next actor: Frontend Developer\n');
     const markdownBlocked = '# WF-111: Task\n## Current handoff\n- Status: BLOCKED\n';
     await fs.writeFile(path.join(directory, 'ai-document/tasks/WF-111-task.md'), markdownBlocked);
     const data3 = await readProgress(directory);
     assert.equal(data3.currentFocus.owner, 'Unassigned');
-    assert.ok(data3.issues.some(i => i.includes('Checklist specifies Builder but task is BLOCKED and has no explicit declaration')));
+    assert.ok(data3.issues.some(i => i.includes('Checklist specifies Frontend Developer but task has no explicit Next actor declaration')));
 
-    await fs.writeFile(path.join(directory, 'ai-document/implementation-checklist.md'), '# Checklist\n## Current focus\n- Task: WF-111\n- Status: READY_FOR_REVIEW\n- Next actor: Architect\n');
+    await fs.writeFile(path.join(directory, 'ai-document/implementation-checklist.md'), '# Checklist\n## Current focus\n- Task: WF-111\n- Status: READY_FOR_REVIEW\n- Next actor: Backend Architect\n');
     const markdownInvalid = '# WF-111: Task\n## Current handoff\n- Status: READY_FOR_REVIEW\n- Next actor: Architect22\n';
     await fs.writeFile(path.join(directory, 'ai-document/tasks/WF-111-task.md'), markdownInvalid);
     const data4 = await readProgress(directory);
-    assert.ok(data4.issues.some(i => i.includes('Checklist specifies Architect but task declaration is invalid (Architect22)')));
+    assert.ok(data4.issues.some(i => i.includes('Checklist specifies Backend Architect but task declaration is invalid (Architect22)')));
   } finally { await fs.rm(directory, { recursive: true, force: true }); }
 });

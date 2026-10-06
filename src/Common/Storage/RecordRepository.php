@@ -618,6 +618,7 @@ final class RecordRepository {
 	 * @param string               $request_id       Caller UUID.
 	 * @param string               $reason           Audit reason.
 	 * @param WriteUnit            $unit             Active write unit.
+	 * @param string|null          $new_state        Optional allowlisted state transition.
 	 * @return array<string, mixed>|\WP_Error
 	 */
 	public static function execute_save(
@@ -630,7 +631,8 @@ final class RecordRepository {
 		\WP_User $actor,
 		string $request_id,
 		string $reason,
-		WriteUnit $unit
+		WriteUnit $unit,
+		?string $new_state = null
 	): array|\WP_Error {
 		$env_check = self::require_sealed_and_registered( $type );
 		if ( is_wp_error( $env_check ) ) {
@@ -642,6 +644,9 @@ final class RecordRepository {
 		}
 
 		$definition = RecordSchema::get( $type );
+		if ( null !== $new_state && ! in_array( $new_state, $definition['states'], true ) ) {
+			return new \WP_Error( 'invalid_input', 'Invalid record state transition.' );
+		}
 
 		if ( ! $actor->has_cap( $definition['capability'] ) ) {
 			return new \WP_Error( 'forbidden', 'You do not have permission to save this record type.' );
@@ -690,13 +695,15 @@ final class RecordRepository {
 		}
 
 		// Build audit entry.
-		$audit = AuditEntry::for_save( $actor, $request_id, $reason, $before_fields, $new_fields );
+		$audit_before = array_merge( $before_fields, array( '__state' => $envelope['state'] ) );
+		$audit_after  = array_merge( $new_fields, array( '__state' => $new_state ?? $envelope['state'] ) );
+		$audit        = AuditEntry::for_save( $actor, $request_id, $reason, $audit_before, $audit_after );
 
 		// Build new envelope.
 		$new_envelope = array(
 			'schema_version' => $envelope['schema_version'],
 			'record_version' => ( (int) $envelope['record_version'] ) + 1,
-			'state'          => $envelope['state'],
+			'state'          => $new_state ?? $envelope['state'],
 			'fields'         => $new_fields,
 			'created_by'     => $envelope['created_by'],
 			'created_at_utc' => $envelope['created_at_utc'],

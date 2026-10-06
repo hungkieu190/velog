@@ -2,9 +2,9 @@
 
 ## 1. Purpose and Authority
 
-Kit revision: 2026-09-18 / 2. Use with `01-architect-builder-workflow.md` and the target project's product brief. On installation, copy this specification to `ai-document/source-build-release-workflow.md`, install file 01 as `ai-document/architect-builder-workflow.md`, and use those paths for cross-references. The pair is self-contained; no original project files or results are required.
+Kit revision: 2026-10-05 / 3. Use with `01-backend-frontend-workflow.md` and the target project's product brief. On installation, copy this specification to `ai-document/source-build-release-workflow.md`, install file 01 as `ai-document/backend-frontend-workflow.md`, and use those paths for cross-references. The pair is self-contained; no original project files or results are required.
 
-File 01 governs application role mapping, startup acknowledgement, approvals, blueprint gates, statuses, evidence and documentation ownership. Before build work, resolve the role through AGENTS.md and ai-document/agent-roles.json; do not infer Builder from an implementation request. The startup rule adapter is development metadata, not runtime code. This file governs technical build/package requirements. Neither file authorizes role switching or publication. Inspect and adapt actual project identity/runtime requirements; never copy another project's namespaces, versions, local filesystem paths or accepted evidence.
+File 01 governs application role mapping, startup acknowledgement, readiness, statuses, evidence and documentation ownership. Before build work, resolve the role through AGENTS.md and ai-document/agent-roles.json; do not infer ownership from an implementation request. The startup rule adapter is development metadata, not runtime code. This file governs technical build/package requirements. Neither file authorizes role switching or publication. Inspect and adapt actual project identity/runtime requirements; never copy another project's namespaces, versions, local filesystem paths or accepted evidence.
 
 Establish a project-specific workflow for:
 
@@ -15,10 +15,10 @@ Establish a project-specific workflow for:
 - Maintaining `.gitignore`.
 - Enforcing these rules through `AGENTS.md`.
 
-Follow the existing Architect / Builder approval workflow.
+Follow the Backend Architect / Frontend Developer workflow in file 01.
 
-Architect inspects the repository and prepares the implementation task.
-Builder creates or modifies build scripts only after approval and an Architect-authored blueprint readiness PASS. The Architect session never implements then accepts its own tooling.
+Backend Architect inspects the repository, prepares the task, and owns backend, build, packaging, and release tooling. It implements and self-reviews that work with `SELF_REVIEWED_BACKEND` evidence.
+Frontend Developer creates or modifies frontend source and generated assets only when an assigned frontend task has readiness PASS. Backend Architect reviews those changes before acceptance.
 
 Do not replace an existing working build system without examining it first.
 
@@ -458,7 +458,7 @@ Add or reconcile the following section in the project's `AGENTS.md`:
   completed successfully.
 - If build prerequisites are unavailable, record the exact blocker;
   do not manually patch generated files as a workaround.
-- Build configuration changes follow the Architect / Builder task
+- Build configuration changes follow the Backend Architect task
   and approval workflow.
 - Read `ai-document/build-and-release.md` before changing entry
   points, dependencies, output paths, or release packaging.
@@ -487,7 +487,7 @@ Link this document from `AGENTS.md` and the documentation index.
 
 ## 12. Acceptance and Verification
 
-Builder must verify the following and record evidence in the task file:
+The task owner must verify the following and record evidence in the task file:
 
 ### A. Installation
 
@@ -549,12 +549,12 @@ Use `git check-ignore` or equivalent inspection to verify:
 
 Syntax checks alone are not acceptance of the build and release workflow.
 
-Architect independently reviews the scripts, packaging boundaries, and relevant verification evidence before setting the task to `DONE`.
+Backend Architect reviews scripts, packaging boundaries, and relevant verification evidence before setting the task to `DONE`. Backend-owned work is recorded as `SELF_REVIEWED_BACKEND`; frontend work requires Backend Architect review.
 
 
 ## 13. Required build/release blueprint
 
-Before a Builder task is READY, Architect provides the file-01 blueprint plus these concrete project mappings:
+Before a task is READY, Backend Architect provides the file-01 scope plus these concrete project mappings:
 
 | Area | Required design detail |
 |---|---|
@@ -620,8 +620,8 @@ For handoff alerts, a small same-origin browser module may poll the read-only pr
 
 Track authoritative sources, scripts/configuration, npm/Composer lockfiles, production assets and generated ownership manifest for the WordPress profile. Ignore installed dependencies, development maps, release output, private staging/caches and temporary fixtures. Keep sanitized environment examples. Test representative paths with git check-ignore; do not untrack unrelated files or commit automatically.
 
-Do not treat a source checkout as an installable distribution until its autoload/dependencies are installed. Test the actual ZIP independently. Do not count an echo/TODO lint command as a passing quality gate. Only the independent Architect can accept the bounded bootstrap task after inspecting scripts, package contents, failure behavior and real installation evidence; completion of this tooling does not approve or complete the product MVP.
+Do not treat a source checkout as an installable distribution until its autoload/dependencies are installed. Test the actual ZIP separately. Do not count an echo/TODO lint command as a passing quality gate. Backend Architect accepts the bounded bootstrap task after inspecting scripts, package contents, failure behavior and real installation evidence. Backend self-review is labeled `SELF_REVIEWED_BACKEND`. Completion of this tooling does not approve or complete the product MVP.
 
 ## Manual handoff workflow integration
 
-Cross-agent handoffs between Architect and Builder are conducted manually via synchronized task documents and copy-ready chat prompts. Automated background dispatch, JSON signal polling, and receipt generation are retired. Follow the manual handoff workflow: finish work and logs, update task metadata and checklist, provide the latest English prompt under `### Chat handoff prompt`, and validate intake manually before starting received work.
+Cross-agent handoffs between Backend Architect and Frontend Developer are conducted manually via synchronized task documents and copy-ready chat prompts. Automated background dispatch, JSON signal polling, and receipt generation are retired. Follow the manual handoff workflow: finish work and logs, update task metadata and checklist, provide exactly one latest English prompt under `### Chat handoff prompt`, and validate intake manually before starting received work. Any turn that changes status, next actor, review decision, workstream ownership, or manual-acceptance state must reproduce that task prompt verbatim as exactly one copy-ready prompt in the final user-facing response; omission or mismatch makes the handoff incomplete.

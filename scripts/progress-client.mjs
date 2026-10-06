@@ -5,9 +5,9 @@ const unreadKey = 'velog-progress-unread-handoff';
 export function completionEvent(focus) {
   if (!focus?.id || !focus.latestPrompt) return null;
   const status = focus.latestPrompt.match(/^Status: ([A-Z_]+)$/m)?.[1];
-  const recipient = focus.latestPrompt.match(/^Recipient: (Architect|Builder|User)$/m)?.[1];
+  const recipient = focus.latestPrompt.match(/^Recipient: (Backend Architect|Frontend Developer|Tester)$/m)?.[1];
   if (!status || status !== focus.status || !recipient) return null;
-  const actor = recipient === 'Architect' ? 'Builder' : 'Architect';
+  const actor = recipient === 'Backend Architect' ? 'Frontend Developer' : 'Backend Architect';
   return {
     key: JSON.stringify([focus.id, status, focus.latestPrompt]),
     text: `${actor} finished ${focus.id}. ${recipient} is next.`,

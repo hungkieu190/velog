@@ -22,7 +22,7 @@ cat << 'EOF' > ai-document/tasks/FIXTURE.md
 # FIXTURE: Test
 ## Current handoff
 - Status: STATUS_PLACEHOLDER
-- Next actor: Builder
+- Next actor: Frontend Developer
 EOF
 
 # Start server
