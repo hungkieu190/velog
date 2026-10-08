@@ -2,10 +2,10 @@
 
 ## Current focus
 
-- Task: CUST-001-FE
-- Status: BLOCKED
-- Next actor: Backend Architect
-- Exact next action: Fix HTML contract defect (missing type="text" on search input) in CustomerPage.php, then return to Frontend Developer.
+- Task: CUST-001-UAT
+- Status: AWAITING_MANUAL_ACCEPTANCE
+- Next actor: Tester
+- Exact next action: Retest T02 and related UAT cases after the backend correction; retain T01 PASS.
 
 ## Project status
 
@@ -80,18 +80,18 @@ Task: [CORE-004-FE](tasks/CORE-004-FE-regional-settings-ui.md). Owner: Frontend 
 
 ### CUST-001 — Private customer management
 
-- [ ] CUST-001 / AC1: Manager creates/edits/searches Unicode customer records with explicit validation and stable pagination. Status: DRAFT.
-- [ ] CUST-001 / AC2: Customer contact data and every write are protected across list/detail/direct request paths. Status: DRAFT.
-- [ ] CUST-001 / AC3: Archive/restore preserves records and rejects active-vehicle linkage; stale writes/bulk checks behave correctly. Status: DRAFT.
-- [ ] CUST-001 / AC4: Real WordPress CRUD, negative controls and accessible admin journey have evidence. Status: DRAFT.
+- [ ] CUST-001 / AC1: Manager creates/edits/searches Unicode customer records with explicit validation and stable pagination. Status: AWAITING_MANUAL_ACCEPTANCE; T02 fix ready for Tester retest.
+- [ ] CUST-001 / AC2: Customer contact data and every write are protected across list/detail/direct request paths. Status: AWAITING_MANUAL_ACCEPTANCE; Tester verdict pending.
+- [ ] CUST-001 / AC3: Archive/restore preserves records and rejects active-vehicle linkage; stale writes/bulk checks behave correctly. Status: AWAITING_MANUAL_ACCEPTANCE; Tester verdict pending.
+- [ ] CUST-001 / AC4: Real WordPress CRUD, negative controls and accessible admin journey have evidence. Status: AWAITING_MANUAL_ACCEPTANCE; T02 fix ready for Tester retest.
 
-Readiness: G-02 contact visibility and G-03 archive/restore policy are approved. Parent blueprint revision 3 is PASS. `CUST-001-BE` awaits implementation authorization; `CUST-001-FE` remains DRAFT until the backend view contract is stable.
+Readiness: G-02 contact visibility and G-03 archive/restore policy are approved. Parent blueprint revision 3 is PASS. `CUST-001-BE` Round 2 T02 correction is SELF_REVIEWED_BACKEND; Tester retest is pending; Product Owner reactivated `CUST-001-FE` on 2026-10-08. `CUST-001-FE` Round 2 code review is APPROVED; FE code approval remains; UAT and parent await Tester retest after the T02 correction. Browser verification and optional screenshots belong to Tester.
 
 Task: [CUST-001](tasks/CUST-001-customer-records.md). Prerequisites: CORE-004 and DATA-001 DONE.
 
-- [x] CUST-001-BE: Customer backend, secure admin contract, query/search, and archive/restore. Status: DONE — `SELF_REVIEWED_BACKEND`.
-- [ ] CUST-001-FE: Customer admin presentation and browser evidence. Status: BLOCKED; Blueprint readiness: FAIL.
-- [ ] CUST-001-UAT: Kiểm thử thủ công quản lý khách hàng bằng tiếng Việt. Status: BLOCKED pending Backend Architect approval of CUST-001-FE; owner: Tester.
+- [ ] CUST-001-BE: T02 correction SELF_REVIEWED_BACKEND; Status: AWAITING_MANUAL_ACCEPTANCE; Next actor: Tester. Changed-file checks, 93 unit tests and MySQL/MariaDB HTTP fixtures pass; full lint has unrelated VEH-001 failures.
+- [ ] CUST-001-FE: Customer presentation code review APPROVED. Status: AWAITING_MANUAL_ACCEPTANCE; Next actor: Tester. Round 1 evidence requests transferred to UAT, not marked browser PASS. Review: `ai-document/evidence/CUST-001-FE/frontend-round-2/architect-review.md`.
+- [ ] CUST-001-UAT: T01 PASS; T02 FAIL at create; remaining cases untested. Status: BLOCKED; Next actor: Backend Architect for correction. Tester alone decides DONE after retest.
 
 ### VEH-001 — Vehicle identity and current customer
 
@@ -100,7 +100,9 @@ Task: [CUST-001](tasks/CUST-001-customer-records.md). Prerequisites: CORE-004 an
 - [ ] VEH-001 / AC3: Unit-aware known/unknown baseline and dates are valid; no unreasoned lower-reading shortcut. Status: DRAFT.
 - [ ] VEH-001 / AC4: Authorized search/detail/admin flows and negative security/accessibility checks pass. Status: DRAFT.
 
-Task: [VEH-001](tasks/VEH-001-vehicle-records.md). Prerequisites: CUST-001 DONE (and its foundation dependencies).
+Task: [VEH-001](tasks/VEH-001-vehicle-records.md). Backend prerequisite: CUST-001-BE DONE; G-04 is approved and G-05 approval is required before VEH-001-BE. Frontend/UAT remain required before VEH-001 parent DONE.
+
+- [ ] VEH-001-BE: Vehicle backend contract, persistence, authorization, and server-side verification. Status: IN_PROGRESS; G-04 and G-05 approved.
 
 ### SERV-001 — Service drafts, finalization and corrections
 

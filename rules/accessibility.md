@@ -80,3 +80,7 @@ Minimum compliance: **WCAG 2.1 Level AA**.
 - Automated: `@wordpress/scripts` accessibility linting.
 - Manual: keyboard-only navigation test.
 - Screen reader: test with NVDA (Windows) or VoiceOver (macOS/iOS).
+
+## Verification ownership
+
+Per the 2026-10-08 owner decision, Frontend Developer implements accessibility and supplies build/static results. Tester / Product Owner performs keyboard, screen-reader, and visual verification through the Vietnamese UAT authored by Backend Architect. Screenshots are optional and are never required from Frontend Developer.

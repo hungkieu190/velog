@@ -62,6 +62,8 @@ The inspected plugin has no frontend/admin asset enqueues yet. This bootstrap pr
 
 `release.config.mjs` allows only velog.php, uninstall.php, README.md, LICENSE, PHP files from named runtime src/ directories, translation files, generated production assets, and generated production Composer autoload files. No frontend source, scripts, node_modules, tests, task docs, secrets, maps, development vendor or nested releases are packaged. Backend src/ is deliberately included.
 
+Automated test source remains tracked under `tests/` and is never deleted merely to reduce the plugin package. See [test and fixture placement](../rules/testing.md) for the required source locations and temporary-resource cleanup policy.
+
 Composer currently requires only PHP and has zero third-party runtime packages. Release generates its optimized no-dev autoloader in staging with network disabled; it does not install or copy development dependencies. New runtime dependencies intentionally fail packaging until the allowlist and offline dependency staging policy are reviewed. The full GPL-2 text and the existing GPL-2.0-or-later declaration are included; Composer-generated notices are retained in vendor/composer/LICENSE.
 
 Version authority is the plugin header in velog.php. VELOG_VERSION, package.json version, and README.md Stable tag must match. No fallback or automatic bump exists. composer.json currently has no version field.
@@ -86,3 +88,7 @@ A source checkout needs `composer install` for the existing autoloader before Wo
 Upload the generated ZIP through WordPress Plugins > Add New, or unpack the single velog/ directory into wp-content/plugins/, then activate. Verified on an isolated WordPress 6.4 database/site with PHP 8.3.6: installation, detection, activation and MF\VeLog\Core\Plugin bootstrap succeeded. All four built files were available over HTTP. The working site's database was not used.
 
 See evidence/README.md and testing-strategy.md for checks, results and cleanup. Hosted CI, PHP 8.1/minimum-version runtime, other WordPress versions, product features and real application enqueue behavior are NOT VERIFIED. These limits are not a production-readiness claim.
+
+## Verification ownership (2026-10-08)
+
+Frontend Developer records production build and diff results; Backend Architect reviews source/generated consistency. Browser testing and screenshots are not builder gates. Backend Architect writes the Vietnamese UAT; Tester performs manual verification and alone authorizes DONE. See backend-frontend-workflow.md.

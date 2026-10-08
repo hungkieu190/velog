@@ -400,6 +400,10 @@ final class RecordRepository {
 		if ( is_wp_error( $canonical ) ) {
 			return $canonical;
 		}
+		$record_check = RecordSchema::validate_record( $type, $canonical );
+		if ( is_wp_error( $record_check ) ) {
+			return $record_check;
+		}
 
 		$env = WriteCoordinator::check_environment();
 		if ( is_wp_error( $env ) ) {
@@ -517,6 +521,10 @@ final class RecordRepository {
 		$canonical = RecordSchema::validate_fields( $type, $fields );
 		if ( is_wp_error( $canonical ) ) {
 			return $canonical;
+		}
+		$record_check = RecordSchema::validate_record( $type, $canonical );
+		if ( is_wp_error( $record_check ) ) {
+			return $record_check;
 		}
 
 		// Re-check idempotency: has this request_id been used?
@@ -687,6 +695,10 @@ final class RecordRepository {
 
 		// Merge changes into existing fields.
 		$new_fields = array_merge( $before_fields, $canonical_changes );
+		$record_check = RecordSchema::validate_record( $type, $new_fields );
+		if ( is_wp_error( $record_check ) ) {
+			return $record_check;
+		}
 
 		// Check schema-defined uniqueness for updated fields under lock.
 		$uniq_check = self::check_unique_keys_under_lock( $dbh, $prefix, $type, $definition, $new_fields, $id );
@@ -1029,22 +1041,22 @@ final class RecordRepository {
 		?int $current_post_id = null
 	): true|\WP_Error {
 		$unique_keys = $definition['unique_keys'] ?? array();
+		$projections = RecordSchema::derive_projections( $type, array( 'fields' => $canonical ) );
 
 		foreach ( $unique_keys as $rule_name => $field_names ) {
 			if ( empty( $field_names ) ) {
 				continue;
 			}
 
-			// Every field in the unique rule must be present in canonical and scalar. Missing fields fail closed.
+			// Every unique projection must be derived and scalar. Missing values fail closed.
 			foreach ( $field_names as $fn ) {
 				if (
-					! array_key_exists( $fn, $canonical )
-					|| null === $canonical[ $fn ]
-					|| ! is_scalar( $canonical[ $fn ] )
+					! array_key_exists( $fn, $projections )
+					|| ! is_scalar( $projections[ $fn ] )
 				) {
 					return new \WP_Error(
 						'invalid_input',
-						sprintf( 'Unique key field "%s" missing or non-scalar in input for type "%s".', $fn, $type )
+						sprintf( 'Unique projection "%s" missing or non-scalar in input for type "%s".', $fn, $type )
 					);
 				}
 			}
@@ -1069,7 +1081,7 @@ final class RecordRepository {
 				);
 				$types   .= 'ss';
 				$params[] = (string) $fn;
-				$params[] = (string) $canonical[ $fn ];
+				$params[] = (string) $projections[ $fn ];
 			}
 
 			$sql = sprintf(

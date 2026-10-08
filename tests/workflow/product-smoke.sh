@@ -7,12 +7,14 @@ set -euo pipefail
 TASK=""
 WP_VERSION=""
 NEGATIVE_MODE=""
+DB_ENGINE="mariadb"
 
 for arg in "$@"; do
     case $arg in
         --task=*) TASK="${arg#*=}" ;;
         --wp-version=*) WP_VERSION="${arg#*=}" ;;
         --negative-mode=*) NEGATIVE_MODE="${arg#*=}" ;;
+        --db-engine=*) DB_ENGINE="${arg#*=}" ;;
         *) echo "Fail: Unknown argument: $arg"; exit 1 ;;
     esac
 done
@@ -27,8 +29,18 @@ if [ "$WP_VERSION" != "6.4.3" ] && [ "$WP_VERSION" != "6.7.2" ]; then
     exit 1
 fi
 
+# Select an isolated engine; never connect fixtures to an existing database.
+case "$DB_ENGINE" in
+    mariadb) DB_SERVER="${VELOG_TEST_MYSQLD:-mariadbd}" ;;
+    mysql) DB_SERVER="${VELOG_TEST_MYSQLD:-mysqld}" ;;
+    *) echo "Fail: Unsupported database engine: $DB_ENGINE"; exit 1 ;;
+esac
+if [ "$DB_ENGINE" = "mariadb" ] && ! command -v mysql_install_db >/dev/null; then
+    echo "Fail: mysql_install_db is required"; exit 1
+fi
+
 # Preflight tools
-for cmd in wp mariadbd mysql mysqladmin mysql_install_db php curl; do
+for cmd in wp "$DB_SERVER" mysql mysqladmin php curl; do
     if ! command -v "$cmd" &> /dev/null; then
         echo "Fail: $cmd is required"
         exit 1
@@ -133,7 +145,7 @@ mkdir -p "$DIR/db_data"
 if [ "$NEGATIVE_MODE" = "db-start-failure" ]; then
     echo "Injecting db-start-failure"
     # Start mariadbd with missing datadir — it will fail immediately.
-    mariadbd --datadir="$DIR/db_data_missing" --socket="$DIR/mysql.sock" \
+    "$DB_SERVER" --datadir="$DIR/db_data_missing" --socket="$DIR/mysql.sock" \
         --skip-networking --pid-file="$DB_PID_FILE" >"$DIR/db.log" 2>&1 &
     DB_BG_PID=$!
     echo "$DB_BG_PID" > "$DB_PID_FILE"
@@ -146,8 +158,13 @@ if [ "$NEGATIVE_MODE" = "db-start-failure" ]; then
     fi
     # Emit failure — DB never ready path will confirm.
 else
-    mysql_install_db --datadir="$DIR/db_data" --auth-root-authentication-method=normal >"$DIR/db_install.log" 2>&1
-    mariadbd --datadir="$DIR/db_data" \
+    if [ "$DB_ENGINE" = "mysql" ]; then
+        "$DB_SERVER" --no-defaults --initialize-insecure --datadir="$DIR/db_data" >"$DIR/db_install.log" 2>&1
+    else
+        mysql_install_db --datadir="$DIR/db_data" --auth-root-authentication-method=normal >"$DIR/db_install.log" 2>&1
+    fi
+    "$DB_SERVER" --no-defaults --datadir="$DIR/db_data" \
+        --loose-mysqlx=0 \
         --socket="$DIR/mysql.sock" \
         --skip-networking \
         --pid-file="$DB_PID_FILE" >"$DIR/db.log" 2>&1 &
@@ -184,7 +201,7 @@ if [ $DB_READY -eq 0 ]; then
     exit 1
 fi
 
-mysql -S "$DIR/mysql.sock" -u root -e "CREATE DATABASE velog_test;"
+mysql -S "$DIR/mysql.sock" -u root -e "SELECT VERSION() AS database_version; CREATE DATABASE velog_test;"
 
 WP_DIR="$DIR/wp"
 mkdir -p "$WP_DIR"
@@ -336,6 +353,10 @@ if [ -f "$PLUGIN_DIR/tests/fixtures/$FIXTURE_FILE" ]; then
     if [ $FIXTURE_EXIT -ne 0 ]; then
         echo "Fail: Fixture exited $FIXTURE_EXIT"
         exit $FIXTURE_EXIT
+    fi
+
+    if [ "$TASK" = "CUST-001" ]; then
+        bash "$PLUGIN_DIR/tests/workflow/cust-001-endpoint.sh" "$PORT" "$WP_DIR" || exit 1
     fi
 
     if [ "$TASK" = "CORE-004" ]; then

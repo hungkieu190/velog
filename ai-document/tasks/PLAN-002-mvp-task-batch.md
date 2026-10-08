@@ -8,7 +8,7 @@
 - Implementation contributors and reviewer independence check: Planning documents only; no implementation.
 - Related checklist items: PLAN-002 / AC1–AC3; tasks CORE-002 through MVP-001.
 - Baseline branch and commit: `main` at `2aa3b8d`.
-- User approval reference and approved scope: Continuous planning requested 2026-09-21; G-02 approved 2026-09-22; G-08 benchmark target approved for planning 2026-09-25; G-01 approved 2026-10-02. G-03–G-07 remain pending.
+- User approval reference and approved scope: Continuous planning requested 2026-09-21; G-02 approved 2026-09-22; G-08 benchmark target approved for planning 2026-09-25; G-01 approved 2026-10-02; G-03/G-04/G-05 approved 2026-10-08. G-06–G-07 remain pending. Product Owner approved backend-first sequencing on 2026-10-08.
 - Latest round: DATA-001 directly accepted by the user with recorded verification exclusions on 2026-10-02; CORE-004 revision 3 promoted to READY.
 - Next actor: Architect
 - Next actor and exact next action: Continue G-03–G-07 planning when their owning tasks become current; CORE-004 is handed to Builder.
@@ -32,7 +32,7 @@ PLAN-001 approved the international private single-shop MVP. CORE-001 through CO
 | 3 | [DATA-001](DATA-001-record-storage.md) | CORE-002, CORE-003 | Versioned storage & retention (DONE by direct user acceptance) |
 | 4 | [CORE-004](CORE-004-regional-settings.md) | CORE-002, CORE-003, DATA-001 | Explicit setup & shared admin shell |
 | 5 | [CUST-001](CUST-001-customer-records.md) | CORE-004, DATA-001 | Customer create/edit/search/archive |
-| 6 | [VEH-001](VEH-001-vehicle-records.md) | CUST-001 | Vehicle identity, owner, baseline odometer |
+| 6 | [VEH-001](VEH-001-vehicle-records.md) | CUST-001-BE for backend-first execution; CUST-001 for parent acceptance | Vehicle identity, owner, baseline odometer |
 | 7 | [SERV-001](SERV-001-service-workflow.md) | VEH-001 | Draft/finalized services & corrections |
 | 8 | [HIST-001](HIST-001-service-timeline.md) | SERV-001 | Searchable private service timeline |
 | 9 | [REM-001](REM-001-maintenance-queue.md) | HIST-001 | Maintenance queue & reminders |
@@ -42,9 +42,9 @@ PLAN-001 approved the international private single-shop MVP. CORE-001 through CO
 
 - **G-01 (APPROVED 2026-10-02)**: Regional input (localized decimals, no thousands grouping in inputs, ASCII digits, max 3 decimals for km/mi, 15 digits for money).
 - **G-02 (APPROVED 2026-09-22)**: Roles `mf_velog_manager` and `mf_velog_technician`; administrator gets plugin capabilities. Manager manages settings/records/corrections; technician manages own service drafts.
-- **G-03**: Customer name 1–200 chars, optional phone/email; archive instead of hard delete; active vehicle reassignment required before customer archive. Pending.
-- **G-04**: Plate OR VIN required; plate uniqueness by jurisdiction + normalized plate; VIN up to 64 chars; year 1886 to current+1. Pending.
-- **G-05**: Service finalization requires odometer reading/date; decrease requires manager reason; backdated insertion rules. Pending.
+- **G-03 (APPROVED 2026-10-06)**: Customer name 1–200 chars, optional phone/email; archive instead of hard delete; active vehicle reassignment required before customer archive.
+- **G-04 (APPROVED 2026-10-08)**: Plate OR VIN required; plate uniqueness by jurisdiction + normalized plate; VIN up to 64 chars; year 1886 to current+1.
+- **G-05 (APPROVED 2026-10-08)**: Service finalization requires odometer reading/date; decrease requires manager reason; backdated insertion is validated against neighbours and does not automatically replace the current reading; physical resets are excluded.
 - **G-06**: Drafts editable by creator/manager; finalization snapshotting; corrections manager-only with reason and before/after audit; active service type required. Pending.
 - **G-07**: Reminders by date/distance; snooze to calendar date; completed is terminal. Pending.
 - **G-08 (APPROVED for planning 2026-09-25)**: Acceptance dataset (1k customers, 2k vehicles, 20k services, 5k reminders); warm p95 <= 2s on specified list/search queries with recorded environment; operational retention on uninstall. Actual benchmark results remain NOT VERIFIED until the domain queries exist.

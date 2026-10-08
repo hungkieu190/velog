@@ -87,12 +87,20 @@ project-root/
   ai-document/
     build-and-release.md
 
+  tests/
+    Unit/
+    Integration/
+    fixtures/
+    workflow/
+
   release/
     <project-slug>/
     <project-slug>-<version>.zip
 ```
 
 Create only entries that the actual project needs.
+
+Reusable automated test code belongs only under `tests/`: PHP unit tests in `tests/Unit/`, PHP integration tests in `tests/Integration/`, PHP fixtures in `tests/fixtures/`, and Node workflow tests in `tests/workflow/`. Do not add tracked test files to runtime source, the project root, scripts, assets, documentation, or feature directories. Keep ad-hoc probes and generated fixtures in unique task-owned temporary directories outside project source where practical, remove them on every exit path, and never delete reusable tests merely to reduce a release package.
 
 `src/static/` contains source assets copied by the build without unnecessary transformation.
 
@@ -625,3 +633,15 @@ Do not treat a source checkout as an installable distribution until its autoload
 ## Manual handoff workflow integration
 
 Cross-agent handoffs between Backend Architect and Frontend Developer are conducted manually via synchronized task documents and copy-ready chat prompts. Automated background dispatch, JSON signal polling, and receipt generation are retired. Follow the manual handoff workflow: finish work and logs, update task metadata and checklist, provide exactly one latest English prompt under `### Chat handoff prompt`, and validate intake manually before starting received work. Any turn that changes status, next actor, review decision, workstream ownership, or manual-acceptance state must reproduce that task prompt verbatim as exactly one copy-ready prompt in the final user-facing response; omission or mismatch makes the handoff incomplete.
+
+## Owner decision — 2026-10-08: Tester owns browser verification
+
+This decision supersedes conflicting frontend verification requirements in earlier task descriptions, review requests, and setup guidance. Historical evidence remains unchanged.
+
+- Frontend Developer implements assigned presentation source, builds generated assets, records build/diff results, and hands off code. It is not required to run browser/manual verification, capture screenshots, or provide visual evidence.
+- Backend Architect reviews source/generated diffs and architecture/security boundaries, verifies relevant build/static checks, and creates a concrete Vietnamese `<ID>-UAT` task. It must specify environment, accounts, data, numbered actions, expected results, negative cases, and a per-case result table. Missing browser screenshots are not grounds to reject a frontend code handoff.
+- Tester / Product Owner owns all manual UI, responsive, RTL, keyboard, screen-reader, error-state, pagination, and asset-loading verification. Screenshots/videos are optional supporting material, not a mandatory builder deliverable.
+- Code approval moves the FE task, UAT task, and parent feature to `AWAITING_MANUAL_ACCEPTANCE`, with `Next actor: Tester`. `Review decision: APPROVED` means code review only; it does not mean a browser case passed.
+- Tester records actual results as PASS, FAIL, or BLOCKED and alone decides the transition to DONE. Agents may synchronize DONE only after the user's explicit acceptance; they never infer it from build success or elapsed time. Partial/blocked results are not full acceptance. Backend workstream DONE remains a technical `SELF_REVIEWED_BACKEND` checkpoint, not acceptance of the feature.
+- On FAIL, Backend Architect triages the reported case and assigns correction to the appropriate BE/FE owner. After code review, Tester reruns affected cases and relevant regressions before deciding DONE.
+- Test data/environment preparation must be explicit. If a prerequisite is unavailable, record BLOCKED and return preparation to Backend Architect; do not silently skip it or require Frontend Developer to create backend fixtures.

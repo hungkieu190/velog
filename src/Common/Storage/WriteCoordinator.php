@@ -129,23 +129,33 @@ final class WriteCoordinator {
 			}
 		}
 
-		// Verify no pre-existing transaction on this connection using privilege-safe session variable.
-		$wpdb->suppress_errors( true );
-		// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
-		$in_trx = $wpdb->get_var( 'SELECT @@in_transaction' );
-		$wpdb->suppress_errors( false );
+		return self::prepare_transaction( $dbh );
+	}
 
-		if ( ! empty( $wpdb->last_error ) || null === $in_trx ) {
+	/**
+	 * Require an idle autocommit connection and prepare its next write transaction.
+	 *
+	 * SET TRANSACTION without SESSION/GLOBAL is rejected inside an active
+	 * transaction by both MySQL and MariaDB. It neither commits nor rolls back
+	 * caller work. Unlike @@in_transaction, it is supported by both engines.
+	 * The next-transaction access mode becomes READ WRITE; isolation is unchanged.
+	 *
+	 * @param \mysqli $dbh Connection to verify without reconnecting.
+	 * @return true|\WP_Error
+	 */
+	private static function prepare_transaction( \mysqli $dbh ): true|\WP_Error {
+		$rows = self::query_direct( $dbh, 'SELECT @@SESSION.autocommit AS autocommit' );
+		if ( false === $rows || 1 !== count( $rows ) || '1' !== (string) ( $rows[0]['autocommit'] ?? '' ) ) {
 			return new \WP_Error(
 				'storage_unavailable',
-				'WriteCoordinator: unable to verify connection transaction state; failing closed.'
+				'WriteCoordinator: an available autocommit connection is required.'
 			);
 		}
 
-		if ( 1 === (int) $in_trx ) {
+		if ( ! self::exec_direct( $dbh, 'SET TRANSACTION READ WRITE' ) ) {
 			return new \WP_Error(
 				'storage_unavailable',
-				'WriteCoordinator: pre-existing transaction detected; nested transactions not supported.'
+				'WriteCoordinator: connection is in a transaction or cannot prepare a write transaction.'
 			);
 		}
 
@@ -218,6 +228,16 @@ final class WriteCoordinator {
 				'storage_unavailable',
 				'WriteCoordinator: nested write units are not supported.'
 			);
+		}
+
+		global $wpdb;
+		$dbh = $wpdb->dbh;
+		if ( ! ( $dbh instanceof \mysqli ) ) {
+			return new \WP_Error( 'storage_unavailable', 'WriteCoordinator: mysqli required.' );
+		}
+		$ready = self::prepare_transaction( $dbh );
+		if ( is_wp_error( $ready ) ) {
+			return $ready;
 		}
 
 		// Ensure lock row before pinning connection (avoids pinning across potential reconnect).

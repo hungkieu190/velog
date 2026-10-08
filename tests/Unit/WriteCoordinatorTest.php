@@ -110,6 +110,15 @@ class WriteCoordinatorTest extends TestCase {
 		$this->assertSame( 5, $constants['LOCK_TIMEOUT_SECONDS'] );
 	}
 
+	/** An unavailable handle must never be treated as an idle connection. */
+	public function test_transaction_preparation_rejects_disconnected_handle(): void {
+		$dbh    = mysqli_init(); // phpcs:ignore WordPress.DB.RestrictedFunctions.mysql_mysqli_init
+		$method = new \ReflectionMethod( WriteCoordinator::class, 'prepare_transaction' );
+		$result = $method->invoke( null, $dbh );
+		$this->assertInstanceOf( \WP_Error::class, $result );
+		$this->assertSame( 'storage_unavailable', $result->get_error_code() );
+	}
+
 	// -------------------------------------------------------------------------
 	// Helper.
 	// -------------------------------------------------------------------------

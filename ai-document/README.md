@@ -3,11 +3,11 @@
 Authoritative technical and workflow documentation for VeLog.
 
 ## Current focus
-- Task: [CUST-001-FE](tasks/CUST-001-FE-customer-presentation.md)
-- Workstream: Frontend
-- Status: BLOCKED
-- Next actor: Backend Architect
-- Exact next action: Fix HTML contract defect (missing type="text" on search input) in CustomerPage.php, then return to Frontend Developer.
+- Task: [CUST-001-UAT](tasks/CUST-001-UAT-manual-test.md)
+- Workstream: Tester
+- Status: AWAITING_MANUAL_ACCEPTANCE
+- Next actor: Tester
+- Exact next action: Retest T02 and related UAT cases after the backend correction; retain T01 PASS.
 - Delivery split: [PLAN-003](tasks/PLAN-003-backend-frontend-delivery.md).
 - Lean workflow: [WF-005](tasks/WF-005-lean-architect-workflow.md) (DONE after independent review).
 - Closed workflow removal: [WF-004](tasks/WF-004-json-handoff-controller.md) (DONE by direct user acceptance).

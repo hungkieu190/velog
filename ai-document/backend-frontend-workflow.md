@@ -1,5 +1,17 @@
 # Backend Architect, Frontend Developer, and Tester workflow
 
+## Owner decision — 2026-10-08: Tester owns browser verification
+
+This decision supersedes conflicting frontend verification requirements in earlier task descriptions, review requests, and setup guidance. Historical evidence remains unchanged.
+
+- Frontend Developer implements assigned presentation source, builds generated assets, records build/diff results, and hands off code. It is not required to run browser/manual verification, capture screenshots, or provide visual evidence.
+- Backend Architect reviews source/generated diffs and architecture/security boundaries, verifies relevant build/static checks, and creates a concrete Vietnamese `<ID>-UAT` task. It must specify environment, accounts, data, numbered actions, expected results, negative cases, and a per-case result table. Missing browser screenshots are not grounds to reject a frontend code handoff.
+- Tester / Product Owner owns all manual UI, responsive, RTL, keyboard, screen-reader, error-state, pagination, and asset-loading verification. Screenshots/videos are optional supporting material, not a mandatory builder deliverable.
+- Code approval moves the FE task, UAT task, and parent feature to `AWAITING_MANUAL_ACCEPTANCE`, with `Next actor: Tester`. `Review decision: APPROVED` means code review only; it does not mean a browser case passed.
+- Tester records actual results as PASS, FAIL, or BLOCKED and alone decides the transition to DONE. Agents may synchronize DONE only after the user's explicit acceptance; they never infer it from build success or elapsed time. Partial/blocked results are not full acceptance. Backend workstream DONE remains a technical `SELF_REVIEWED_BACKEND` checkpoint, not acceptance of the feature.
+- On FAIL, Backend Architect triages the reported case and assigns correction to the appropriate BE/FE owner. After code review, Tester reruns affected cases and relevant regressions before deciding DONE.
+- Test data/environment preparation must be explicit. If a prerequisite is unavailable, record BLOCKED and return preparation to Backend Architect; do not silently skip it or require Frontend Developer to create backend fixtures.
+
 ## 1. Fixed roles
 
 - **Backend Architect (Codex):** owns architecture, task decomposition, all PHP/backend application logic, WordPress hooks, capabilities, nonces, validation, persistence, SQL, concurrency, server-side tests, integration fixtures, technical documentation, and release decisions. Codex implements and self-reviews backend work.
@@ -12,7 +24,7 @@ Roles are resolved only from `ai-document/agent-roles.json`. Role switching and 
 
 Backend work is implemented and reviewed by Backend Architect. Closure must be labeled `SELF_REVIEWED_BACKEND` and must include diff inspection plus all applicable security, lint, unit, integration, runtime, build, and cleanup evidence. This review is intentionally non-independent under the user's 2026-10-05 workflow decision.
 
-Frontend Developer never self-accepts. Frontend work moves to `READY_FOR_REVIEW` and Backend Architect reviews the diff, browser/runtime evidence, accessibility, responsive behavior, generated assets, and boundary compliance. Backend Architect records `APPROVED` or `CHANGES_REQUESTED`.
+Frontend Developer never self-accepts. Frontend work moves to `READY_FOR_REVIEW` and Backend Architect reviews source/generated diffs, accessibility and responsive implementation, build results, and boundary compliance. Backend Architect records `APPROVED` or `CHANGES_REQUESTED`.
 
 If frontend work requires backend behavior, Frontend Developer records the dependency and stops that part. Backend Architect creates or updates a backend task; Antigravity must not implement around a missing backend contract.
 
@@ -21,7 +33,7 @@ If frontend work requires backend behavior, Frontend Developer records the depen
 Every major feature is split into separately owned workstreams:
 
 - `<ID>-BE`: backend contract, application logic, security, storage, APIs/hooks, backend tests, and fixtures. Owner: Backend Architect.
-- `<ID>-FE`: presentation, assets, interaction, responsive/RTL/accessibility behavior, and browser evidence. Owner: Frontend Developer.
+- `<ID>-FE`: presentation, assets, interaction, responsive/RTL/accessibility behavior, and build results. Owner: Frontend Developer.
 - `<ID>-UAT`: Vietnamese manual test instructions, observed results, and Product Owner acceptance. Owner: Tester.
 
 The backend task defines stable data/view contracts before dependent frontend implementation begins. Tasks may run in parallel only when the frontend contract is already decision-complete.
@@ -70,11 +82,11 @@ Frontend Developer:
 
 1. Validates task status, workstream, allowed file list, stable backend contract, and evidence path.
 2. Changes only approved presentation files.
-3. Builds generated assets from source and records browser evidence for keyboard, responsive widths, RTL, long content, loading scope, and relevant accessibility states.
-4. Runs assigned frontend/workflow tests and cleanup.
+3. Builds generated assets from source and records build/diff results. Browser checks and screenshots belong to Tester, not Frontend Developer.
+4. Runs assigned non-browser build/static checks and cleanup.
 5. Sets `READY_FOR_REVIEW`, synchronizes documentation, and hands off to Backend Architect. It never marks its own task DONE.
 
-Backend Architect reviews frontend work by inspecting source and generated diffs, confirming no backend/security boundary was crossed, rerunning relevant build/browser gates, and recording an approval or stable findings. This approval covers code quality and technical evidence only; it is not functional acceptance.
+Backend Architect reviews frontend work by inspecting source and generated diffs, confirming no backend/security boundary was crossed, rerunning relevant build/static checks, and recording an approval or stable findings. This approval covers code quality and technical evidence only; it is not functional acceptance.
 
 ## 7. Tester execution and functional acceptance
 
@@ -90,7 +102,7 @@ Every major feature has one `<ID>-UAT` task written in Vietnamese. The task must
 - a result table for actual observations;
 - the exact response format: `PASS`, or `FAIL` with failed step, actual result, expected result, and screenshot when useful.
 
-Tester executes the feature through the real product UI. Automated tests and developer screenshots support triage but never replace this acceptance. On `PASS`, Tester may approve the UAT and parent feature as `DONE`. On `FAIL`, Backend Architect records the finding, assigns it to the correct BE or FE workstream, and keeps the parent open.
+Tester executes the feature through the real product UI. Automated checks support code review; Tester owns browser observations and optional screenshots. On `PASS`, Tester may approve the UAT and parent feature as `DONE`. On `FAIL`, Backend Architect records the finding, assigns it to the correct BE or FE workstream, and keeps the parent open.
 
 ## 8. Handoff and prompt rule
 
@@ -108,7 +120,7 @@ Any turn that changes task status, next actor, review decision, workstream owner
 
 ## 9. Evidence and cleanup
 
-- Evidence must contain actual commands, versions, exits, assertions, browser observations, and limitations.
+- Build evidence contains actual commands, versions, exits, assertions, and limitations. Manual browser observations are recorded by Tester in UAT.
 - Temporary scripts, databases, processes, browser tabs, and task-owned directories must be removed on success and failure.
 - Reusable tests belong in the approved change map. Scratch files stay outside the plugin tree where practical.
 - Inspect `git status --short` and `git diff --check` before handoff. Preserve unrelated work.

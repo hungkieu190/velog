@@ -1,5 +1,17 @@
 # VeLog agent instructions
 
+## Owner decision — 2026-10-08: Tester owns browser verification
+
+This decision supersedes conflicting frontend verification requirements in earlier task descriptions, review requests, and setup guidance. Historical evidence remains unchanged.
+
+- Frontend Developer implements assigned presentation source, builds generated assets, records build/diff results, and hands off code. It is not required to run browser/manual verification, capture screenshots, or provide visual evidence.
+- Backend Architect reviews source/generated diffs and architecture/security boundaries, verifies relevant build/static checks, and creates a concrete Vietnamese `<ID>-UAT` task. It must specify environment, accounts, data, numbered actions, expected results, negative cases, and a per-case result table. Missing browser screenshots are not grounds to reject a frontend code handoff.
+- Tester / Product Owner owns all manual UI, responsive, RTL, keyboard, screen-reader, error-state, pagination, and asset-loading verification. Screenshots/videos are optional supporting material, not a mandatory builder deliverable.
+- Code approval moves the FE task, UAT task, and parent feature to `AWAITING_MANUAL_ACCEPTANCE`, with `Next actor: Tester`. `Review decision: APPROVED` means code review only; it does not mean a browser case passed.
+- Tester records actual results as PASS, FAIL, or BLOCKED and alone decides the transition to DONE. Agents may synchronize DONE only after the user's explicit acceptance; they never infer it from build success or elapsed time. Partial/blocked results are not full acceptance. Backend workstream DONE remains a technical `SELF_REVIEWED_BACKEND` checkpoint, not acceptance of the feature.
+- On FAIL, Backend Architect triages the reported case and assigns correction to the appropriate BE/FE owner. After code review, Tester reruns affected cases and relevant regressions before deciding DONE.
+- Test data/environment preparation must be explicit. If a prerequisite is unavailable, record BLOCKED and return preparation to Backend Architect; do not silently skip it or require Frontend Developer to create backend fixtures.
+
 ## 1. Startup: Role resolution and announcement
 
 Before task work, read [agent-roles.json](ai-document/agent-roles.json). This is static role mapping: `codex` is Backend Architect; `antigravity` is Frontend Developer; the user is Tester / Product Owner.
@@ -31,7 +43,7 @@ Follow the lean [Backend Architect / Frontend Developer / Tester workflow](ai-do
 - Handoffs: Synchronize task file, checklist, and README. Provide exactly one copy-ready prompt under `### Chat handoff prompt`.
 - Mandatory final-response prompt: Any turn that records or changes a task status, `Next actor`, review decision, workstream ownership, or manual-acceptance handoff is incomplete until the agent's final user-facing response includes exactly one copy-ready handoff prompt. Reproduce the task file's `### Chat handoff prompt` verbatim. Never refer the user to a prompt from an earlier message, omit it because it was previously supplied, or provide multiple competing prompts.
 - Prompt consistency: The final-response prompt must match the synchronized task, checklist, and README status, recipient, intent, evidence reference, and exact next action. A missing or mismatched prompt is a failed handoff and must be corrected before ending the turn.
-- Diff review: Backend Architect reviews its backend diff and all Frontend Developer diffs, security boundaries, generated assets, and test evidence. Never accept without actual verification.
+- Diff review: Backend Architect reviews its backend diff and all Frontend Developer diffs, security boundaries, generated assets, and build/static evidence. Browser/manual verification belongs to Tester; code approval never implies manual acceptance.
 - Temporary test files: Create scratch scripts and fixtures in a uniquely named, task-owned temporary directory outside the plugin source tree when possible. Track their paths and remove owned temporary files/processes before handoff, including failure paths. Keep only approved reusable tests and required evidence. Inspect `git status --short` for accidental scratch files and report cleanup results. Never delete pre-existing or tracked files without a separate, reviewed cleanup scope.
 
 ## 4. WordPress coding and security essentials
@@ -52,4 +64,5 @@ Security takes precedence over performance and convenience. Follow `rules/` and 
   - Build & release: [build-and-release.md](ai-document/build-and-release.md) (assets built via `npm run dev`/`npm run production`; release via `npm run release`)
   - Project checklist: [implementation-checklist.md](ai-document/implementation-checklist.md)
   - Security rules: [rules/security.md](rules/security.md)
+  - Test and fixture placement: [rules/testing.md](rules/testing.md)
   - Specific domain rules in `rules/` when touching those areas.

@@ -235,6 +235,10 @@ final class RecordSchema {
 			$definition['unique_keys'] = array();
 		}
 
+		if ( isset( $definition['record_validator'] ) && ! is_callable( $definition['record_validator'] ) ) {
+			throw new \InvalidArgumentException( 'RecordSchema: record_validator must be callable.' );
+		}
+
 		// Optional context builder callable receiving envelope and actor.
 		if ( isset( $definition['context_builder'] ) && ! is_callable( $definition['context_builder'] ) ) {
 			throw new \InvalidArgumentException( 'RecordSchema: context_builder must be callable.' );
@@ -415,19 +419,31 @@ final class RecordSchema {
 					'read_capability'     => 'mf_velog_read_records',
 					'states'              => array( 'active', 'archived' ),
 					'field_policies'      => array(
+						'jurisdiction'        => 'public',
+						'plate'               => 'public',
+						'vin'                 => 'internal',
+						'year'                => 'public',
 						'current_customer_id' => 'internal',
 					),
 					// phpcs:disable Generic.Files.LineLength.TooLong
 					'fields'              => array(
+						'jurisdiction'        => array( \MF\VeLog\Common\Vehicle\VehicleIdentifier::class, 'validate_jurisdiction' ),
+						'plate'               => array( \MF\VeLog\Common\Vehicle\VehicleIdentifier::class, 'validate_plate' ),
+						'vin'                 => array( \MF\VeLog\Common\Vehicle\VehicleIdentifier::class, 'validate_vin' ),
+						'year'                => array( \MF\VeLog\Common\Vehicle\VehicleIdentifier::class, 'validate_year' ),
 						'current_customer_id' => array( \MF\VeLog\Common\Customer\CustomerRelations::class, 'validate_customer_id' ),
 					),
 					// phpcs:enable Generic.Files.LineLength.TooLong
 					'projection_builders' => array(
+						'_mf_velog_vehicle_jurisdiction' => array( \MF\VeLog\Common\Vehicle\VehicleIdentifier::class, 'project_jurisdiction' ),
+						'_mf_velog_vehicle_plate'        => array( \MF\VeLog\Common\Vehicle\VehicleIdentifier::class, 'project_plate' ),
+						'_mf_velog_vehicle_vin'          => array( \MF\VeLog\Common\Vehicle\VehicleIdentifier::class, 'project_vin' ),
 						'_mf_velog_current_customer_id' => array(
 							\MF\VeLog\Common\Customer\CustomerRelations::class,
 							'project_customer_id',
 						),
 					),
+					'record_validator'    => array( \MF\VeLog\Common\Vehicle\VehicleIdentifier::class, 'validate_record' ),
 				)
 			);
 		}
@@ -530,5 +546,26 @@ final class RecordSchema {
 		}
 
 		return $canonical;
+	}
+
+	/**
+	 * Validate constraints involving multiple canonical fields.
+	 *
+	 * @param string               $post_type CPT slug.
+	 * @param array<string, mixed> $fields    Complete canonical field map.
+	 * @return true|\WP_Error
+	 */
+	public static function validate_record( string $post_type, array $fields ): true|\WP_Error {
+		$definition = self::get( $post_type );
+		if ( ! isset( $definition['record_validator'] ) ) {
+			return true;
+		}
+
+		$result = ( $definition['record_validator'] )( $fields );
+		if ( true === $result ) {
+			return true;
+		}
+
+		return new \WP_Error( 'invalid_input', 'Record-level validation failed.' );
 	}
 }

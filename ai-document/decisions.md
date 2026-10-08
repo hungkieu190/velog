@@ -93,3 +93,27 @@ The user approved the proposed DATA-001 planning/verification approach. The benc
 APPROVED. A customer may be archived only when no active vehicle currently links to that customer. An active link requires vehicle reassignment or vehicle archive first, and a rejected customer archive changes neither record. Archive and restore require manager authorization, action-specific nonce validation at the HTTP boundary, exact expected-version checks, unique request IDs, version increments, and audit entries. Restore is allowed for a valid archived customer. There is no hard delete. Bulk transitions authorize and report each customer independently rather than claiming a cross-customer transaction.
 
 This decision approves the CUST-001 product rule and blueprint completion. It does not by itself authorize source implementation, commit, deployment, or active-site database changes.
+
+## G-04 — Vehicle identifier and uniqueness policy (2026-10-08)
+
+APPROVED. A vehicle may be registered when it has at least one identifier: a plate together with its jurisdiction, or a VIN. Plate uniqueness is the pair of jurisdiction and normalized plate; VIN is independently unique. The same normalized identifier remains reserved across both active and archived vehicles. VIN input is bounded to 64 characters. Vehicle year is optional and, when supplied, must be an integer from 1886 through the current calendar year plus one. An edit may retain its own identifiers but cannot collide with another vehicle.
+
+This decision authorizes VEH-001 backend planning against the accepted CUST-001-BE relation contract. It does not settle G-05 odometer/backdating rules, authorize source implementation that depends on those rules, or authorize commit, deployment, or active-site database access.
+
+## G-05 — Odometer chronology and backdated-service policy (2026-10-08)
+
+APPROVED. A vehicle's initial odometer may be unknown. A finalized service requires both a reading and a date. Known readings are ordered by service date descending and then stable service ID descending, with an initial baseline retaining its own reading date. A reading that decreases relative to its known chronological neighbours is rejected unless a manager supplies a nonempty reason recorded in the audit trail. A backdated service is validated against its neighbours but does not automatically replace the current reading. Physical odometer replacement or reset is excluded until a separate policy is approved.
+
+This decision authorizes the VEH-001 backend blueprint together with G-04 and the accepted CUST-001-BE contract. It does not authorize commit, deployment, release, or active-site database access.
+
+## Owner decision — 2026-10-08: Tester owns browser verification
+
+This decision supersedes conflicting frontend verification requirements in earlier task descriptions, review requests, and setup guidance. Historical evidence remains unchanged.
+
+- Frontend Developer implements assigned presentation source, builds generated assets, records build/diff results, and hands off code. It is not required to run browser/manual verification, capture screenshots, or provide visual evidence.
+- Backend Architect reviews source/generated diffs and architecture/security boundaries, verifies relevant build/static checks, and creates a concrete Vietnamese `<ID>-UAT` task. It must specify environment, accounts, data, numbered actions, expected results, negative cases, and a per-case result table. Missing browser screenshots are not grounds to reject a frontend code handoff.
+- Tester / Product Owner owns all manual UI, responsive, RTL, keyboard, screen-reader, error-state, pagination, and asset-loading verification. Screenshots/videos are optional supporting material, not a mandatory builder deliverable.
+- Code approval moves the FE task, UAT task, and parent feature to `AWAITING_MANUAL_ACCEPTANCE`, with `Next actor: Tester`. `Review decision: APPROVED` means code review only; it does not mean a browser case passed.
+- Tester records actual results as PASS, FAIL, or BLOCKED and alone decides the transition to DONE. Agents may synchronize DONE only after the user's explicit acceptance; they never infer it from build success or elapsed time. Partial/blocked results are not full acceptance. Backend workstream DONE remains a technical `SELF_REVIEWED_BACKEND` checkpoint, not acceptance of the feature.
+- On FAIL, Backend Architect triages the reported case and assigns correction to the appropriate BE/FE owner. After code review, Tester reruns affected cases and relevant regressions before deciding DONE.
+- Test data/environment preparation must be explicit. If a prerequisite is unavailable, record BLOCKED and return preparation to Backend Architect; do not silently skip it or require Frontend Developer to create backend fixtures.

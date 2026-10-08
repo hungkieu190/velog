@@ -2,76 +2,109 @@
 
 ## Current handoff
 - Workstream: Tester
-- Status: BLOCKED
-- Plan revision: 1
-- Test round: 0
+- Status: AWAITING_MANUAL_ACCEPTANCE
+- Plan revision: 2
+- Test round: 2 (T02 chờ test lại)
 - Blueprint readiness: PASS
 - Owner: Tester / Product Owner
 - Task cha: CUST-001
-- Điều kiện bắt đầu: CUST-001-BE đã `SELF_REVIEWED_BACKEND`; CUST-001-FE phải được Backend Architect review code và chấp thuận.
-- Latest report: Chưa kiểm thử.
-- Evidence: `ai-document/evidence/CUST-001-UAT/manual-round-1/`.
-- Next actor: Backend Architect
-- Next actor and exact next action: Review CUST-001-FE; nếu code frontend đạt, chuyển CUST-001 và task này sang AWAITING_MANUAL_ACCEPTANCE và giao Tester thực hiện các bước bên dưới.
+- Điều kiện bắt đầu: BE đã SELF_REVIEWED_BACKEND; FE Round 2 đã được review code APPROVED.
+- Latest report: T01 PASS; T02 lần đầu FAIL. Backend đã sửa và kiểm tra tự động đạt trên MySQL/MariaDB; chờ Tester test lại T02.
+- Evidence: Kết quả do Tester ghi vào bảng dưới hoặc trả trong chat; ảnh/video tùy chọn.
+- Next actor: Tester
+- Next actor and exact next action: Reload Customers và test lại T02; sau đó T04/T06/T07/T09/T10/T13 và các bước chưa chạy.
 
-## Mục tiêu kiểm thử
+## Chuẩn bị
 
-Xác nhận bằng thao tác thực tế rằng manager có thể tạo, tìm, sửa, archive và restore khách hàng; dữ liệu liên hệ không lộ cho technician; lỗi nhập liệu, stale update và liên kết vehicle được xử lý đúng; giao diện dùng được bằng bàn phím, màn hình hẹp và RTL.
+1. Dùng WordPress local/test có plugin VeLog và asset Round 2. Không dùng dữ liệu thật. Ghi URL site, phiên bản WordPress/plugin, trình duyệt, ngày test và locale trong kết quả. Tải lại trang không dùng cache sau khi cập nhật plugin.
+2. Chuẩn bị tài khoản `mf_velog_manager` (kiểm thử thao tác) và `mf_velog_technician` (kiểm thử từ chối quyền). Dùng hai profile trình duyệt để tránh nhầm phiên đăng nhập. Administrator dùng để đổi locale khi cần.
+3. Khách hàng mẫu: tên `Nguyễn Thị Khách Hàng 測試`, phone `+66 81 234 5678`, email `customer.uat@example.com`. Tạo thêm khách hàng khác cùng thông tin để kiểm tra không tự gộp.
+4. Chuỗi dài: `KhachHangCoTenRatDaiKhongCoKhoangTrangDeKiemTraXuongDong0123456789測試Nguyễn`; email `customer.long.unicode.test.0123456789@example.com`. Giữ tên dưới 200 ký tự, email hợp lệ dưới 254 ký tự.
+5. Phân trang cần ít nhất 51 khách hàng khớp cùng bộ lọc. Dùng dữ liệu test sẵn có hoặc tạo bằng form các tên `UAT Customer 001` đến `UAT Customer 051`, email `uat001@example.com` đến `uat051@example.com`. Nếu chưa có dữ liệu, báo BLOCKED T11 để Backend Architect chuẩn bị; không yêu cầu Frontend Developer tạo fixtures.
+6. T08 cần một khách hàng đang liên kết active vehicle qua luồng VEH-001. Nếu luồng này chưa sẵn sàng, ghi BLOCKED_BY_VEH-001, không coi là PASS hoặc tự bỏ bước.
+7. T17 cần locale RTL thật (ví dụ Arabic) và T18 cần screen reader khả dụng. Thiếu môi trường/công cụ thì ghi BLOCKED kèm lý do. Ảnh/video không bắt buộc; mô tả quan sát thực tế là bắt buộc.com
 
-## Môi trường và tài khoản
+## Test lại sau sửa T02
 
-- Dùng site WordPress test/local có plugin VeLog phiên bản đang review. Không dùng dữ liệu production.
-- Một tài khoản administrator hoặc `mf_velog_manager`.
-- Một tài khoản `mf_velog_technician`.
-- Chuẩn bị hai tab trình duyệt đăng nhập manager để kiểm tra stale update.
-- Dữ liệu mẫu:
-  - Tên: `Nguyễn Thị Khách Hàng 測試`
-  - Điện thoại: `+66 81 234 5678`
-  - Email: `customer.uat@example.com`
-  - Chuỗi dài: `KhachHangCoTenRatDaiKhongCoKhoangTrangDeKiemTraXuongDong0123456789`
+1. Reload trang VeLog > Customers (PHP backend đã sửa, không cần build CSS).
+2. Nhập tên `Nguyễn Thị Khách Hàng 測試`, phone `+66 81 234 5678`, email `customer.uat@example.com`; bấm Create Customer.
+3. Mong đợi: trở về Customers, hiện `Customer saved.`, có đúng một dòng khách hàng mới với dữ liệu vừa nhập.
+4. Mở Edit, đổi phone thành `+66 81 234 5679`, lưu và reload; mong đợi phone mới được giữ nguyên.
+5. Trả `T02 PASS` nếu cả tạo và sửa đạt; nếu lỗi, ghi thực tế và URL sau submit (không gửi nonce/token). Không bắt buộc ảnh.
+6. Chạy các bước liên quan T04/T06/T07/T09/T10/T13 và tiếp tục phần còn lại. T01 đã PASS không bị xóa; T02 cũ giữ FAIL trong lịch sử đến khi có kết quả test lại.
 
-## Các trường hợp kiểm thử
+## Thao tác và kết quả mong đợi
 
-| Bước | Thao tác | Kết quả mong đợi |
+| ID | Thao tác cụ thể | Kết quả mong đợi |
 |---|---|---|
-| 1 | Đăng nhập manager, mở **VeLog > Customers** | Trang tải thành công; có form tạo khách hàng, tìm kiếm, bảng danh sách và bulk action; không có lỗi PHP/JavaScript hiển thị |
-| 2 | Tạo khách hàng bằng bộ dữ liệu Unicode mẫu | Hiển thị thông báo thành công; bản ghi xuất hiện đúng tên, phone, email và trạng thái `active` |
-| 3 | Tạo khách hàng thứ hai có cùng tên hoặc phone/email | Hệ thống cho phép tạo; hai bản ghi phân biệt bằng ID, không ghi đè nhau |
-| 4 | Thử tên rỗng, email sai định dạng, chuỗi chứa markup như `<b>Alice</b>` | Không tạo/cập nhật bản ghi; hiển thị lỗi an toàn; dữ liệu cũ không thay đổi |
-| 5 | Tìm theo một phần tên Unicode, phone và email; lọc `active`/`archived` | Chỉ trả đúng bản ghi phù hợp; trạng thái và thứ tự ổn định; không vượt quá 50 dòng mỗi trang |
-| 6 | Mở cùng khách hàng ở hai tab; tab A cập nhật trước, tab B gửi dữ liệu cũ | Tab A thành công; tab B bị từ chối stale update và không ghi đè dữ liệu mới |
-| 7 | Archive khách hàng chưa có active vehicle, sau đó restore | Archive chuyển sang `archived`; restore về `active`; dữ liệu name/phone/email được giữ nguyên |
-| 8 | Khi VEH-001 có luồng liên kết, gắn một active vehicle với khách hàng rồi thử archive | Archive bị từ chối và yêu cầu reassign/archive vehicle trước; customer và vehicle không bị thay đổi |
-| 9 | Chọn nhiều khách hàng và chạy bulk archive/restore, gồm ít nhất một bản ghi không hợp lệ cho thao tác | Mỗi khách hàng được xử lý riêng; thông báo đúng số thành công/thất bại; lỗi một bản ghi không làm báo sai các bản ghi khác |
-| 10 | Đăng nhập technician và thử mở/truy cập trực tiếp trang customer | Technician không thấy phone/email và không thể tạo, sửa, archive hoặc restore customer |
-| 11 | Dùng Tab/Shift+Tab qua form, search, row action, bulk action và pagination | Thứ tự focus hợp lý; focus nhìn thấy rõ; thao tác không cần chuột |
-| 12 | Thu cửa sổ về 320px và dùng tên/chuỗi dài mẫu | Không có cuộn ngang toàn trang, nội dung không bị cắt, action vẫn dùng được |
-| 13 | Chuyển WordPress sang locale RTL thật, ví dụ Arabic | Form, bảng, notice, action và pagination đúng hướng, không chồng lấn hoặc mất nội dung |
-| 14 | Mở Dashboard hoặc admin page không thuộc VeLog | Asset customer/VeLog không được tải ngoài các page hook đã cho phép |
+| T01 | Đăng nhập manager, mở VeLog > Customers | Có form, search/filter, bulk action và bảng; không hiển thị lỗi PHP; nhãn và controls đọc được. |
+| T02 | Tạo khách hàng mẫu, tìm lại bằng tên rồi mở Edit; sửa phone thành `+66 81 234 5679`, bấm Update Customer và tải lại | Có thông báo thành công; tên Unicode/email giữ nguyên; phone mới được lưu đúng sau tải lại. |
+| T03 | Tạo khách hàng thứ hai cùng tên/phone/email | Có hai bản ghi riêng (đối chiếu ID trong link Edit), không ghi đè/gộp tự động. |
+| T04 | Lần lượt gửi tên rỗng, email `invalid-email`, tên `<b>Alice</b>`; thử cả tạo mới và sửa bản ghi mẫu | Dữ liệu không hợp lệ bị từ chối bằng validation/notice an toàn; không có bản ghi mới sai hoặc cập nhật sai. Lỗi đọc được, không có markup thực thi; bản ghi cũ giữ nguyên. |
+| T05 | Tìm lần lượt bằng một phần tên Unicode, phone, email; chọn Active rồi Archived | Kết quả khớp từ khóa và trạng thái; dữ liệu liên hệ hiển thị đúng cho manager. |
+| T06 | Mở cùng link Edit ở hai tab A/B; A đổi tên và lưu; B chưa reload, đổi phone và lưu | B nhận lỗi stale/conflict; dữ liệu A không bị ghi đè. Tải lại để xác nhận. |
+| T07 | Archive một khách hàng không có active vehicle; lọc Archived rồi Restore | Trạng thái đổi đúng; tên/phone/email được giữ nguyên; xuất hiện lại ở Active. |
+| T08 | Với khách hàng có active vehicle, bấm Archive | Bị từ chối với hướng dẫn xử lý liên kết; cả customer và vehicle không bị sửa. Thiếu luồng VEH-001: BLOCKED_BY_VEH-001. |
+| T09 | Chọn hai khách hàng active rồi bulk Archive và Restore. Với lượt lỗi hỗn hợp: chọn hai dòng ở tab A; đổi phiên bản một dòng ở tab B rồi Apply tại A | Lượt hợp lệ cập nhật từng bản ghi. Lượt hỗn hợp báo đúng số thành công/thất bại; dòng stale không bị ghi đè; dòng hợp lệ vẫn được xử lý. |
+| T10 | Tìm `NO_MATCH_UAT_20261008`; sau đó thử dữ liệu lỗi T04 và dữ liệu đúng T02 | Empty state, error notice/validation và success notice đều đọc được, không bị cắt hoặc đè controls; có thể tiếp tục thao tác. |
+| T11 | Với ít nhất 51 kết quả, mở trang 1 → 2 → 1, thử Next/Previous và số trang; lặp lại với bộ lọc/từ khóa vẫn khớp >50 kết quả | Tối đa 50 dòng/trang; không lặp/mất dòng khi dữ liệu không thay đổi; bộ lọc được giữ; trang hiện tại phân biệt rõ, link và focus dùng được. |
+| T12 | Đăng nhập technician; mở trực tiếp `/wp-admin/admin.php?page=velog-customers` và link Edit đã sao chép từ manager | Bị từ chối, không lộ name/phone/email trong UI customer; không thể tạo/sửa/archive/restore qua trang này. |
+| T13 | Chỉ trên site test: manager mở form Edit; trong DevTools Elements đổi giá trị hidden `velog_customer_nonce` thành `invalid`, rồi submit | Request bị từ chối; tải lại bằng phiên hợp lệ để xác nhận bản ghi không đổi. Không gửi hoặc chia sẻ nonce thật trong báo cáo. |
+| T14 | Không dùng chuột: Tab/Shift+Tab qua form tạo, form sửa, Search/filter, bulk select/Apply, từng checkbox, Edit/Archive/Restore và pagination; Enter/Space để kích hoạt controls thích hợp | Tất cả controls tới được theo thứ tự hợp lý, focus nhìn rõ, không mắc kẹt; thao tác tương đương dùng chuột. |
+| T15 | DevTools responsive width 320 CSS px; tạo/tìm bản ghi chuỗi dài; cuộn xuống tận bảng và pagination; thử Edit, Archive/Restore | Toàn trang không tràn ngang. Bảng có thể cuộn ngang bên trong nhưng mọi cột/actions phải tới được; chữ dài không làm mất controls; nút không chồng nhau. Không chỉ quan sát phần form đầu trang. |
+| T16 | Ở 320px, Tab qua các action ngoài vùng bảng đang nhìn thấy, qua pagination; lặp lại empty/error/success T10 | Control được focus phải nhìn thấy và thao tác được; focus không bị cắt, notice và trạng thái rỗng vẫn đọc được. |
+| T17 | Chuyển locale WordPress/người dùng sang Arabic thật, tải lại admin; lặp T10, T11, T14–T16 rồi khôi phục locale | Form/bảng/actions/pagination đúng hướng RTL, không chồng/cắt; keyboard và cuộn bảng vẫn dùng được. Ghi locale thực tế, không chỉ thêm CSS `rtl`. |
+| T18 | (a) DevTools Network: tắt cache, reload Customers, lọc `admin.css`; reload Dashboard. (b) Dùng screen reader duyệt nhãn form, checkbox, lỗi, bảng và pagination | (a) Asset VeLog `.../plugins/velog/assets/css/admin.css` tải trên Customers và không tải trên Dashboard; asset WordPress khác không tính. VeLog Overview/Settings được phép tải. (b) Tên/nhãn/trạng thái/control được đọc có ý nghĩa và có thể điều hướng; ghi rõ lỗi/nhãn thiếu nếu gặp. |
 
-## Ghi kết quả thực tế
+## Ghi kết quả
 
-| Bước | Kết quả thực tế | PASS/FAIL | Bằng chứng/ghi chú |
+- Môi trường/URL: …
+- WordPress / VeLog / trình duyệt: …
+- Ngày test / locale LTR và RTL / screen reader: …
+- Bản đang test: CUST-001-FE Round 2 (CSS SHA-256 `a48ba01f7e1a3539e0b3eb7f3d1e816e873ceb39fd08e6e8ddabd9ece3dd453a`).
+
+| ID | Thực tế quan sát | PASS / FAIL / BLOCKED | Ghi chú (ảnh tùy chọn) |
 |---|---|---|---|
-| 1–14 | Tester điền sau khi thực hiện | | |
+| T01 | Người dùng xác nhận Done. | PASS | Kết quả do Tester cung cấp. |
+| T02 | Nhập dữ liệu, bấm tạo khách hàng nhưng admin không có phản hồi; phần sửa chưa thực hiện. | FAIL lần 1; chờ retest | Backend triage: `../evidence/CUST-001-BE/uat-t02-triage/report.md`. |
+| T03 | Chưa kiểm thử | | |
+| T04 | Chưa kiểm thử | | |
+| T05 | Chưa kiểm thử | | |
+| T06 | Chưa kiểm thử | | |
+| T07 | Chưa kiểm thử | | |
+| T08 | Chưa kiểm thử | | |
+| T09 | Chưa kiểm thử | | |
+| T10 | Chưa kiểm thử | | |
+| T11 | Chưa kiểm thử | | |
+| T12 | Chưa kiểm thử | | |
+| T13 | Chưa kiểm thử | | |
+| T14 | Chưa kiểm thử | | |
+| T15 | Chưa kiểm thử | | |
+| T16 | Chưa kiểm thử | | |
+| T17 | Chưa kiểm thử | | |
+| T18 | Chưa kiểm thử | | |
 
-## Tiêu chí chấp nhận
+## Quyết định của Tester
 
-- Tất cả bước bắt buộc phải PASS. Bước 8 chỉ được đánh `BLOCKED_BY_VEH-001` nếu VEH-001 chưa có UI liên kết; trường hợp đó CUST-001 chưa được dùng để tuyên bố hành trình customer-vehicle hoàn chỉnh.
-- Không có lỗi làm lộ phone/email cho technician hoặc cho phép mutation trái quyền.
-- Backend Architect review code không thay thế kết quả trong task này.
+- PASS: tất cả T01–T18 đã thực hiện và đạt. Tester quyết định chuyển CUST-001-UAT, CUST-001-FE và CUST-001 sang DONE; agent chỉ đồng bộ sau xác nhận đó.
+- FAIL: ghi ID bước, thao tác, thực tế, mong đợi. Backend Architect phân loại BE/FE để sửa; sau review chuyển lại Tester kiểm thử.
+- BLOCKED: ghi rõ dữ liệu, tài khoản, công cụ hoặc phụ thuộc thiếu. Không đánh PASS cho bước chưa chạy. Nếu còn bước BLOCKED thì chưa nghiệm thu toàn bộ; việc giảm phạm vi cần quyết định riêng của Product Owner.
+- Không bắt buộc chụp ảnh. Không cần Frontend Developer test thay. Build/code review không thay thế quyết định manual của Tester.
 
-## Cách trả kết quả
+Có thể trả kết quả trong chat theo mẫu:
 
-- Thành công: `PASS CUST-001-UAT — đã test trên <môi trường>, các bước 1–14 đạt`.
-- Thất bại: `FAIL CUST-001-UAT — bước <số>; thực tế: <kết quả>; mong đợi: <kết quả>` và đính kèm ảnh/video nếu cần.
+`PASS CUST-001-UAT — môi trường: …; T01–T18 đạt; tôi xác nhận chuyển CUST-001, CUST-001-FE, CUST-001-UAT sang DONE.`
+
+`FAIL CUST-001-UAT — T…; thao tác: …; thực tế: …; mong đợi: …; môi trường: ….`
+
+`BLOCKED CUST-001-UAT — T…; thiếu: …; các bước đã chạy/kết quả: ….`
 
 ### Chat handoff prompt
 
 ```text
-Status: BLOCKED
-Recipient: Backend Architect
-Intent: review
+Status: AWAITING_MANUAL_ACCEPTANCE
+Recipient: Tester
+Intent: accept
 
-CUST-001-UAT đã được chuẩn bị bằng tiếng Việt nhưng chưa được phép chạy. Hãy review code CUST-001-FE trước. Nếu frontend đạt, chuyển CUST-001 và CUST-001-UAT sang AWAITING_MANUAL_ACCEPTANCE, đặt Next actor là Tester, rồi gửi nguyên prompt kiểm thử UAT cho Tester. Không đánh dấu CUST-001 DONE nếu chưa có phản hồi `PASS CUST-001-UAT` rõ ràng.
+T02 backend correction is SELF_REVIEWED_BACKEND. Reload Customers and repeat T02: create a Unicode customer, confirm the success notice and saved row, edit the phone, save, and reload to confirm persistence. Then run T04, T06, T07, T09, T10, and T13 for related regressions. T01 remains PASS; the original T02 FAIL remains recorded until your retest. Evidence: ai-document/evidence/CUST-001-BE/backend-round-2/report.md. Report PASS/FAIL with actual results; only Tester may authorize DONE after the remaining UAT cases are accepted.
 ```

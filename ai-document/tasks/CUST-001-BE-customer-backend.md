@@ -2,18 +2,18 @@
 
 ## Current handoff
 - Workstream: Backend
-- Status: DONE
+- Status: AWAITING_MANUAL_ACCEPTANCE
 - Plan revision: 1
-- Implementation round: 1
+- Implementation round: 2
 - Blueprint readiness: PASS
 - Owner: Backend Architect
-- Contributors and review mode: Backend Architect implementation and `SELF_REVIEWED_BACKEND` required.
+- Contributors and review mode: Backend Architect implementation and SELF_REVIEWED_BACKEND for T02 correction; Tester acceptance pending.
 - Related checklist items: CUST-001 / AC1–AC3 and backend portion of AC4.
-- Latest report: `ai-document/evidence/CUST-001-BE/backend-round-1/report.md`.
-- Evidence: `ai-document/evidence/CUST-001-BE/backend-round-1/`.
+- Latest report: Approved T02 fix implemented; targeted static gates, 93 unit tests, MariaDB/MySQL fixtures and HTTP form regression pass. Full lint remains blocked by unrelated VEH-001 work.
+- Evidence: `ai-document/evidence/CUST-001-BE/backend-round-2/report.md`.
 - Temporary resource cleanup: Completed; disposable WordPress runners removed their owned resources.
-- Next actor: None
-- Next actor and exact next action: None; backend is closed as `SELF_REVIEWED_BACKEND`. Continue through the separate CUST-001-FE task.
+- Next actor: Tester
+- Next actor and exact next action: Retest T02 and related UAT cases; preserve T01 PASS and record actual results.
 
 ## Problem and intended behavior
 
@@ -93,12 +93,16 @@ Prohibited scope: Sass/CSS/JavaScript presentation changes, generated frontend a
 - AC4 backend: stable semantic markup, scoped page hooks, fixture setup, and walkthrough contract are ready for presentation verification.
 - Backend Architect records `SELF_REVIEWED_BACKEND`; any failed required gate keeps the task open.
 
+## UAT reopening — T02
+
+Round 1 review is historical; Round 2 records the implemented T02 correction. See `ai-document/evidence/CUST-001-BE/uat-t02-triage/report.md`. Approved additional scope: `src/Common/Storage/WriteCoordinator.php`, `src/Admin/CustomerPage.php`, `tests/Unit/WriteCoordinatorTest.php`, `tests/fixtures/cust-001-verify.php`, `tests/workflow/product-smoke.sh`, and `tests/workflow/cust-001-endpoint.sh`. User approved this correction with "sửa đi". Implementation is complete and self-reviewed; see backend-round-2/report.md. Preserve unrelated vehicle/storage work.
+
 ### Chat handoff prompt
 
 ```text
-Status: DONE
-Recipient: Frontend Developer
-Intent: work
+Status: AWAITING_MANUAL_ACCEPTANCE
+Recipient: Tester
+Intent: accept
 
-CUST-001-BE is DONE as `SELF_REVIEWED_BACKEND`; evidence is in `ai-document/evidence/CUST-001-BE/backend-round-1/report.md`. Implement only CUST-001-FE from `ai-document/tasks/CUST-001-FE-customer-presentation.md`: presentation assets, responsive/RTL/focus states, and browser evidence for the stable customer admin markup. Do not edit PHP, storage, queries, authorization, validation, tests, fixtures, or backend documentation.
+T02 backend correction is SELF_REVIEWED_BACKEND. Reload Customers and repeat T02: create a Unicode customer, confirm the success notice and saved row, edit the phone, save, and reload to confirm persistence. Then run T04, T06, T07, T09, T10, and T13 for related regressions. T01 remains PASS; the original T02 FAIL remains recorded until your retest. Evidence: ai-document/evidence/CUST-001-BE/backend-round-2/report.md. Report PASS/FAIL with actual results; only Tester may authorize DONE after the remaining UAT cases are accepted.
 ```

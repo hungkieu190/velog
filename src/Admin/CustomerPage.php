@@ -158,7 +158,7 @@ final class CustomerPage {
 		$state = isset( $_GET['state'] ) && is_string( $_GET['state'] ) ? sanitize_key( wp_unslash( $_GET['state'] ) ) : '';
 		echo '<form method="get" class="velog-customer-search"><input type="hidden" name="page" value="velog-customers">';
 		echo '<label for="velog-customer-search">' . esc_html__( 'Search customers', 'velog' ) . '</label> ';
-		echo '<input id="velog-customer-search" name="term" maxlength="100" value="' . esc_attr( $term ) . '"> ';
+		echo '<input type="text" id="velog-customer-search" name="term" maxlength="100" value="' . esc_attr( $term ) . '"> ';
 		echo '<select name="state"><option value="">' . esc_html__( 'All states', 'velog' ) . '</option>';
 		foreach ( array( 'active', 'archived' ) as $option ) {
 			echo '<option value="' . esc_attr( $option ) . '"' . selected( $state, $option, false ) . '>' . esc_html( ucfirst( $option ) ) . '</option>';
@@ -274,6 +274,8 @@ final class CustomerPage {
 			'stale_version'       => __( 'The customer changed. Reload and try again.', 'velog' ),
 			'active_vehicle_link' => __( 'Reassign or archive active vehicles first.', 'velog' ),
 			'invalid_input'       => __( 'Customer data is invalid.', 'velog' ),
+			'forbidden'           => __( 'You do not have permission to save this customer.', 'velog' ),
+			'storage_unavailable' => __( 'Customer could not be saved because storage is unavailable. Contact your administrator.', 'velog' ),
 		);
 		if ( isset( $map[ $code ] ) ) {
 			echo '<div class="notice notice-' . ( 'saved' === $code ? 'success' : 'error' ) . '"><p>' . esc_html( $map[ $code ] ) . '</p></div>';

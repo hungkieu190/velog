@@ -1,17 +1,17 @@
 # VEH-001: Vehicle identity and current customer
 
 ## Current handoff
-- Status: DRAFT
+- Status: IN_PROGRESS
 - Plan revision: 1
 - Architect session reference: Codex planning conversation of 2026-09-21.
 - Builder session reference: Unassigned.
 - Implementation contributors and reviewer independence check: No implementation by this session.
 - Related checklist items: VEH-001 / AC1–AC4 in [implementation-checklist.md](../implementation-checklist.md).
 - Baseline branch and commit: `main` at `2aa3b8d`.
-- User approval reference and approved scope: PLAN-001 revision 3 approves MVP direction; 2026-09-21 user authorizes batch planning only.
+- User approval reference and approved scope: PLAN-001 revision 3 approves MVP direction; 2026-10-08 Product Owner approved G-04, G-05, and backend-first sequencing.
 - Latest round: Architect draft blueprint — Round 1.
 - Next actor: Architect
-- Next actor and exact next action: Resolve readiness gates; require CUST-001 DONE; reinspect accepted files/interfaces and record Blueprint readiness PASS before considering READY.
+- Next actor and exact next action: Complete VEH-001-BE; frontend/UAT remain deferred until the backend sequence is stable.
 
 ## Problem and intended behavior
 
@@ -32,7 +32,7 @@ No vehicle registration/current-owner workflow exists. Identity must work intern
 ## Implementation blueprint
 
 - Revision: 1; AC1–AC4.
-- Blueprint readiness: INCOMPLETE (draft pending CUST-001 DONE and gates G-03/G-04/G-05).
+- Blueprint readiness: PASS for VEH-001-BE planning (CUST-001-BE, G-04, and G-05 are accepted under PLAN-003; frontend/UAT remain deferred).
 - Payload: `plate`/jurisdiction and normalized key, `vin` and normalized key, `make`/`model`, optional `year` (1886 to current+1), `color`, `current_customer_id`, `preferred_odometer_unit`, optional baseline reading, state (`active`/`archived`), and audit/version.
 - Normalization applies identically to lookup and write. Uniqueness covers archived and active records. Duplicate edit-self allowed.
 - Baseline date required if reading supplied (cannot be future date). Unknown baseline remains null. Baseline updates after finalized services route through correction policy.
@@ -61,5 +61,13 @@ No vehicle registration/current-owner workflow exists. Identity must work intern
 ### Chat handoff prompt
 
 ```text
-Continue as Architect for VEH-001, DRAFT revision 1. Read AGENTS.md, ai-document/tasks/PLAN-002-mvp-task-batch.md (Shared blueprint contract revision 1), ai-document/tasks/VEH-001-vehicle-records.md (Implementation blueprint revision 1), ai-document/implementation-checklist.md and the accepted dependency task files. Scope is vehicle identity and current customer, AC1–AC4. Require CUST-001 DONE (and its foundation dependencies) and resolve Remaining readiness gates before a bounded READY assignment. The user requested batch planning and Builder execution later. Baseline source inspection and planning documentation checks are the only evidence; all new runtime, integration and manual checks are NOT VERIFIED. Reinspect concrete callers/interfaces, complete the verification setup and record Blueprint readiness PASS only when genuinely complete and approved. Do not implement, dispatch Builder, mark DONE, commit, deploy or use the active database.
+Status: DRAFT
+Recipient: Backend Architect
+Intent: work
+
+Status: READY
+Recipient: Backend Architect
+Intent: work
+
+Create and implement a bounded VEH-001-BE task. CUST-001-BE, G-04, and G-05 are accepted under PLAN-003; frontend and UAT workstreams remain deferred. Reinspect the accepted customer relation contract, preserve all capability/nonce/version/audit boundaries, and record truthful verification before any handoff. Do not commit, deploy, release, or use the active database.
 ```

@@ -2,19 +2,19 @@
 
 ## Current handoff
 - Workstream: Backend planning
-- Status: IN_PROGRESS
+- Status: AWAITING_MANUAL_ACCEPTANCE
 - Plan revision: 3
 - Blueprint readiness: PASS — G-02 and G-03 are approved; executable workstreams are defined.
 - Owner: Backend Architect
 - Architect session reference (planner): Codex planning conversation of 2026-09-21; descriptive reference recorded in PLAN-002, not an asserted machine session ID.
 - Builder session reference (implementer): Unassigned.
-- Implementation contributors and reviewer independence check: No implementation by this session; future Builder must identify all contributors before review.
+- Implementation contributors and reviewer independence check: Backend Architect owns BE/self-review; Frontend Developer owns FE; Backend Architect approved FE code; Tester owns manual acceptance.
 - Related checklist items: CUST-001 / AC1–AC4.
 - Baseline branch and commit; pre-existing relevant changes: main at 2aa3b8d, clean before PLAN-002 documentation work; all new classes below are proposed, not inspected existing implementations.
 - User approval reference and approved scope: PLAN-001 revision 3 approves MVP direction; 2026-09-21 user authorizes batch planning only. Detailed pending proposals are not approved implementation.
-- Latest round: Backend Architect executable blueprint — Round 3, 2026-10-06.
-- Next actor: Frontend Developer
-- Next actor and exact next action: Implement CUST-001-FE against the stable backend view contract and return browser/build evidence for Backend Architect review.
+- Latest round: T02 correction SELF_REVIEWED_BACKEND; automated guards and HTTP create pass; manual retest pending.
+- Next actor: Tester
+- Next actor and exact next action: Retest T02 and related cases from CUST-001-UAT; decide manual acceptance only after remaining cases.
 
 ## Problem and intended behavior
 Managers cannot yet create or find customers; technician access to vehicle history must not imply unrestricted access to customer contact information.
@@ -53,7 +53,7 @@ Manager reads/changes contacts; technician vehicle/service association views rec
 ### Workstream split after G-03 approval
 
 - `CUST-001-BE` — Backend Architect: customer schema/validation, service and query contracts, current-customer relation guard, PHP admin handlers and markup, capabilities/nonces, persistence/concurrency, unit and WordPress fixtures, and backend documentation.
-- `CUST-001-FE` — Frontend Developer: assigned Sass/CSS and generated assets only, plus responsive, RTL, focus, keyboard presentation and browser evidence. It starts only after the backend view contract is stable.
+- `CUST-001-FE` — Frontend Developer: assigned Sass/CSS and generated assets only, plus responsive, RTL, focus, keyboard presentation and build results. It starts only after the backend view contract is stable.
 - `CUST-001-UAT` — Tester / Product Owner: mandatory Vietnamese manual test of the real customer journey after BE and FE code review pass.
 - The Backend Architect self-reviews `CUST-001-BE` as `SELF_REVIEWED_BACKEND` and reviews `CUST-001-FE` code. Frontend Developer must not edit PHP, storage, queries, validation, authorization, tests, or fixtures. Backend Architect cannot mark CUST-001 DONE; only explicit `PASS CUST-001-UAT` provides functional acceptance.
 
@@ -103,14 +103,14 @@ External fixture resource ownership, bounded readiness/cleanup and error propaga
 ## Evidence and Builder completion contract
 - Evidence directory: `ai-document/evidence/CUST-001/round-1/`; commands.log for commands/exits/versions, verification.md mapping S/AC/V IDs to changed files and actual evidence; named manual walkthrough where applicable. Append later rounds without replacing old results.
 - Complete the PLAN-002 pre-handoff checklist: identity/contributors, exact changes, test totals/negative controls, deviations, NOT VERIFIED checks, cleanup and matching task/checklist state. No self-acceptance.
-- Implementation report: not started. Architect review: not performed. All runtime/integration/performance/manual acceptance results for this task are NOT VERIFIED.
+- Implementation: CUST-001-BE is SELF_REVIEWED_BACKEND; CUST-001-FE Round 2 code review is APPROVED. Manual acceptance is pending in CUST-001-UAT; no browser PASS is inferred.
 
 ### Chat handoff prompt
 
 ```text
-Status: IN_PROGRESS
-Recipient: Frontend Developer
-Intent: work
+Status: AWAITING_MANUAL_ACCEPTANCE
+Recipient: Tester
+Intent: accept
 
-CUST-001-BE is DONE as `SELF_REVIEWED_BACKEND`; evidence is in `ai-document/evidence/CUST-001-BE/backend-round-1/report.md`. Implement CUST-001-FE from `ai-document/tasks/CUST-001-FE-customer-presentation.md` against the stable selectors and `velog_page_velog-customers` hook. Restrict changes to approved presentation source/generated assets and frontend evidence, then return READY_FOR_REVIEW to Backend Architect for code review. After approval, Backend Architect will activate the Vietnamese CUST-001-UAT task for Tester. Do not mark CUST-001 DONE without explicit UAT PASS.
+T02 backend correction is SELF_REVIEWED_BACKEND. Reload Customers and repeat T02: create a Unicode customer, confirm the success notice and saved row, edit the phone, save, and reload to confirm persistence. Then run T04, T06, T07, T09, T10, and T13 for related regressions. T01 remains PASS; the original T02 FAIL remains recorded until your retest. Evidence: ai-document/evidence/CUST-001-BE/backend-round-2/report.md. Report PASS/FAIL with actual results; only Tester may authorize DONE after the remaining UAT cases are accepted.
 ```
