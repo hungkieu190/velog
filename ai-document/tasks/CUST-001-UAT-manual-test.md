@@ -2,17 +2,17 @@
 
 ## Current handoff
 - Workstream: Tester
-- Status: AWAITING_MANUAL_ACCEPTANCE
+- Status: BLOCKED
 - Plan revision: 2
 - Test round: 2 (T02 chờ test lại)
-- Blueprint readiness: PASS
+- Blueprint readiness: INCOMPLETE — this UAT targets the private-CPT model superseded by G-09.
 - Owner: Tester / Product Owner
 - Task cha: CUST-001
 - Điều kiện bắt đầu: BE đã SELF_REVIEWED_BACKEND; FE Round 2 đã được review code APPROVED.
-- Latest report: T01 PASS; T02 lần đầu FAIL. Backend đã sửa và kiểm tra tự động đạt trên MySQL/MariaDB; chờ Tester test lại T02.
+- Latest report: T01 PASS; T02 lần đầu FAIL. Evidence is retained, but no retest is valid for acceptance after G-09 superseded the model.
 - Evidence: Kết quả do Tester ghi vào bảng dưới hoặc trả trong chat; ảnh/video tùy chọn.
-- Next actor: Tester
-- Next actor and exact next action: Reload Customers và test lại T02; sau đó T04/T06/T07/T09/T10/T13 và các bước chưa chạy.
+- Next actor: Backend Architect
+- Next actor and exact next action: Create CUST-002 UAT only after the native WordPress user contract and implementation are approved.
 
 ## Chuẩn bị
 
@@ -102,9 +102,9 @@ Có thể trả kết quả trong chat theo mẫu:
 ### Chat handoff prompt
 
 ```text
-Status: AWAITING_MANUAL_ACCEPTANCE
-Recipient: Tester
-Intent: accept
+Status: BLOCKED
+Recipient: Backend Architect
+Intent: work
 
-T02 backend correction is SELF_REVIEWED_BACKEND. Reload Customers and repeat T02: create a Unicode customer, confirm the success notice and saved row, edit the phone, save, and reload to confirm persistence. Then run T04, T06, T07, T09, T10, and T13 for related regressions. T01 remains PASS; the original T02 FAIL remains recorded until your retest. Evidence: ai-document/evidence/CUST-001-BE/backend-round-2/report.md. Report PASS/FAIL with actual results; only Tester may authorize DONE after the remaining UAT cases are accepted.
+G-09 supersedes the private-CPT customer journey. Preserve T01/T02 results as historical evidence; do not execute further CUST-001 UAT. Define CUST-002's native WordPress user UAT only after its backend contract and implementation are ready.
 ```

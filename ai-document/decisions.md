@@ -117,3 +117,16 @@ This decision supersedes conflicting frontend verification requirements in earli
 - Tester records actual results as PASS, FAIL, or BLOCKED and alone decides the transition to DONE. Agents may synchronize DONE only after the user's explicit acceptance; they never infer it from build success or elapsed time. Partial/blocked results are not full acceptance. Backend workstream DONE remains a technical `SELF_REVIEWED_BACKEND` checkpoint, not acceptance of the feature.
 - On FAIL, Backend Architect triages the reported case and assigns correction to the appropriate BE/FE owner. After code review, Tester reruns affected cases and relevant regressions before deciding DONE.
 - Test data/environment preparation must be explicit. If a prerequisite is unavailable, record BLOCKED and return preparation to Backend Architect; do not silently skip it or require Frontend Developer to create backend fixtures.
+
+## G-09 — Native WordPress customer identity (2026-10-09)
+
+APPROVED. Each VeLog customer is a native `WP_User`; VeLog must use WordPress user APIs as the sole source of truth and must not keep a mirrored customer record or introduce bidirectional synchronization.
+
+- `user_login` and `user_email` are required and unique. A duplicate email or login is rejected; records are never silently merged or rewritten.
+- Customer display identity uses the approved WordPress user fields. VeLog-only operational state, versioning, audit metadata and customer-domain attributes use namespaced user meta or an approved VeLog audit store; VeLog does not repurpose WordPress core fields for unrelated domain state.
+- Every customer receives the dedicated `mf_velog_customer` role. Customer account state is explicit (`pending`, `invited`, `active`, `archived`); VeLog must deny authentication for every non-active state, not merely hide administration UI.
+- Customer invitation/activation uses WordPress's password-reset mechanism after manager verification. Passwords are never exposed or stored in VeLog metadata.
+- Vehicle and later domain records reference the native WordPress user ID. The prior `mf_velog_customer` CPT contract, including its storage projections and UAT assumptions, is superseded.
+- Existing private-customer records require an idempotent migration with preflight/reporting and explicit remediation for duplicate or missing email/login data. Migration must not silently alter identity data or merge records.
+
+This decision supersedes PLAN-001 P-003 and CUST-001 assumptions that customers are private non-user records or that email may be duplicated. It authorizes a replacement CUST-002 blueprint only; no source implementation, migration execution, commit, deployment, release, or active-site database access is authorized by recording this decision.

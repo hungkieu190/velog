@@ -1,17 +1,17 @@
 # VEH-001: Vehicle identity and current customer
 
 ## Current handoff
-- Status: IN_PROGRESS
+- Status: BLOCKED
 - Plan revision: 1
 - Architect session reference: Codex planning conversation of 2026-09-21.
 - Builder session reference: Unassigned.
 - Implementation contributors and reviewer independence check: No implementation by this session.
 - Related checklist items: VEH-001 / AC1–AC4 in [implementation-checklist.md](../implementation-checklist.md).
 - Baseline branch and commit: `main` at `2aa3b8d`.
-- User approval reference and approved scope: PLAN-001 revision 3 approves MVP direction; 2026-10-08 Product Owner approved G-04, G-05, and backend-first sequencing.
-- Latest round: Architect draft blueprint — Round 1.
-- Next actor: Architect
-- Next actor and exact next action: Complete VEH-001-BE; frontend/UAT remain deferred until the backend sequence is stable.
+- User approval reference and approved scope: PLAN-001 revision 3 approves MVP direction; G-04 and G-05 are approved. G-09 now replaces the customer ownership contract with native WordPress user IDs.
+- Latest round: Architect draft blueprint — Round 1; blocked pending CUST-002.
+- Next actor: Backend Architect
+- Next actor and exact next action: Wait for a decision-complete CUST-002 native WordPress customer-ID contract, then rebase VEH-001-BE.
 
 ## Problem and intended behavior
 
@@ -32,7 +32,7 @@ No vehicle registration/current-owner workflow exists. Identity must work intern
 ## Implementation blueprint
 
 - Revision: 1; AC1–AC4.
-- Blueprint readiness: PASS for VEH-001-BE planning (CUST-001-BE, G-04, and G-05 are accepted under PLAN-003; frontend/UAT remain deferred).
+- Blueprint readiness: INCOMPLETE — G-09 supersedes the CUST-001 private-CPT ownership contract. CUST-002 must define native WordPress user-ID semantics and migration before VEH-001-BE can proceed.
 - Payload: `plate`/jurisdiction and normalized key, `vin` and normalized key, `make`/`model`, optional `year` (1886 to current+1), `color`, `current_customer_id`, `preferred_odometer_unit`, optional baseline reading, state (`active`/`archived`), and audit/version.
 - Normalization applies identically to lookup and write. Uniqueness covers archived and active records. Duplicate edit-self allowed.
 - Baseline date required if reading supplied (cannot be future date). Unknown baseline remains null. Baseline updates after finalized services route through correction policy.
@@ -61,13 +61,9 @@ No vehicle registration/current-owner workflow exists. Identity must work intern
 ### Chat handoff prompt
 
 ```text
-Status: DRAFT
+Status: BLOCKED
 Recipient: Backend Architect
 Intent: work
 
-Status: READY
-Recipient: Backend Architect
-Intent: work
-
-Create and implement a bounded VEH-001-BE task. CUST-001-BE, G-04, and G-05 are accepted under PLAN-003; frontend and UAT workstreams remain deferred. Reinspect the accepted customer relation contract, preserve all capability/nonce/version/audit boundaries, and record truthful verification before any handoff. Do not commit, deploy, release, or use the active database.
+G-09 supersedes the customer CPT relation contract. Do not implement VEH-001-BE yet. Wait for the approved CUST-002 native WordPress user-ID contract and migration semantics, then rebase vehicle ownership validation, archive guards, fixtures, and UAT on that contract. No commit, deploy, release, or active-site database access.
 ```

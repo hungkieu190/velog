@@ -2,18 +2,18 @@
 
 ## Current handoff
 - Workstream: Frontend
-- Status: AWAITING_MANUAL_ACCEPTANCE
+- Status: BLOCKED
 - Plan revision: 2
 - Implementation round: 2
-- Blueprint readiness: PASS — Backend HTML contract now declares the search input as `type="text"`.
+- Blueprint readiness: INCOMPLETE — G-09 supersedes the private-CPT customer presentation contract.
 - Owner: Frontend Developer
-- Contributors and review mode: Frontend Developer implementation; Backend Architect code review APPROVED; Tester manual acceptance pending.
+- Contributors and review mode: Frontend Developer implementation; Backend Architect code review APPROVED for historical private-CPT presentation; further acceptance superseded by G-09.
 - Related checklist items: CUST-001 / AC4.
-- Latest report: Round 2 presentation code approval remains valid; T02 backend correction is ready for Tester retest. No frontend files changed by this correction.
+- Latest report: Round 2 presentation code approval remains historical evidence. No further private-CPT UAT is valid after G-09.
 - Evidence: `ai-document/evidence/CUST-001-FE/frontend-round-2/architect-review.md`.
 - Temporary resource cleanup: Completed.
-- Next actor: Tester
-- Next actor and exact next action: Retest T02 after backend correction, then complete remaining CUST-001-UAT cases.
+- Next actor: Backend Architect
+- Next actor and exact next action: Define CUST-002's native WordPress user view contract before assigning any replacement presentation work.
 
 ## Problem and intended behavior
 
@@ -57,9 +57,9 @@ Frontend Developer must not edit PHP, WordPress hooks, capabilities, nonces, val
 ### Chat handoff prompt
 
 ```text
-Status: AWAITING_MANUAL_ACCEPTANCE
-Recipient: Tester
-Intent: accept
+Status: BLOCKED
+Recipient: Backend Architect
+Intent: work
 
-T02 backend correction is SELF_REVIEWED_BACKEND. Reload Customers and repeat T02: create a Unicode customer, confirm the success notice and saved row, edit the phone, save, and reload to confirm persistence. Then run T04, T06, T07, T09, T10, and T13 for related regressions. T01 remains PASS; the original T02 FAIL remains recorded until your retest. Evidence: ai-document/evidence/CUST-001-BE/backend-round-2/report.md. Report PASS/FAIL with actual results; only Tester may authorize DONE after the remaining UAT cases are accepted.
+G-09 supersedes the private-CPT customer presentation contract. Preserve reviewed CUST-001-FE evidence, but do not continue its UAT. Define CUST-002's native WordPress user contract before any replacement frontend assignment.
 ```

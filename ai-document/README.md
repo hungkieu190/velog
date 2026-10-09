@@ -3,11 +3,11 @@
 Authoritative technical and workflow documentation for VeLog.
 
 ## Current focus
-- Task: [CUST-001-UAT](tasks/CUST-001-UAT-manual-test.md)
-- Workstream: Tester
-- Status: AWAITING_MANUAL_ACCEPTANCE
-- Next actor: Tester
-- Exact next action: Retest T02 and related UAT cases after the backend correction; retain T01 PASS.
+- Task: [CUST-002](tasks/CUST-002-native-wordpress-customers.md)
+- Workstream: Backend planning
+- Status: DRAFT
+- Next actor: Backend Architect
+- Exact next action: Produce the G-09 native WordPress customer blueprint and migration contract before source changes or VEH-001 continuation.
 - Delivery split: [PLAN-003](tasks/PLAN-003-backend-frontend-delivery.md).
 - Lean workflow: [WF-005](tasks/WF-005-lean-architect-workflow.md) (DONE after independent review).
 - Closed workflow removal: [WF-004](tasks/WF-004-json-handoff-controller.md) (DONE by direct user acceptance).

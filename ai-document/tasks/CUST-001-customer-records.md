@@ -1,10 +1,10 @@
 # CUST-001: Private customer management
 
 ## Current handoff
-- Workstream: Backend planning
-- Status: AWAITING_MANUAL_ACCEPTANCE
+- Workstream: Superseded customer model
+- Status: BLOCKED
 - Plan revision: 3
-- Blueprint readiness: PASS — G-02 and G-03 are approved; executable workstreams are defined.
+- Blueprint readiness: INCOMPLETE — superseded by approved G-09 native WordPress customer identity.
 - Owner: Backend Architect
 - Architect session reference (planner): Codex planning conversation of 2026-09-21; descriptive reference recorded in PLAN-002, not an asserted machine session ID.
 - Builder session reference (implementer): Unassigned.
@@ -12,9 +12,9 @@
 - Related checklist items: CUST-001 / AC1–AC4.
 - Baseline branch and commit; pre-existing relevant changes: main at 2aa3b8d, clean before PLAN-002 documentation work; all new classes below are proposed, not inspected existing implementations.
 - User approval reference and approved scope: PLAN-001 revision 3 approves MVP direction; 2026-09-21 user authorizes batch planning only. Detailed pending proposals are not approved implementation.
-- Latest round: T02 correction SELF_REVIEWED_BACKEND; automated guards and HTTP create pass; manual retest pending.
-- Next actor: Tester
-- Next actor and exact next action: Retest T02 and related cases from CUST-001-UAT; decide manual acceptance only after remaining cases.
+- Latest round: T02 correction remains historical evidence; its private-CPT model cannot receive further UAT acceptance after G-09.
+- Next actor: Backend Architect
+- Next actor and exact next action: Complete CUST-002 blueprint before replacing this superseded model; do not continue CUST-001 UAT.
 
 ## Problem and intended behavior
 Managers cannot yet create or find customers; technician access to vehicle history must not imply unrestricted access to customer contact information.
@@ -108,9 +108,9 @@ External fixture resource ownership, bounded readiness/cleanup and error propaga
 ### Chat handoff prompt
 
 ```text
-Status: AWAITING_MANUAL_ACCEPTANCE
-Recipient: Tester
-Intent: accept
+Status: BLOCKED
+Recipient: Backend Architect
+Intent: work
 
-T02 backend correction is SELF_REVIEWED_BACKEND. Reload Customers and repeat T02: create a Unicode customer, confirm the success notice and saved row, edit the phone, save, and reload to confirm persistence. Then run T04, T06, T07, T09, T10, and T13 for related regressions. T01 remains PASS; the original T02 FAIL remains recorded until your retest. Evidence: ai-document/evidence/CUST-001-BE/backend-round-2/report.md. Report PASS/FAIL with actual results; only Tester may authorize DONE after the remaining UAT cases are accepted.
+G-09 supersedes the private `mf_velog_customer` CPT contract. Preserve CUST-001 evidence, but do not continue its UAT or accept it. Create the CUST-002 native WordPress customer blueprint and migration contract before any replacement implementation or VEH-001 work.
 ```

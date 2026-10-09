@@ -2,18 +2,18 @@
 
 ## Current handoff
 - Workstream: Backend
-- Status: AWAITING_MANUAL_ACCEPTANCE
+- Status: BLOCKED
 - Plan revision: 1
 - Implementation round: 2
-- Blueprint readiness: PASS
+- Blueprint readiness: INCOMPLETE — G-09 supersedes this private-CPT contract.
 - Owner: Backend Architect
-- Contributors and review mode: Backend Architect implementation and SELF_REVIEWED_BACKEND for T02 correction; Tester acceptance pending.
+- Contributors and review mode: Backend Architect implementation and SELF_REVIEWED_BACKEND for historical T02 correction; further acceptance superseded by G-09.
 - Related checklist items: CUST-001 / AC1–AC3 and backend portion of AC4.
 - Latest report: Approved T02 fix implemented; targeted static gates, 93 unit tests, MariaDB/MySQL fixtures and HTTP form regression pass. Full lint remains blocked by unrelated VEH-001 work.
 - Evidence: `ai-document/evidence/CUST-001-BE/backend-round-2/report.md`.
 - Temporary resource cleanup: Completed; disposable WordPress runners removed their owned resources.
-- Next actor: Tester
-- Next actor and exact next action: Retest T02 and related UAT cases; preserve T01 PASS and record actual results.
+- Next actor: Backend Architect
+- Next actor and exact next action: Define CUST-002 native WordPress user replacement and migration contract; do not continue this UAT.
 
 ## Problem and intended behavior
 
@@ -100,9 +100,9 @@ Round 1 review is historical; Round 2 records the implemented T02 correction. Se
 ### Chat handoff prompt
 
 ```text
-Status: AWAITING_MANUAL_ACCEPTANCE
-Recipient: Tester
-Intent: accept
+Status: BLOCKED
+Recipient: Backend Architect
+Intent: work
 
-T02 backend correction is SELF_REVIEWED_BACKEND. Reload Customers and repeat T02: create a Unicode customer, confirm the success notice and saved row, edit the phone, save, and reload to confirm persistence. Then run T04, T06, T07, T09, T10, and T13 for related regressions. T01 remains PASS; the original T02 FAIL remains recorded until your retest. Evidence: ai-document/evidence/CUST-001-BE/backend-round-2/report.md. Report PASS/FAIL with actual results; only Tester may authorize DONE after the remaining UAT cases are accepted.
+G-09 supersedes the private customer CPT backend contract. Preserve this task and its evidence as history. Produce and approve CUST-002 before any source replacement, migration, VEH-001 ownership work, or customer UAT.
 ```
