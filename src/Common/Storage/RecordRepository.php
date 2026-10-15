@@ -255,8 +255,90 @@ final class RecordRepository {
 			);
 		}
 
-		$ids   = array_map( 'intval', wp_list_pluck( $page_rows, 'ID' ) );
+		$items = self::hydrate_page( $type, $page_rows, $actor );
+		if ( is_wp_error( $items ) ) {
+			return $items;
+		}
+
+		return array(
+			'items' => $items,
+			'total' => $total,
+			'page'  => $page,
+		);
+	}
+
+
+	/**
+	 * Retrieve at most one page of private snapshots in the caller's ID order.
+	 *
+	 * @param string   $type  Registered record type.
+	 * @param int[]    $ids   Unique positive IDs, at most 50.
+	 * @param \WP_User $actor Authenticated actor.
+	 * @return list<array<string, mixed>>|\WP_Error
+	 */
+	public static function get_many( string $type, array $ids, \WP_User $actor ): array|\WP_Error {
+		$check = self::require_sealed_and_registered( $type );
+		if ( is_wp_error( $check ) ) {
+			return $check;
+		}
+		$definition = RecordSchema::get( $type );
+		if ( ! $actor->has_cap( $definition['read_capability'] ?? 'mf_velog_read_records' ) ) {
+			return new \WP_Error( 'forbidden', 'Record read permission is required.' );
+		}
+		if ( count( $ids ) > 50 ) {
+			return new \WP_Error( 'invalid_input', 'A unique bounded ID list is required.' );
+		}
+		foreach ( $ids as $id ) {
+			if ( ! is_int( $id ) || $id < 1 ) {
+				return new \WP_Error( 'invalid_input', 'Record IDs must be positive integers.' );
+			}
+		}
+		if ( count( array_unique( $ids ) ) !== count( $ids ) ) {
+			return new \WP_Error( 'invalid_input', 'Duplicate record IDs are not permitted.' );
+		}
+		if ( array() === $ids ) {
+			return array();
+		}
+		global $wpdb;
 		$id_in = implode( ',', $ids );
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
+		$rows = $wpdb->get_results(
+			$wpdb->prepare(
+				// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- IDs are validated integers, bounded above.
+				"SELECT ID, post_author, post_date_gmt, post_modified_gmt FROM {$wpdb->posts}
+				 WHERE ID IN ({$id_in}) AND post_type = %s AND post_status = %s",
+				$type,
+				self::POST_STATUS
+			),
+			ARRAY_A
+		);
+		if ( ! empty( $wpdb->last_error ) || ! is_array( $rows ) || count( $rows ) !== count( $ids ) ) {
+			return new \WP_Error( 'storage_unavailable', 'Record page changed or could not be read.' );
+		}
+		$by_id = array();
+		foreach ( $rows as $row ) {
+			$by_id[ (int) $row['ID'] ] = $row;
+		}
+		$ordered = array();
+		foreach ( $ids as $id ) {
+			$ordered[] = $by_id[ $id ];
+		}
+		return self::hydrate_page( $type, $ordered, $actor );
+	}
+
+	/**
+	 * Decode a bounded page using the same integrity and authorization checks.
+	 *
+	 * @param string                     $type      Registered record type.
+	 * @param list<array<string, mixed>> $page_rows Private post rows, at most 50.
+	 * @param \WP_User                   $actor     Authenticated actor.
+	 * @return list<array<string, mixed>>|\WP_Error
+	 */
+	private static function hydrate_page( string $type, array $page_rows, \WP_User $actor ): array|\WP_Error {
+		global $wpdb;
+		$definition = RecordSchema::get( $type );
+		$ids        = array_map( 'intval', wp_list_pluck( $page_rows, 'ID' ) );
+		$id_in      = implode( ',', $ids );
 
 		// D1-F-020: Preflight duplicate check — treat SQL failure as storage_unavailable,
 		// not as "no duplicates". get_results() returns empty array on error; check last_error.
@@ -327,7 +409,10 @@ final class RecordRepository {
 			}
 
 			$envelope = self::safe_unserialize( $pm_by_id[ $pid ][ RecordSchema::META_KEY ][0] );
-			if ( ! is_array( $envelope ) ) {
+			if (
+				! is_array( $envelope )
+				|| self::ENVELOPE_SCHEMA_VERSION !== ( $envelope['schema_version'] ?? null )
+			) {
 				return new \WP_Error( 'storage_unavailable', 'Corrupted envelope payload on query page.' );
 			}
 
@@ -364,11 +449,7 @@ final class RecordRepository {
 			$items[] = self::build_snapshot( $pid, $prow, $envelope, $actor, $type );
 		}
 
-		return array(
-			'items' => $items,
-			'total' => $total,
-			'page'  => $page,
-		);
+		return $items;
 	}
 
 	/**
@@ -694,7 +775,7 @@ final class RecordRepository {
 		$now           = gmdate( 'Y-m-d\TH:i:s\Z' );
 
 		// Merge changes into existing fields.
-		$new_fields = array_merge( $before_fields, $canonical_changes );
+		$new_fields   = array_merge( $before_fields, $canonical_changes );
 		$record_check = RecordSchema::validate_record( $type, $new_fields );
 		if ( is_wp_error( $record_check ) ) {
 			return $record_check;
@@ -1048,12 +1129,9 @@ final class RecordRepository {
 				continue;
 			}
 
-			// Every unique projection must be derived and scalar. Missing values fail closed.
+			// derive_projections() returns strings; missing unique values fail closed.
 			foreach ( $field_names as $fn ) {
-				if (
-					! array_key_exists( $fn, $projections )
-					|| ! is_scalar( $projections[ $fn ] )
-				) {
+				if ( ! array_key_exists( $fn, $projections ) ) {
 					return new \WP_Error(
 						'invalid_input',
 						sprintf( 'Unique projection "%s" missing or non-scalar in input for type "%s".', $fn, $type )
@@ -1796,7 +1874,7 @@ final class RecordRepository {
 						if ( (int) $entry['actor_id'] !== (int) $actor->ID ) {
 							return new \WP_Error( 'storage_unavailable', 'Create audit entry actor mismatch.' );
 						}
-						$previous_after = $entry['after'];
+						$previous_after = self::audit_state_snapshot( $entry['after'], $type );
 					} else {
 						if ( 'save' !== $entry['op'] ) {
 							return new \WP_Error( 'storage_unavailable', 'Subsequent audit entries must be save.' );
@@ -1812,7 +1890,7 @@ final class RecordRepository {
 								'Malformed save audit entry: missing before/after.'
 							);
 						}
-						$current_before = $entry['before'];
+						$current_before = self::audit_state_snapshot( $entry['before'], $type );
 						ksort( $current_before );
 						ksort( $previous_after );
 						// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.serialize_serialize
@@ -1822,7 +1900,7 @@ final class RecordRepository {
 								'Audit chain gap: before does not match previous after.'
 							);
 						}
-						$previous_after = $entry['after'];
+						$previous_after = self::audit_state_snapshot( $entry['after'], $type );
 					}
 				}
 
@@ -1835,7 +1913,10 @@ final class RecordRepository {
 					return new \WP_Error( 'storage_unavailable', 'Create audit entry fields mismatch.' );
 				}
 
-				$final_fields = $envelope['fields'] ?? array();
+				$final_fields = array_merge(
+					$envelope['fields'] ?? array(),
+					array( '__state' => $envelope['state'] ?? null )
+				);
 				ksort( $final_fields );
 				ksort( $previous_after );
 				// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.serialize_serialize
@@ -1995,7 +2076,7 @@ final class RecordRepository {
 								'Candidate record missing valid create audit entry.'
 							);
 						}
-						$previous_after = $entry['after'];
+						$previous_after = self::audit_state_snapshot( $entry['after'], $type );
 					} else {
 						if ( 'save' !== $entry['op'] ) {
 							return new \WP_Error( 'indeterminate', 'Subsequent audit entries must be save.' );
@@ -2011,7 +2092,7 @@ final class RecordRepository {
 								'Malformed save audit entry: missing before/after.'
 							);
 						}
-						$current_before = $entry['before'];
+						$current_before = self::audit_state_snapshot( $entry['before'], $type );
 						ksort( $current_before );
 						ksort( $previous_after );
 						// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.serialize_serialize
@@ -2021,7 +2102,7 @@ final class RecordRepository {
 								'Audit chain gap: before does not match previous after.'
 							);
 						}
-						$previous_after = $entry['after'];
+						$previous_after = self::audit_state_snapshot( $entry['after'], $type );
 					}
 
 					if (
@@ -2039,7 +2120,10 @@ final class RecordRepository {
 					return new \WP_Error( 'indeterminate', 'Duplicate request identity found in audit history.' );
 				}
 
-				$final_fields = $envelope['fields'] ?? array();
+				$final_fields = array_merge(
+					$envelope['fields'] ?? array(),
+					array( '__state' => $envelope['state'] ?? null )
+				);
 				ksort( $final_fields );
 				ksort( $previous_after );
 				// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.serialize_serialize
@@ -2098,6 +2182,25 @@ final class RecordRepository {
 				return new \WP_Error( 'indeterminate', 'Audit version inconsistency detected.' );
 			}
 		);
+	}
+
+
+	/**
+	 * Read historical field-only audit snapshots using their initial state.
+	 *
+	 * Before state transitions existed, legacy snapshots contained only fields.
+	 * Missing state can therefore represent only the schema's initial state.
+	 * Explicit states are preserved; persisted history is never rewritten.
+	 *
+	 * @param array<string, mixed> $snapshot Recorded before/after fields.
+	 * @param string               $type     Registered record type.
+	 * @return array<string, mixed>
+	 */
+	private static function audit_state_snapshot( array $snapshot, string $type ): array {
+		if ( ! array_key_exists( '__state', $snapshot ) ) {
+			$snapshot['__state'] = self::initial_state( RecordSchema::get( $type ) );
+		}
+		return $snapshot;
 	}
 
 	/**

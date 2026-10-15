@@ -1,0 +1,20 @@
+REMOVED /tmp/velog-product-smoke.0fcWZIaN
+REMOVED /tmp/velog-product-smoke.2AQuAP6g
+REMOVED /tmp/velog-product-smoke.3jsuAzqs
+REMOVED /tmp/velog-product-smoke.BNzWK35c
+REMOVED /tmp/velog-product-smoke.FwE2D7Ba
+REMOVED /tmp/velog-product-smoke.Pw2864m7
+REMOVED /tmp/velog-product-smoke.RPkWBQox
+REMOVED /tmp/velog-product-smoke.X4PffUXa
+REMOVED /tmp/velog-product-smoke.XNpVorxn
+REMOVED /tmp/velog-product-smoke.aiO59zmb
+REMOVED /tmp/velog-product-smoke.nt4lDZo2
+REMOVED /tmp/velog-product-smoke.sI4SMiSp
+REMOVED /tmp/velog-product-smoke.tOFAk09a
+REMOVED /tmp/velog-product-smoke.tmuPMtBK
+REMOVED /tmp/velog-product-smoke.w5A5ve6a
+REMOVED /tmp/velog_data001_6.7.2_37980_8bc471e1e8100b7b
+REMOVED /tmp/velog_data001_6.7.2_40337_76802be44033d506
+REMOVED /tmp/velog_data001_6.7.2_41272_8a4d55935084c394
+REMOVED /tmp/velog_data001_6.7.2_44227_fb730a74c544e71b
+No owned database/PHP processes remain. Main readiness scratch directory is removed after evidence retention.

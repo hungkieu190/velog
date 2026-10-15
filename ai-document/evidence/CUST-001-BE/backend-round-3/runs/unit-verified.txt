@@ -1,0 +1,13 @@
+> phpunit --configuration=tests/phpunit.xml
+PHPUnit 10.5.64 by Sebastian Bergmann and contributors.
+
+Runtime:       PHP 8.3.6
+Configuration: /home/ecommercelife/Local Sites/velog/app/public/wp-content/plugins/velog/tests/phpunit.xml
+
+......................VeLog: Critical capabilities rollback failure. State mismatched snapshot.
+........................................... 65 / 93 ( 69%)
+............................                                      93 / 93 (100%)
+
+Time: 00:00.441, Memory: 20.00 MB
+
+OK (93 tests, 341 assertions)

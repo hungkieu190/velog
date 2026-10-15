@@ -16,32 +16,56 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 final class VehicleIdentifier {
 
-	/** Validate an optional display jurisdiction without changing its case. */
+	/**
+	 * Validate an optional display jurisdiction without changing its case.
+	 *
+	 * @param mixed $value Submitted value.
+	 */
 	public static function validate_jurisdiction( mixed $value ): ?string {
 		return self::validate_display_text( $value, 100, true );
 	}
 
-	/** Validate an optional display plate without changing its case. */
+	/**
+	 * Validate an optional display plate without changing its case.
+	 *
+	 * @param mixed $value Submitted value.
+	 */
 	public static function validate_plate( mixed $value ): ?string {
 		return self::validate_display_text( $value, 64, true );
 	}
 
-	/** Validate an optional display VIN without changing its case. */
+	/**
+	 * Validate an optional display VIN without changing its case.
+	 *
+	 * @param mixed $value Submitted value.
+	 */
 	public static function validate_vin( mixed $value ): ?string {
 		return self::validate_display_text( $value, 64, false );
 	}
 
-	/** Normalise a required plate jurisdiction. */
+	/**
+	 * Normalise a required plate jurisdiction.
+	 *
+	 * @param mixed $value Submitted value.
+	 */
 	public static function normalize_jurisdiction( mixed $value ): ?string {
 		return self::normalize_text( $value, 1, 100, true );
 	}
 
-	/** Normalise a required plate value. */
+	/**
+	 * Normalise a required plate value.
+	 *
+	 * @param mixed $value Submitted value.
+	 */
 	public static function normalize_plate( mixed $value ): ?string {
 		return self::normalize_text( $value, 1, 64, true );
 	}
 
-	/** Normalise an optional nonstandard VIN. */
+	/**
+	 * Normalise an optional nonstandard VIN.
+	 *
+	 * @param mixed $value Submitted value.
+	 */
 	public static function normalize_vin( mixed $value ): ?string {
 		if ( null === $value || '' === $value ) {
 			return '';
@@ -52,12 +76,19 @@ final class VehicleIdentifier {
 
 	/**
 	 * Build an unambiguous normalized plate uniqueness key.
+	 *
+	 * @param string $jurisdiction Normalized jurisdiction.
+	 * @param string $plate        Normalized plate.
 	 */
 	public static function plate_key( string $jurisdiction, string $plate ): string {
 		return strlen( $jurisdiction ) . ':' . $jurisdiction . strlen( $plate ) . ':' . $plate;
 	}
 
-	/** Validate the optional model year. */
+	/**
+	 * Validate the optional model year.
+	 *
+	 * @param mixed $value Submitted value.
+	 */
 	public static function validate_year( mixed $value ): ?int {
 		if ( null === $value || '' === $value ) {
 			return 0;
@@ -69,7 +100,11 @@ final class VehicleIdentifier {
 		return $year >= 1886 && $year <= ( (int) gmdate( 'Y' ) + 1 ) ? $year : null;
 	}
 
-	/** Enforce the plate/jurisdiction-or-VIN record invariant. */
+	/**
+	 * Enforce the plate/jurisdiction-or-VIN record invariant.
+	 *
+	 * @param array<string, mixed> $fields Vehicle fields.
+	 */
 	public static function validate_record( array $fields ): bool {
 		$plate        = (string) ( $fields['plate'] ?? '' );
 		$jurisdiction = (string) ( $fields['jurisdiction'] ?? '' );
@@ -78,26 +113,52 @@ final class VehicleIdentifier {
 			&& ( '' !== $plate || '' === $jurisdiction );
 	}
 
-	/** Build a normalized plate projection from stored display input. */
+	/**
+	 * Build a normalized plate projection from stored display input.
+	 *
+	 * @param array<string, mixed> $fields Vehicle fields.
+	 */
 	public static function project_plate( array $fields ): ?string {
 		return self::normalize_plate( $fields['plate'] ?? '' );
 	}
 
-	/** Build a normalized jurisdiction projection from stored display input. */
+	/**
+	 * Build a normalized jurisdiction projection from stored display input.
+	 *
+	 * @param array<string, mixed> $fields Vehicle fields.
+	 */
 	public static function project_jurisdiction( array $fields ): ?string {
 		return self::normalize_jurisdiction( $fields['jurisdiction'] ?? '' );
 	}
 
-	/** Build a normalized VIN projection from stored display input. */
+	/**
+	 * Build a normalized VIN projection from stored display input.
+	 *
+	 * @param array<string, mixed> $fields Vehicle fields.
+	 */
 	public static function project_vin( array $fields ): ?string {
-		return self::normalize_vin( $fields['vin'] ?? '' ) ?: null;
+		$vin = self::normalize_vin( $fields['vin'] ?? '' );
+		return $vin ? $vin : null;
 	}
 
 	/**
 	 * Reject unsafe content, trim, and optionally collapse ASCII whitespace.
+	 *
+	 * @param mixed $value               Submitted text.
+	 * @param int   $minimum             Minimum character count.
+	 * @param int   $maximum             Maximum character count.
+	 * @param bool  $collapse_whitespace Whether to collapse ASCII whitespace.
 	 */
-	private static function normalize_text( mixed $value, int $minimum, int $maximum, bool $collapse_whitespace ): ?string {
-		if ( ! is_string( $value ) || preg_match( '/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F<>]/u', $value ) ) {
+	private static function normalize_text(
+		mixed $value,
+		int $minimum,
+		int $maximum,
+		bool $collapse_whitespace
+	): ?string {
+		if (
+			! is_string( $value )
+			|| preg_match( '/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F<>]/u', $value )
+		) {
 			return null;
 		}
 
@@ -110,12 +171,21 @@ final class VehicleIdentifier {
 		return $length >= $minimum && $length <= $maximum ? $normalized : null;
 	}
 
-	/** Validate optional display text while preserving user-facing casing. */
+	/**
+	 * Validate optional display text while preserving user-facing casing.
+	 *
+	 * @param mixed $value               Submitted text.
+	 * @param int   $maximum             Maximum character count.
+	 * @param bool  $collapse_whitespace Whether to collapse ASCII whitespace.
+	 */
 	private static function validate_display_text( mixed $value, int $maximum, bool $collapse_whitespace ): ?string {
 		if ( null === $value || '' === $value ) {
 			return '';
 		}
-		if ( ! is_string( $value ) || preg_match( '/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F<>]/u', $value ) ) {
+		if (
+			! is_string( $value )
+			|| preg_match( '/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F<>]/u', $value )
+		) {
 			return null;
 		}
 		$value = trim( $value );

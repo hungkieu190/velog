@@ -1,0 +1,117 @@
+✔ handoff alerts use the new role names (1.154885ms)
+✔ handoff alerts reject stale and old-role prompts (0.211093ms)
+✔ manual test handoff targets Tester (0.217972ms)
+✔ normalizes current roles and migration aliases (2.05757ms)
+✔ uses declared backend actor for any active implementation status (0.78186ms)
+✔ uses declared frontend actor for READY and review role for READY_FOR_REVIEW (0.192749ms)
+✔ does not infer an actor when Next actor is missing or invalid (0.150709ms)
+✔ DONE has no active actor (0.180696ms)
+✔ manual acceptance assigns the tester (0.149374ms)
+✔ renders the frontend coding scene and explicit assignment metadata (0.553147ms)
+✔ build ownership, maps, repeatability and safe failure (2725.983271ms)
+✔ dashboard surfaces contradictions and escapes untrusted Markdown (6.075822ms)
+✔ W3-V3: prompt extraction does not fall back to older sections (0.430506ms)
+✔ W3-V4: prompt declaration exact token match (0.324855ms)
+✔ W3-V4: unverified status mentions (0.221006ms)
+✖ release package boundaries and failures preserve the last successful archive (5027.683954ms)
+✔ quality gate propagates tool startup failure (1843.504677ms)
+✔ manifest destination cannot overwrite backend source (3775.169779ms)
+✖ rejected release destination leaves no temporary staging (4498.196913ms)
+✔ Next actor declaration is authoritative across statuses (92.770117ms)
+ℹ tests 20
+ℹ suites 0
+ℹ pass 18
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 18045.187914
+
+✖ failing tests:
+
+test at tests/workflow/workflow.test.mjs:121:1
+✖ release package boundaries and failures preserve the last successful archive (5027.683954ms)
+  AssertionError [ERR_ASSERTION]: ./composer.json is valid
+  
+  > velog@0.1.0 check
+  > bash bin/check.sh
+  
+  No syntax errors detected in velog.php
+  No syntax errors detected in uninstall.php
+  No syntax errors detected in src/Admin/CustomerPage.php
+  No syntax errors detected in src/Admin/RegionalSettingsPage.php
+  No syntax errors detected in src/Admin/Assets.php
+  No syntax errors detected in src/Admin/AdminMenu.php
+  No syntax errors detected in src/Admin/CustomerListTable.php
+  No syntax errors detected in src/Core/Loader.php
+  No syntax errors detected in src/Core/Deactivator.php
+  No syntax errors detected in src/Core/Capabilities.php
+  No syntax errors detected in src/Core/PostTypes.php
+  No syntax errors detected in src/Core/Activator.php
+  No syntax errors detected in src/Core/Plugin.php
+  No syntax errors detected in src/Common/Customer/CustomerService.php
+  No syntax errors detected in src/Common/Customer/CustomerRelations.php
+  No syntax errors detected in src/Common/Customer/CustomerQuery.php
+  No syntax errors detected in src/Common/AccessPolicy.php
+  No syntax errors detected in src/Common/Storage/RecordSchema.php
+  No syntax errors detected in src/Common/Storage/AuditEntry.php
+  No syntax errors detected in src/Common/Storage/RecordRepository.php
+  No syntax errors detected in src/Common/Storage/WriteUnit.php
+  No syntax errors detected in src/Common/Storage/WriteCoordinator.php
+  No syntax errors detected in src/Common/Vehicle/VehicleIdentifier.php
+  No syntax errors detected in src/Common/Regional/Distance.php
+  No syntax errors detected in src/Common/Regional/Formatter.php
+  No syntax errors detected in src/Common/Regional/CalendarDate.php
+  No syntax errors detected in src/Common/Regional/CurrencyCatalog.php
+  No syntax errors detected in src/Common/Regional/ShopSettings.php
+  No syntax errors detected in src/Common/Regional/Money.php
+  No syntax errors detected in src/Common/Regional/DecimalInput.php
+  No syntax errors detected in src/Common/Regional/CurrencyCatalogData.php
+  No syntax errors detected in src/Common/Regional/DecimalMath.php
+  > phpcs --standard=phpcs.xml
+  
+  FILE: /tmp/velog-workflow-7QGJAC/src/Admin/CustomerPage.php
+  --------------------------------------------------------------------------------
+  FOUND 0 ERRORS AND 1 WARNING AFFECTING 1 LINE
+  --------------------------------------------------------------------------------
+   240 | WARNING | [x] Equals sign not aligned with surrounding assignments;
+       |         |     expected 2 spaces but found 1 space
+  --------------------------------------------------------------------------------
+  PHPCBF CAN FIX THE 1 MARKED SNIFF VIOLATIONS AUTOMATICALLY
+  --------------------------------------------------------------------------------
+  
+  Time: 3.3 secs; Memory: 36MB
+  
+  Script phpcs --standard=phpcs.xml handling the phpcs event returned with error code 2
+  npm failed (2)
+  
+  
+  1 !== 0
+  
+      at TestContext.<anonymous> (file:///home/ecommercelife/Local%20Sites/velog/app/public/wp-content/plugins/velog/tests/workflow/workflow.test.mjs:125:12)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/workflow/workflow.test.mjs:195:1
+✖ rejected release destination leaves no temporary staging (4498.196913ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /Symlink rejected/. Input:
+  
+  'npm failed (2)\n'
+  
+      at TestContext.<anonymous> (file:///home/ecommercelife/Local%20Sites/velog/app/public/wp-content/plugins/velog/tests/workflow/workflow.test.mjs:202:12)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'npm failed (2)\n',
+    expected: /Symlink rejected/,
+    operator: 'match',
+    diff: 'simple'
+  }

@@ -1,0 +1,27 @@
+isolated_database_version
+10.11.14-MariaDB-0ubuntu0.24.04.1
+PHP 8.3.6 (cli) (built: Sep  2 2026 12:56:02) (NTS)
+Copyright (c) The PHP Group
+Zend Engine v4.3.6, Copyright (c) Zend Technologies
+    with Zend OPcache v8.3.6, Copyright (c), by Zend Technologies
+WORDPRESS 6.4.3
+PASS: Supported isolated environment passes native preflight.
+PASS: Native customer is created pending at version one.
+PASS: Native WP_User is the only authoritative identity.
+PASS: Original create request is idempotent.
+PASS: Reusing request identity with different data is rejected.
+PASS: Duplicate native email is rejected.
+PASS: Pending customer authentication is denied.
+PASS: Pending customer cookie resolution is denied.
+PASS: Unrelated administrator authentication is unchanged.
+PASS: Native metadata API cannot activate a customer outside the service.
+PASS: Native profile writes cannot bypass customer version and audit.
+PASS: Native edit advances version.
+PASS: Stale native edit is rejected.
+PASS: Customer without an active vehicle may be archived.
+PASS: Restore preserves native identity and requires a new invitation.
+PASS: New audit events do not duplicate customer contact or display identity.
+PASS: Unauthorized direct service calls are rejected.
+PASS: Unreviewed user hooks cause fail-closed customer preflight.
+PASS: Removing the unsupported callback restores compatibility.
+CUST002_BASE_COMPLETE

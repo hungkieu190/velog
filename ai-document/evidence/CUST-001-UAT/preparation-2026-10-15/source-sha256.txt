@@ -1,0 +1,5 @@
+828546ef21ff4a21033bd160e2d0736b84636b86fbf42e3274e6c6ca0ef6cf1d  tests/fixtures/cust-001-uat-seed.php
+a40c3ca188e1e76a8114ded068ccb3d8e92794f4388f386e28fcfac1e371c005  tests/workflow/cust-001-uat-seed.sh
+3d46101b43ccc447a89a636dab394a03f9fdfbfab90e883ae89edd3836055e04  tests/workflow/product-smoke.sh
+c9e2453e290e92f5023614fb3615be81f2cd07ffc92f5c15181512e5eb914e5d  src/css/admin.scss
+a651d52dd770433291508b939c5c1792c05953f2ebff253cb3a77bfcf267be89  assets/css/admin.css

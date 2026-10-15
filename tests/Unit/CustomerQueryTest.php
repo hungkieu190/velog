@@ -44,5 +44,7 @@ final class CustomerQueryTest extends TestCase {
 		$this->assertInstanceOf( \WP_Error::class, CustomerQuery::normalize_args( array( 'unknown' => 'x' ) ) );
 		$this->assertInstanceOf( \WP_Error::class, CustomerQuery::normalize_args( array( 'term' => array() ) ) );
 		$this->assertInstanceOf( \WP_Error::class, CustomerQuery::normalize_args( array( 'page' => 0 ) ) );
+		$this->assertInstanceOf( \WP_Error::class, CustomerQuery::normalize_args( array( 'page' => PHP_INT_MAX ) ) );
+		$this->assertInstanceOf( \WP_Error::class, CustomerQuery::normalize_args( array( 'term' => "invalid\xFF" ) ) );
 	}
 }

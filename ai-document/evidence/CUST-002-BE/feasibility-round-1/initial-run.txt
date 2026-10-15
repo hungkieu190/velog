@@ -1,0 +1,57 @@
+isolated_database_version
+10.11.14-MariaDB-0ubuntu0.24.04.1
+PHP 8.3.6 (cli) (built: Sep  2 2026 12:56:02) (NTS)
+Copyright (c) The PHP Group
+Zend Engine v4.3.6, Copyright (c) Zend Technologies
+    with Zend OPcache v8.3.6, Copyright (c), by Zend Technologies
+WORDPRESS 6.4.3
+PASS: Native API creates user inside pinned transaction
+PASS: Native customer metadata visible inside transaction
+PASS: Rollback removes native identity after cache cleanup
+PASS: Rollback clears native login lookup
+PASS: Rollback removes audit option
+PASS: Rollback leaves no customer metadata
+PASS: Native API commit candidate created
+PASS: Native committed Unicode identity persists
+PASS: Native committed metadata persists
+PASS: Committed audit references native user ID
+PHP Fatal error:  Uncaught RuntimeException: Disconnected write returns database failure in /tmp/velog-cust002-feasibility.OlGZVRd2/adapter.php:19
+Stack trace:
+#0 phar:///usr/local/bin/wp/vendor/wp-cli/eval-command/src/EvalFile_Command.php(85) : eval()'d code(64): mf_velog_feasibility_assert()
+#1 phar:///usr/local/bin/wp/vendor/wp-cli/eval-command/src/EvalFile_Command.php(85): eval()
+#2 phar:///usr/local/bin/wp/vendor/wp-cli/eval-command/src/EvalFile_Command.php(59): EvalFile_Command::execute_eval()
+#3 [internal function]: EvalFile_Command->__invoke()
+#4 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/WP_CLI/Dispatcher/CommandFactory.php(100): call_user_func()
+#5 [internal function]: WP_CLI\Dispatcher\CommandFactory::WP_CLI\Dispatcher\{closure}()
+#6 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/WP_CLI/Dispatcher/Subcommand.php(497): call_user_func()
+#7 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/WP_CLI/Runner.php(470): WP_CLI\Dispatcher\Subcommand->invoke()
+#8 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/WP_CLI/Runner.php(493): WP_CLI\Runner->run_command()
+#9 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/WP_CLI/Runner.php(136): WP_CLI\Runner->run_command_and_exit()
+#10 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/WP_CLI/Runner.php(1228): WP_CLI\Runner->do_early_invoke()
+#11 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/WP_CLI/Bootstrap/LaunchRunner.php(28): WP_CLI\Runner->start()
+#12 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/bootstrap.php(84): WP_CLI\Bootstrap\LaunchRunner->process()
+#13 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/wp-cli.php(35): WP_CLI\bootstrap()
+#14 phar:///usr/local/bin/wp/php/boot-phar.php(20): include('...')
+#15 /usr/local/bin/wp(4): include('...')
+#16 {main}
+  thrown in /tmp/velog-cust002-feasibility.OlGZVRd2/adapter.php on line 19
+Fatal error: Uncaught RuntimeException: Disconnected write returns database failure in /tmp/velog-cust002-feasibility.OlGZVRd2/adapter.php:19
+Stack trace:
+#0 phar:///usr/local/bin/wp/vendor/wp-cli/eval-command/src/EvalFile_Command.php(85) : eval()'d code(64): mf_velog_feasibility_assert()
+#1 phar:///usr/local/bin/wp/vendor/wp-cli/eval-command/src/EvalFile_Command.php(85): eval()
+#2 phar:///usr/local/bin/wp/vendor/wp-cli/eval-command/src/EvalFile_Command.php(59): EvalFile_Command::execute_eval()
+#3 [internal function]: EvalFile_Command->__invoke()
+#4 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/WP_CLI/Dispatcher/CommandFactory.php(100): call_user_func()
+#5 [internal function]: WP_CLI\Dispatcher\CommandFactory::WP_CLI\Dispatcher\{closure}()
+#6 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/WP_CLI/Dispatcher/Subcommand.php(497): call_user_func()
+#7 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/WP_CLI/Runner.php(470): WP_CLI\Dispatcher\Subcommand->invoke()
+#8 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/WP_CLI/Runner.php(493): WP_CLI\Runner->run_command()
+#9 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/WP_CLI/Runner.php(136): WP_CLI\Runner->run_command_and_exit()
+#10 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/WP_CLI/Runner.php(1228): WP_CLI\Runner->do_early_invoke()
+#11 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/WP_CLI/Bootstrap/LaunchRunner.php(28): WP_CLI\Runner->start()
+#12 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/bootstrap.php(84): WP_CLI\Bootstrap\LaunchRunner->process()
+#13 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/wp-cli.php(35): WP_CLI\bootstrap()
+#14 phar:///usr/local/bin/wp/php/boot-phar.php(20): include('...')
+#15 /usr/local/bin/wp(4): include('...')
+#16 {main}
+  thrown in /tmp/velog-cust002-feasibility.OlGZVRd2/adapter.php on line 19

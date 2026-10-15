@@ -30,6 +30,12 @@ If frontend work requires backend behavior, Frontend Developer records the depen
 
 ## 3. Task model
 
+### Admin design reference
+
+Before designing or changing a wp-admin screen, read the project-local [wordpress-plugin-admin-ui skill](../.agents/skills/wordpress-plugin-admin-ui/SKILL.md) and [VeLog admin design system](admin-design-system.md). Backend Architect specifies the screen structure, native component mapping, data/action contracts, authorization, and applicable UI states in the task before implementation. Frontend Developer applies those decisions within its assigned presentation scope. Existing classic screens remain classic unless a separate approved requirement justifies React; having a build pipeline alone is not a reason to migrate.
+
+Code review checks native component use, scoped assets, semantic markup, and security boundaries against this baseline. The Vietnamese UAT includes applicable empty/error/success/loading, keyboard, responsive, RTL, color-scheme, and permission cases. Tester retains all browser verification and acceptance authority. A documentation or skill installation does not imply that existing screens have passed this review.
+
 Every major feature is split into separately owned workstreams:
 
 - `<ID>-BE`: backend contract, application logic, security, storage, APIs/hooks, backend tests, and fixtures. Owner: Backend Architect.

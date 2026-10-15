@@ -1,0 +1,18 @@
+{
+    "mode": "read_only_inventory",
+    "site_url": "https://velog.local",
+    "wordpress": "7.1.3",
+    "php_cli": "8.3.6",
+    "velog_active": true,
+    "customer_count": 1,
+    "pagination_fixture_count": 0,
+    "staff_account_counts": {
+        "mf_velog_manager": 0,
+        "mf_velog_technician": 0
+    },
+    "active_vehicle_link_candidates": 0,
+    "manager_fixture_present": false,
+    "technician_fixture_present": false,
+    "pagination_fixture_count_reached": false,
+    "limitations": "Counts are preparation candidates, not authentication, schema validation or manual test results."
+}

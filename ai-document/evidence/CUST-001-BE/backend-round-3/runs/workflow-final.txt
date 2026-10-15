@@ -1,0 +1,28 @@
+✔ handoff alerts use the new role names (1.753603ms)
+✔ handoff alerts reject stale and old-role prompts (0.245183ms)
+✔ manual test handoff targets Tester (0.221437ms)
+✔ normalizes current roles and migration aliases (3.144779ms)
+✔ uses declared backend actor for any active implementation status (1.347152ms)
+✔ uses declared frontend actor for READY and review role for READY_FOR_REVIEW (0.330877ms)
+✔ does not infer an actor when Next actor is missing or invalid (0.245735ms)
+✔ DONE has no active actor (0.229918ms)
+✔ manual acceptance assigns the tester (0.200315ms)
+✔ renders the frontend coding scene and explicit assignment metadata (0.885601ms)
+✔ build ownership, maps, repeatability and safe failure (10706.647993ms)
+✔ dashboard surfaces contradictions and escapes untrusted Markdown (7.63705ms)
+✔ W3-V3: prompt extraction does not fall back to older sections (0.421633ms)
+✔ W3-V4: prompt declaration exact token match (0.308788ms)
+✔ W3-V4: unverified status mentions (0.179177ms)
+✔ release package boundaries and failures preserve the last successful archive (56482.161477ms)
+✔ quality gate propagates tool startup failure (796.301382ms)
+✔ manifest destination cannot overwrite backend source (355.607599ms)
+✔ rejected release destination leaves no temporary staging (19699.709789ms)
+✔ Next actor declaration is authoritative across statuses (7.336408ms)
+ℹ tests 20
+ℹ suites 0
+ℹ pass 20
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 88155.442607

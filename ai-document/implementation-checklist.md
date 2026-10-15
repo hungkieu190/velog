@@ -2,10 +2,10 @@
 
 ## Current focus
 
-- Task: CUST-002
-- Status: DRAFT
-- Next actor: Backend Architect
-- Exact next action: Produce the native WordPress customer blueprint and migration contract required by G-09.
+- Task: CUST-001-UAT
+- Status: AWAITING_MANUAL_ACCEPTANCE
+- Next actor: Tester
+- Exact next action: Execute prepared CUST-001-UAT T01–T20 on LocalWP; retest T02 and report actual PASS/FAIL/BLOCKED. Only Tester may accept DONE.
 
 ## Project status
 
@@ -78,24 +78,21 @@ Task: [CORE-004](tasks/CORE-004-regional-settings.md). Prerequisites: CORE-002, 
 
 Task: [CORE-004-FE](tasks/CORE-004-FE-regional-settings-ui.md). Owner: Frontend Developer; reviewer: Backend Architect.
 
-### CUST-001 — Private customer management (superseded)
+### CUST-001 — Private customer management (restored by G-10)
 
-- [ ] CUST-001 / AC1–AC4: Superseded by G-09 native WordPress customer identity. Status: BLOCKED; historical evidence retained and no further UAT is valid.
+- [ ] CUST-001 / AC1–AC4: Backend checkpoint, FE code review and authorized LocalWP prerequisites verified. Status: AWAITING_MANUAL_ACCEPTANCE; Next actor: Tester.
+- [x] CUST-001-BE: Round 3 gates plus isolated UAT preparation regression and LocalWP setup verified. Status: DONE as SELF_REVIEWED_BACKEND technical checkpoint only; Next actor: Tester via UAT.
+- [ ] CUST-001-FE: Architect round 3 review 2 APPROVED for code; FE-R3-01 through FE-R3-05 resolved. Status: AWAITING_MANUAL_ACCEPTANCE; Next actor: Tester; no frontend correction remains.
+- [ ] CUST-001-UAT: Staff users, 51 pagination customers and linked customer 64/vehicle 65 prepared and verified. Status: AWAITING_MANUAL_ACCEPTANCE; Next actor: Tester. Historical T01 PASS and T02 FAIL pending retest retained; remaining manual cases are not run.
 
-Readiness: G-02 and G-03 remain historical decisions, but G-09 supersedes the private-CPT customer contract. CUST-001 evidence is retained; CUST-002 must define the replacement before implementation or UAT resumes.
+Task: [CUST-001](tasks/CUST-001-customer-records.md); [backend evidence](evidence/CUST-001-BE/backend-round-3/report.md); [FE approval](evidence/CUST-001-FE/frontend-round-3/architect-review-r2.md); [preparation evidence](evidence/CUST-001-UAT/preparation-2026-10-15/report.md). G-10 restores independent private record IDs, optional/non-unique contacts and G-03 archive policy. Parent feature cannot be DONE until Tester explicitly accepts the prepared UAT.
 
-Task: [CUST-001](tasks/CUST-001-customer-records.md). Prerequisites: CORE-004 and DATA-001 DONE.
+### CUST-002 — Native WordPress customer identities (retired by G-10)
 
-- [ ] CUST-001-BE/FE/UAT: Superseded by G-09. Status: BLOCKED; Next actor: Backend Architect. Historical source and evidence remain preserved; no private-CPT UAT continues.
+- [ ] CUST-002 / AC1–AC4: Withdrawn without acceptance. Status: BLOCKED; Next actor: Backend Architect for historical-document consistency only. Do not resume implementation or UAT.
+- [ ] CUST-002-BE/FE/UAT: BLOCKED/retired. Native runtime and fixtures removed after backup; documents and evidence retained as history.
 
-### CUST-002 — Native WordPress customer identities
-
-- [ ] CUST-002 / AC1: Native `WP_User` is the authoritative customer identity; no mirrored customer store or synchronization. Status: DRAFT.
-- [ ] CUST-002 / AC2: Unique native login/email, customer role/account state, authentication denial and privacy controls are specified. Status: DRAFT.
-- [ ] CUST-002 / AC3: Existing private-CPT customers migrate idempotently with explicit conflict remediation. Status: DRAFT.
-- [ ] CUST-002 / AC4: Vehicle ownership, tests and UAT are rebased on native WordPress user IDs. Status: DRAFT.
-
-Task: [CUST-002](tasks/CUST-002-native-wordpress-customers.md). Prerequisites: G-09 APPROVED; blueprint, migration, implementation, code review and manual UAT remain pending.
+Task: [CUST-002](tasks/CUST-002-native-wordpress-customers.md). G-10 supersedes G-09 and its adapter approvals; CUST-002 is no longer a prerequisite for product work.
 
 ### VEH-001 — Vehicle identity and current customer
 
@@ -104,9 +101,9 @@ Task: [CUST-002](tasks/CUST-002-native-wordpress-customers.md). Prerequisites: G
 - [ ] VEH-001 / AC3: Unit-aware known/unknown baseline and dates are valid; no unreasoned lower-reading shortcut. Status: DRAFT.
 - [ ] VEH-001 / AC4: Authorized search/detail/admin flows and negative security/accessibility checks pass. Status: DRAFT.
 
-Task: [VEH-001](tasks/VEH-001-vehicle-records.md). Backend prerequisite: CUST-002 contract approval; G-04 and G-05 are approved. Vehicle implementation remains blocked until native customer-ID ownership semantics are stable.
+Task: [VEH-001](tasks/VEH-001-vehicle-records.md). G-10 restores CUST-001 private customer IDs; G-04/G-05 remain approved. Vehicle implementation remains blocked for scope, shared-gate, fixture and UAT readiness revalidation, not native-user migration.
 
-- [ ] VEH-001-BE: Vehicle backend contract, persistence, authorization, and server-side verification. Status: BLOCKED; awaits approved CUST-002 native customer-ID contract.
+- [ ] VEH-001-BE: Vehicle backend contract, persistence, authorization, and server-side verification. Status: BLOCKED; Next actor: Backend Architect to revalidate the restored private-record relation contract and existing technical gates.
 
 ### SERV-001 — Service drafts, finalization and corrections
 

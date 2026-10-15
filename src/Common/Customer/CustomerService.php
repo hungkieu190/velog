@@ -168,7 +168,7 @@ final class CustomerService {
 	 * Validate bounded plain text without accepting a modified value.
 	 */
 	private static function validate_text( mixed $value, int $minimum, int $maximum ): ?string {
-		if ( ! is_string( $value ) || preg_match( '/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F<>]/u', $value ) ) {
+		if ( ! is_string( $value ) || 0 !== preg_match( '/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F<>]/u', $value ) ) {
 			return null;
 		}
 		$trimmed = trim( $value );

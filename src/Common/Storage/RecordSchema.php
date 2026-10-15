@@ -435,15 +435,27 @@ final class RecordSchema {
 					),
 					// phpcs:enable Generic.Files.LineLength.TooLong
 					'projection_builders' => array(
-						'_mf_velog_vehicle_jurisdiction' => array( \MF\VeLog\Common\Vehicle\VehicleIdentifier::class, 'project_jurisdiction' ),
-						'_mf_velog_vehicle_plate'        => array( \MF\VeLog\Common\Vehicle\VehicleIdentifier::class, 'project_plate' ),
-						'_mf_velog_vehicle_vin'          => array( \MF\VeLog\Common\Vehicle\VehicleIdentifier::class, 'project_vin' ),
-						'_mf_velog_current_customer_id' => array(
+						'_mf_velog_vehicle_jurisdiction' => array(
+							\MF\VeLog\Common\Vehicle\VehicleIdentifier::class,
+							'project_jurisdiction',
+						),
+						'_mf_velog_vehicle_plate'        => array(
+							\MF\VeLog\Common\Vehicle\VehicleIdentifier::class,
+							'project_plate',
+						),
+						'_mf_velog_vehicle_vin'          => array(
+							\MF\VeLog\Common\Vehicle\VehicleIdentifier::class,
+							'project_vin',
+						),
+						'_mf_velog_current_customer_id'  => array(
 							\MF\VeLog\Common\Customer\CustomerRelations::class,
 							'project_customer_id',
 						),
 					),
-					'record_validator'    => array( \MF\VeLog\Common\Vehicle\VehicleIdentifier::class, 'validate_record' ),
+					'record_validator'    => array(
+						\MF\VeLog\Common\Vehicle\VehicleIdentifier::class,
+						'validate_record',
+					),
 				)
 			);
 		}

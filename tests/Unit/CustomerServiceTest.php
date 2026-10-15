@@ -27,6 +27,8 @@ final class CustomerServiceTest extends TestCase {
 	/** Reject ambiguous or unsafe values rather than silently changing them. */
 	public function test_validators_reject_invalid_values(): void {
 		$this->assertNull( CustomerService::validate_name( '' ) );
+		$this->assertNull( CustomerService::validate_name( "invalid\xFF" ) );
+		$this->assertNull( CustomerService::validate_phone( "invalid\xFF" ) );
 		$this->assertNull( CustomerService::validate_name( '<b>Alice</b>' ) );
 		$this->assertNull( CustomerService::validate_phone( array( '123' ) ) );
 		$this->assertNull( CustomerService::validate_email( 'not-an-email' ) );

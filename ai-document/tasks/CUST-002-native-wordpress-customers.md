@@ -1,19 +1,21 @@
 # CUST-002: Native WordPress customer identities
 
+> RETIRED BY G-10 (2026-10-15). The specifications and old approvals below are historical; they do not authorize native-user implementation. BLOCKED is used because the workflow has no cancelled status. See ai-document/evidence/CUST-001-BE/architecture-restoration-2026-10-15/report.md.
+
 ## Current handoff
 
 - Workstream: Backend planning
-- Status: DRAFT
-- Plan revision: 1
-- Blueprint readiness: INCOMPLETE
+- Status: BLOCKED
+- Plan revision: 4
+- Blueprint readiness: INCOMPLETE — G-10 retires this native-user direction; no further implementation or UAT.
 - Owner: Backend Architect
-- Contributors and review mode: Product Owner approved G-09; backend blueprint pending.
+- Contributors and review mode: Product Owner approved G-09, B2 choices and the bounded initial adapter; backend readiness work remains with Backend Architect.
 - Related checklist items: CUST-002 / AC1–AC4.
-- Latest report: G-09 replaces the CUST-001 private-CPT customer model. No source or database changes were made for this decision.
-- Evidence: `ai-document/decisions.md` — G-09.
-- Temporary resource cleanup: No temporary resources created.
+- Latest report: Native-user direction withdrawn by the Product Owner on 2026-10-15. Unaccepted runtime/test additions were removed after backup; earlier evidence is historical, not feature acceptance.
+- Evidence: `ai-document/native-customer-write-contract.md`; `ai-document/evidence/CUST-002-BE/feasibility-round-1/report.md`.
+- Temporary resource cleanup: Owned disposable databases and scratch directories removed; reusable probes retained in tests/fixtures/cust-002-feasibility/.
 - Next actor: Backend Architect
-- Next actor and exact next action: Produce a decision-complete CUST-002-BE blueprint and migration contract before any source change or VEH-001 continuation.
+- Next actor and exact next action: Do not resume CUST-002. Follow CUST-001 restoration under G-10; this document is historical only.
 
 ## Problem and intended behavior
 
@@ -37,6 +39,14 @@ VeLog customer identity must be native WordPress user identity, not a private cu
 5. Replace CUST-001 test/UAT cases that assume duplicate or optional email and private-CPT customer storage.
 6. Rebase VEH-001 ownership validation and relation checks on native user IDs only after the CUST-002 contract is approved.
 
+## Proposed delivery split — 2026-10-15
+
+- [CUST-002-BE](CUST-002-BE-native-customer-backend.md): Proposed native identity, account/authentication controls, privacy, persistence, migration and verification contract. DRAFT; Next actor: Backend Architect; B2 and the adapter compatibility boundary are approved; remaining technical readiness work is pending.
+- [CUST-002-FE](CUST-002-FE-native-customer-ui.md): Proposed presentation scope only. DRAFT; Next actor: Backend Architect; no frontend dispatch before the backend view contract is stable.
+- [CUST-002-UAT](CUST-002-UAT-native-customer-test.md): Vietnamese manual test draft. DRAFT; Next actor: Backend Architect for preparation; Tester remains the manual execution/acceptance owner.
+
+Current environment is [LocalWP](../local-environment.md). URLs and credentials supplied by the owner are not test evidence or migration authorization. Restore-to-pending and pending/invited vehicle ownership were approved by the owner's later reply, not by writing the drafts. The candidate [native write contract](../native-customer-write-contract.md) and [feasibility report](../evidence/CUST-002-BE/feasibility-round-1/report.md) document the material new compatibility restriction. Primitive results are not application acceptance.
+
 ## Acceptance criteria
 
 - AC1: Customer identity has one authoritative native WordPress user representation with no dual-write synchronization.
@@ -47,9 +57,9 @@ VeLog customer identity must be native WordPress user identity, not a private cu
 ### Chat handoff prompt
 
 ```text
-Status: DRAFT
+Status: BLOCKED
 Recipient: Backend Architect
 Intent: work
 
-Create the decision-complete CUST-002-BE blueprint for G-09 before changing source code. Define the native WP_User mapping, customer role/account-state authentication controls, privacy boundaries, and an idempotent migration that reports duplicate or missing identity data without silent changes. Rebase VEH-001 only after this contract is approved. No commit, deploy, release, or active-site database migration.
+G-10 retires CUST-002 without acceptance. Preserve historical evidence and follow CUST-001 restoration; do not implement native customer accounts, invitation/reset hooks, or migration. See ai-document/evidence/CUST-001-BE/architecture-restoration-2026-10-15/report.md. No active-site database changes, commit, deploy, or release.
 ```

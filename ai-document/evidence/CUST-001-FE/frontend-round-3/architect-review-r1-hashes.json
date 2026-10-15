@@ -1,0 +1,24 @@
+{
+  "before": {
+    "src/css/admin.scss": "7926da186772409c175d63a2a3ef9b70453681e3b4bb6b8375c4bdc9fda04f23",
+    "assets/css/admin.css": "8b6e333a1f9938bd5117e71a6a3adc4acc2a9364fd23b72101b942d85e22426b",
+    "assets/css/frontend.css": "2cef7c06fa2616097ad601f6cf084fe0452ad439bcc007c92e1f892418d26dcc",
+    "assets/js/admin.js": "215bfb5e9b6fd42e36b667c546a2659eb64fe39888b82dca25aeba87f306db4d",
+    "assets/js/frontend.js": "b19ba31f621619c2ba9a64f3e086aa36921d6d1a550b6d7e832daec21535104f",
+    "assets/.generated.json": "2635a31f23ed8e677b8d13867c01c6afa042a1631cab604dd3431416035e38a2",
+    "package-lock.json": "c411cf3b68caaa41ce0acfd294b115fec4ec96a8d76fdb4da47206d10f91ebf2",
+    "composer.lock": "50b1149ec87bec6c730d3300fa447fa160e5c27c0b5e3ac73f8def3c2f1d1374"
+  },
+  "after": {
+    "src/css/admin.scss": "7926da186772409c175d63a2a3ef9b70453681e3b4bb6b8375c4bdc9fda04f23",
+    "assets/css/admin.css": "8b6e333a1f9938bd5117e71a6a3adc4acc2a9364fd23b72101b942d85e22426b",
+    "assets/css/frontend.css": "2cef7c06fa2616097ad601f6cf084fe0452ad439bcc007c92e1f892418d26dcc",
+    "assets/js/admin.js": "215bfb5e9b6fd42e36b667c546a2659eb64fe39888b82dca25aeba87f306db4d",
+    "assets/js/frontend.js": "b19ba31f621619c2ba9a64f3e086aa36921d6d1a550b6d7e832daec21535104f",
+    "assets/.generated.json": "2635a31f23ed8e677b8d13867c01c6afa042a1631cab604dd3431416035e38a2",
+    "package-lock.json": "c411cf3b68caaa41ce0acfd294b115fec4ec96a8d76fdb4da47206d10f91ebf2",
+    "composer.lock": "50b1149ec87bec6c730d3300fa447fa160e5c27c0b5e3ac73f8def3c2f1d1374"
+  },
+  "build_matches_submission": true,
+  "unrelated_outputs_match_head": true
+}

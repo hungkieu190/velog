@@ -1,0 +1,74 @@
+> phpcs --standard=phpcs.xml
+
+FILE: ...og/app/public/wp-content/plugins/velog/src/Common/Storage/RecordSchema.php
+--------------------------------------------------------------------------------
+FOUND 0 ERRORS AND 5 WARNINGS AFFECTING 5 LINES
+--------------------------------------------------------------------------------
+ 438 | WARNING | [ ] Line exceeds 120 characters; contains 143 characters
+ 439 | WARNING | [ ] Line exceeds 120 characters; contains 136 characters
+ 440 | WARNING | [ ] Line exceeds 120 characters; contains 134 characters
+ 441 | WARNING | [x] Array double arrow not aligned correctly; expected 2
+     |         |     space(s) between "'_mf_velog_current_customer_id'" and
+     |         |     double arrow, but found 1.
+ 446 | WARNING | [ ] Line exceeds 120 characters; contains 123 characters
+--------------------------------------------------------------------------------
+PHPCBF CAN FIX THE 1 MARKED SNIFF VIOLATIONS AUTOMATICALLY
+--------------------------------------------------------------------------------
+
+
+FILE: ...pp/public/wp-content/plugins/velog/src/Common/Storage/RecordRepository.php
+--------------------------------------------------------------------------------
+FOUND 0 ERRORS AND 1 WARNING AFFECTING 1 LINE
+--------------------------------------------------------------------------------
+ 697 | WARNING | [x] Equals sign not aligned with surrounding assignments;
+     |         |     expected 3 spaces but found 1 space
+--------------------------------------------------------------------------------
+PHPCBF CAN FIX THE 1 MARKED SNIFF VIOLATIONS AUTOMATICALLY
+--------------------------------------------------------------------------------
+
+
+FILE: ...p/public/wp-content/plugins/velog/src/Common/Vehicle/VehicleIdentifier.php
+--------------------------------------------------------------------------------
+FOUND 21 ERRORS AND 1 WARNING AFFECTING 16 LINES
+--------------------------------------------------------------------------------
+  19 | ERROR   | Doc comment for parameter "$value" missing
+  24 | ERROR   | Doc comment for parameter "$value" missing
+  29 | ERROR   | Doc comment for parameter "$value" missing
+  34 | ERROR   | Doc comment for parameter "$value" missing
+  39 | ERROR   | Doc comment for parameter "$value" missing
+  44 | ERROR   | Doc comment for parameter "$value" missing
+  53 | ERROR   | Doc comment for parameter "$jurisdiction" missing
+  53 | ERROR   | Doc comment for parameter "$plate" missing
+  60 | ERROR   | Doc comment for parameter "$value" missing
+  72 | ERROR   | Doc comment for parameter "$fields" missing
+  81 | ERROR   | Doc comment for parameter "$fields" missing
+  86 | ERROR   | Doc comment for parameter "$fields" missing
+  91 | ERROR   | Doc comment for parameter "$fields" missing
+  93 | ERROR   | Using short ternaries is not allowed as they are rarely used
+     |         | correctly
+  96 | ERROR   | Doc comment for parameter "$value" missing
+  96 | ERROR   | Doc comment for parameter "$minimum" missing
+  96 | ERROR   | Doc comment for parameter "$maximum" missing
+  96 | ERROR   | Doc comment for parameter "$collapse_whitespace" missing
+  99 | WARNING | Line exceeds 120 characters; contains 124 characters
+ 113 | ERROR   | Doc comment for parameter "$value" missing
+ 113 | ERROR   | Doc comment for parameter "$maximum" missing
+ 113 | ERROR   | Doc comment for parameter "$collapse_whitespace" missing
+--------------------------------------------------------------------------------
+
+
+FILE: ...g/app/public/wp-content/plugins/velog/tests/Unit/VehicleIdentifierTest.php
+--------------------------------------------------------------------------------
+FOUND 3 ERRORS AFFECTING 3 LINES
+--------------------------------------------------------------------------------
+ 13 | ERROR | Missing short description in doc comment
+ 15 | ERROR | Missing doc comment for function
+    |       | test_plate_policy_preserves_unicode_and_builds_unambiguous_key()
+ 21 | ERROR | Missing doc comment for function
+    |       | test_vin_and_year_policy_reject_unsafe_or_out_of_range_input()
+--------------------------------------------------------------------------------
+
+Time: 3.91 secs; Memory: 36MB
+
+Script phpcs --standard=phpcs.xml handling the phpcs event returned with error code 2
+Script @phpcs was called via lint

@@ -24,8 +24,8 @@ if [ "$TASK" != "CORE-003" ] && [ "$TASK" != "CORE-004" ] && [ "$TASK" != "CUST-
     exit 1
 fi
 
-if [ "$WP_VERSION" != "6.4.3" ] && [ "$WP_VERSION" != "6.7.2" ]; then
-    echo "Fail: WP version must be 6.4.3 or 6.7.2"
+if [ "$WP_VERSION" != "6.4.3" ] && [ "$WP_VERSION" != "6.7.2" ] && [ "$WP_VERSION" != "7.1.3" ]; then
+    echo "Fail: WP version must be 6.4.3, 6.7.2 or the inspected LocalWP core 7.1.3"
     exit 1
 fi
 
@@ -205,7 +205,19 @@ mysql -S "$DIR/mysql.sock" -u root -e "SELECT VERSION() AS database_version; CRE
 
 WP_DIR="$DIR/wp"
 mkdir -p "$WP_DIR"
-wp core download --version="$WP_VERSION" --path="$WP_DIR" >"$DIR/wp_download.log" 2>&1
+if [ "$WP_VERSION" = "7.1.3" ]; then
+    # Copy only inspected core source, never LocalWP config, content or database.
+    LOCAL_CORE=$(cd "$(dirname "${BASH_SOURCE[0]}")/../../../../.." && pwd)
+    [[ $(wp core version --path="$LOCAL_CORE") == "$WP_VERSION" ]] || { echo 'Fail: Local core version mismatch'; exit 1; }
+    cp -a "$LOCAL_CORE/wp-admin" "$LOCAL_CORE/wp-includes" "$WP_DIR/"
+    for CORE_FILE in index.php wp-activate.php wp-blog-header.php wp-comments-post.php wp-cron.php \
+        wp-links-opml.php wp-load.php wp-login.php wp-mail.php wp-settings.php wp-signup.php wp-trackback.php xmlrpc.php; do
+        cp "$LOCAL_CORE/$CORE_FILE" "$WP_DIR/"
+    done
+    mkdir -p "$WP_DIR/wp-content/plugins" "$WP_DIR/wp-content/themes"
+else
+    wp core download --version="$WP_VERSION" --path="$WP_DIR" >"$DIR/wp_download.log" 2>&1
+fi
 wp config create --dbname=velog_test --dbuser=root --dbhost="localhost:$DIR/mysql.sock" --path="$WP_DIR" >"$DIR/wp_config.log" 2>&1
 wp config set DISABLE_WP_CRON true --raw --path="$WP_DIR"
 
@@ -227,7 +239,7 @@ wp core install \
     --url="http://localhost:$PORT" \
     --title="VeLog Smoke Test $WP_VERSION" \
     --admin_user=admin --admin_password=admin \
-    --admin_email=admin@example.com \
+    --admin_email=admin@example.com --skip-email \
     --path="$WP_DIR" >"$DIR/wp_install.log" 2>&1
 
 # Record WP and PHP runtime versions for F-006.
@@ -357,6 +369,7 @@ if [ -f "$PLUGIN_DIR/tests/fixtures/$FIXTURE_FILE" ]; then
 
     if [ "$TASK" = "CUST-001" ]; then
         bash "$PLUGIN_DIR/tests/workflow/cust-001-endpoint.sh" "$PORT" "$WP_DIR" || exit 1
+        bash "$PLUGIN_DIR/tests/workflow/cust-001-uat-seed.sh" "$WP_DIR" || exit 1
     fi
 
     if [ "$TASK" = "CORE-004" ]; then

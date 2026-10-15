@@ -1,0 +1,9 @@
+{
+    "mode": "plan",
+    "site": "https://velog.local",
+    "existing_manifest": false,
+    "new_staff_accounts": 2,
+    "new_domain_records": 53,
+    "read_only": true,
+    "mail_attempts_blocked": 0
+}

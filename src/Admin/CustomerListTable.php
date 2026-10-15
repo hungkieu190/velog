@@ -24,10 +24,10 @@ final class CustomerListTable {
 	 */
 	public function render( array $result ): void {
 		echo '<table class="widefat striped velog-customer-table"><thead><tr>';
-		echo '<th class="check-column">' . esc_html__( 'Select', 'velog' ) . '</th>';
-		echo '<th>' . esc_html__( 'Name', 'velog' ) . '</th><th>' . esc_html__( 'Phone', 'velog' ) . '</th>';
-		echo '<th>' . esc_html__( 'Email', 'velog' ) . '</th><th>' . esc_html__( 'State', 'velog' ) . '</th>';
-		echo '<th>' . esc_html__( 'Actions', 'velog' ) . '</th></tr></thead><tbody>';
+		echo '<th scope="col" class="check-column">' . esc_html__( 'Select', 'velog' ) . '</th>';
+		echo '<th scope="col">' . esc_html__( 'Name', 'velog' ) . '</th><th scope="col">' . esc_html__( 'Phone', 'velog' ) . '</th>';
+		echo '<th scope="col">' . esc_html__( 'Email', 'velog' ) . '</th><th scope="col">' . esc_html__( 'State', 'velog' ) . '</th>';
+		echo '<th scope="col">' . esc_html__( 'Actions', 'velog' ) . '</th></tr></thead><tbody>';
 		if ( empty( $result['items'] ) ) {
 			echo '<tr><td colspan="6">' . esc_html__( 'No customers found.', 'velog' ) . '</td></tr>';
 		}
@@ -44,7 +44,9 @@ final class CustomerListTable {
 	 */
 	private function render_row( array $item ): void {
 		$fields = $item['fields'] ?? array();
-		echo '<tr><td class="check-column"><input form="velog-customer-bulk" type="checkbox" name="customer_ids[]" value="' . esc_attr( (string) $item['id'] ) . '">';
+		/* translators: %d: customer record ID. */
+		$label = sprintf( __( 'Select customer #%d', 'velog' ), (int) $item['id'] );
+		echo '<tr><td class="check-column"><input aria-label="' . esc_attr( $label ) . '" form="velog-customer-bulk" type="checkbox" name="customer_ids[]" value="' . esc_attr( (string) $item['id'] ) . '">';
 		echo '<input form="velog-customer-bulk" type="hidden" name="customer_versions[' . esc_attr( (string) $item['id'] ) . ']" value="' . esc_attr( (string) $item['record_version'] ) . '"></td>';
 		echo '<td>' . esc_html( (string) ( $fields['name'] ?? '' ) ) . '</td>';
 		echo '<td>' . esc_html( (string) ( $fields['phone'] ?? '' ) ) . '</td>';

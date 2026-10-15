@@ -1,0 +1,14 @@
+{
+  "selector": ".velog-admin-wrap:not(.velog-customers) .form-table th",
+  "rules": [
+    {
+      "width": "250px",
+      "context": "root"
+    },
+    {
+      "width": "100%",
+      "context": "media screen and (max-width:782px)"
+    }
+  ],
+  "conclusion": "Equal specificity; later mobile rule overrides desktop only at <=782px."
+}

@@ -1,0 +1,14 @@
+> phpcs --standard=phpcs.xml
+
+FILE: ...pp/public/wp-content/plugins/velog/src/Common/Storage/RecordRepository.php
+--------------------------------------------------------------------------------
+FOUND 0 ERRORS AND 2 WARNINGS AFFECTING 2 LINES
+--------------------------------------------------------------------------------
+ 1916 | WARNING | Line exceeds 120 characters; contains 128 characters
+ 2120 | WARNING | Line exceeds 120 characters; contains 128 characters
+--------------------------------------------------------------------------------
+
+Time: 3.77 secs; Memory: 38MB
+
+Script phpcs --standard=phpcs.xml handling the phpcs event returned with error code 1
+Script @phpcs was called via lint

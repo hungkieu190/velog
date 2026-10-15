@@ -1,0 +1,107 @@
+
+⚠️  You're running an old version of PHPStan.️
+
+The last release in the 1.12.x series with new features
+and bugfixes was released on July 17th 2025,
+that's 455 days ago.
+
+Since then more than 65 new PHPStan versions were released
+with hundreds of new features, bugfixes, and other
+quality of life improvements.
+
+To learn about what you're missing out on, check out
+this blog with articles about the latest major releases:
+https://phpstan.org/blog
+
+Upgrade today to PHPStan 2.2 or newer by using
+"phpstan/phpstan": "^2.2" in your composer.json.
+
+ ------ --------------------------------------------------------------------- 
+  Line   src/Common/Customer/CustomerIdentityGuard.php                        
+ ------ --------------------------------------------------------------------- 
+  38     Constant DB_NAME not found.                                          
+         💡 Learn more at https://phpstan.org/user-guide/discovering-symbols  
+ ------ --------------------------------------------------------------------- 
+
+ ------ ----------------------------------------------------------------------- 
+  Line   src/Common/Customer/NativeCustomerConnection.php                       
+ ------ ----------------------------------------------------------------------- 
+  33     Method                                                                 
+         MF\VeLog\Common\Customer\NativeCustomerConnection::check_connection()  
+         should return bool but returns bool|null.                              
+ ------ ----------------------------------------------------------------------- 
+
+ ------ ----------------------------------------------------------------------- 
+  Line   src/Common/Customer/NativeCustomerCoordinator.php                      
+ ------ ----------------------------------------------------------------------- 
+  48     Constant VELOG_PLUGIN_BASENAME not found.                              
+         💡 Learn more at https://phpstan.org/user-guide/discovering-symbols    
+  108    Constant VELOG_PLUGIN_DIR not found.                                   
+         💡 Learn more at https://phpstan.org/user-guide/discovering-symbols    
+  108    Constant WPINC not found.                                              
+         💡 Learn more at https://phpstan.org/user-guide/discovering-symbols    
+  135    Constant DB_HOST not found.                                            
+         💡 Learn more at https://phpstan.org/user-guide/discovering-symbols    
+  135    Constant DB_NAME not found.                                            
+         💡 Learn more at https://phpstan.org/user-guide/discovering-symbols    
+  135    Constant DB_PASSWORD not found.                                        
+         💡 Learn more at https://phpstan.org/user-guide/discovering-symbols    
+  135    Constant DB_USER not found.                                            
+         💡 Learn more at https://phpstan.org/user-guide/discovering-symbols    
+  152    Parameter #1 $query of method wpdb::prepare() expects literal-string,  
+         non-falsy-string given.                                                
+  201    Access to protected property                                           
+         MF\VeLog\Common\Customer\NativeCustomerConnection::$dbh.               
+  201    Parameter #1 $mysql of function mysqli_commit expects mysqli,          
+         mysqli|false|null given.                                               
+  225    Access to protected property                                           
+         MF\VeLog\Common\Customer\NativeCustomerConnection::$dbh.               
+  225    Parameter #1 $mysql of function mysqli_rollback expects mysqli,        
+         mysqli|false|null given.                                               
+  270    Cannot access property $users on                                       
+         MF\VeLog\Common\Customer\NativeCustomerCoordinator|null.               
+ ------ ----------------------------------------------------------------------- 
+
+ ------ --------------------------------------------- 
+  Line   src/Common/Customer/NativeCustomerStore.php  
+ ------ --------------------------------------------- 
+  54     Right side of || is always false.            
+ ------ --------------------------------------------- 
+
+ ------ -------------------------------------------------------------------- 
+  Line   src/Common/Storage/RecordRepository.php                             
+ ------ -------------------------------------------------------------------- 
+  1061   Negated boolean expression is always false.                         
+         💡 Because the type is coming from a PHPDoc, you can turn off this  
+            check by setting treatPhpDocTypesAsCertain: false in your        
+            phpstan.neon.                                                    
+ ------ -------------------------------------------------------------------- 
+
+ ------ -------------------------------------------------------------------------------------- 
+  Line   src/Common/Vehicle/VehicleIdentifier.php                                              
+ ------ -------------------------------------------------------------------------------------- 
+  73     Method MF\VeLog\Common\Vehicle\VehicleIdentifier::validate_record()                   
+         has parameter $fields with no value type specified in iterable type                   
+         array.                                                                                
+         💡 See:                                                                               
+            https://phpstan.org/blog/solving-phpstan-no-value-type-specified-in-iterable-type  
+  82     Method MF\VeLog\Common\Vehicle\VehicleIdentifier::project_plate() has                 
+         parameter $fields with no value type specified in iterable type                       
+         array.                                                                                
+         💡 See:                                                                               
+            https://phpstan.org/blog/solving-phpstan-no-value-type-specified-in-iterable-type  
+  87     Method                                                                                
+         MF\VeLog\Common\Vehicle\VehicleIdentifier::project_jurisdiction() has                 
+         parameter $fields with no value type specified in iterable type                       
+         array.                                                                                
+         💡 See:                                                                               
+            https://phpstan.org/blog/solving-phpstan-no-value-type-specified-in-iterable-type  
+  92     Method MF\VeLog\Common\Vehicle\VehicleIdentifier::project_vin() has                   
+         parameter $fields with no value type specified in iterable type                       
+         array.                                                                                
+         💡 See:                                                                               
+            https://phpstan.org/blog/solving-phpstan-no-value-type-specified-in-iterable-type  
+ ------ -------------------------------------------------------------------------------------- 
+
+ [ERROR] Found 21 errors                                                        
+

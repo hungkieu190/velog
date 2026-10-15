@@ -1,0 +1,32 @@
+
+> velog@0.1.0 test:workflow
+> node --test tests/workflow/*.test.mjs
+
+✔ handoff alerts use the new role names (1.973039ms)
+✔ handoff alerts reject stale and old-role prompts (0.351287ms)
+✔ manual test handoff targets Tester (0.501838ms)
+✔ normalizes current roles and migration aliases (2.759632ms)
+✔ uses declared backend actor for any active implementation status (1.030659ms)
+✔ uses declared frontend actor for READY and review role for READY_FOR_REVIEW (0.287774ms)
+✔ does not infer an actor when Next actor is missing or invalid (0.304154ms)
+✔ DONE has no active actor (0.274496ms)
+✔ manual acceptance assigns the tester (0.175958ms)
+✔ renders the frontend coding scene and explicit assignment metadata (0.742911ms)
+✔ build ownership, maps, repeatability and safe failure (2625.264047ms)
+✔ dashboard surfaces contradictions and escapes untrusted Markdown (4.755348ms)
+✔ W3-V3: prompt extraction does not fall back to older sections (0.31594ms)
+✔ W3-V4: prompt declaration exact token match (0.213216ms)
+✔ W3-V4: unverified status mentions (0.167511ms)
+✔ release package boundaries and failures preserve the last successful archive (56232.316297ms)
+✔ quality gate propagates tool startup failure (654.053934ms)
+✔ manifest destination cannot overwrite backend source (242.667725ms)
+✔ rejected release destination leaves no temporary staging (16223.130651ms)
+✔ Next actor declaration is authoritative across statuses (3.608334ms)
+ℹ tests 20
+ℹ suites 0
+ℹ pass 20
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 76067.384989

@@ -130,3 +130,28 @@ APPROVED. Each VeLog customer is a native `WP_User`; VeLog must use WordPress us
 - Existing private-customer records require an idempotent migration with preflight/reporting and explicit remediation for duplicate or missing email/login data. Migration must not silently alter identity data or merge records.
 
 This decision supersedes PLAN-001 P-003 and CUST-001 assumptions that customers are private non-user records or that email may be duplicated. It authorizes a replacement CUST-002 blueprint only; no source implementation, migration execution, commit, deployment, release, or active-site database access is authorized by recording this decision.
+
+## CUST-002 planning approval — 2026-10-15
+
+After reviewing the proposed backend/FE/UAT drafts and the listed product choices, the Product Owner replied: "ok bạn làm đi". Record approval of the listed product rules: immutable strict native login, required core-compatible email of at most 100 characters, restore/email-change returning the customer to pending, pending/invited customers being eligible vehicle owners, and no automatic conversion of staff accounts into customers.
+
+This instruction authorizes continued blueprint resolution and disposable native-API feasibility tests. It is not evidence of application correctness, UAT acceptance, approval of an as-yet-unspecified third-party-plugin compatibility restriction, or permission to migrate the active LocalWP database. Invitation design continues to use the G-09 manager-verification/native-reset direction. New architecture restrictions discovered during feasibility must be made concrete before requesting a decision.
+
+## CUST-002 adapter compatibility approval — 2026-10-15
+
+The Product Owner replied "ok tôi duyệt, giờ là phần việc của tôi à" after the concrete native-user write contract and feasibility report were presented. APPROVED: the bounded initial core/VeLog-only write adapter, with fail-closed customer writes for unsupported plugins, user callbacks or cache/database drop-ins. Do not ask for this approval again.
+
+Next actor returns to Backend Architect for remaining callback/version coverage, reset integration, frontend view contract, readiness completion and subsequent backend implementation/self-review. This is architecture approval, not manual UAT or functional acceptance. Tester has no pending test action until required code reviews pass and a prepared Vietnamese UAT is handed off. No live migration, external email, commit, deploy or release is authorized by this decision.
+
+
+## G-10 — Restore independent customer records (2026-10-15)
+
+APPROVED by the Product Owner: restore the original customer architecture after reviewing the difference between operational customers and login accounts. This supersedes G-09 and all CUST-002 native-user, lifecycle, and adapter approvals prospectively. Historical decisions and test evidence remain preserved.
+
+- Customer identity is the private `mf_velog_customer` record ID, independent of `WP_User::ID`. Retain DATA-001 versioned storage, audit, privacy, and shared relation-write coordination.
+- Name is required; phone and email are optional. Duplicate contact values remain allowed under the original CUST-001 contract. No username, password, invitation, or account activation is required for customer/vehicle operations.
+- Customer states are active/archived; G-03 archive/restore policy remains authoritative. These are operational states, not authentication states.
+- Staff authentication and capabilities continue to use WordPress users. This decision does not authorize a custom customer authentication/password system. Future customer portal access or optional account linking needs a separate approved contract.
+- Retire CUST-002 runtime/test additions and restore the pre-native customer implementation. Keep the project-local admin UI skill, design system, LocalWP documentation, unrelated work, and historical evidence. No WooCommerce dependency is introduced.
+- No active-site migration has been performed by the agent. Source restoration does not inspect or modify LocalWP data and does not prove the actual database contains no externally created native customer artifacts. Any detected live-data cleanup requires a separate reviewed scope.
+- CUST-001 resumes technical readiness; previous Tester T01 PASS and T02 FAIL remain unchanged. CUST-002 is BLOCKED/retired rather than accepted. VEH-001's native-user dependency is withdrawn, but its readiness and tests must be revalidated before implementation resumes.

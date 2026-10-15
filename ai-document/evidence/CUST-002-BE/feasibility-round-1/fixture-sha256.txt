@@ -1,0 +1,6 @@
+09fac80a230f075524444defb436641c0943df9644c0f65d538d667d51a1cad0  tests/fixtures/cust-002-feasibility/adapter.php
+f7f1b029081ee4e87d58bc6a0c7dd14d655a817ac035be7f778b132e6ab7f626  tests/fixtures/cust-002-feasibility/run-isolated.sh
+654d3662d8d924d819a280d946dafe36cfa81fa00bb7c8d056870d918883b433  tests/fixtures/cust-002-feasibility/run.sh
+6ebd4bd20906041a87ec3efb230f284f4522049ad6cced95f01e680b138378be  tests/fixtures/cust-002-feasibility/side-effect.php
+c11e2f773926a702bbd1348b87031b6acefe7e15de3b116ac0d775db4f72757f  tests/fixtures/cust-002-feasibility/verify.php
+840ac9c4448c6e6e74d61e0d8dd5434fdf5244ac96caf407e8616f1bc703fffb  tests/fixtures/cust-002-feasibility/worker.php

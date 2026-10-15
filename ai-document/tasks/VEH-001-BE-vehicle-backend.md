@@ -3,19 +3,22 @@
 ## Current handoff
 
 - Workstream: Backend
-- Status: IN_PROGRESS
+- Status: BLOCKED
 - Plan revision: 1
 - Implementation round: 1
-- Blueprint readiness: PASS
+- Blueprint readiness: INCOMPLETE — revalidate existing vehicle scope, shared gates, fixtures and UAT against restored CUST-001 record IDs.
 - Owner: Backend Architect
 - Contributors and review mode: Backend Architect implementation and `SELF_REVIEWED_BACKEND` required.
 - Related checklist items: VEH-001 / AC1–AC3 and backend portion of AC4.
 - Evidence: `ai-document/evidence/VEH-001-BE/backend-round-1/`.
-- Temporary resource cleanup: Pending implementation.
+- Latest report: G-10 restores private customer IDs and removes the CUST-002 dependency. Vehicle source is unchanged; its existing scope and shared technical gates still need revalidation.
+- Temporary resource cleanup: No temporary resources created by this planning reconciliation; historical cleanup is not reverified.
 - Next actor: Backend Architect
-- Next actor and exact next action: Extend the approved identifier foundation through schema, persistence, authorization, and server-side verification, then self-review.
+- Next actor and exact next action: G-10 removes the native-user dependency. Revalidate VEH-001 against private customer record IDs and its existing technical gates before resuming work.
 
 ## Approved scope and boundaries
+
+G-10 restores CUST-001 private customer IDs. Revalidate the existing scope and required gates before resuming implementation; this reconciliation adds no vehicle behavior.
 
 Implement vehicle domain validation, schema/projections, private manager/staff backend handlers, owner relation validation, archive/restore, optimistic versions, audit, and server-side tests/fixtures. Allowed application files are `src/Common/Vehicle/`, `src/Common/Storage/RecordSchema.php`, `src/Admin/VehiclePage.php`, `src/Admin/VehicleListTable.php`, `src/Admin/AdminMenu.php`, `src/Core/Plugin.php`, relevant server-side tests/fixtures, and technical/evidence documentation.
 
@@ -47,9 +50,9 @@ Do not change Sass/CSS/JavaScript/generated assets, public routes, REST routes, 
 ### Chat handoff prompt
 
 ```text
-Status: IN_PROGRESS
+Status: BLOCKED
 Recipient: Backend Architect
 Intent: work
 
-Implement VEH-001-BE only. The identifier foundation and unit tests are in progress; continue through schema, persistence, authorization, and server-side verification. CUST-001-BE, G-04, and G-05 are approved prerequisites; frontend and UAT workstreams remain deferred. Preserve private capability, nonce, optimistic-version, audit, customer-contact, identifier-uniqueness, and odometer-chronology boundaries. Do not edit frontend assets, implement service workflow/reset behavior, commit, deploy, release, or use the active database.
+G-10 removes the CUST-002 native-user dependency. Revalidate VEH-001 scope, private customer-record ownership, shared locks, technical gates, fixtures and UAT before resuming implementation. Preserve vehicle source and historical evidence. No active-site database changes, commit, deploy, or release.
 ```

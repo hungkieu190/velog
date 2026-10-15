@@ -8,10 +8,10 @@
 - Implementation contributors and reviewer independence check: No implementation by this session.
 - Related checklist items: VEH-001 / AC1–AC4 in [implementation-checklist.md](../implementation-checklist.md).
 - Baseline branch and commit: `main` at `2aa3b8d`.
-- User approval reference and approved scope: PLAN-001 revision 3 approves MVP direction; G-04 and G-05 are approved. G-09 now replaces the customer ownership contract with native WordPress user IDs.
-- Latest round: Architect draft blueprint — Round 1; blocked pending CUST-002.
+- User approval reference and approved scope: PLAN-001 revision 3 approves MVP direction; G-04 and G-05 are approved. G-10 restores private customer record IDs; the native-user dependency is withdrawn.
+- Latest round: G-10 dependency reconciliation; vehicle readiness remains unverified.
 - Next actor: Backend Architect
-- Next actor and exact next action: Wait for a decision-complete CUST-002 native WordPress customer-ID contract, then rebase VEH-001-BE.
+- Next actor and exact next action: G-10 removes the native-user dependency. Revalidate VEH-001 against private customer record IDs and its existing technical gates before resuming work.
 
 ## Problem and intended behavior
 
@@ -32,7 +32,7 @@ No vehicle registration/current-owner workflow exists. Identity must work intern
 ## Implementation blueprint
 
 - Revision: 1; AC1–AC4.
-- Blueprint readiness: INCOMPLETE — G-09 supersedes the CUST-001 private-CPT ownership contract. CUST-002 must define native WordPress user-ID semantics and migration before VEH-001-BE can proceed.
+- Blueprint readiness: INCOMPLETE — revalidate existing vehicle scope, shared gates, fixtures and UAT against restored CUST-001 record IDs.
 - Payload: `plate`/jurisdiction and normalized key, `vin` and normalized key, `make`/`model`, optional `year` (1886 to current+1), `color`, `current_customer_id`, `preferred_odometer_unit`, optional baseline reading, state (`active`/`archived`), and audit/version.
 - Normalization applies identically to lookup and write. Uniqueness covers archived and active records. Duplicate edit-self allowed.
 - Baseline date required if reading supplied (cannot be future date). Unknown baseline remains null. Baseline updates after finalized services route through correction policy.
@@ -65,5 +65,5 @@ Status: BLOCKED
 Recipient: Backend Architect
 Intent: work
 
-G-09 supersedes the customer CPT relation contract. Do not implement VEH-001-BE yet. Wait for the approved CUST-002 native WordPress user-ID contract and migration semantics, then rebase vehicle ownership validation, archive guards, fixtures, and UAT on that contract. No commit, deploy, release, or active-site database access.
+G-10 removes the CUST-002 native-user dependency. Revalidate VEH-001 scope, private customer-record ownership, shared locks, technical gates, fixtures and UAT before resuming implementation. Preserve vehicle source and historical evidence. No active-site database changes, commit, deploy, or release.
 ```

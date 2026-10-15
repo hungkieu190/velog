@@ -10,14 +10,20 @@ namespace MF\VeLog\Tests\Unit;
 use MF\VeLog\Common\Vehicle\VehicleIdentifier;
 use PHPUnit\Framework\TestCase;
 
-/** @covers \MF\VeLog\Common\Vehicle\VehicleIdentifier */
+/**
+ * Verifies the approved vehicle identifier policy.
+ *
+ * @covers \MF\VeLog\Common\Vehicle\VehicleIdentifier
+ */
 final class VehicleIdentifierTest extends TestCase {
+	/** Verify Unicode plate normalization and unambiguous tuple keys. */
 	public function test_plate_policy_preserves_unicode_and_builds_unambiguous_key(): void {
 		$this->assertSame( 'TH', VehicleIdentifier::normalize_jurisdiction( ' th ' ) );
 		$this->assertSame( 'กข 123', VehicleIdentifier::normalize_plate( " กข\t123 " ) );
 		$this->assertSame( '2:TH10:กข 123', VehicleIdentifier::plate_key( 'TH', 'กข 123' ) );
 	}
 
+	/** Verify optional VIN and bounded year validation. */
 	public function test_vin_and_year_policy_reject_unsafe_or_out_of_range_input(): void {
 		$this->assertSame( 'AB-123', VehicleIdentifier::normalize_vin( ' ab-123 ' ) );
 		$this->assertSame( '', VehicleIdentifier::normalize_vin( '' ) );

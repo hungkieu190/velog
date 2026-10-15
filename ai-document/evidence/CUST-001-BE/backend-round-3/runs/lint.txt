@@ -1,0 +1,16 @@
+> phpcs --standard=phpcs.xml
+
+FILE: ...Sites/velog/app/public/wp-content/plugins/velog/src/Admin/CustomerPage.php
+--------------------------------------------------------------------------------
+FOUND 0 ERRORS AND 1 WARNING AFFECTING 1 LINE
+--------------------------------------------------------------------------------
+ 240 | WARNING | [x] Equals sign not aligned with surrounding assignments;
+     |         |     expected 2 spaces but found 1 space
+--------------------------------------------------------------------------------
+PHPCBF CAN FIX THE 1 MARKED SNIFF VIOLATIONS AUTOMATICALLY
+--------------------------------------------------------------------------------
+
+Time: 2.92 secs; Memory: 36MB
+
+Script phpcs --standard=phpcs.xml handling the phpcs event returned with error code 2
+Script @phpcs was called via lint

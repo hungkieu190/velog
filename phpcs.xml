@@ -28,6 +28,7 @@
         <properties>
             <property name="custom_capabilities" type="array">
                 <element value="mf_velog_manage_customers"/>
+                <element value="mf_velog_read_customer_contacts"/>
                 <element value="mf_velog_manage_vehicles"/>
                 <element value="mf_velog_create_services"/>
                 <element value="mf_velog_read_records"/>

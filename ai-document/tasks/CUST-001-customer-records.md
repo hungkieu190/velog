@@ -1,23 +1,25 @@
 # CUST-001: Private customer management
 
+> G-10 restores this private customer-record contract. CUST-002 is retired. This update does not accept the feature or overwrite prior Tester results.
+
 ## Current handoff
-- Workstream: Superseded customer model
-- Status: BLOCKED
+- Workstream: Backend
+- Status: AWAITING_MANUAL_ACCEPTANCE
 - Plan revision: 3
-- Blueprint readiness: INCOMPLETE — superseded by approved G-09 native WordPress customer identity.
+- Blueprint readiness: PASS — restored backend gates pass; presentation correction and prepared manual UAT remain required.
 - Owner: Backend Architect
 - Architect session reference (planner): Codex planning conversation of 2026-09-21; descriptive reference recorded in PLAN-002, not an asserted machine session ID.
 - Builder session reference (implementer): Unassigned.
 - Implementation contributors and reviewer independence check: Backend Architect owns BE/self-review; Frontend Developer owns FE; Backend Architect approved FE code; Tester owns manual acceptance.
 - Related checklist items: CUST-001 / AC1–AC4.
 - Baseline branch and commit; pre-existing relevant changes: main at 2aa3b8d, clean before PLAN-002 documentation work; all new classes below are proposed, not inspected existing implementations.
-- User approval reference and approved scope: PLAN-001 revision 3 approves MVP direction; 2026-09-21 user authorizes batch planning only. Detailed pending proposals are not approved implementation.
-- Latest round: T02 correction remains historical evidence; its private-CPT model cannot receive further UAT acceptance after G-09.
-- Next actor: Backend Architect
-- Next actor and exact next action: Complete CUST-002 blueprint before replacing this superseded model; do not continue CUST-001 UAT.
+- User approval reference and approved scope: G-10 restores private customers; the Product Owner authorized backend continuation, FE corrections, and the exact LocalWP UAT preparation on 2026-10-15. Manual feature acceptance remains pending.
+- Latest round: BE round 3 SELF_REVIEWED_BACKEND; FE round 3 review 2 APPROVED; LocalWP staff/pagination/active-link preparation verified. Awaiting Tester T01–T20; no new manual result.
+- Next actor: Tester
+- Next actor and exact next action: Execute CUST-001-UAT T01–T20 on the prepared LocalWP site, retest T02, and report actual PASS/FAIL/BLOCKED; only Tester may accept the feature.
 
 ## Problem and intended behavior
-Managers cannot yet create or find customers; technician access to vehicle history must not imply unrestricted access to customer contact information.
+Managers create, edit, find, archive and restore private customer records independently of WordPress login accounts. Technician access to vehicle history must not imply access to customer contact information. The original implementation is restored; technical readiness and manual retest remain open.
 
 ## Scope and references
 Read AGENTS.md; [PLAN-002 Shared blueprint contract — revision 1](PLAN-002-mvp-task-batch.md#shared-blueprint-contract--revision-1); product-plan.md, internationalization.md, architecture.md, testing-strategy.md and architect-builder-workflow.md under ai-document/. Apply rules/architecture.md, security.md, coding-style.md and UI/accessibility rules when screens change. Read build-and-release.md for lifecycle, asset or packaging changes. The shared contract supplies required commands, isolation, evidence and pre-handoff gates; the scope below is task-specific.
@@ -103,14 +105,14 @@ External fixture resource ownership, bounded readiness/cleanup and error propaga
 ## Evidence and Builder completion contract
 - Evidence directory: `ai-document/evidence/CUST-001/round-1/`; commands.log for commands/exits/versions, verification.md mapping S/AC/V IDs to changed files and actual evidence; named manual walkthrough where applicable. Append later rounds without replacing old results.
 - Complete the PLAN-002 pre-handoff checklist: identity/contributors, exact changes, test totals/negative controls, deviations, NOT VERIFIED checks, cleanup and matching task/checklist state. No self-acceptance.
-- Implementation: CUST-001-BE is SELF_REVIEWED_BACKEND; CUST-001-FE Round 2 code review is APPROVED. Manual acceptance is pending in CUST-001-UAT; no browser PASS is inferred.
+- Implementation: CUST-001-BE is SELF_REVIEWED_BACKEND; CUST-001-FE Round 3 review 2 code review is APPROVED. Manual acceptance is pending in CUST-001-UAT; no browser PASS is inferred.
 
 ### Chat handoff prompt
 
 ```text
-Status: BLOCKED
-Recipient: Backend Architect
-Intent: work
+Status: AWAITING_MANUAL_ACCEPTANCE
+Recipient: Tester
+Intent: accept
 
-G-09 supersedes the private `mf_velog_customer` CPT contract. Preserve CUST-001 evidence, but do not continue its UAT or accept it. Create the CUST-002 native WordPress customer blueprint and migration contract before any replacement implementation or VEH-001 work.
+Run T01–T20 in ai-document/tasks/CUST-001-UAT-manual-test.md on https://velog.local/wp-admin/. Retest T02; preserve historical T01 PASS/T02 FAIL. Backend round 3 is SELF_REVIEWED_BACKEND; FE round 3 review 2 is APPROVED for code only. LocalWP accounts and fixtures are verified; see ai-document/evidence/CUST-001-UAT/preparation-2026-10-15/report.md and the UAT task for private credentials and fixture IDs. Record actual PASS/FAIL/BLOCKED, environment and missing RTL/screen-reader prerequisites. Only explicit Tester acceptance permits DONE. No commit, deploy or release.
 ```

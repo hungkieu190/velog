@@ -1,19 +1,21 @@
 # CUST-001-BE: Private customer backend and admin contract
 
+> G-10 restores this private customer-record contract. CUST-002 is retired. This update does not accept the feature or overwrite prior Tester results.
+
 ## Current handoff
 - Workstream: Backend
-- Status: BLOCKED
-- Plan revision: 1
-- Implementation round: 2
-- Blueprint readiness: INCOMPLETE — G-09 supersedes this private-CPT contract.
+- Status: DONE
+- Plan revision: 2
+- Implementation round: 3
+- Blueprint readiness: PASS — backend scope and required gates passed; FE correction and manual acceptance remain separate.
 - Owner: Backend Architect
-- Contributors and review mode: Backend Architect implementation and SELF_REVIEWED_BACKEND for historical T02 correction; further acceptance superseded by G-09.
+- Contributors and review mode: Codex / Backend Architect; SELF_REVIEWED_BACKEND (intentionally non-independent), technical checkpoint only.
 - Related checklist items: CUST-001 / AC1–AC3 and backend portion of AC4.
-- Latest report: Approved T02 fix implemented; targeted static gates, 93 unit tests, MariaDB/MySQL fixtures and HTTP form regression pass. Full lint remains blocked by unrelated VEH-001 work.
-- Evidence: `ai-document/evidence/CUST-001-BE/backend-round-2/report.md`.
-- Temporary resource cleanup: Completed; disposable WordPress runners removed their owned resources.
-- Next actor: Backend Architect
-- Next actor and exact next action: Define CUST-002 native WordPress user replacement and migration contract; do not continue this UAT.
+- Latest report: Round 3 closes full lint/static, customer privacy/batch/UTF-8 and state-aware recovery checks. See ai-document/evidence/CUST-001-BE/backend-round-3/report.md. No feature/manual acceptance.
+- Evidence: `ai-document/evidence/CUST-001-BE/backend-round-3/report.md`.
+- Temporary resource cleanup: Verified: all owned isolated sites, database/PHP processes and scratch files removed; reusable fixtures/evidence retained.
+- Next actor: Tester
+- Next actor and exact next action: Execute CUST-001-UAT T01–T20 on the prepared LocalWP site, retest T02, and report actual PASS/FAIL/BLOCKED; only Tester may accept the feature.
 
 ## Problem and intended behavior
 
@@ -43,6 +45,28 @@ Allowed application files:
 - task, checklist, and evidence documentation for this workstream
 
 Prohibited scope: Sass/CSS/JavaScript presentation changes, generated frontend assets, vehicle CRUD or reassignment behavior, customer WordPress accounts, marketing consent, export/erasure, hard delete, REST endpoints, public routes, active LocalWP data mutation, commit, push, deploy, or release.
+
+## Authorized continuation — 2026-10-15
+
+The Product Owner instructed "làm tiếp" after the restoration handoff. Continue backend readiness under G-10. The bounded change map includes the existing customer/admin/repository files, tests/Unit/CustomerQueryTest.php, tests/Unit/CustomerServiceTest.php, tests/fixtures/cust-001-verify.php, tests/workflow/cust-001-endpoint.sh, and a read-only tests/fixtures/cust-001-uat-prepare.php prerequisite inventory. It never creates accounts/data and never executes as part of activation/page load. Any later LocalWP provisioning remains a separate explicitly authorized action.
+
+The existing tests/workflow/product-smoke.sh runner may additionally test the inspected LocalWP core 7.1.3 by copying only allowlisted core source into a disposable install; never copy live configuration/content/database. Core test installation skips notification email.
+
+Shared gate repair scope: PHPDoc/formatting and equivalent full ternary in src/Common/Vehicle/VehicleIdentifier.php; documentation in tests/Unit/VehicleIdentifierTest.php; formatting-only src/Common/Storage/RecordSchema.php; remove the redundant scalar check after string-only derive_projections() in RecordRepository, preserving missing-key rejection. No vehicle feature behavior is added.
+
+Correct existing customer requirements: batch snapshot hydration instead of row lookups, actor-scoped POST search with opaque pagination tokens, strict malformed UTF-8 rejection, and native semantic PHP controls. Keep classic pages and selectors stable. Add positive/negative runtime assertions for these boundaries. Frontend CSS corrections remain a separate FE assignment; no backend agent asset/source edits. LocalWP may be inspected read-only; live fixture writes still require explicit authorization, not a blanket continuation.
+
+## Audit recovery finding in shared-gate continuation
+
+DATA-001 V4 exposed seven reconciliation failures. Source inspection found that CUST-001 saves append `__state` to before/after snapshots, while create snapshots and the old reconciler compare fields only. This predates the current batch decoder change. The bounded repair stays in RecordRepository: compare read-only normalized audit snapshots, using the registered initial state only for pre-state-format snapshots, and compare the final snapshot against both current fields and state. Never rewrite persisted history or remove explicit state checks. Existing request/actor/version/change comparisons remain authoritative. Repeat V1–V5 and add customer history recovery coverage; state-changing reconcile_save calls without an explicit state contract must continue to fail safely rather than guessing intent.
+
+## Authorized UAT preparation — 2026-10-15
+
+The Product Owner explicitly instructed "vậy là đến bạn xử lý à, làm đi thôi" in response to the documented preparation handoff. This supersedes the earlier live-write prohibition only for two new dedicated staff users, 51 pagination customers, one linked customer and one active linked vehicle specified in CUST-001-UAT. Backup first; no existing identities or records may be overwritten/adopted/deleted. Additional allowed fixture scope: `tests/fixtures/cust-001-uat-seed.php`, `tests/workflow/cust-001-uat-seed.sh`, CUST-001 invocation in `tests/workflow/product-smoke.sh`, synchronized UAT/task/checklist/README/environment docs and `ai-document/evidence/CUST-001-UAT/preparation-2026-10-15/`. No runtime or frontend changes.
+
+## UAT preparation checkpoint
+
+SELF_REVIEWED_BACKEND: isolated WordPress 7.1.3/MySQL 8.4 provisioning regression and final lint pass; authorized LocalWP setup and read-only verification complete. See `ai-document/evidence/CUST-001-UAT/preparation-2026-10-15/report.md`. No runtime or FE asset changes; Next actor Tester for manual UAT. This technical checkpoint does not accept the feature.
 
 ## Stable backend contract
 
@@ -100,9 +124,9 @@ Round 1 review is historical; Round 2 records the implemented T02 correction. Se
 ### Chat handoff prompt
 
 ```text
-Status: BLOCKED
-Recipient: Backend Architect
-Intent: work
+Status: AWAITING_MANUAL_ACCEPTANCE
+Recipient: Tester
+Intent: accept
 
-G-09 supersedes the private customer CPT backend contract. Preserve this task and its evidence as history. Produce and approve CUST-002 before any source replacement, migration, VEH-001 ownership work, or customer UAT.
+Run T01–T20 in ai-document/tasks/CUST-001-UAT-manual-test.md on https://velog.local/wp-admin/. Retest T02; preserve historical T01 PASS/T02 FAIL. Backend round 3 is SELF_REVIEWED_BACKEND; FE round 3 review 2 is APPROVED for code only. LocalWP accounts and fixtures are verified; see ai-document/evidence/CUST-001-UAT/preparation-2026-10-15/report.md and the UAT task for private credentials and fixture IDs. Record actual PASS/FAIL/BLOCKED, environment and missing RTL/screen-reader prerequisites. Only explicit Tester acceptance permits DONE. No commit, deploy or release.
 ```

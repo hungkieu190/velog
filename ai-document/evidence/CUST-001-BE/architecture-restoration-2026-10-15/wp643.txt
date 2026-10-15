@@ -1,0 +1,42 @@
+Allocated /tmp/velog-product-smoke.cAO1ptsk for WP 6.4.3 mode=normal
+Waiting for DB...
+mysqld is alive
+database_version
+10.11.14-MariaDB-0ubuntu0.24.04.1
+Success: Added the constant 'DISABLE_WP_CRON' to the 'wp-config.php' file with the raw value 'true'.
+Waiting for HTTP...
+Plugin 'velog' activated.
+Success: Activated 1 of 1 plugins.
+PASS: Idle database connection is accepted.
+PASS: Active transaction is rejected: START TRANSACTION
+PASS: Direct coordinator call cannot enter a caller transaction.
+PASS: Active transaction is rejected: START TRANSACTION READ ONLY
+PASS: Direct coordinator call cannot enter a caller transaction.
+PASS: A transaction containing pending writes is rejected.
+PASS: Guard does not roll back caller writes.
+PASS: Guard does not commit caller writes.
+PASS: Implicit transaction mode is rejected.
+PASS: Connection is usable again after rollback and autocommit restoration.
+PASS: Customer page renders the safe notice for saved
+PASS: Customer notice does not expose database diagnostics.
+PASS: Customer page renders the safe notice for storage_unavailable
+PASS: Customer notice does not expose database diagnostics.
+PASS: Customer page renders the safe notice for forbidden
+PASS: Customer notice does not expose database diagnostics.
+PASS: Manager creates a Unicode customer.
+PASS: Technician reads the customer summary.
+PASS: Technician contact fields are redacted.
+PASS: Manager update advances the exact version.
+PASS: Stale update is rejected.
+PASS: Manager search finds normalized Unicode customer data.
+PASS: Fixture creates an active linked vehicle through the repository.
+PASS: Active vehicle blocks customer archive atomically.
+PASS: Fixture archives the linked vehicle.
+PASS: Customer archive succeeds after vehicle archive.
+PASS: Customer restore is versioned and audited.
+PASS: Technician customer mutation is denied.
+CUST-001 fixture passed.
+PASS: Authenticated native form POST creates exactly one Unicode customer, redirects, and displays success and persisted data.
+PASS: Invalid nonce rejects the HTTP write without adding a customer.
+PASS: Storage and permission redirect codes render visible error notices over HTTP.
+All tests passed for 6.4.3

@@ -7,3 +7,8 @@ Technicians may receive an operational customer summary containing only ID, name
 Archiving preserves the full record. It is rejected while an active vehicle identifies that customer as its current owner. The manager must reassign or archive the active vehicle first. Restore is versioned and audited. There is no customer hard-delete action.
 
 List search is bounded to 100 Unicode characters and 50 results per page. State, name/ID sort, direction, and page inputs are allowlisted. Bulk archive/restore processes each selected customer separately and reports aggregate successes and failures.
+
+
+## G-10 restoration and private search — 2026-10-15
+
+Customers are private operational records, independent of WordPress login accounts. Name is required; phone/email are optional and duplicate contacts remain allowed. Search submits via POST and follows an actor-scoped reference valid for 15 minutes. No contact search value is placed in pagination URLs. A missing, expired or foreign reference produces an error with a clear-search/retry path; it never silently reveals the full list. Page size is 50. Presentation correction and Tester acceptance remain pending; this document does not claim a browser PASS.

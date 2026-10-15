@@ -1,0 +1,59 @@
+> phpstan analyse --configuration=phpstan.neon
+
+⚠️  You're running an old version of PHPStan.️
+
+The last release in the 1.12.x series with new features
+and bugfixes was released on July 17th 2025,
+that's 455 days ago.
+
+Since then more than 65 new PHPStan versions were released
+with hundreds of new features, bugfixes, and other
+quality of life improvements.
+
+To learn about what you're missing out on, check out
+this blog with articles about the latest major releases:
+https://phpstan.org/blog
+
+Upgrade today to PHPStan 2.2 or newer by using
+"phpstan/phpstan": "^2.2" in your composer.json.
+
+  0/32 [░░░░░░░░░░░░░░░░░░░░░░░░░░░░]   0%[1G[2K 32/32 [▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓] 100%
+
+ ------ -------------------------------------------------------------------- 
+  Line   src/Common/Storage/RecordRepository.php                             
+ ------ -------------------------------------------------------------------- 
+  1055   Negated boolean expression is always false.                         
+         💡 Because the type is coming from a PHPDoc, you can turn off this  
+            check by setting treatPhpDocTypesAsCertain: false in your        
+            phpstan.neon.                                                    
+ ------ -------------------------------------------------------------------- 
+
+ ------ -------------------------------------------------------------------------------------- 
+  Line   src/Common/Vehicle/VehicleIdentifier.php                                              
+ ------ -------------------------------------------------------------------------------------- 
+  73     Method MF\VeLog\Common\Vehicle\VehicleIdentifier::validate_record()                   
+         has parameter $fields with no value type specified in iterable type                   
+         array.                                                                                
+         💡 See:                                                                               
+            https://phpstan.org/blog/solving-phpstan-no-value-type-specified-in-iterable-type  
+  82     Method MF\VeLog\Common\Vehicle\VehicleIdentifier::project_plate() has                 
+         parameter $fields with no value type specified in iterable type                       
+         array.                                                                                
+         💡 See:                                                                               
+            https://phpstan.org/blog/solving-phpstan-no-value-type-specified-in-iterable-type  
+  87     Method                                                                                
+         MF\VeLog\Common\Vehicle\VehicleIdentifier::project_jurisdiction() has                 
+         parameter $fields with no value type specified in iterable type                       
+         array.                                                                                
+         💡 See:                                                                               
+            https://phpstan.org/blog/solving-phpstan-no-value-type-specified-in-iterable-type  
+  92     Method MF\VeLog\Common\Vehicle\VehicleIdentifier::project_vin() has                   
+         parameter $fields with no value type specified in iterable type                       
+         array.                                                                                
+         💡 See:                                                                               
+            https://phpstan.org/blog/solving-phpstan-no-value-type-specified-in-iterable-type  
+ ------ -------------------------------------------------------------------------------------- 
+
+ [ERROR] Found 5 errors                                                         
+
+Script phpstan analyse --configuration=phpstan.neon handling the phpstan event returned with error code 1

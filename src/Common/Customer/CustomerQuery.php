@@ -51,14 +51,11 @@ final class CustomerQuery {
 		if ( ! is_array( $ids ) || ! empty( $wpdb->last_error ) ) {
 			return new \WP_Error( 'storage_unavailable', 'Customer page query failed.' );
 		}
-		$items = array();
-		foreach ( $ids as $id ) {
-			$item = RecordRepository::get( 'mf_velog_customer', (int) $id, $actor );
-			if ( is_wp_error( $item ) ) {
-				return $item;
-			}
-			$items[] = $item;
+		$items = RecordRepository::get_many( 'mf_velog_customer', array_map( 'intval', $ids ), $actor );
+		if ( is_wp_error( $items ) ) {
+			return $items;
 		}
+
 		return array(
 			'items' => $items,
 			'total' => (int) $total,
@@ -79,7 +76,7 @@ final class CustomerQuery {
 			}
 		}
 		$term = $input['term'] ?? '';
-		if ( ! is_string( $term ) || strlen( $term ) > 400 || preg_match( '/[\x00-\x1F\x7F<>]/u', $term ) ) {
+		if ( ! is_string( $term ) || strlen( $term ) > 400 || 0 !== preg_match( '/[\x00-\x1F\x7F<>]/u', $term ) ) {
 			return new \WP_Error( 'invalid_input', 'Invalid customer search term.' );
 		}
 		$term = trim( $term );
@@ -90,7 +87,7 @@ final class CustomerQuery {
 		$sort      = $input['sort'] ?? 'name';
 		$direction = $input['direction'] ?? 'asc';
 		$page      = $input['page'] ?? 1;
-		if ( ! is_string( $state ) || ! in_array( $state, array( '', 'active', 'archived' ), true ) || ! is_string( $sort ) || ! in_array( $sort, array( 'name', 'id' ), true ) || ! is_string( $direction ) || ! in_array( $direction, array( 'asc', 'desc' ), true ) || ! is_int( $page ) || $page < 1 ) {
+		if ( ! is_string( $state ) || ! in_array( $state, array( '', 'active', 'archived' ), true ) || ! is_string( $sort ) || ! in_array( $sort, array( 'name', 'id' ), true ) || ! is_string( $direction ) || ! in_array( $direction, array( 'asc', 'desc' ), true ) || ! is_int( $page ) || $page < 1 || $page > 1000000 ) {
 			return new \WP_Error( 'invalid_input', 'Invalid customer query arguments.' );
 		}
 		return compact( 'term', 'state', 'sort', 'direction', 'page' );

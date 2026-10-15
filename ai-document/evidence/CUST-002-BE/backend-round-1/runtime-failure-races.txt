@@ -1,0 +1,125 @@
+isolated_database_version
+10.11.14-MariaDB-0ubuntu0.24.04.1
+PHP 8.3.6 (cli) (built: Sep  2 2026 12:56:02) (NTS)
+Copyright (c) The PHP Group
+Zend Engine v4.3.6, Copyright (c) Zend Technologies
+    with Zend OPcache v8.3.6, Copyright (c), by Zend Technologies
+WORDPRESS 6.4.3
+PASS: Supported isolated environment passes native preflight.
+PASS: Native customer is created pending at version one.
+PASS: Native WP_User is the only authoritative identity.
+PASS: Original create request is idempotent.
+PASS: Reusing request identity with different data is rejected.
+PASS: Duplicate native email is rejected.
+PASS: Pending customer authentication is denied.
+PASS: Pending customer cookie resolution is denied.
+PASS: Unrelated administrator authentication is unchanged.
+PASS: Native metadata API cannot activate a customer outside the service.
+PASS: Native profile writes cannot bypass customer version and audit.
+PASS: Native edit advances version.
+PASS: Native updates retain quotes, backslashes, Unicode and unrelated native name metadata.
+PASS: Stale native edit is rejected.
+PASS: Customer without an active vehicle may be archived.
+PASS: Restore preserves native identity and requires a new invitation.
+PASS: New audit events do not duplicate customer contact or display identity.
+PASS: Unauthorized direct service calls are rejected.
+PASS: Unreviewed user hooks cause fail-closed customer preflight.
+PASS: Removing the unsupported callback restores compatibility.
+PHP Warning:  Undefined variable $wpdb in phar:///usr/local/bin/wp/vendor/wp-cli/eval-command/src/EvalFile_Command.php(85) : eval()'d code on line 100
+Warning: Undefined variable $wpdb in phar:///usr/local/bin/wp/vendor/wp-cli/eval-command/src/EvalFile_Command.php(85) : eval()'d code on line 100
+PHP Warning:  Undefined variable $wpdb in phar:///usr/local/bin/wp/vendor/wp-cli/eval-command/src/EvalFile_Command.php(85) : eval()'d code on line 118
+Warning: Undefined variable $wpdb in phar:///usr/local/bin/wp/vendor/wp-cli/eval-command/src/EvalFile_Command.php(85) : eval()'d code on line 118
+PASS: Actual domain sql_error rolls back identity/event and restores the original connection.
+PHP Warning:  Undefined variable $wpdb in phar:///usr/local/bin/wp/vendor/wp-cli/eval-command/src/EvalFile_Command.php(85) : eval()'d code on line 118
+Warning: Undefined variable $wpdb in phar:///usr/local/bin/wp/vendor/wp-cli/eval-command/src/EvalFile_Command.php(85) : eval()'d code on line 118
+PASS: Actual domain disconnect rolls back identity/event and restores the original connection.
+PASS: Manager-verified captured invitation is finalized after preparation commit.
+PASS: Exactly one captured mail handoff occurs on the first invitation attempt.
+PASS: Invitation retry never resends a persisted raw reset key.
+PASS: Captured link uses the native valid reset-key mechanism.
+PASS: Verified current invitation is eligible for native reset.
+PASS: Native password reset atomically activates and audits the customer.
+PASS: Active customer password/cookie state is accepted.
+PASS: Customer application-password issuance remains disabled after activation.
+PASS: Active native password-reset key generation remains supported.
+PASS: Changing email returns the account to pending.
+PASS: Email change invalidates old reset links and cookie authentication.
+PASS: Native customer page hydrates authoritative identity and metadata.
+PASS: Operational customer writes never create a mirrored CPT.
+PASS: Native pagination fixture account 1 created.
+PASS: Native pagination fixture account 2 created.
+PASS: Native pagination fixture account 3 created.
+PASS: Native pagination fixture account 4 created.
+PASS: Native pagination fixture account 5 created.
+PASS: Native pagination fixture account 6 created.
+PASS: Native pagination fixture account 7 created.
+PASS: Native pagination fixture account 8 created.
+PASS: Native pagination fixture account 9 created.
+PASS: Native pagination fixture account 10 created.
+PASS: Native pagination fixture account 11 created.
+PASS: Native pagination fixture account 12 created.
+PASS: Native pagination fixture account 13 created.
+PASS: Native pagination fixture account 14 created.
+PASS: Native pagination fixture account 15 created.
+PASS: Native pagination fixture account 16 created.
+PASS: Native pagination fixture account 17 created.
+PASS: Native pagination fixture account 18 created.
+PASS: Native pagination fixture account 19 created.
+PASS: Native pagination fixture account 20 created.
+PASS: Native pagination fixture account 21 created.
+PASS: Native pagination fixture account 22 created.
+PASS: Native pagination fixture account 23 created.
+PASS: Native pagination fixture account 24 created.
+PASS: Native pagination fixture account 25 created.
+PASS: Native pagination fixture account 26 created.
+PASS: Native pagination fixture account 27 created.
+PASS: Native pagination fixture account 28 created.
+PASS: Native pagination fixture account 29 created.
+PASS: Native pagination fixture account 30 created.
+PASS: Native pagination fixture account 31 created.
+PASS: Native pagination fixture account 32 created.
+PASS: Native pagination fixture account 33 created.
+PASS: Native pagination fixture account 34 created.
+PASS: Native pagination fixture account 35 created.
+PASS: Native pagination fixture account 36 created.
+PASS: Native pagination fixture account 37 created.
+PASS: Native pagination fixture account 38 created.
+PASS: Native pagination fixture account 39 created.
+PASS: Native pagination fixture account 40 created.
+PASS: Native pagination fixture account 41 created.
+PASS: Native pagination fixture account 42 created.
+PASS: Native pagination fixture account 43 created.
+PASS: Native pagination fixture account 44 created.
+PASS: Native pagination fixture account 45 created.
+PASS: Native pagination fixture account 46 created.
+PASS: Native pagination fixture account 47 created.
+PASS: Native pagination fixture account 48 created.
+PASS: Native pagination fixture account 49 created.
+PASS: Native pagination fixture account 50 created.
+PASS: Native 51-row pagination has a stable non-overlapping tie-break.
+PASS: Native page query count is bounded independently of its 50 rows.
+PASS: Frozen-source fixture retains historical CPT envelopes and audit.
+PASS: Historical vehicle uses an explicitly unmarked legacy customer ID.
+PASS: Default legacy customer storage is frozen against new CPT writes.
+PASS: Retained legacy sources require explicit cutover.
+PASS: Migration dry-run reports sources without creating native identities.
+PASS: Dry-run reports native email conflict rather than merging accounts.
+PASS: Explicit remediation creates a distinct native user and preserves pending verification.
+PASS: Migration retry never creates a second native identity.
+PASS: Current owner envelope and typed native projection migrate atomically.
+PASS: Native operations remain frozen until complete migration cutover.
+PASS: Unmapped source blocks cutover without silently skipping it.
+PASS: Missing legacy email is explicitly remediated by the manager.
+PASS: Verified complete mappings permit explicit cutover.
+PASS: After cutover native archive checks the migrated active vehicle relation.
+PASS: Migration leaves the original private source and audit unchanged.
+PASS: Public native user queries cannot enumerate customer identities.
+PASS: Public native REST user detail cannot expose a customer.
+CUST002_BASE_COMPLETE
+PASS: Independent-process create_email has exactly one native winner.
+PASS: Independent-process create_login has exactly one native winner.
+PASS: Concurrent native archive versus owner assignment has exactly one winner.
+PASS: Real authenticated create/replay POST produces one native identity.
+PASS: Forged nonce is rejected with HTTP 403 and no native identity write.
+PASS: Anonymous request cannot enter the authenticated mutation handler.
+PASS: Contact search redirects with only an opaque actor-scoped token.

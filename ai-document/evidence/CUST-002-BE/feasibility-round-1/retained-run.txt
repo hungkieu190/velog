@@ -1,0 +1,43 @@
+isolated_database_version
+10.11.14-MariaDB-0ubuntu0.24.04.1
+PHP 8.3.6 (cli) (built: Sep  2 2026 12:56:02) (NTS)
+Copyright (c) The PHP Group
+Zend Engine v4.3.6, Copyright (c) Zend Technologies
+    with Zend OPcache v8.3.6, Copyright (c), by Zend Technologies
+WORDPRESS 6.4.3
+PASS: Native API creates user inside pinned transaction
+PASS: Native customer metadata visible inside transaction
+PASS: Rollback removes native identity after cache cleanup
+PASS: Rollback clears native login lookup
+PASS: Rollback removes audit option
+PASS: Rollback leaves no customer metadata
+PASS: Native API commit candidate created
+PASS: Native committed Unicode identity persists
+PASS: Native committed metadata persists
+PASS: Committed audit references native user ID
+PASS: Disconnected write returns false without reconnect
+PASS: Reconnect veto prevents orphan autocommit write
+PASS: Explicit reconnect rejected while pinned
+PASS: Negative control: user hook side effect survives rollback
+CREATED: native user\nCREATED: native user\nPASS: baseline concurrent email count=2
+CREATED: native user\nREJECTED: empty_data
+PASS: guarded concurrent email count=1
+WORDPRESS 6.7.2
+PASS: Native API creates user inside pinned transaction
+PASS: Native customer metadata visible inside transaction
+PASS: Rollback removes native identity after cache cleanup
+PASS: Rollback clears native login lookup
+PASS: Rollback removes audit option
+PASS: Rollback leaves no customer metadata
+PASS: Native API commit candidate created
+PASS: Native committed Unicode identity persists
+PASS: Native committed metadata persists
+PASS: Committed audit references native user ID
+PASS: Disconnected write returns false without reconnect
+PASS: Reconnect veto prevents orphan autocommit write
+PASS: Explicit reconnect rejected while pinned
+PASS: Negative control: user hook side effect survives rollback
+CREATED: native user\nCREATED: native user\nPASS: baseline concurrent email count=2
+REJECTED: empty_data
+CREATED: native user\nPASS: guarded concurrent email count=1
+FEASIBILITY RUN COMPLETE

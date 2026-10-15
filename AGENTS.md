@@ -46,6 +46,10 @@ Follow the lean [Backend Architect / Frontend Developer / Tester workflow](ai-do
 - Diff review: Backend Architect reviews its backend diff and all Frontend Developer diffs, security boundaries, generated assets, and build/static evidence. Browser/manual verification belongs to Tester; code approval never implies manual acceptance.
 - Temporary test files: Create scratch scripts and fixtures in a uniquely named, task-owned temporary directory outside the plugin source tree when possible. Track their paths and remove owned temporary files/processes before handoff, including failure paths. Keep only approved reusable tests and required evidence. Inspect `git status --short` for accidental scratch files and report cleanup results. Never delete pre-existing or tracked files without a separate, reviewed cleanup scope.
 
+## Customer identity decision — G-10, 2026-10-15
+
+Customer identity uses private `mf_velog_customer` records, independent of WordPress user accounts. Staff authentication remains native WordPress. Do not resume retired CUST-002 native-user code, create customer accounts, or build custom authentication without a new approved scope. Follow CUST-001 and decisions.md G-10; historical G-09 specifications are superseded.
+
 ## 4. WordPress coding and security essentials
 
 Security takes precedence over performance and convenience. Follow `rules/` and WordPress standards:
@@ -58,6 +62,7 @@ Security takes precedence over performance and convenience. Follow `rules/` and 
 
 ## 5. Build, release and conditional reading map
 
+- For every wp-admin screen design, backend view contract, or admin presentation review, read the project-local [wordpress-plugin-admin-ui skill](.agents/skills/wordpress-plugin-admin-ui/SKILL.md) and [VeLog admin design system](ai-document/admin-design-system.md) before implementation. The VeLog design system resolves project-specific choices; existing security, ownership, approval, and Tester verification rules remain authoritative. Skill examples are reference material, not production-ready code or permission to add dependencies.
 - Read only what is needed for the assigned scope:
   - Architecture: [architecture.md](ai-document/architecture.md)
   - Workflow & task template: [backend-frontend-workflow.md](ai-document/backend-frontend-workflow.md)
