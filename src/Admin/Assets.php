@@ -50,7 +50,16 @@ class Assets {
 	 */
 	public function enqueue_styles( string $hook_suffix ): void {
 		// Only enqueue on exact VeLog pages (F-003).
-		$allowed_hooks = array( 'toplevel_page_velog', 'velog_page_velog-customers', 'velog_page_velog-settings' );
+		$allowed_hooks = array(
+			'toplevel_page_velog',
+			'velog_page_velog-customers',
+			'velog_page_velog-vehicles',
+			'velog_page_velog-services',
+			'velog_page_velog-history',
+			'velog_page_velog-reminders',
+			'velog_page_velog-service-types',
+			'velog_page_velog-settings',
+		);
 		if ( ! in_array( $hook_suffix, $allowed_hooks, true ) ) {
 			return;
 		}

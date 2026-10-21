@@ -1,0 +1,10 @@
+Table	Op	Msg_type	Msg_text
+velog_test.wp_posts	analyze	status	OK
+velog_test.wp_postmeta	analyze	status	OK
+id	select_type	table	type	possible_keys	key	key_len	ref	rows	Extra
+1	PRIMARY	p	ref	PRIMARY,type_status_date	type_status_date	164	const,const	2000	Using where; Using index; Using temporary; Using filesort
+1	PRIMARY	m	ref|filter	post_id,meta_key	post_id|meta_key	8|767	velog_test.p.ID	2 (2%)	Using where; Distinct; FirstMatch(p); Using rowid filter
+1	PRIMARY	s	ref	post_id,meta_key	post_id	8	velog_test.p.ID	2	Using where; Distinct
+id	select_type	table	type	possible_keys	key	key_len	ref	rows	Extra
+1	SIMPLE	p	index	PRIMARY,type_status_date	PRIMARY	8	NULL	114	Using where; Using temporary
+1	SIMPLE	s	ref	post_id,meta_key	post_id	8	velog_test.p.ID	2	Using where; Distinct

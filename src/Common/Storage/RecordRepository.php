@@ -625,6 +625,20 @@ final class RecordRepository {
 			return $idem_result;
 		}
 
+		if ( isset( $definition['write_guard'] ) ) {
+			$guard = ( $definition['write_guard'] )(
+				$unit,
+				$canonical,
+				array(),
+				self::initial_state( $definition ),
+				'',
+				0
+			);
+			if ( true !== $guard ) {
+				return is_wp_error( $guard ) ? $guard : new \WP_Error( 'storage_unavailable', 'Write guard failed.' );
+			}
+		}
+
 		// Check schema-defined uniqueness under lock.
 		$uniq_check = self::check_unique_keys_under_lock( $dbh, $prefix, $type, $definition, $canonical );
 		if ( is_wp_error( $uniq_check ) ) {
@@ -689,6 +703,12 @@ final class RecordRepository {
 			return $verify;
 		}
 
+		if ( isset( $definition['after_write'] ) ) {
+			$effect = ( $definition['after_write'] )( $unit, $post_id, $envelope );
+			if ( true !== $effect ) {
+				return is_wp_error( $effect ) ? $effect : new \WP_Error( 'storage_unavailable' );
+			}
+		}
 		return self::build_snapshot( $post_id, null, $envelope, $actor, $type );
 	}
 
@@ -781,6 +801,20 @@ final class RecordRepository {
 			return $record_check;
 		}
 
+		if ( isset( $definition['write_guard'] ) ) {
+			$guard = ( $definition['write_guard'] )(
+				$unit,
+				$new_fields,
+				$envelope,
+				$new_state ?? $envelope['state'],
+				$reason,
+				$id
+			);
+			if ( true !== $guard ) {
+				return is_wp_error( $guard ) ? $guard : new \WP_Error( 'storage_unavailable', 'Write guard failed.' );
+			}
+		}
+
 		// Check schema-defined uniqueness for updated fields under lock.
 		$uniq_check = self::check_unique_keys_under_lock( $dbh, $prefix, $type, $definition, $new_fields, $id );
 		if ( is_wp_error( $uniq_check ) ) {
@@ -823,6 +857,12 @@ final class RecordRepository {
 			return $verify;
 		}
 
+		if ( isset( $definition['after_write'] ) ) {
+			$effect = ( $definition['after_write'] )( $unit, $id, $new_envelope );
+			if ( true !== $effect ) {
+				return is_wp_error( $effect ) ? $effect : new \WP_Error( 'storage_unavailable' );
+			}
+		}
 		return self::build_snapshot( $id, null, $new_envelope, $actor, $type );
 	}
 
@@ -879,7 +919,7 @@ final class RecordRepository {
 	 * @param string $type CPT slug.
 	 * @return true|\WP_Error
 	 */
-	private static function require_sealed_and_registered( string $type ): true|\WP_Error {
+	private static function require_sealed_and_registered( string $type ): bool|\WP_Error {
 		if ( ! RecordSchema::is_sealed() ) {
 			return new \WP_Error( 'storage_unavailable', 'RecordSchema registry is not yet sealed.' );
 		}
@@ -1120,7 +1160,7 @@ final class RecordRepository {
 		array $definition,
 		array $canonical,
 		?int $current_post_id = null
-	): true|\WP_Error {
+	): bool|\WP_Error {
 		$unique_keys = $definition['unique_keys'] ?? array();
 		$projections = RecordSchema::derive_projections( $type, array( 'fields' => $canonical ) );
 
@@ -1128,6 +1168,13 @@ final class RecordRepository {
 			if ( empty( $field_names ) ) {
 				continue;
 			}
+
+			// Optional rules are omitted only when the complete tuple is absent.
+			if ( in_array( $rule_name, $definition['optional_unique_keys'] ?? array(), true )
+				&& array() === array_intersect( $field_names, array_keys( $projections ) ) ) {
+				continue;
+			}
+			$binary = in_array( $rule_name, $definition['binary_unique_keys'] ?? array(), true ) ? 'BINARY ' : '';
 
 			// derive_projections() returns strings; missing unique values fail closed.
 			foreach ( $field_names as $fn ) {
@@ -1150,11 +1197,12 @@ final class RecordRepository {
 			foreach ( array_values( $field_names ) as $idx => $fn ) {
 				$alias    = 'm' . $idx;
 				$joins[]  = sprintf(
-					'INNER JOIN %s %s ON %s.post_id = p.ID AND %s.meta_key = ? AND %s.meta_value = ?',
+					'INNER JOIN %s %s ON %s.post_id = p.ID AND %s.meta_key = ? AND %s%s.meta_value = ?',
 					$pm_table,
 					$alias,
 					$alias,
 					$alias,
+					$binary,
 					$alias
 				);
 				$types   .= 'ss';
@@ -1371,7 +1419,7 @@ final class RecordRepository {
 		int $post_id,
 		string $meta_key,
 		array $value
-	): true|\WP_Error {
+	): bool|\WP_Error {
 		$serialized = serialize( $value ); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.serialize_serialize
 		$table      = '`' . mysqli_real_escape_string( $dbh, $prefix ) . 'postmeta`';
 		$key_esc    = mysqli_real_escape_string( $dbh, $meta_key );
@@ -1408,7 +1456,7 @@ final class RecordRepository {
 		int $post_id,
 		string $meta_key,
 		array $value
-	): true|\WP_Error {
+	): bool|\WP_Error {
 		$serialized = serialize( $value ); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.serialize_serialize
 		$table      = '`' . mysqli_real_escape_string( $dbh, $prefix ) . 'postmeta`';
 		$key_esc    = mysqli_real_escape_string( $dbh, $meta_key );
@@ -1455,7 +1503,7 @@ final class RecordRepository {
 		string $type,
 		array $definition,
 		array $envelope
-	): true|\WP_Error {
+	): bool|\WP_Error {
 		$expected_projections = RecordSchema::derive_projections( $type, $envelope );
 		$all_keys             = RecordSchema::get_registered_projection_keys( $type );
 
@@ -1568,7 +1616,7 @@ final class RecordRepository {
 		string $type,
 		int $created_id,
 		string $payload_fingerprint
-	): true|\WP_Error {
+	): bool|\WP_Error {
 		$table   = '`' . mysqli_real_escape_string( $dbh, $prefix ) . 'options`';
 		$key_esc = mysqli_real_escape_string( $dbh, $idem_key );
 
@@ -1618,7 +1666,7 @@ final class RecordRepository {
 		array $definition,
 		array $envelope,
 		string $idem_key = ''
-	): true|\WP_Error {
+	): bool|\WP_Error {
 		// 1. Verify post row exists and has correct post_type and post_status.
 		$post_sql  = sprintf(
 			'SELECT post_type, post_status FROM `%sposts` WHERE ID = %d',
@@ -2217,7 +2265,7 @@ final class RecordRepository {
 		string $type,
 		array $definition,
 		array $envelope
-	): true|\WP_Error {
+	): bool|\WP_Error {
 		$read_cap = $definition['read_capability'] ?? 'mf_velog_read_records';
 		if ( ! $actor->has_cap( $read_cap ) ) {
 			return new \WP_Error( 'forbidden', 'You do not have permission to access this record.' );

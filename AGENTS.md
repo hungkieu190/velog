@@ -1,24 +1,45 @@
 # VeLog agent instructions
 
-## Owner decision — 2026-10-08: Tester owns browser verification
+## Current checkpoint — 2026-10-21: QA-001 paused by owner
 
-This decision supersedes conflicting frontend verification requirements in earlier task descriptions, review requests, and setup guidance. Historical evidence remains unchanged.
+The Product Owner requested stopping work, saving exact progress for the next session and committing/pushing the checkpoint. QA-001 remains IN_PROGRESS with Scheduling: PAUSED_BY_OWNER and Next actor Developer. Resume from ai-document/evidence/QA-001/round-1/report.md when work is resumed. The reminder benchmark is failing; do not claim complete G-08, QA-001 DONE or functional acceptance. Commit/push of this checkpoint is explicitly authorized; deployment and publication remain separate.
 
-- Frontend Developer implements assigned presentation source, builds generated assets, records build/diff results, and hands off code. It is not required to run browser/manual verification, capture screenshots, or provide visual evidence.
-- Backend Architect reviews source/generated diffs and architecture/security boundaries, verifies relevant build/static checks, and creates a concrete Vietnamese `<ID>-UAT` task. It must specify environment, accounts, data, numbered actions, expected results, negative cases, and a per-case result table. Missing browser screenshots are not grounds to reject a frontend code handoff.
-- Tester / Product Owner owns all manual UI, responsive, RTL, keyboard, screen-reader, error-state, pagination, and asset-loading verification. Screenshots/videos are optional supporting material, not a mandatory builder deliverable.
-- Code approval moves the FE task, UAT task, and parent feature to `AWAITING_MANUAL_ACCEPTANCE`, with `Next actor: Tester`. `Review decision: APPROVED` means code review only; it does not mean a browser case passed.
-- Tester records actual results as PASS, FAIL, or BLOCKED and alone decides the transition to DONE. Agents may synchronize DONE only after the user's explicit acceptance; they never infer it from build success or elapsed time. Partial/blocked results are not full acceptance. Backend workstream DONE remains a technical `SELF_REVIEWED_BACKEND` checkpoint, not acceptance of the feature.
-- On FAIL, Backend Architect triages the reported case and assigns correction to the appropriate BE/FE owner. After code review, Tester reruns affected cases and relevant regressions before deciding DONE.
-- Test data/environment preparation must be explicit. If a prerequisite is unavailable, record BLOCKED and return preparation to Backend Architect; do not silently skip it or require Frontend Developer to create backend fixtures.
+
+## Owner decision — 2026-10-21: Consolidated technical test/fix resumed
+
+The Product Owner replied "ố kề,làm" to the proposed next consolidated test/fix phase after CODE-001 implementation completion. Developer is authorized to run technical tests, create isolated fixtures and fix demonstrated defects under QA-001. The earlier code-first testing pause has ended for this scope; preserve historical evidence and outstanding manual/product/benchmark debt. No active Tester gate, feature acceptance, live-data fixture authorization or external release/commit is implied.
+
+
+## Owner decision — 2026-10-21: Code first; all testing is deferred debt
+
+The Product Owner instructed: "bỏ qua hết tester, kể từ bây giờ các task test sẽ là các task nợ nhé; làm hết code đi đã, test và fix sau". This supersedes earlier test/Tester gates for ongoing and subsequent implementation.
+
+- Codex continues all remaining MVP application code directly, without waiting for Tester/UAT, test environments or test/fix rounds between features. The current instruction authorizes the remaining documented code queue; do not repeatedly request implementation permission for it.
+- Preserve already recorded test results and accepted features. Move unperformed manual, unit/integration/runtime/performance/regression work to explicit test-debt tasks; do not mark skipped work PASS or accepted.
+- Distinguish implementation completion from functional acceptance. Parent features may remain AWAITING_MANUAL_ACCEPTANCE with Next actor Developer for the next code item; this status and outstanding UAT are not implementation dependencies. A code checkpoint may be DONE only when explicitly labelled implementation-only. Do not infer product acceptance.
+- Test-debt tasks use DRAFT with Debt: TEST_DEBT and Scheduling: DEFERRED; they are not current Tester handoffs. Keep their cases and prerequisites for a later consolidated test/fix phase. No new test suite or fixture preparation is required during the code phase.
+- Perform necessary compilation/build and PHP syntax checks to produce loadable artifacts, inspect source/security boundaries, and record actual limitations. These checks are not functional tests. Do not defer a known syntax/build failure or bypass capabilities/nonces/validation just to keep coding.
+- Keep source/generated assets synchronized. Do not run functional suites, browsers, benchmarks, test seeds or live fixture writes merely to close a feature during this phase. Actual known functional issues may be recorded as fix debt; disclose material limitations honestly.
+- User remains Product Owner and may resume testing later. Codex is sole Developer; no active Tester gate or separate reviewer is required. External commit/push/deploy/release still requires explicit authorization.
+
+
+## Owner decision — 2026-10-21: One Developer and one Tester
+
+The Product Owner explicitly instructed: "từ giờ bạn làm luôn backend, chỉnh sửa vào trong dự án agents nhé; giờ chỉ có bạn là dev, tôi là test, xong". Codex is the sole Developer for architecture, planning, backend, frontend, generated assets, fixtures, tests and technical self-review. The user remains Tester / Product Owner and exclusively performs manual acceptance. Separate Backend Architect/Frontend Developer and Antigravity assignments are retired for future work; historical implementation/review evidence is preserved. BE/FE suffixes may remain as scope subdivisions owned by the same Developer. No separate-agent code approval is required or claimed. Record SELF_REVIEWED_DEVELOPMENT for combined code review; retain historical SELF_REVIEWED_BACKEND labels as technical evidence. Successful checks never imply manual PASS or feature DONE.
+
+- Developer implements source, builds generated assets, records verification and writes concrete Vietnamese UAT instructions. Browser/manual verification, responsive/RTL/keyboard/screen-reader observations and final acceptance belong to Tester. Screenshots are optional.
+- After applicable code/build/static/runtime checks and explicit self-review pass, the feature and UAT move to AWAITING_MANUAL_ACCEPTANCE, Next actor Tester. Only explicit Tester acceptance permits DONE.
+- On FAIL, Developer triages and corrects the appropriate BE/FE scope, then returns affected cases/regressions to Tester.
+- Developer prepares prerequisites explicitly; missing prerequisites remain BLOCKED. Active-site fixture writes require their own authorized bounded scope.
 
 ## 1. Startup: Role resolution and announcement
 
-Before task work, read [agent-roles.json](ai-document/agent-roles.json). This is static role mapping: `codex` is Backend Architect; `antigravity` is Frontend Developer; the user is Tester / Product Owner.
+Before task work, read [agent-roles.json](ai-document/agent-roles.json). Current mapping: `codex` is Developer (backend and frontend); the user is Tester / Product Owner. Antigravity has no active assignment.
 1. Identify client from host runtime. Resolve assigned role from `assignments[client].role`. Never switch or infer roles.
 2. Send a short Vietnamese acknowledgement once per session: confirm reading AGENTS.md, project, role, and client. Do not repeat every turn or pause for confirmation.
-3. Role separation: Backend Architect plans all work, implements and self-reviews backend code, and reviews Frontend Developer code. Frontend Developer implements only explicitly assigned presentation work and never self-accepts. Tester / Product Owner performs mandatory manual feature tests and is the only role that accepts a major feature as functionally DONE.
+3. Role boundary: Developer owns all technical work and self-review. Tester / Product Owner alone performs manual acceptance and accepts major features as functionally DONE. Do not invent a separate frontend agent or independent code reviewer.
 4. Host-injected rules count as read; verify role mapping once per session. Re-read instructions when modified on disk.
+5. At the start of every work session, inspect the relevant current task, checklist, and README, then state in Vietnamese the concrete next action, responsible actor, and any approval or prerequisite needed before starting. A startup acknowledgement alone is insufficient. Developer proactively inspects the dependency queue to identify the next work; do not ask the user to select a task already established by project records. If no task can be established or the records disagree, state the missing information or mismatch and the exact clarification needed; never invent the next task.
 
 ## 2. Communication and language
 
@@ -27,23 +48,19 @@ Before task work, read [agent-roles.json](ai-document/agent-roles.json). This is
 - Be evidence-based: identify risks and assumptions; do not agree merely to please.
 - State scope and approach before changing code; obtain explicit user approval.
 - External actions (git commit/push/deploy/release) require explicit user authorization.
+- Every final response must state in Vietnamese the concrete next action, who performs it, and any required approval or prerequisite, including read-only and instruction-reading turns. If the requested scope is complete and no further task is established, say so and identify the scope or decision needed from the user. Do not end with only a generic readiness statement. This communication rule does not authorize task-state changes or replace the mandatory handoff prompt when applicable.
 
 ## 3. Workflow and manual handoffs
 
-Follow the lean [Backend Architect / Frontend Developer / Tester workflow](ai-document/backend-frontend-workflow.md). Automated dispatch, receipts, and background signals are retired.
+Follow the [Developer / Tester workflow](ai-document/backend-frontend-workflow.md). Automated dispatch, receipts, and background signals are retired.
 - Tasks progress through standard statuses: `DRAFT`, `READY`, `IN_PROGRESS`, `READY_FOR_REVIEW`, `CHANGES_REQUESTED`, `BLOCKED`, `AWAITING_MANUAL_ACCEPTANCE`, `DONE`.
-- Backend Architect creates backend, frontend, and manual test tasks. Every major feature uses `<ID>-BE`, `<ID>-FE` when presentation exists, and mandatory `<ID>-UAT` owned by Tester.
-- Backend Architect owns every backend change, including PHP, WordPress hooks, capabilities, nonces, validation, storage, SQL, concurrency, server-side tests, integration fixtures, and backend documentation. It implements directly, inspects its own diff, runs applicable gates, and records `SELF_REVIEWED_BACKEND`. This review is intentionally non-independent under the user's 2026-10-05 workflow decision.
-- Frontend Developer owns only assigned JavaScript, Sass/CSS, visual components, responsive/RTL/accessibility presentation, generated frontend assets, and approved view-only templates. It must not edit backend behavior or tests and must hand completed work to Backend Architect for review.
-- Backend Architect review is code/architecture/security review only. It must not claim that a feature works for the user or mark a major parent task DONE.
-- Tester / Product Owner receives a Vietnamese `<ID>-UAT` task with prerequisites, test data, exact steps, expected results, negative/permission cases, visual/accessibility checks where applicable, and a required PASS/FAIL result format.
-- A major parent task moves to `AWAITING_MANUAL_ACCEPTANCE` with `Next actor: Tester` only after required code reviews pass. It moves to `DONE` only after Tester explicitly records manual PASS. A manual FAIL moves the affected BE or FE workstream to `CHANGES_REQUESTED` after Backend Architect triage.
-- `Next actor` is authoritative. Do not infer an owner from task status.
-- Incoming validation: Verify task status, next actor, blueprint readiness (PASS), and checklist synchronization before starting work. On mismatch, stop and request metadata correction.
-- Handoffs: Synchronize task file, checklist, and README. Provide exactly one copy-ready prompt under `### Chat handoff prompt`.
-- Mandatory final-response prompt: Any turn that records or changes a task status, `Next actor`, review decision, workstream ownership, or manual-acceptance handoff is incomplete until the agent's final user-facing response includes exactly one copy-ready handoff prompt. Reproduce the task file's `### Chat handoff prompt` verbatim. Never refer the user to a prompt from an earlier message, omit it because it was previously supplied, or provide multiple competing prompts.
-- Prompt consistency: The final-response prompt must match the synchronized task, checklist, and README status, recipient, intent, evidence reference, and exact next action. A missing or mismatched prompt is a failed handoff and must be corrected before ending the turn.
-- Diff review: Backend Architect reviews its backend diff and all Frontend Developer diffs, security boundaries, generated assets, and build/static evidence. Browser/manual verification belongs to Tester; code approval never implies manual acceptance.
+- Developer creates feature tasks and mandatory Vietnamese `<ID>-UAT`; BE/FE subtasks may be retained for bounded scopes but have the same Developer owner. Developer owns PHP, hooks, validation, capabilities/nonces, persistence, SQL/concurrency, JavaScript/Sass/CSS, view templates, generated assets, tests, fixtures and documentation.
+- Before implementation, validate status, authoritative Next actor, blueprint readiness PASS, synchronized checklist/README and explicit scope approval. Resolve metadata mismatches before source work.
+- Developer reviews its own full diff and applicable security, lint, unit, integration, runtime and build evidence; record SELF_REVIEWED_DEVELOPMENT and verification limitations. No independent review is claimed.
+- A major parent task and UAT move to AWAITING_MANUAL_ACCEPTANCE with Next actor Tester only after technical gates pass. They move to DONE only after explicit Tester manual PASS. Failed cases return to Developer as CHANGES_REQUESTED.
+- Next actor is authoritative: Developer or Tester. Status does not infer ownership.
+- Synchronize task, checklist and README before handoff. Keep exactly one English copy-ready prompt under `### Chat handoff prompt` with Status, Recipient (`Developer` or `Tester`), Intent and exact next action/evidence.
+- Any turn changing status, Next actor, review decision, workstream ownership or manual acceptance must reproduce the relevant task prompt verbatim exactly once in the final response. Keep it consistent with synchronized records; never omit it because a prior turn included it.
 - Temporary test files: Create scratch scripts and fixtures in a uniquely named, task-owned temporary directory outside the plugin source tree when possible. Track their paths and remove owned temporary files/processes before handoff, including failure paths. Keep only approved reusable tests and required evidence. Inspect `git status --short` for accidental scratch files and report cleanup results. Never delete pre-existing or tracked files without a separate, reviewed cleanup scope.
 
 ## Customer identity decision — G-10, 2026-10-15
@@ -62,7 +79,7 @@ Security takes precedence over performance and convenience. Follow `rules/` and 
 
 ## 5. Build, release and conditional reading map
 
-- For every wp-admin screen design, backend view contract, or admin presentation review, read the project-local [wordpress-plugin-admin-ui skill](.agents/skills/wordpress-plugin-admin-ui/SKILL.md) and [VeLog admin design system](ai-document/admin-design-system.md) before implementation. The VeLog design system resolves project-specific choices; existing security, ownership, approval, and Tester verification rules remain authoritative. Skill examples are reference material, not production-ready code or permission to add dependencies.
+- For every wp-admin screen design, backend view contract, or admin presentation review, read the project-local [wordpress-plugin-admin-ui skill](.agents/skills/wordpress-plugin-admin-ui/SKILL.md) and [VeLog admin design system](ai-document/admin-design-system.md) before implementation. The VeLog design system resolves project-specific choices; current security, Developer ownership, approval, and Tester verification rules remain authoritative. Skill examples are reference material, not production-ready code or permission to add dependencies.
 - Read only what is needed for the assigned scope:
   - Architecture: [architecture.md](ai-document/architecture.md)
   - Workflow & task template: [backend-frontend-workflow.md](ai-document/backend-frontend-workflow.md)

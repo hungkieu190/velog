@@ -1,0 +1,30 @@
+> phpunit --configuration=tests/phpunit.xml
+PHPUnit 10.5.64 by Sebastian Bergmann and contributors.
+
+Runtime:       PHP 8.3.6
+Configuration: /home/ecommercelife/Local Sites/velog/app/public/wp-content/plugins/velog/tests/phpunit.xml
+
+......................VeLog: Critical capabilities rollback failure. State mismatched snapshot.
+...............E.........................  63 / 109 ( 57%)
+..............................................                  109 / 109 (100%)
+
+Time: 00:00.365, Memory: 22.00 MB
+
+There was 1 error:
+
+1) MF\VeLog\Tests\Unit\LoaderRunTest::test_loader_run_called_twice_registers_hooks_twice
+Mockery\Exception\InvalidCountException: Method add_action('init', <Callable>, 10, 1) from Mockery_0 should be called
+ exactly 3 times but called 2 times.
+
+/home/ecommercelife/Local Sites/velog/app/public/wp-content/plugins/velog/vendor/mockery/mockery/library/Mockery/CountValidator/Exact.php:32
+/home/ecommercelife/Local Sites/velog/app/public/wp-content/plugins/velog/vendor/mockery/mockery/library/Mockery/Expectation.php:739
+/home/ecommercelife/Local Sites/velog/app/public/wp-content/plugins/velog/vendor/mockery/mockery/library/Mockery/ExpectationDirector.php:202
+/home/ecommercelife/Local Sites/velog/app/public/wp-content/plugins/velog/vendor/mockery/mockery/library/Mockery/Container.php:583
+/home/ecommercelife/Local Sites/velog/app/public/wp-content/plugins/velog/vendor/mockery/mockery/library/Mockery/Container.php:519
+/home/ecommercelife/Local Sites/velog/app/public/wp-content/plugins/velog/vendor/mockery/mockery/library/Mockery.php:176
+/home/ecommercelife/Local Sites/velog/app/public/wp-content/plugins/velog/vendor/brain/monkey/inc/api.php:38
+/home/ecommercelife/Local Sites/velog/app/public/wp-content/plugins/velog/tests/Unit/LoaderRunTest.php:67
+
+ERRORS!
+Tests: 109, Assertions: 471, Errors: 1.
+Script phpunit --configuration=tests/phpunit.xml handling the test event returned with error code 2

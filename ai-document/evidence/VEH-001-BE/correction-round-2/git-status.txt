@@ -1,0 +1,52 @@
+ M .agents/rules/project-role.md
+ M AGENTS.md
+ M ai-document/README.md
+ M ai-document/admin-design-system.md
+ M ai-document/agent-roles.json
+ M ai-document/architecture.md
+ M ai-document/backend-frontend-workflow.md
+ M ai-document/build-and-release.md
+ M ai-document/decisions.md
+ M ai-document/implementation-checklist.md
+ M ai-document/local-environment.md
+ M ai-document/tasks/CUST-001-BE-customer-backend.md
+ M ai-document/tasks/CUST-001-FE-customer-presentation.md
+ M ai-document/tasks/CUST-001-UAT-manual-test.md
+ M ai-document/tasks/CUST-001-customer-records.md
+ M ai-document/tasks/VEH-001-BE-vehicle-backend.md
+ M ai-document/tasks/VEH-001-vehicle-records.md
+ M assets/css/admin.css
+ M rules/ai-agent.md
+ M scripts/progress-client.mjs
+ M scripts/progress-data.mjs
+ M scripts/progress-view.mjs
+ M set-up-new/01-backend-frontend-workflow.md
+ M set-up-new/02-source-build-release-workflow.md
+ M src/Admin/AdminMenu.php
+ M src/Admin/Assets.php
+ M src/Common/Customer/CustomerRelations.php
+ M src/Common/Storage/RecordRepository.php
+ M src/Common/Storage/RecordSchema.php
+ M src/Common/Vehicle/VehicleIdentifier.php
+ M src/css/admin.scss
+ M tests/Unit/VehicleIdentifierTest.php
+ M tests/fixtures/cust-001-uat-seed.php
+ M tests/workflow/product-smoke.sh
+ M tests/workflow/progress-alert.test.mjs
+ M tests/workflow/progress-roles.test.mjs
+?? ai-document/evidence/VEH-001-BE/
+?? ai-document/evidence/VEH-001-UAT/
+?? ai-document/tasks/VEH-001-FE-vehicle-presentation.md
+?? ai-document/tasks/VEH-001-UAT-manual-test.md
+?? ai-document/tasks/VEH-001-contract-v2.md
+?? src/Admin/VehicleListTable.php
+?? src/Admin/VehiclePage.php
+?? src/Common/Vehicle/OdometerPolicy.php
+?? src/Common/Vehicle/VehicleQuery.php
+?? src/Common/Vehicle/VehicleService.php
+?? tests/Unit/VehicleCoreTest.php
+?? tests/fixtures/veh-001-concurrent-worker.php
+?? tests/fixtures/veh-001-uat-seed.php
+?? tests/fixtures/veh-001-verify.php
+?? tests/workflow/veh-001-endpoint.sh
+?? tests/workflow/veh-001-uat-seed.sh

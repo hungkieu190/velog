@@ -63,7 +63,7 @@ final class WriteCoordinator {
 	 *
 	 * @return true|\WP_Error
 	 */
-	public static function check_environment(): true|\WP_Error {
+	public static function check_environment(): bool|\WP_Error {
 		if ( is_multisite() ) {
 			return new \WP_Error(
 				'storage_unavailable',
@@ -143,7 +143,7 @@ final class WriteCoordinator {
 	 * @param \mysqli $dbh Connection to verify without reconnecting.
 	 * @return true|\WP_Error
 	 */
-	private static function prepare_transaction( \mysqli $dbh ): true|\WP_Error {
+	private static function prepare_transaction( \mysqli $dbh ): bool|\WP_Error {
 		$rows = self::query_direct( $dbh, 'SELECT @@SESSION.autocommit AS autocommit' );
 		if ( false === $rows || 1 !== count( $rows ) || '1' !== (string) ( $rows[0]['autocommit'] ?? '' ) ) {
 			return new \WP_Error(
@@ -170,7 +170,7 @@ final class WriteCoordinator {
 	 *
 	 * @return true|\WP_Error
 	 */
-	public static function ensure_lock_row(): true|\WP_Error {
+	public static function ensure_lock_row(): bool|\WP_Error {
 		if ( self::$lock_row_initialized ) {
 			return true;
 		}

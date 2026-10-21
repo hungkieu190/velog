@@ -1,0 +1,5 @@
+
+> velog@0.1.0 production
+> node scripts/build.mjs --mode=production
+
+Built 4 files (production).

@@ -235,6 +235,14 @@ final class RecordSchema {
 			$definition['unique_keys'] = array();
 		}
 
+		if ( isset( $definition['write_guard'] ) && ! is_callable( $definition['write_guard'] ) ) {
+			throw new \InvalidArgumentException( 'RecordSchema: write_guard must be callable.' );
+		}
+
+		if ( isset( $definition['after_write'] ) && ! is_callable( $definition['after_write'] ) ) {
+			throw new \InvalidArgumentException( 'RecordSchema: after_write must be callable.' );
+		}
+
 		if ( isset( $definition['record_validator'] ) && ! is_callable( $definition['record_validator'] ) ) {
 			throw new \InvalidArgumentException( 'RecordSchema: record_validator must be callable.' );
 		}
@@ -415,26 +423,36 @@ final class RecordSchema {
 			self::register(
 				'mf_velog_vehicle',
 				array(
-					'capability'          => 'mf_velog_manage_vehicles',
-					'read_capability'     => 'mf_velog_read_records',
-					'states'              => array( 'active', 'archived' ),
-					'field_policies'      => array(
-						'jurisdiction'        => 'public',
-						'plate'               => 'public',
-						'vin'                 => 'internal',
-						'year'                => 'public',
-						'current_customer_id' => 'internal',
+					'capability'           => 'mf_velog_manage_vehicles',
+					'read_capability'      => 'mf_velog_read_records',
+					'states'               => array( 'active', 'archived' ),
+					'field_policies'       => array(
+						'jurisdiction'            => 'public',
+						'plate'                   => 'public',
+						'vin'                     => 'internal',
+						'year'                    => 'public',
+						'current_customer_id'     => 'internal',
+						'make'                    => 'public',
+						'model'                   => 'public',
+						'color'                   => 'public',
+						'preferred_odometer_unit' => 'internal',
+						'baseline'                => 'internal',
 					),
 					// phpcs:disable Generic.Files.LineLength.TooLong
-					'fields'              => array(
-						'jurisdiction'        => array( \MF\VeLog\Common\Vehicle\VehicleIdentifier::class, 'validate_jurisdiction' ),
-						'plate'               => array( \MF\VeLog\Common\Vehicle\VehicleIdentifier::class, 'validate_plate' ),
-						'vin'                 => array( \MF\VeLog\Common\Vehicle\VehicleIdentifier::class, 'validate_vin' ),
-						'year'                => array( \MF\VeLog\Common\Vehicle\VehicleIdentifier::class, 'validate_year' ),
-						'current_customer_id' => array( \MF\VeLog\Common\Customer\CustomerRelations::class, 'validate_customer_id' ),
+					'fields'               => array(
+						'jurisdiction'            => array( \MF\VeLog\Common\Vehicle\VehicleIdentifier::class, 'validate_jurisdiction' ),
+						'plate'                   => array( \MF\VeLog\Common\Vehicle\VehicleIdentifier::class, 'validate_plate' ),
+						'vin'                     => array( \MF\VeLog\Common\Vehicle\VehicleIdentifier::class, 'validate_vin' ),
+						'year'                    => array( \MF\VeLog\Common\Vehicle\VehicleIdentifier::class, 'validate_year' ),
+						'current_customer_id'     => array( \MF\VeLog\Common\Customer\CustomerRelations::class, 'validate_customer_id' ),
+						'make'                    => array( \MF\VeLog\Common\Vehicle\VehicleService::class, 'validate_text' ),
+						'model'                   => array( \MF\VeLog\Common\Vehicle\VehicleService::class, 'validate_text' ),
+						'color'                   => array( \MF\VeLog\Common\Vehicle\VehicleService::class, 'validate_color' ),
+						'preferred_odometer_unit' => array( \MF\VeLog\Common\Vehicle\OdometerPolicy::class, 'validate_unit' ),
+						'baseline'                => array( \MF\VeLog\Common\Vehicle\OdometerPolicy::class, 'validate_baseline' ),
 					),
 					// phpcs:enable Generic.Files.LineLength.TooLong
-					'projection_builders' => array(
+					'projection_builders'  => array(
 						'_mf_velog_vehicle_jurisdiction' => array(
 							\MF\VeLog\Common\Vehicle\VehicleIdentifier::class,
 							'project_jurisdiction',
@@ -452,7 +470,15 @@ final class RecordSchema {
 							'project_customer_id',
 						),
 					),
-					'record_validator'    => array(
+					'after_write'          => array( CurrentOdometerIndex::class, 'vehicle_changed' ),
+					'write_guard'          => array( \MF\VeLog\Common\Vehicle\VehicleService::class, 'guard_write' ),
+					'unique_keys'          => array(
+						'plate' => array( '_mf_velog_vehicle_jurisdiction', '_mf_velog_vehicle_plate' ),
+						'vin'   => array( '_mf_velog_vehicle_vin' ),
+					),
+					'optional_unique_keys' => array( 'plate', 'vin' ),
+					'binary_unique_keys'   => array( 'plate', 'vin' ),
+					'record_validator'     => array(
 						\MF\VeLog\Common\Vehicle\VehicleIdentifier::class,
 						'validate_record',
 					),
@@ -465,19 +491,40 @@ final class RecordSchema {
 			self::register(
 				'mf_velog_service',
 				array(
-					'capability'      => 'mf_velog_create_services',
-					'read_capability' => 'mf_velog_read_records',
-					'states'          => array( 'draft', 'finalized' ),
-					'fields'          => array(),
-					'context_builder' => static function ( array $envelope, \WP_User $actor ): array {
-						unset( $actor );
-						return array(
-							'type'            => 'mf_velog_service',
-							'state'           => $envelope['state'] ?? 'draft',
-							'author'          => (int) ( $envelope['created_by'] ?? 0 ),
-							'vehicle_visible' => (bool) ( $envelope['fields']['vehicle_visible'] ?? false ),
-						);
-					},
+					'capability'          => 'mf_velog_create_services',
+					'read_capability'     => 'mf_velog_read_records',
+					'states'              => array( 'draft', 'finalized' ),
+					'field_policies'      => array(
+						'vehicle_id'        => 'public',
+						'vehicle_visible'   => 'internal',
+						'service_date'      => 'public',
+						'reading'           => 'public',
+						'service_type_id'   => 'public',
+						'notes'             => 'public',
+						'cost'              => 'public',
+						'customer_snapshot' => 'public',
+						'type_snapshot'     => 'public',
+					),
+					'fields'              => array(
+						'vehicle_id'        => array( \MF\VeLog\Common\Service\ServiceFields::class, 'id' ),
+						'vehicle_visible'   => static fn ( mixed $v ): ?bool => true === $v ? true : null,
+						'service_date'      => array( \MF\VeLog\Common\Service\ServiceFields::class, 'date' ),
+						'reading'           => array( \MF\VeLog\Common\Service\ServiceFields::class, 'reading' ),
+						'service_type_id'   => array( \MF\VeLog\Common\Service\ServiceFields::class, 'id' ),
+						'notes'             => array( \MF\VeLog\Common\Service\ServiceFields::class, 'text' ),
+						'cost'              => array( \MF\VeLog\Common\Service\ServiceFields::class, 'cost' ),
+						'customer_snapshot' => array( \MF\VeLog\Common\Service\ServiceFields::class, 'snapshot' ),
+						'type_snapshot'     => array( \MF\VeLog\Common\Service\ServiceFields::class, 'snapshot' ),
+					),
+					'projections'         => array( '_mf_velog_service_vehicle_id' ),
+					'projection_builders' => array(
+						// phpcs:ignore Generic.Files.LineLength.TooLong -- Pure closed projection builder.
+						'_mf_velog_service_vehicle_id' => static fn ( array $fields ): ?string => isset( $fields['vehicle_id'] ) && is_int( $fields['vehicle_id'] ) && $fields['vehicle_id'] > 0 ? (string) $fields['vehicle_id'] : null,
+					),
+					'context_builder'     => array( \MF\VeLog\Common\Service\ServiceService::class, 'context' ),
+					'record_validator'    => array( \MF\VeLog\Common\Service\ServiceService::class, 'validate_record' ),
+					'after_write'         => array( CurrentOdometerIndex::class, 'service_changed' ),
+					'write_guard'         => array( \MF\VeLog\Common\Service\ServiceService::class, 'guard_write' ),
 				)
 			);
 		}
@@ -487,10 +534,44 @@ final class RecordSchema {
 			self::register(
 				'mf_velog_reminder',
 				array(
-					'capability'      => 'mf_velog_manage_reminders',
-					'read_capability' => 'mf_velog_read_records',
-					'states'          => array( 'pending', 'sent', 'dismissed' ),
-					'fields'          => array(),
+					'capability'          => 'mf_velog_manage_reminders',
+					'read_capability'     => 'mf_velog_manage_reminders',
+					'states'              => array( 'active', 'snoozed', 'completed' ),
+					'field_policies'      => array_fill_keys(
+						array(
+							'vehicle_id',
+							'title',
+							'due_date',
+							'threshold',
+							'snooze_until',
+							'completed_by',
+							'completed_at_utc',
+						),
+						'public'
+					),
+					'fields'              => array(
+						'vehicle_id'       => array( \MF\VeLog\Common\Service\ServiceFields::class, 'id' ),
+						'title'            => array( \MF\VeLog\Common\Reminder\ReminderService::class, 'title' ),
+						'due_date'         => array( \MF\VeLog\Common\Reminder\ReminderPolicy::class, 'date' ),
+						'threshold'        => array( \MF\VeLog\Common\Service\ServiceFields::class, 'reading' ),
+						'snooze_until'     => array( \MF\VeLog\Common\Reminder\ReminderPolicy::class, 'date' ),
+						'completed_by'     => array( \MF\VeLog\Common\Service\ServiceFields::class, 'id' ),
+						'completed_at_utc' => array( \MF\VeLog\Common\Reminder\ReminderService::class, 'timestamp' ),
+					),
+					'projection_builders' => array(
+						'_mf_velog_reminder_vehicle_id' => static fn ( array $f ): string => (string) $f['vehicle_id'],
+						'_mf_velog_reminder_title'      => static fn ( array $f ): string => $f['title'],
+						'_mf_velog_reminder_due_date'   => static fn ( array $f ): string => $f['due_date'],
+						'_mf_velog_reminder_mm'         => static fn ( array $f ): string
+							=> $f['threshold']['canonical_mm'] ?? '',
+						'_mf_velog_reminder_snooze'     => static fn ( array $f ): string => $f['snooze_until'],
+					),
+					'record_validator'    => array(
+						\MF\VeLog\Common\Reminder\ReminderService::class,
+						'validate_record',
+					),
+					'context_builder'     => array( \MF\VeLog\Common\Reminder\ReminderService::class, 'context' ),
+					'write_guard'         => array( \MF\VeLog\Common\Reminder\ReminderService::class, 'guard_write' ),
 				)
 			);
 		}
@@ -567,7 +648,7 @@ final class RecordSchema {
 	 * @param array<string, mixed> $fields    Complete canonical field map.
 	 * @return true|\WP_Error
 	 */
-	public static function validate_record( string $post_type, array $fields ): true|\WP_Error {
+	public static function validate_record( string $post_type, array $fields ): bool|\WP_Error {
 		$definition = self::get( $post_type );
 		if ( ! isset( $definition['record_validator'] ) ) {
 			return true;

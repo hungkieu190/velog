@@ -20,7 +20,7 @@ export function rolePresentation(focus) {
     return { role: null, motion: null, label: 'State needs attention' };
   }
 
-  const motion = declared === 'Backend Architect' ? 'drawing' : (declared === 'Frontend Developer' ? 'coding' : (declared === 'Tester' ? 'testing' : null));
+  const motion = declared === 'Backend Architect' ? 'drawing' : ((declared === 'Frontend Developer' || declared === 'Developer') ? 'coding' : (declared === 'Tester' ? 'testing' : null));
   return { role: declared, motion, label: labels[focus.status] };
 }
 
@@ -54,7 +54,7 @@ export function renderProgress(data) {
           </g>
         </g>
       </svg>`;
-    } else if (owner === 'Frontend Developer') {
+    } else if ((owner === 'Frontend Developer' || owner === 'Developer')) {
       svg = `<svg viewBox="0 0 160 110" class="scene frontend" aria-hidden="true" focusable="false">
         <g class="display" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round">
           <rect x="18" y="18" width="92" height="62" rx="4"/>
@@ -88,6 +88,7 @@ export function renderProgress(data) {
     const descriptions = {
       'Backend Architect': 'Architecture, backend & review',
       'Frontend Developer': 'Frontend implementation',
+      Developer: 'Backend, frontend & technical review',
       Tester: 'Manual test & accept',
     };
     return `<div class="${e(classes.join(' '))}">${svg}<span>${e(owner)}<small>${isActive ? e(pres.label) : descriptions[owner]}</small></span></div>`;
@@ -99,7 +100,7 @@ export function renderProgress(data) {
   <main><section class="focus"><p class="eyebrow">CURRENT FOCUS · ${e(focus?.id || 'No task')}</p><h1>${e(focus?.title || 'No active task')}</h1><p class="status">${e(focus?.status || 'No status')} <span> / ${e(focus?.workstream || 'Unspecified')} / ${e(focus?.owner || 'Unassigned')} / ${e(focus?.round || 'No round')}</span></p><p class="next">${e(focus?.nextAction || 'Create the next task.')}</p>
   <div class="caption">Recorded task state &middot; checks every 20s</div>
   ${pres.role ? '' : `<div class="attention-reason">${e(pres.label)}</div>`}
-  <div class="owners">${['Backend Architect', 'Frontend Developer', 'Tester'].map(renderScene).join('')}</div></section>
+  <div class="owners">${(normalizeRole(focus?.declaredOwner) === 'Developer' || normalizeRole(focus?.declaredOwner) === 'Tester' ? ['Developer', 'Tester'] : ['Backend Architect', 'Frontend Developer', 'Tester']).map(renderScene).join('')}</div></section>
   <aside><p class="eyebrow">CHECKLIST PROGRESS</p><div class="count">${data.summary.done}<span> / ${data.summary.total}</span></div><p>${data.summary.open} open items</p>${data.phases.map((phase) => `<div class="phase"><span>${e(phase.name)}</span><strong>${phase.done}/${phase.total}</strong><progress max="${phase.total || 1}" value="${phase.done}"></progress><ul class="phase-items">${phase.items.map(item => `<li class="${item.done ? 'done' : ''}">${e(item.text)}</li>`).join('')}</ul></div>`).join('')}</aside>
   ${data.issues.length ? `<section class="signals"><h2>Documentation signals</h2><ul>${data.issues.map((issue) => `<li>${e(issue)}</li>`).join('')}</ul></section>` : ''}
   <section class="wide"><h2>Task history</h2><div class="table-wrap"><table><thead><tr><th>Task</th><th>Status / owner</th><th>Latest round</th><th>Findings</th><th>Handoff prompts</th></tr></thead><tbody>${data.tasks.map((task) => `<tr><td><strong>${e(task.title)}</strong><small>${e(task.file)}</small></td><td>${e(task.status)}<small>${e(task.owner)}</small></td><td>${e(task.round)}</td><td>${e(task.findings.join(', ') || 'None recorded')}</td><td>${task.validPromptCount}/${task.promptCount} valid blocks</td></tr><tr><td colspan="5"><details><summary>Reports and latest handoff</summary><ul>${task.history.map((heading) => `<li>${e(heading)}</li>`).join('')}</ul><pre>${e(task.latestPrompt || 'No handoff recorded')}</pre></details></td></tr>`).join('')}</tbody></table></div></section>

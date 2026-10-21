@@ -1,14 +1,10 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "project": "velog",
   "assignments": {
     "codex": {
-      "role": "backend_architect",
-      "display_name": "Backend Architect"
-    },
-    "antigravity": {
-      "role": "frontend_developer",
-      "display_name": "Frontend Developer"
+      "role": "developer",
+      "display_name": "Developer"
     },
     "user": {
       "role": "tester",
@@ -18,23 +14,27 @@
   "policy": {
     "allow_role_switch": false,
     "backend_ownership": "codex_only",
-    "frontend_ownership": "antigravity_only",
-    "allow_backend_self_review": true,
-    "backend_self_review_label": "SELF_REVIEWED_BACKEND",
-    "allow_frontend_self_acceptance": false,
-    "frontend_reviewer": "backend_architect",
+    "frontend_ownership": "codex_only",
+    "allow_technical_self_review": true,
+    "technical_self_review_label": "SELF_REVIEWED_DEVELOPMENT",
+    "legacy_backend_self_review_label": "SELF_REVIEWED_BACKEND",
     "feature_acceptance_owner": "tester",
-    "manual_test_required_for_major_tasks": true,
+    "manual_test_required_for_major_tasks": false,
     "manual_test_task_suffix": "-UAT",
     "announce_on_session_start": true,
     "unknown_client": "stop_and_request_client_identification",
     "assignment_changes": "explicit_user_request_only",
     "write_on_session_start": false,
-    "frontend_browser_verification_required": false,
-    "frontend_screenshots_required": false,
+    "developer_browser_verification_required": false,
+    "developer_screenshots_required": false,
     "manual_verification_owner": "tester",
-    "manual_test_task_author": "backend_architect",
+    "manual_test_task_author": "developer",
     "done_transition_authority": "tester",
-    "frontend_code_approval_status": "AWAITING_MANUAL_ACCEPTANCE"
-  }
+    "code_approval_status": "AWAITING_MANUAL_ACCEPTANCE",
+    "manual_test_blocks_implementation": false,
+    "verification_mode": "consolidated_technical_test_fix",
+    "test_phase": "paused_by_owner",
+    "active_tester_handoff": false
+  },
+  "owner_decision": "2026-10-21: Codex is sole Developer; complete remaining code before the deferred consolidated test/fix phase. User remains Product Owner."
 }

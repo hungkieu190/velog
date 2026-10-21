@@ -1,20 +1,20 @@
 # CUST-001-UAT: Kiểm thử thủ công quản lý khách hàng
 
-> G-10 restores this private customer-record contract. CUST-002 is retired. This update does not accept the feature or overwrite prior Tester results.
+> G-10 restores this private customer-record contract. CUST-002 is retired. Tester accepted all CUST-001-UAT cases on 2026-10-21; prior results remain historical evidence.
 
 ## Current handoff
 - Workstream: Tester
-- Status: AWAITING_MANUAL_ACCEPTANCE
+- Status: DONE
 - Plan revision: 2
-- Test round: 2 (T02 chờ test lại)
+- Test round: 2 (Tester xác nhận toàn bộ T01–T20 PASS ngày 2026-10-21)
 - Blueprint readiness: PASS — code approved and LocalWP accounts/data verified; browser/tool prerequisites and manual acceptance belong to Tester.
 - Owner: Tester / Product Owner
 - Task cha: CUST-001
 - Điều kiện bắt đầu: BE round 3 SELF_REVIEWED_BACKEND; FE round 3 review 2 APPROVED; tài khoản/dữ liệu LocalWP đã chuẩn bị và xác minh. Tester cung cấp trình duyệt, locale RTL thật và screen reader; thiếu công cụ thì ghi BLOCKED.
-- Latest report: LocalWP preparation verified; see ai-document/evidence/CUST-001-UAT/preparation-2026-10-15/report.md. No new manual results; historical T01 PASS and T02 FAIL pending retest are preserved.
+- Latest report: LocalWP preparation verified; see ai-document/evidence/CUST-001-UAT/preparation-2026-10-15/report.md. Tester confirmed T02 retest PASS in chat on 2026-10-21. T01 remains PASS; the initial T02 failure is retained as history. Tester confirmed T03 PASS on 2026-10-21; Tester subsequently confirmed all remaining UAT cases PASS on 2026-10-21; full feature acceptance is recorded. No additional environment/tool details were supplied with this confirmation.
 - Evidence: Kết quả do Tester ghi vào bảng dưới hoặc trả trong chat; ảnh/video tùy chọn.
 - Next actor: Tester
-- Next actor and exact next action: Execute CUST-001-UAT T01–T20 on the prepared LocalWP site, retest T02, and report actual PASS/FAIL/BLOCKED; only Tester may accept the feature.
+- Next actor and exact next action: Execute VEH-001-UAT T01–T15 on prepared LocalWP, starting with T01, and report actual PASS/FAIL/BLOCKED; only Tester may accept the feature.
 
 ## Kiểm kê LocalWP trước chuẩn bị — 2026-10-15 (lịch sử, chỉ đọc)
 
@@ -60,6 +60,8 @@ Product Owner đã duyệt thực hiện bằng yêu cầu “vậy là đến b
 7. Evidence: `ai-document/evidence/CUST-001-UAT/preparation-2026-10-15/report.md`, `local-verify.json`, `local-inventory-after.json`. Đây là xác minh chuẩn bị tự động, không phải kết quả UAT. Giữ lịch sử T01 PASS, T02 FAIL và test lại T02; chỉ ghi DONE sau nghiệm thu rõ ràng của Tester.
 
 ## Test lại sau sửa T02
+
+Kết quả hiện tại: Tester xác nhận T02, T03 và toàn bộ các ca còn lại PASS ngày 2026-10-21. Các bước dưới đây được giữ làm hướng dẫn và lịch sử.
 
 1. Reload trang VeLog > Customers (PHP backend đã sửa, không cần build CSS).
 2. Nhập tên `Nguyễn Thị Khách Hàng 測試`, phone `+66 81 234 5678`, email `customer.uat@example.com`; bấm Create Customer.
@@ -108,27 +110,30 @@ Product Owner đã duyệt thực hiện bằng yêu cầu “vậy là đến b
 | ID | Thực tế quan sát | PASS / FAIL / BLOCKED | Ghi chú (ảnh tùy chọn) |
 |---|---|---|---|
 | T01 | Người dùng xác nhận Done. | PASS | Kết quả do Tester cung cấp. |
-| T02 | Nhập dữ liệu, bấm tạo khách hàng nhưng admin không có phản hồi; phần sửa chưa thực hiện. | FAIL lần 1; chờ retest | Backend triage: `../evidence/CUST-001-BE/uat-t02-triage/report.md`. |
-| T03 | Chưa kiểm thử | | |
-| T04 | Chưa kiểm thử | | |
-| T05 | Chưa kiểm thử | | |
-| T06 | Chưa kiểm thử | | |
-| T07 | Chưa kiểm thử | | |
-| T08 | Chưa kiểm thử | | |
-| T09 | Chưa kiểm thử | | |
-| T10 | Chưa kiểm thử | | |
-| T11 | Chưa kiểm thử | | |
-| T12 | Chưa kiểm thử | | |
-| T13 | Chưa kiểm thử | | |
-| T14 | Chưa kiểm thử | | |
-| T15 | Chưa kiểm thử | | |
-| T16 | Chưa kiểm thử | | |
-| T17 | Chưa kiểm thử | | |
-| T18 | Chưa kiểm thử | | |
-| T19 | Chưa kiểm thử | | |
-| T20 | Chưa kiểm thử | | |
+| T02 | Tester xác nhận “T02 đã xong, tôi đã kiểm thử và đạt” ngày 2026-10-21. | PASS (retest) | Lịch sử lần 1: bấm tạo không có phản hồi, chưa kiểm tra sửa. Backend triage: `../evidence/CUST-001-BE/uat-t02-triage/report.md`. Không có chi tiết môi trường/công cụ mới trong xác nhận. |
+| T03 | Tester xác nhận đã kiểm thử thành công cả ca T03 ngày 2026-10-21. | PASS | Xác nhận trong chat sau hướng dẫn kiểm tra trùng thông tin và liên hệ để trống; không có chi tiết môi trường/công cụ mới. |
+| T04 | Tester xác nhận đã kiểm thử và PASS toàn bộ các ca còn lại ngày 2026-10-21. | PASS | Xác nhận chung trong chat; không có mô tả quan sát hoặc chi tiết môi trường/công cụ riêng cho ca này. |
+| T05 | Tester xác nhận đã kiểm thử và PASS toàn bộ các ca còn lại ngày 2026-10-21. | PASS | Xác nhận chung trong chat; không có mô tả quan sát hoặc chi tiết môi trường/công cụ riêng cho ca này. |
+| T06 | Tester xác nhận đã kiểm thử và PASS toàn bộ các ca còn lại ngày 2026-10-21. | PASS | Xác nhận chung trong chat; không có mô tả quan sát hoặc chi tiết môi trường/công cụ riêng cho ca này. |
+| T07 | Tester xác nhận đã kiểm thử và PASS toàn bộ các ca còn lại ngày 2026-10-21. | PASS | Xác nhận chung trong chat; không có mô tả quan sát hoặc chi tiết môi trường/công cụ riêng cho ca này. |
+| T08 | Tester xác nhận đã kiểm thử và PASS toàn bộ các ca còn lại ngày 2026-10-21. | PASS | Xác nhận chung trong chat; không có mô tả quan sát hoặc chi tiết môi trường/công cụ riêng cho ca này. |
+| T09 | Tester xác nhận đã kiểm thử và PASS toàn bộ các ca còn lại ngày 2026-10-21. | PASS | Xác nhận chung trong chat; không có mô tả quan sát hoặc chi tiết môi trường/công cụ riêng cho ca này. |
+| T10 | Tester xác nhận đã kiểm thử và PASS toàn bộ các ca còn lại ngày 2026-10-21. | PASS | Xác nhận chung trong chat; không có mô tả quan sát hoặc chi tiết môi trường/công cụ riêng cho ca này. |
+| T11 | Tester xác nhận đã kiểm thử và PASS toàn bộ các ca còn lại ngày 2026-10-21. | PASS | Xác nhận chung trong chat; không có mô tả quan sát hoặc chi tiết môi trường/công cụ riêng cho ca này. |
+| T12 | Tester xác nhận đã kiểm thử và PASS toàn bộ các ca còn lại ngày 2026-10-21. | PASS | Xác nhận chung trong chat; không có mô tả quan sát hoặc chi tiết môi trường/công cụ riêng cho ca này. |
+| T13 | Tester xác nhận đã kiểm thử và PASS toàn bộ các ca còn lại ngày 2026-10-21. | PASS | Xác nhận chung trong chat; không có mô tả quan sát hoặc chi tiết môi trường/công cụ riêng cho ca này. |
+| T14 | Tester xác nhận đã kiểm thử và PASS toàn bộ các ca còn lại ngày 2026-10-21. | PASS | Xác nhận chung trong chat; không có mô tả quan sát hoặc chi tiết môi trường/công cụ riêng cho ca này. |
+| T15 | Tester xác nhận đã kiểm thử và PASS toàn bộ các ca còn lại ngày 2026-10-21. | PASS | Xác nhận chung trong chat; không có mô tả quan sát hoặc chi tiết môi trường/công cụ riêng cho ca này. |
+| T16 | Tester xác nhận đã kiểm thử và PASS toàn bộ các ca còn lại ngày 2026-10-21. | PASS | Xác nhận chung trong chat; không có mô tả quan sát hoặc chi tiết môi trường/công cụ riêng cho ca này. |
+| T17 | Tester xác nhận đã kiểm thử và PASS toàn bộ các ca còn lại ngày 2026-10-21. | PASS | Xác nhận chung trong chat; không có mô tả quan sát hoặc chi tiết môi trường/công cụ riêng cho ca này. |
+| T18 | Tester xác nhận đã kiểm thử và PASS toàn bộ các ca còn lại ngày 2026-10-21. | PASS | Xác nhận chung trong chat; không có mô tả quan sát hoặc chi tiết môi trường/công cụ riêng cho ca này. |
+| T19 | Tester xác nhận đã kiểm thử và PASS toàn bộ các ca còn lại ngày 2026-10-21. | PASS | Xác nhận chung trong chat; không có mô tả quan sát hoặc chi tiết môi trường/công cụ riêng cho ca này. |
+| T20 | Tester xác nhận đã kiểm thử và PASS toàn bộ các ca còn lại ngày 2026-10-21. | PASS | Xác nhận chung trong chat; không có mô tả quan sát hoặc chi tiết môi trường/công cụ riêng cho ca này. |
 
 ## Quyết định của Tester
+
+- Ngày 2026-10-21, Tester xác nhận: “Đã pass hết các task test, làm tiếp phần core tiếp theo nào”. Trong ngữ cảnh CUST-001-UAT, đây là xác nhận PASS toàn bộ T01–T20 và yêu cầu chuyển sang phần tiếp theo. Đồng bộ CUST-001, CUST-001-FE và CUST-001-UAT sang DONE theo xác nhận trực tiếp này; BE giữ DONE ở checkpoint SELF_REVIEWED_BACKEND.
+- Không có chi tiết môi trường, RTL hoặc screen reader bổ sung trong xác nhận chung. Agent ghi nhận kết quả do Tester báo cáo, không tự quan sát hoặc tạo thêm bằng chứng thủ công. Lịch sử T02 FAIL vẫn được giữ.
 
 - PASS: tất cả T01–T20 đã thực hiện và đạt. Tester quyết định chuyển CUST-001-UAT, CUST-001-FE và CUST-001 sang DONE; agent chỉ đồng bộ sau xác nhận đó.
 - FAIL: ghi ID bước, thao tác, thực tế, mong đợi. Backend Architect phân loại BE/FE để sửa; sau review chuyển lại Tester kiểm thử.
@@ -146,9 +151,9 @@ Có thể trả kết quả trong chat theo mẫu:
 ### Chat handoff prompt
 
 ```text
-Status: AWAITING_MANUAL_ACCEPTANCE
+Status: DONE
 Recipient: Tester
 Intent: accept
 
-Run T01–T20 in ai-document/tasks/CUST-001-UAT-manual-test.md on https://velog.local/wp-admin/. Retest T02; preserve historical T01 PASS/T02 FAIL. Backend round 3 is SELF_REVIEWED_BACKEND; FE round 3 review 2 is APPROVED for code only. LocalWP accounts and fixtures are verified; see ai-document/evidence/CUST-001-UAT/preparation-2026-10-15/report.md and the UAT task for private credentials and fixture IDs. Record actual PASS/FAIL/BLOCKED, environment and missing RTL/screen-reader prerequisites. Only explicit Tester acceptance permits DONE. No commit, deploy or release.
+Run VEH-001-UAT T01–T15 in ai-document/tasks/VEH-001-UAT-manual-test.md on https://velog.local/wp-admin/, starting with T01. Developer completed technical self-review and verified the authorized LocalWP fixtures; see ai-document/evidence/VEH-001-UAT/preparation-2026-10-21/report.md. Customer A/B/Archived IDs are 66/67/68; pagination vehicles are 69–119; subscriber test actor is ID 4. Keep pagination fixtures unchanged until T11 and use Customer B for T06. Record actual PASS/FAIL/BLOCKED and environment/tool details; missing RTL/screen-reader tools must be reported. Only explicit Tester acceptance permits DONE. No commit, deploy or release.
 ```

@@ -1,0 +1,25 @@
+> phpcs --standard=phpcs.xml
+
+FILE: ... Sites/velog/app/public/wp-content/plugins/velog/src/Admin/ServicePage.php
+--------------------------------------------------------------------------------
+FOUND 1 ERROR AFFECTING 1 LINE
+--------------------------------------------------------------------------------
+ 252 | ERROR | Use Yoda Condition checks, you must.
+--------------------------------------------------------------------------------
+
+
+FILE: ...log/app/public/wp-content/plugins/velog/tests/Unit/ServiceWorkflowTest.php
+--------------------------------------------------------------------------------
+FOUND 0 ERRORS AND 5 WARNINGS AFFECTING 5 LINES
+--------------------------------------------------------------------------------
+  55 | WARNING | Line exceeds 120 characters; contains 144 characters
+  59 | WARNING | Line exceeds 120 characters; contains 122 characters
+  76 | WARNING | Line exceeds 120 characters; contains 124 characters
+  91 | WARNING | Line exceeds 120 characters; contains 130 characters
+ 161 | WARNING | Line exceeds 120 characters; contains 183 characters
+--------------------------------------------------------------------------------
+
+Time: 6.89 secs; Memory: 40MB
+
+Script phpcs --standard=phpcs.xml handling the phpcs event returned with error code 1
+Script @phpcs was called via lint

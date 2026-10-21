@@ -143,6 +143,7 @@ final class Plugin {
 	private function define_core_hooks(): void {
 		$post_types = new PostTypes();
 		$this->loader->add_action( 'init', $post_types, 'register_post_types' );
+		$this->loader->add_action( 'init', new ServiceTypes(), 'register' );
 	}
 
 	/**

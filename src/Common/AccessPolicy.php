@@ -100,6 +100,11 @@ class AccessPolicy {
 				return false;
 			}
 
+			$manager = $actor->has_cap( 'mf_velog_correct_services' );
+			if ( 'draft' === $context['state'] && $context['author'] !== (int) $actor->ID && ! $manager ) {
+				return false;
+			}
+
 			// Service mutation-specific rules.
 			if ( in_array( $action, $service_actions, true ) ) {
 				if ( 'mf_velog_correct_services' === $action && 'finalized' !== $context['state'] ) {
@@ -108,7 +113,7 @@ class AccessPolicy {
 
 				$own_draft_actions = array( 'mf_velog_edit_own_service_drafts', 'mf_velog_finalize_own_services' );
 				if ( in_array( $action, $own_draft_actions, true ) ) {
-					if ( 'draft' !== $context['state'] || (int) $actor->ID !== $context['author'] ) {
+					if ( 'draft' !== $context['state'] || ( ! $manager && (int) $actor->ID !== $context['author'] ) ) {
 						return false;
 					}
 				}

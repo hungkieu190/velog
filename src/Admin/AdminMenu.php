@@ -33,14 +33,55 @@ class AdminMenu {
 	private CustomerPage $customer_page;
 
 	/**
+	 * Vehicle page.
+	 *
+	 * @var VehiclePage
+	 */
+	private VehiclePage $vehicle_page;
+
+	/**
+	 * Read-only history screen.
+	 *
+	 * @var ServiceHistoryPage
+	 */
+	private ServiceHistoryPage $history_page;
+
+	/**
+	 * Manual maintenance screen.
+	 *
+	 * @var ReminderPage
+	 */
+	private ReminderPage $reminder_page;
+
+
+	/**
+	 * Service workflow page.
+	 *
+	 * @var ServicePage
+	 */
+	private ServicePage $service_page;
+
+	/**
+	 * Private service-type editor.
+	 *
+	 * @var ServiceTypePage
+	 */
+	private ServiceTypePage $service_type_page;
+
+	/**
 	 * Constructor.
 	 *
 	 * @param RegionalSettingsPage $settings_page Settings page.
 	 * @param CustomerPage|null    $customer_page Customer page.
 	 */
 	public function __construct( RegionalSettingsPage $settings_page, ?CustomerPage $customer_page = null ) {
-		$this->settings_page = $settings_page;
-		$this->customer_page = $customer_page ?? new CustomerPage();
+		$this->vehicle_page      = new VehiclePage();
+		$this->history_page      = new ServiceHistoryPage();
+		$this->reminder_page     = new ReminderPage();
+		$this->service_page      = new ServicePage();
+		$this->service_type_page = new ServiceTypePage();
+		$this->settings_page     = $settings_page;
+		$this->customer_page     = $customer_page ?? new CustomerPage();
 	}
 
 	/**
@@ -52,6 +93,10 @@ class AdminMenu {
 		$loader->add_action( 'admin_menu', $this, 'add_menu_pages' );
 		$this->settings_page->register_hooks( $loader );
 		$this->customer_page->register_hooks( $loader );
+		$this->vehicle_page->register_hooks( $loader );
+		$this->reminder_page->register_hooks( $loader );
+		$this->service_page->register_hooks( $loader );
+		$this->service_type_page->register_hooks( $loader );
 	}
 
 	/**
@@ -77,6 +122,49 @@ class AdminMenu {
 			'mf_velog_manage_customers',
 			'velog-customers',
 			array( $this->customer_page, 'render' )
+		);
+
+		add_submenu_page(
+			'velog',
+			__( 'Vehicles', 'velog' ),
+			__( 'Vehicles', 'velog' ),
+			'mf_velog_read_records',
+			'velog-vehicles',
+			array( $this->vehicle_page, 'render' )
+		);
+
+		add_submenu_page(
+			'velog',
+			__( 'Services', 'velog' ),
+			__( 'Services', 'velog' ),
+			'mf_velog_read_records',
+			'velog-services',
+			array( $this->service_page, 'render' )
+		);
+		add_submenu_page(
+			'velog',
+			__( 'Service types', 'velog' ),
+			__( 'Service types', 'velog' ),
+			'mf_velog_manage_settings',
+			'velog-service-types',
+			array( $this->service_type_page, 'render' )
+		);
+
+		add_submenu_page(
+			'velog',
+			__( 'Service history', 'velog' ),
+			__( 'Service history', 'velog' ),
+			'mf_velog_read_records',
+			'velog-history',
+			array( $this->history_page, 'render' )
+		);
+		add_submenu_page(
+			'velog',
+			__( 'Maintenance reminders', 'velog' ),
+			__( 'Reminders', 'velog' ),
+			'mf_velog_manage_reminders',
+			'velog-reminders',
+			array( $this->reminder_page, 'render' )
 		);
 
 		add_submenu_page(

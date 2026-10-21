@@ -30,6 +30,12 @@ declare( strict_types = 1 );
 // -------------------------------------------------------------------------
 
 
+if ( ! function_exists( 'register_taxonomy' ) ) {
+	function register_taxonomy( $taxonomy, $types, $args ) {
+		return new \stdClass();
+	}
+}
+
 if ( ! function_exists( 'register_post_type' ) ) {
 	/**
 	 * Stub: register_post_type

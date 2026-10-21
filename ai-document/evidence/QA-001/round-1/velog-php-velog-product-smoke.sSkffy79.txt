@@ -1,0 +1,4 @@
+[Wed Oct 21 14:47:45 2026] PHP 8.3.6 Development Server (http://localhost:9383) started
+[Wed Oct 21 14:47:46 2026] 127.0.0.1:46978 Accepted
+[Wed Oct 21 14:47:46 2026] 127.0.0.1:46978 [200]: GET /marker.php
+[Wed Oct 21 14:47:46 2026] 127.0.0.1:46978 Closing

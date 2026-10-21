@@ -1,0 +1,271 @@
+
+> velog@0.1.0 test:workflow
+> node --test tests/workflow/*.test.mjs
+
+✔ handoff alerts use the new role names (2.743359ms)
+✔ handoff alerts reject stale and old-role prompts (1.860065ms)
+✔ manual test handoff targets Tester (0.480265ms)
+✔ single Developer continuation does not invent a separate frontend handoff (0.407693ms)
+✔ normalizes current roles and migration aliases (9.323545ms)
+✔ uses declared backend actor for any active implementation status (2.4541ms)
+✔ uses declared frontend actor for READY and review role for READY_FOR_REVIEW (0.470726ms)
+✔ does not infer an actor when Next actor is missing or invalid (0.586125ms)
+✔ DONE has no active actor (0.544342ms)
+✔ manual acceptance assigns the tester (0.373194ms)
+✔ renders the frontend coding scene and explicit assignment metadata (1.018538ms)
+✔ supports the sole Developer actor while retaining historical labels (0.510723ms)
+✔ build ownership, maps, repeatability and safe failure (5898.60394ms)
+✔ dashboard surfaces contradictions and escapes untrusted Markdown (7.767981ms)
+✔ W3-V3: prompt extraction does not fall back to older sections (0.89341ms)
+✔ W3-V4: prompt declaration exact token match (0.380727ms)
+✔ W3-V4: unverified status mentions (0.211703ms)
+✖ release package boundaries and failures preserve the last successful archive (12046.033623ms)
+✔ quality gate propagates tool startup failure (1803.405779ms)
+✔ manifest destination cannot overwrite backend source (481.384977ms)
+✖ rejected release destination leaves no temporary staging (9334.281017ms)
+✔ Next actor declaration is authoritative across statuses (11.092007ms)
+ℹ tests 22
+ℹ suites 0
+ℹ pass 20
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 29797.421606
+
+✖ failing tests:
+
+test at tests/workflow/workflow.test.mjs:121:1
+✖ release package boundaries and failures preserve the last successful archive (12046.033623ms)
+  AssertionError [ERR_ASSERTION]: ./composer.json is valid
+  
+  > velog@0.1.0 check
+  > bash bin/check.sh
+  
+  No syntax errors detected in velog.php
+  No syntax errors detected in uninstall.php
+  No syntax errors detected in src/Admin/CustomerPage.php
+  No syntax errors detected in src/Admin/ReminderPage.php
+  No syntax errors detected in src/Admin/RegionalSettingsPage.php
+  No syntax errors detected in src/Admin/Assets.php
+  No syntax errors detected in src/Admin/VehiclePage.php
+  No syntax errors detected in src/Admin/ServiceHistoryPage.php
+  No syntax errors detected in src/Admin/AdminMenu.php
+  No syntax errors detected in src/Admin/CustomerListTable.php
+  No syntax errors detected in src/Admin/ServiceTypePage.php
+  No syntax errors detected in src/Admin/ServicePage.php
+  No syntax errors detected in src/Admin/VehicleListTable.php
+  No syntax errors detected in src/Core/Loader.php
+  No syntax errors detected in src/Core/Deactivator.php
+  No syntax errors detected in src/Core/ServiceTypes.php
+  No syntax errors detected in src/Core/Capabilities.php
+  No syntax errors detected in src/Core/PostTypes.php
+  No syntax errors detected in src/Core/Activator.php
+  No syntax errors detected in src/Core/Plugin.php
+  No syntax errors detected in src/Common/Service/ServiceFields.php
+  No syntax errors detected in src/Common/Service/ServiceTypes.php
+  No syntax errors detected in src/Common/Service/ServiceChronology.php
+  No syntax errors detected in src/Common/Service/ServiceQuery.php
+  No syntax errors detected in src/Common/Service/ServiceService.php
+  No syntax errors detected in src/Common/Service/ServiceHistoryQuery.php
+  No syntax errors detected in src/Common/Customer/CustomerService.php
+  No syntax errors detected in src/Common/Customer/CustomerRelations.php
+  No syntax errors detected in src/Common/Customer/CustomerQuery.php
+  No syntax errors detected in src/Common/AccessPolicy.php
+  No syntax errors detected in src/Common/Storage/RecordSchema.php
+  No syntax errors detected in src/Common/Storage/AuditEntry.php
+  No syntax errors detected in src/Common/Storage/RecordRepository.php
+  No syntax errors detected in src/Common/Storage/WriteUnit.php
+  No syntax errors detected in src/Common/Storage/WriteCoordinator.php
+  No syntax errors detected in src/Common/Storage/CurrentOdometerIndex.php
+  No syntax errors detected in src/Common/Vehicle/VehicleService.php
+  No syntax errors detected in src/Common/Vehicle/VehicleIdentifier.php
+  No syntax errors detected in src/Common/Vehicle/OdometerPolicy.php
+  No syntax errors detected in src/Common/Vehicle/VehicleQuery.php
+  No syntax errors detected in src/Common/Reminder/ReminderService.php
+  No syntax errors detected in src/Common/Reminder/ReminderPolicy.php
+  No syntax errors detected in src/Common/Reminder/ReminderQuery.php
+  No syntax errors detected in src/Common/Regional/Distance.php
+  No syntax errors detected in src/Common/Regional/Formatter.php
+  No syntax errors detected in src/Common/Regional/CalendarDate.php
+  No syntax errors detected in src/Common/Regional/CurrencyCatalog.php
+  No syntax errors detected in src/Common/Regional/ShopSettings.php
+  No syntax errors detected in src/Common/Regional/Money.php
+  No syntax errors detected in src/Common/Regional/DecimalInput.php
+  No syntax errors detected in src/Common/Regional/CurrencyCatalogData.php
+  No syntax errors detected in src/Common/Regional/DecimalMath.php
+  > phpcs --standard=phpcs.xml
+  
+  FILE: /tmp/velog-workflow-u2Azc4/src/Admin/ReminderPage.php
+  ----------------------------------------------------------------------
+  FOUND 0 ERRORS AND 31 WARNINGS AFFECTING 31 LINES
+  ----------------------------------------------------------------------
+    36 | WARNING | Line exceeds 120 characters; contains 150 characters
+    64 | WARNING | Line exceeds 120 characters; contains 166 characters
+    81 | WARNING | Line exceeds 120 characters; contains 214 characters
+    91 | WARNING | Line exceeds 120 characters; contains 171 characters
+    92 | WARNING | Line exceeds 120 characters; contains 143 characters
+   109 | WARNING | Line exceeds 120 characters; contains 166 characters
+   124 | WARNING | Line exceeds 120 characters; contains 217 characters
+   133 | WARNING | Line exceeds 120 characters; contains 159 characters
+   138 | WARNING | Line exceeds 120 characters; contains 292 characters
+   139 | WARNING | Line exceeds 120 characters; contains 175 characters
+   178 | WARNING | Line exceeds 120 characters; contains 246 characters
+   181 | WARNING | Line exceeds 120 characters; contains 542 characters
+   183 | WARNING | Line exceeds 120 characters; contains 143 characters
+   186 | WARNING | Line exceeds 120 characters; contains 264 characters
+   187 | WARNING | Line exceeds 120 characters; contains 216 characters
+   189 | WARNING | Line exceeds 120 characters; contains 128 characters
+   198 | WARNING | Line exceeds 120 characters; contains 321 characters
+   200 | WARNING | Line exceeds 120 characters; contains 171 characters
+   210 | WARNING | Line exceeds 120 characters; contains 187 characters
+   211 | WARNING | Line exceeds 120 characters; contains 198 characters
+   220 | WARNING | Line exceeds 120 characters; contains 250 characters
+   221 | WARNING | Line exceeds 120 characters; contains 258 characters
+   229 | WARNING | Line exceeds 120 characters; contains 296 characters
+   240 | WARNING | Line exceeds 120 characters; contains 185 characters
+   256 | WARNING | Line exceeds 120 characters; contains 122 characters
+   258 | WARNING | Line exceeds 120 characters; contains 137 characters
+   259 | WARNING | Line exceeds 120 characters; contains 141 characters
+   260 | WARNING | Line exceeds 120 characters; contains 156 characters
+   261 | WARNING | Line exceeds 120 characters; contains 161 characters
+   263 | WARNING | Line exceeds 120 characters; contains 197 characters
+   273 | WARNING | Line exceeds 120 characters; contains 128 characters
+  ----------------------------------------------------------------------
+  
+  
+  FILE: /tmp/velog-workflow-u2Azc4/src/Admin/ServiceHistoryPage.php
+  ----------------------------------------------------------------------
+  FOUND 0 ERRORS AND 14 WARNINGS AFFECTING 14 LINES
+  ----------------------------------------------------------------------
+    36 | WARNING | Line exceeds 120 characters; contains 168 characters
+    38 | WARNING | Line exceeds 120 characters; contains 122 characters
+    42 | WARNING | Line exceeds 120 characters; contains 216 characters
+    48 | WARNING | Line exceeds 120 characters; contains 152 characters
+    55 | WARNING | Line exceeds 120 characters; contains 121 characters
+    65 | WARNING | Line exceeds 120 characters; contains 215 characters
+    67 | WARNING | Line exceeds 120 characters; contains 254 characters
+    69 | WARNING | Line exceeds 120 characters; contains 195 characters
+    70 | WARNING | Line exceeds 120 characters; contains 205 characters
+    75 | WARNING | Line exceeds 120 characters; contains 125 characters
+    86 | WARNING | Line exceeds 120 characters; contains 601 characters
+    91 | WARNING | Line exceeds 120 characters; contains 259 characters
+    97 | WARNING | Line exceeds 120 characters; contains 455 characters
+   136 | WARNING | Line exceeds 120 characters; contains 136 characters
+  ----------------------------------------------------------------------
+  
+  
+  FILE: /tmp/velog-workflow-u2Azc4/src/Common/Service/ServiceHistoryQuery.php
+  ---------------------------------------------------------------------------
+  FOUND 0 ERRORS AND 8 WARNINGS AFFECTING 8 LINES
+  ---------------------------------------------------------------------------
+    46 | WARNING | Line exceeds 120 characters; contains 121 characters
+    75 | WARNING | Line exceeds 120 characters; contains 128 characters
+   107 | WARNING | Line exceeds 120 characters; contains 124 characters
+   108 | WARNING | Line exceeds 120 characters; contains 124 characters
+   157 | WARNING | Line exceeds 120 characters; contains 139 characters
+   162 | WARNING | Line exceeds 120 characters; contains 172 characters
+   186 | WARNING | Line exceeds 120 characters; contains 123 characters
+   226 | WARNING | Line exceeds 120 characters; contains 215 characters
+  ---------------------------------------------------------------------------
+  
+  
+  FILE: /tmp/velog-workflow-u2Azc4/src/Common/Storage/RecordSchema.php
+  ----------------------------------------------------------------------
+  FOUND 0 ERRORS AND 3 WARNINGS AFFECTING 3 LINES
+  ----------------------------------------------------------------------
+   540 | WARNING | Line exceeds 120 characters; contains 182 characters
+   554 | WARNING | Line exceeds 120 characters; contains 131 characters
+   557 | WARNING | Line exceeds 120 characters; contains 122 characters
+  ----------------------------------------------------------------------
+  
+  
+  FILE: /tmp/velog-workflow-u2Azc4/src/Common/Storage/CurrentOdometerIndex.php
+  ----------------------------------------------------------------------------
+  FOUND 0 ERRORS AND 6 WARNINGS AFFECTING 6 LINES
+  ----------------------------------------------------------------------------
+   28 | WARNING | Line exceeds 120 characters; contains 126 characters
+   51 | WARNING | Line exceeds 120 characters; contains 168 characters
+   52 | WARNING | Line exceeds 120 characters; contains 130 characters
+   74 | WARNING | Line exceeds 120 characters; contains 164 characters
+   81 | WARNING | Line exceeds 120 characters; contains 130 characters
+   86 | WARNING | Line exceeds 120 characters; contains 156 characters
+  ----------------------------------------------------------------------------
+  
+  
+  FILE: /tmp/velog-workflow-u2Azc4/src/Common/Reminder/ReminderService.php
+  ------------------------------------------------------------------------
+  FOUND 0 ERRORS AND 10 WARNINGS AFFECTING 10 LINES
+  ------------------------------------------------------------------------
+    60 | WARNING | Line exceeds 120 characters; contains 144 characters
+   124 | WARNING | Line exceeds 120 characters; contains 141 characters
+   125 | WARNING | Line exceeds 120 characters; contains 157 characters
+   130 | WARNING | Line exceeds 120 characters; contains 122 characters
+   138 | WARNING | Line exceeds 120 characters; contains 163 characters
+   151 | WARNING | Line exceeds 120 characters; contains 130 characters
+   166 | WARNING | Line exceeds 120 characters; contains 149 characters
+   171 | WARNING | Line exceeds 120 characters; contains 146 characters
+   183 | WARNING | Line exceeds 120 characters; contains 122 characters
+   192 | WARNING | Line exceeds 120 characters; contains 160 characters
+  ------------------------------------------------------------------------
+  
+  
+  FILE: /tmp/velog-workflow-u2Azc4/src/Common/Reminder/ReminderPolicy.php
+  -----------------------------------------------------------------------
+  FOUND 0 ERRORS AND 1 WARNING AFFECTING 1 LINE
+  -----------------------------------------------------------------------
+   47 | WARNING | Line exceeds 120 characters; contains 122 characters
+  -----------------------------------------------------------------------
+  
+  
+  FILE: /tmp/velog-workflow-u2Azc4/src/Common/Reminder/ReminderQuery.php
+  ----------------------------------------------------------------------
+  FOUND 0 ERRORS AND 10 WARNINGS AFFECTING 10 LINES
+  ----------------------------------------------------------------------
+    29 | WARNING | Line exceeds 120 characters; contains 123 characters
+    33 | WARNING | Line exceeds 120 characters; contains 163 characters
+    44 | WARNING | Line exceeds 120 characters; contains 126 characters
+    50 | WARNING | Line exceeds 120 characters; contains 613 characters
+    58 | WARNING | Line exceeds 120 characters; contains 251 characters
+    66 | WARNING | Line exceeds 120 characters; contains 127 characters
+    69 | WARNING | Line exceeds 120 characters; contains 187 characters
+    82 | WARNING | Line exceeds 120 characters; contains 283 characters
+    90 | WARNING | Line exceeds 120 characters; contains 144 characters
+   100 | WARNING | Line exceeds 120 characters; contains 124 characters
+  ----------------------------------------------------------------------
+  
+  Time: 7.06 secs; Memory: 42MB
+  
+  Script phpcs --standard=phpcs.xml handling the phpcs event returned with error code 1
+  npm failed (1)
+  
+  
+  1 !== 0
+  
+      at TestContext.<anonymous> (file:///home/ecommercelife/Local%20Sites/velog/app/public/wp-content/plugins/velog/tests/workflow/workflow.test.mjs:125:12)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/workflow/workflow.test.mjs:195:1
+✖ rejected release destination leaves no temporary staging (9334.281017ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /Symlink rejected/. Input:
+  
+  'npm failed (1)\n'
+  
+      at TestContext.<anonymous> (file:///home/ecommercelife/Local%20Sites/velog/app/public/wp-content/plugins/velog/tests/workflow/workflow.test.mjs:202:12)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'npm failed (1)\n',
+    expected: /Symlink rejected/,
+    operator: 'match',
+    diff: 'simple'
+  }

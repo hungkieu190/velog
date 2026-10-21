@@ -1,0 +1,19 @@
+{
+  "focus": "SERV-001",
+  "status": "AWAITING_MANUAL_ACCEPTANCE",
+  "tasks": [
+    {
+      "id": "SERV-001-UAT",
+      "status": "AWAITING_MANUAL_ACCEPTANCE",
+      "declaredOwner": "Tester",
+      "issues": []
+    },
+    {
+      "id": "SERV-001",
+      "status": "AWAITING_MANUAL_ACCEPTANCE",
+      "declaredOwner": "Tester",
+      "issues": []
+    }
+  ],
+  "issues": []
+}

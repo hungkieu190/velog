@@ -1,0 +1,165 @@
+
+FILE: ...Sites/velog/app/public/wp-content/plugins/velog/src/Admin/ReminderPage.php
+--------------------------------------------------------------------------------
+FOUND 0 ERRORS AND 31 WARNINGS AFFECTING 31 LINES
+--------------------------------------------------------------------------------
+  36 | WARNING | Line exceeds 120 characters; contains 150 characters
+  64 | WARNING | Line exceeds 120 characters; contains 166 characters
+  81 | WARNING | Line exceeds 120 characters; contains 214 characters
+  91 | WARNING | Line exceeds 120 characters; contains 171 characters
+  92 | WARNING | Line exceeds 120 characters; contains 143 characters
+ 109 | WARNING | Line exceeds 120 characters; contains 166 characters
+ 124 | WARNING | Line exceeds 120 characters; contains 217 characters
+ 133 | WARNING | Line exceeds 120 characters; contains 159 characters
+ 138 | WARNING | Line exceeds 120 characters; contains 292 characters
+ 139 | WARNING | Line exceeds 120 characters; contains 175 characters
+ 178 | WARNING | Line exceeds 120 characters; contains 246 characters
+ 181 | WARNING | Line exceeds 120 characters; contains 542 characters
+ 183 | WARNING | Line exceeds 120 characters; contains 143 characters
+ 186 | WARNING | Line exceeds 120 characters; contains 264 characters
+ 187 | WARNING | Line exceeds 120 characters; contains 216 characters
+ 189 | WARNING | Line exceeds 120 characters; contains 128 characters
+ 198 | WARNING | Line exceeds 120 characters; contains 321 characters
+ 200 | WARNING | Line exceeds 120 characters; contains 171 characters
+ 210 | WARNING | Line exceeds 120 characters; contains 187 characters
+ 211 | WARNING | Line exceeds 120 characters; contains 198 characters
+ 220 | WARNING | Line exceeds 120 characters; contains 250 characters
+ 221 | WARNING | Line exceeds 120 characters; contains 258 characters
+ 229 | WARNING | Line exceeds 120 characters; contains 296 characters
+ 240 | WARNING | Line exceeds 120 characters; contains 185 characters
+ 256 | WARNING | Line exceeds 120 characters; contains 122 characters
+ 258 | WARNING | Line exceeds 120 characters; contains 137 characters
+ 259 | WARNING | Line exceeds 120 characters; contains 141 characters
+ 260 | WARNING | Line exceeds 120 characters; contains 156 characters
+ 261 | WARNING | Line exceeds 120 characters; contains 161 characters
+ 263 | WARNING | Line exceeds 120 characters; contains 197 characters
+ 273 | WARNING | Line exceeds 120 characters; contains 128 characters
+--------------------------------------------------------------------------------
+
+
+FILE: ...velog/app/public/wp-content/plugins/velog/src/Admin/ServiceHistoryPage.php
+--------------------------------------------------------------------------------
+FOUND 0 ERRORS AND 14 WARNINGS AFFECTING 14 LINES
+--------------------------------------------------------------------------------
+  36 | WARNING | Line exceeds 120 characters; contains 168 characters
+  38 | WARNING | Line exceeds 120 characters; contains 122 characters
+  42 | WARNING | Line exceeds 120 characters; contains 216 characters
+  48 | WARNING | Line exceeds 120 characters; contains 152 characters
+  55 | WARNING | Line exceeds 120 characters; contains 121 characters
+  65 | WARNING | Line exceeds 120 characters; contains 215 characters
+  67 | WARNING | Line exceeds 120 characters; contains 254 characters
+  69 | WARNING | Line exceeds 120 characters; contains 195 characters
+  70 | WARNING | Line exceeds 120 characters; contains 205 characters
+  75 | WARNING | Line exceeds 120 characters; contains 125 characters
+  86 | WARNING | Line exceeds 120 characters; contains 601 characters
+  91 | WARNING | Line exceeds 120 characters; contains 259 characters
+  97 | WARNING | Line exceeds 120 characters; contains 455 characters
+ 136 | WARNING | Line exceeds 120 characters; contains 136 characters
+--------------------------------------------------------------------------------
+
+
+FILE: ... Sites/velog/app/public/wp-content/plugins/velog/src/Admin/ServicePage.php
+--------------------------------------------------------------------------------
+FOUND 1 ERROR AFFECTING 1 LINE
+--------------------------------------------------------------------------------
+ 204 | ERROR | [x] When a multi-item array is declared with explicit keys, each
+     |       |     value should start on a new line.
+--------------------------------------------------------------------------------
+PHPCBF CAN FIX THE 1 MARKED SNIFF VIOLATIONS AUTOMATICALLY
+--------------------------------------------------------------------------------
+
+
+FILE: ...s/velog/app/public/wp-content/plugins/velog/src/Admin/VehicleListTable.php
+--------------------------------------------------------------------------------
+FOUND 2 ERRORS AFFECTING 2 LINES
+--------------------------------------------------------------------------------
+ 52 | ERROR | [x] When a multi-item array is declared with explicit keys, each
+    |       |     value should start on a new line.
+ 54 | ERROR | [x] When a multi-item array is declared with explicit keys, each
+    |       |     value should start on a new line.
+--------------------------------------------------------------------------------
+PHPCBF CAN FIX THE 2 MARKED SNIFF VIOLATIONS AUTOMATICALLY
+--------------------------------------------------------------------------------
+
+
+FILE: ...public/wp-content/plugins/velog/src/Common/Service/ServiceHistoryQuery.php
+--------------------------------------------------------------------------------
+FOUND 0 ERRORS AND 8 WARNINGS AFFECTING 8 LINES
+--------------------------------------------------------------------------------
+  46 | WARNING | Line exceeds 120 characters; contains 121 characters
+  75 | WARNING | Line exceeds 120 characters; contains 128 characters
+ 107 | WARNING | Line exceeds 120 characters; contains 124 characters
+ 108 | WARNING | Line exceeds 120 characters; contains 124 characters
+ 157 | WARNING | Line exceeds 120 characters; contains 139 characters
+ 162 | WARNING | Line exceeds 120 characters; contains 172 characters
+ 186 | WARNING | Line exceeds 120 characters; contains 123 characters
+ 226 | WARNING | Line exceeds 120 characters; contains 215 characters
+--------------------------------------------------------------------------------
+
+
+FILE: ...og/app/public/wp-content/plugins/velog/src/Common/Storage/RecordSchema.php
+--------------------------------------------------------------------------------
+FOUND 0 ERRORS AND 3 WARNINGS AFFECTING 3 LINES
+--------------------------------------------------------------------------------
+ 540 | WARNING | Line exceeds 120 characters; contains 182 characters
+ 554 | WARNING | Line exceeds 120 characters; contains 131 characters
+ 557 | WARNING | Line exceeds 120 characters; contains 122 characters
+--------------------------------------------------------------------------------
+
+
+FILE: ...ublic/wp-content/plugins/velog/src/Common/Storage/CurrentOdometerIndex.php
+--------------------------------------------------------------------------------
+FOUND 0 ERRORS AND 6 WARNINGS AFFECTING 6 LINES
+--------------------------------------------------------------------------------
+ 28 | WARNING | Line exceeds 120 characters; contains 126 characters
+ 51 | WARNING | Line exceeds 120 characters; contains 168 characters
+ 52 | WARNING | Line exceeds 120 characters; contains 130 characters
+ 74 | WARNING | Line exceeds 120 characters; contains 164 characters
+ 81 | WARNING | Line exceeds 120 characters; contains 130 characters
+ 86 | WARNING | Line exceeds 120 characters; contains 156 characters
+--------------------------------------------------------------------------------
+
+
+FILE: ...pp/public/wp-content/plugins/velog/src/Common/Reminder/ReminderService.php
+--------------------------------------------------------------------------------
+FOUND 0 ERRORS AND 10 WARNINGS AFFECTING 10 LINES
+--------------------------------------------------------------------------------
+  60 | WARNING | Line exceeds 120 characters; contains 144 characters
+ 124 | WARNING | Line exceeds 120 characters; contains 141 characters
+ 125 | WARNING | Line exceeds 120 characters; contains 157 characters
+ 130 | WARNING | Line exceeds 120 characters; contains 122 characters
+ 138 | WARNING | Line exceeds 120 characters; contains 163 characters
+ 151 | WARNING | Line exceeds 120 characters; contains 130 characters
+ 166 | WARNING | Line exceeds 120 characters; contains 149 characters
+ 171 | WARNING | Line exceeds 120 characters; contains 146 characters
+ 183 | WARNING | Line exceeds 120 characters; contains 122 characters
+ 192 | WARNING | Line exceeds 120 characters; contains 160 characters
+--------------------------------------------------------------------------------
+
+
+FILE: ...app/public/wp-content/plugins/velog/src/Common/Reminder/ReminderPolicy.php
+--------------------------------------------------------------------------------
+FOUND 0 ERRORS AND 1 WARNING AFFECTING 1 LINE
+--------------------------------------------------------------------------------
+ 47 | WARNING | Line exceeds 120 characters; contains 122 characters
+--------------------------------------------------------------------------------
+
+
+FILE: .../app/public/wp-content/plugins/velog/src/Common/Reminder/ReminderQuery.php
+--------------------------------------------------------------------------------
+FOUND 0 ERRORS AND 10 WARNINGS AFFECTING 10 LINES
+--------------------------------------------------------------------------------
+  29 | WARNING | Line exceeds 120 characters; contains 123 characters
+  33 | WARNING | Line exceeds 120 characters; contains 163 characters
+  44 | WARNING | Line exceeds 120 characters; contains 126 characters
+  50 | WARNING | Line exceeds 120 characters; contains 613 characters
+  58 | WARNING | Line exceeds 120 characters; contains 251 characters
+  66 | WARNING | Line exceeds 120 characters; contains 127 characters
+  69 | WARNING | Line exceeds 120 characters; contains 187 characters
+  82 | WARNING | Line exceeds 120 characters; contains 283 characters
+  90 | WARNING | Line exceeds 120 characters; contains 144 characters
+ 100 | WARNING | Line exceeds 120 characters; contains 124 characters
+--------------------------------------------------------------------------------
+
+Time: 11.07 secs; Memory: 42MB
+

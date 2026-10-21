@@ -31,6 +31,9 @@
                 <element value="mf_velog_read_customer_contacts"/>
                 <element value="mf_velog_manage_vehicles"/>
                 <element value="mf_velog_create_services"/>
+                <element value="mf_velog_edit_own_service_drafts"/>
+                <element value="mf_velog_finalize_own_services"/>
+                <element value="mf_velog_correct_services"/>
                 <element value="mf_velog_read_records"/>
                 <element value="mf_velog_manage_reminders"/>
                 <element value="mf_velog_manage_settings"/>

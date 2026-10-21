@@ -1,0 +1,37 @@
+{
+  "focus": "VEH-001-UAT",
+  "status": "AWAITING_MANUAL_ACCEPTANCE",
+  "tasks": [
+    {
+      "id": "VEH-001-BE",
+      "status": "DONE",
+      "declaredOwner": "Tester",
+      "issues": []
+    },
+    {
+      "id": "VEH-001-FE",
+      "status": "AWAITING_MANUAL_ACCEPTANCE",
+      "declaredOwner": "Tester",
+      "issues": []
+    },
+    {
+      "id": "VEH-001-UAT",
+      "status": "AWAITING_MANUAL_ACCEPTANCE",
+      "declaredOwner": "Tester",
+      "issues": []
+    },
+    {
+      "id": "VEH-001",
+      "status": "AWAITING_MANUAL_ACCEPTANCE",
+      "declaredOwner": "Tester",
+      "issues": []
+    }
+  ],
+  "currentIssues": [],
+  "otherIssues": [
+    "CORE-004-FE: Invalid Next actor: None",
+    "CORE-004: Invalid Next actor: None",
+    "VEH-001 implementation contract — revision 2\n\nApproval: Unknown status: (missing)",
+    "VEH-001 implementation contract — revision 2\n\nApproval: Missing Next actor declaration"
+  ]
+}

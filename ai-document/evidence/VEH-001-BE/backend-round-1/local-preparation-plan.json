@@ -1,0 +1,10 @@
+{
+    "mode": "plan",
+    "writes": false,
+    "existing_staff_reused": true,
+    "new_customers": 3,
+    "new_vehicles": 51,
+    "new_subscriber": 1,
+    "live_backup_required": true,
+    "pending_manifest": false
+}

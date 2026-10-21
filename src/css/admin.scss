@@ -219,3 +219,93 @@
     justify-content: flex-end;
   }
 }
+
+/* Vehicle layout retains native WordPress controls and color-scheme focus. */
+.velog-vehicles {
+  min-width: 0;
+  overflow-wrap: anywhere;
+
+  .velog-vehicle-form,
+  .velog-vehicle-search {
+    margin-block: 16px;
+  }
+
+  .form-table input.regular-text {
+    max-width: 100%;
+  }
+
+  .velog-vehicle-search {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+
+    input,
+    select {
+      max-width: 100%;
+    }
+  }
+
+  .velog-vehicle-table-wrap {
+    max-width: 100%;
+    overflow-x: auto;
+  }
+
+  .velog-vehicle-table {
+    min-width: 720px;
+
+    th,
+    td {
+      overflow-wrap: anywhere;
+    }
+  }
+
+  .velog-vehicle-state-form {
+    margin-block-start: 8px;
+  }
+
+  .velog-vehicle-pagination {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+    margin-block: 12px;
+  }
+
+  @media screen and (max-width: 782px) {
+    .form-table th,
+    .form-table td {
+      display: block;
+      width: auto;
+      padding-inline: 0;
+    }
+
+    .velog-vehicle-search {
+      align-items: stretch;
+      flex-direction: column;
+    }
+  }
+}
+
+// Keep native service controls inside narrow admin viewports.
+.velog-services,
+.velog-service-types,
+.velog-history,
+.velog-reminders {
+  input.regular-text,
+  select,
+  textarea {
+    box-sizing: border-box;
+    max-inline-size: 100%;
+  }
+
+  .velog-service-table-wrap {
+    max-inline-size: 100%;
+    overflow-x: auto;
+  }
+
+  pre {
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
+}

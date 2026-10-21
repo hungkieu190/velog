@@ -1,0 +1,24 @@
+SELECT q.ID,q.vehicle_id,q.vehicle_state,q.current_mm,q.stored_state,q.due_date,q.threshold_mm,q.snooze_until,q.effective FROM (SELECT p.ID, v.meta_value AS vehicle_id, vs.meta_value AS vehicle_state, c.meta_value AS current_mm,
+			s.meta_value AS stored_state, d.meta_value AS due_date, t.meta_value AS threshold_mm, z.meta_value AS snooze_until,
+			CASE WHEN s.meta_value='completed' THEN 'completed' WHEN vs.meta_value='archived' THEN 'suspended'
+			WHEN z.meta_value<>'' AND z.meta_value>'2026-10-21' THEN 'snoozed'
+			WHEN (d.meta_value<>'' AND d.meta_value<='2026-10-21') OR (t.meta_value<>'' AND c.meta_value<>'' AND CAST(c.meta_value AS DECIMAL(20,0))>=CAST(t.meta_value AS DECIMAL(20,0))) THEN 'due'
+			ELSE 'upcoming' END AS effective FROM wp_posts p
+			LEFT JOIN wp_postmeta s ON s.post_id=p.ID AND s.meta_key='_mf_velog_state'
+			LEFT JOIN wp_postmeta v ON v.post_id=p.ID AND v.meta_key='_mf_velog_reminder_vehicle_id'
+			LEFT JOIN wp_postmeta d ON d.post_id=p.ID AND d.meta_key='_mf_velog_reminder_due_date'
+			LEFT JOIN wp_postmeta t ON t.post_id=p.ID AND t.meta_key='_mf_velog_reminder_mm'
+			LEFT JOIN wp_postmeta z ON z.post_id=p.ID AND z.meta_key='_mf_velog_reminder_snooze'
+			LEFT JOIN wp_posts vp ON vp.ID=v.meta_value AND vp.post_type='mf_velog_vehicle' AND vp.post_status='private'
+			LEFT JOIN wp_postmeta vs ON vs.post_id=vp.ID AND vs.meta_key='_mf_velog_state'
+			LEFT JOIN wp_postmeta c ON c.post_id=vp.ID AND c.meta_key='_mf_velog_current_mm'
+			WHERE p.post_type='mf_velog_reminder' AND p.post_status='private') q WHERE ('due'='' OR q.effective='due') AND (0=0 OR q.vehicle_id='0') ORDER BY CASE WHEN q.due_date='' THEN '9999-12-31' ELSE q.due_date END ASC,q.ID DESC LIMIT 50 OFFSET 0
+1	SIMPLE	p	ref	type_status_date	type_status_date	164	const,const	10180	Using where; Using index; Using temporary; Using filesort
+1	SIMPLE	s	ref	post_id,meta_key	post_id	8	velog_test.p.ID	2	Using where
+1	SIMPLE	v	ref|filter	post_id,meta_key	post_id|meta_key	8|767	velog_test.p.ID	2 (7%)	Using where; Using rowid filter
+1	SIMPLE	d	ref|filter	post_id,meta_key	post_id|meta_key	8|767	velog_test.p.ID	2 (7%)	Using where; Using rowid filter
+1	SIMPLE	t	ref	post_id,meta_key	post_id	8	velog_test.p.ID	2	Using where
+1	SIMPLE	z	ref	post_id,meta_key	post_id	8	velog_test.p.ID	2	Using where
+1	SIMPLE	vp	ref	PRIMARY,type_status_date	type_status_date	164	const,const	2000	Using where; Using index
+1	SIMPLE	vs	ref	post_id,meta_key	post_id	8	velog_test.vp.ID	2	Using where
+1	SIMPLE	c	ref|filter	post_id,meta_key	post_id|meta_key	8|767	velog_test.vp.ID	2 (1%)	Using where; Using rowid filter

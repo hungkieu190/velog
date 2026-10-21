@@ -9,7 +9,7 @@ const handedOff = new Set(['READY', 'READY_FOR_REVIEW', 'CHANGES_REQUESTED', 'AW
 
 export function normalizeRole(role) {
   if (!role) return null;
-  const match = role.trim().match(/^(Backend Architect|Frontend Developer|Tester|Architect|Builder|User|Product Owner)(?:\s+\([^)]*\S[^)]*\))?$/);
+  const match = role.trim().match(/^(Developer|Backend Architect|Frontend Developer|Tester|Architect|Builder|User|Product Owner)(?:\s+\([^)]*\S[^)]*\))?$/);
   if (!match) return null;
   if (match[1] === 'Architect') return 'Backend Architect';
   if (match[1] === 'Builder') return 'Frontend Developer';

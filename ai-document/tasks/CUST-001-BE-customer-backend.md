@@ -1,21 +1,21 @@
 # CUST-001-BE: Private customer backend and admin contract
 
-> G-10 restores this private customer-record contract. CUST-002 is retired. This update does not accept the feature or overwrite prior Tester results.
+> G-10 restores this private customer-record contract. CUST-002 is retired. The backend checkpoint remains SELF_REVIEWED_BACKEND; Tester separately accepted all CUST-001-UAT cases on 2026-10-21.
 
 ## Current handoff
 - Workstream: Backend
 - Status: DONE
 - Plan revision: 2
 - Implementation round: 3
-- Blueprint readiness: PASS — backend scope and required gates passed; FE correction and manual acceptance remain separate.
-- Owner: Backend Architect
+- Blueprint readiness: PASS — backend scope and required gates passed; FE code approval and explicit Tester acceptance are recorded in the linked workstreams.
+- Owner: Developer
 - Contributors and review mode: Codex / Backend Architect; SELF_REVIEWED_BACKEND (intentionally non-independent), technical checkpoint only.
 - Related checklist items: CUST-001 / AC1–AC3 and backend portion of AC4.
-- Latest report: Round 3 closes full lint/static, customer privacy/batch/UTF-8 and state-aware recovery checks. See ai-document/evidence/CUST-001-BE/backend-round-3/report.md. No feature/manual acceptance.
+- Latest report: Round 3 closes full lint/static, customer privacy/batch/UTF-8 and state-aware recovery checks. See ai-document/evidence/CUST-001-BE/backend-round-3/report.md. Tester subsequently accepted all CUST-001-UAT cases on 2026-10-21; see the UAT decision.
 - Evidence: `ai-document/evidence/CUST-001-BE/backend-round-3/report.md`.
 - Temporary resource cleanup: Verified: all owned isolated sites, database/PHP processes and scratch files removed; reusable fixtures/evidence retained.
 - Next actor: Tester
-- Next actor and exact next action: Execute CUST-001-UAT T01–T20 on the prepared LocalWP site, retest T02, and report actual PASS/FAIL/BLOCKED; only Tester may accept the feature.
+- Next actor and exact next action: Execute VEH-001-UAT T01–T15 on prepared LocalWP, starting with T01, and report actual PASS/FAIL/BLOCKED; only Tester may accept the feature.
 
 ## Problem and intended behavior
 
@@ -124,9 +124,9 @@ Round 1 review is historical; Round 2 records the implemented T02 correction. Se
 ### Chat handoff prompt
 
 ```text
-Status: AWAITING_MANUAL_ACCEPTANCE
+Status: DONE
 Recipient: Tester
 Intent: accept
 
-Run T01–T20 in ai-document/tasks/CUST-001-UAT-manual-test.md on https://velog.local/wp-admin/. Retest T02; preserve historical T01 PASS/T02 FAIL. Backend round 3 is SELF_REVIEWED_BACKEND; FE round 3 review 2 is APPROVED for code only. LocalWP accounts and fixtures are verified; see ai-document/evidence/CUST-001-UAT/preparation-2026-10-15/report.md and the UAT task for private credentials and fixture IDs. Record actual PASS/FAIL/BLOCKED, environment and missing RTL/screen-reader prerequisites. Only explicit Tester acceptance permits DONE. No commit, deploy or release.
+Run VEH-001-UAT T01–T15 in ai-document/tasks/VEH-001-UAT-manual-test.md on https://velog.local/wp-admin/, starting with T01. Developer completed technical self-review and verified the authorized LocalWP fixtures; see ai-document/evidence/VEH-001-UAT/preparation-2026-10-21/report.md. Customer A/B/Archived IDs are 66/67/68; pagination vehicles are 69–119; subscriber test actor is ID 4. Keep pagination fixtures unchanged until T11 and use Customer B for T06. Record actual PASS/FAIL/BLOCKED and environment/tool details; missing RTL/screen-reader tools must be reported. Only explicit Tester acceptance permits DONE. No commit, deploy or release.
 ```

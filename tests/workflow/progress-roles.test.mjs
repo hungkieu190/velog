@@ -99,3 +99,18 @@ test('renders the frontend coding scene and explicit assignment metadata', () =>
   assert.match(html, /scene frontend/);
   assert.doesNotMatch(html, /scene builder/);
 });
+
+
+test('supports the sole Developer actor while retaining historical labels', () => {
+  assert.equal(normalizeRole('Developer (Codex)'), 'Developer');
+  assert.equal(normalizeRole('Developer extra'), null);
+  assert.deepEqual(rolePresentation({status: 'IN_PROGRESS', declaredOwner: 'Developer'}), {
+    role: 'Developer', motion: 'coding', label: 'Implementation in progress',
+  });
+  const html = renderProgress({
+    currentFocus: {id: 'VEH-001-BE', status: 'IN_PROGRESS', declaredOwner: 'Developer'},
+    summary: {done: 0, total: 1, open: 1}, phases: [], issues: [], tasks: [], openItems: [], sources: [],
+  });
+  assert.match(html, /owner developer active coding/);
+  assert.doesNotMatch(html, /owner backend-architect|owner frontend-developer/);
+});

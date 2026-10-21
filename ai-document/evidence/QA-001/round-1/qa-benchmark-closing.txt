@@ -1,0 +1,338 @@
+Allocated /tmp/velog-product-smoke.Zl8kLImI for WP 6.7.2 mode=normal
+Waiting for DB...
+mysqld is alive
+database_version
+10.11.14-MariaDB-0ubuntu0.24.04.1
+Success: Added the constant 'DISABLE_WP_CRON' to the 'wp-config.php' file with the raw value 'true'.
+Waiting for HTTP...
+Plugin 'velog' activated.
+Success: Activated 1 of 1 plugins.
+PASS: Taxonomy has no public, REST or alternate native UI surface.
+PASS: Shop Settings configured explicitly.
+PASS: Isolated staff/denied fixture exists.
+PASS: Isolated staff/denied fixture exists.
+PASS: Isolated staff/denied fixture exists.
+PASS: Isolated staff/denied fixture exists.
+PASS: Private customer exists.
+PASS: Vehicle with known baseline exists.
+PASS: Private active service type created with audit.
+PASS: Type create replay is idempotent.
+PASS: Technician cannot manage service types. [forbidden]
+PASS: Duplicate service type refused. [conflict]
+PASS: Technician creates own incomplete-capable draft.
+PASS: Other technician cannot read private draft by ID. [forbidden]
+PASS: Other technician query excludes draft.
+PASS: Direct repository cannot bypass draft ownership. [forbidden]
+PASS: Manager edits foreign draft without impersonating creator.
+PASS: Own finalization captures customer and service type.
+PASS: Finalized record visible to operational staff.
+PASS: Service snapshot/audit do not leak contact details.
+PASS: Technician correction denied even with a reason. [reason_required]
+PASS: Direct repository finalized edit denied. [reason_required]
+PASS: Manager correction requires reason. [reason_required]
+PASS: Manager correction appends full audit.
+PASS: Referenced type renamed/deactivated without deleting history.
+PASS: Current customer name changed separately.
+PASS: Historical type/customer/currency remain frozen.
+PASS: Incomplete draft saved without fake zero/date/type.
+PASS: Incomplete finalization refused. [invalid_type]
+PASS: Inactive referenced type blocks new finalization. [invalid_type]
+PASS: Finalized customer snapshot cannot be forged by correction. [invalid_input]
+PASS: Type reactivated.
+PASS: Finalization requires active private customer relation. [invalid_customer]
+PASS: Direct repository transition cannot omit authoritative snapshots. [incomplete_service]
+PASS: Backdated reading between baseline and later service accepted.
+PASS: Backdated record does not replace later current reading.
+PASS: Reading above newer neighbour cannot be finalized by technician. [chronology_conflict]
+PASS: Manager reasoned chronology exception audited.
+PASS: Manager moves latest service earlier with reason.
+PASS: Current reading recomputed from remaining finalized records.
+PASS: Baseline edit checks actual service neighbours, not a global lock. [chronology_conflict]
+PASS: Compatible baseline edit allowed despite finalized services.
+PASS: Other vehicle history does not block unrelated baseline.
+PASS: Injected SQL failure rolls back write unit. [fixture_sql_failure]
+PASS: Failed write leaves no inserted service/audit/projections.
+PASS: Vehicle archived with history retained.
+PASS: Archived vehicle blocks draft edit. [invalid_vehicle]
+PASS: Archived vehicle history permits reasoned manager correction.
+PASS: Test vehicle restored for HTTP.
+PASS: Concurrent finalizer starts.
+PASS: Concurrent finalizer starts.
+PASS: Concurrent worker exits cleanly.
+PASS: Concurrent worker exits cleanly.
+PASS: Exactly one concurrent finalization succeeds.
+PASS: Concurrent finalize has one transition audit.
+PASS: Type/finalize race starts.
+PASS: Type/finalize race starts.
+PASS: Type/finalize race exits cleanly.
+PASS: Type/finalize race exits cleanly.
+PASS: Type deactivation/finalization race cannot finalize an already inactive type.
+PASS: Current reading fails closed on a missing service projection. [storage_unavailable]
+PASS: Corrupt taxonomy audit chain rejected. [storage_unavailable]
+PASS: Malformed canonical stored reading is not exposed. [forbidden]
+PASS: Corrupt canonical history cannot produce a current reading. [storage_unavailable]
+PASS: Pagination draft fixture 0
+PASS: Pagination draft fixture 1
+PASS: Pagination draft fixture 2
+PASS: Pagination draft fixture 3
+PASS: Pagination draft fixture 4
+PASS: Pagination draft fixture 5
+PASS: Pagination draft fixture 6
+PASS: Pagination draft fixture 7
+PASS: Pagination draft fixture 8
+PASS: Pagination draft fixture 9
+PASS: Pagination draft fixture 10
+PASS: Pagination draft fixture 11
+PASS: Pagination draft fixture 12
+PASS: Pagination draft fixture 13
+PASS: Pagination draft fixture 14
+PASS: Pagination draft fixture 15
+PASS: Pagination draft fixture 16
+PASS: Pagination draft fixture 17
+PASS: Pagination draft fixture 18
+PASS: Pagination draft fixture 19
+PASS: Pagination draft fixture 20
+PASS: Pagination draft fixture 21
+PASS: Pagination draft fixture 22
+PASS: Pagination draft fixture 23
+PASS: Pagination draft fixture 24
+PASS: Pagination draft fixture 25
+PASS: Pagination draft fixture 26
+PASS: Pagination draft fixture 27
+PASS: Pagination draft fixture 28
+PASS: Pagination draft fixture 29
+PASS: Pagination draft fixture 30
+PASS: Pagination draft fixture 31
+PASS: Pagination draft fixture 32
+PASS: Pagination draft fixture 33
+PASS: Pagination draft fixture 34
+PASS: Pagination draft fixture 35
+PASS: Pagination draft fixture 36
+PASS: Pagination draft fixture 37
+PASS: Pagination draft fixture 38
+PASS: Pagination draft fixture 39
+PASS: Pagination draft fixture 40
+PASS: Pagination draft fixture 41
+PASS: Pagination draft fixture 42
+PASS: Pagination draft fixture 43
+PASS: Pagination draft fixture 44
+PASS: Pagination draft fixture 45
+PASS: Pagination draft fixture 46
+PASS: Pagination draft fixture 47
+PASS: Pagination draft fixture 48
+PASS: Pagination draft fixture 49
+PASS: Pagination draft fixture 50
+PASS: Own-draft pagination returns 50 plus one, excluding foreign drafts.
+SERV-001 domain verification complete.
+PASS: Queue fixtures use independent known/unknown vehicles.
+PASS: Technician cannot create manager reminders. [forbidden]
+PASS: Technician cannot query manager reminders. [forbidden]
+PASS: Subscriber cannot query private history. [forbidden]
+PASS: Reminder create initializes baseline index.
+PASS: Reminder create replay is idempotent.
+PASS: Initial current index uses canonical baseline.
+PASS: Queue correctly filters future date and unreached distance.
+PASS: Direct reminder detail denies technician. [forbidden]
+PASS: Unknown reading does not satisfy a zero threshold.
+PASS: Baseline write refreshes index and known zero satisfies zero threshold.
+PASS: Finalized history fixture 0
+PASS: Finalized history fixture 1
+PASS: Finalized history fixture 2
+PASS: Finalized history fixture 3
+PASS: Finalized history fixture 4
+PASS: Finalized history fixture 5
+PASS: Finalized history fixture 6
+PASS: Finalized history fixture 7
+PASS: Finalized history fixture 8
+PASS: Finalized history fixture 9
+PASS: Finalized history fixture 10
+PASS: Finalized history fixture 11
+PASS: Finalized history fixture 12
+PASS: Finalized history fixture 13
+PASS: Finalized history fixture 14
+PASS: Finalized history fixture 15
+PASS: Finalized history fixture 16
+PASS: Finalized history fixture 17
+PASS: Finalized history fixture 18
+PASS: Finalized history fixture 19
+PASS: Finalized history fixture 20
+PASS: Finalized history fixture 21
+PASS: Finalized history fixture 22
+PASS: Finalized history fixture 23
+PASS: Finalized history fixture 24
+PASS: Finalized history fixture 25
+PASS: Finalized history fixture 26
+PASS: Finalized history fixture 27
+PASS: Finalized history fixture 28
+PASS: Finalized history fixture 29
+PASS: Finalized history fixture 30
+PASS: Finalized history fixture 31
+PASS: Finalized history fixture 32
+PASS: Finalized history fixture 33
+PASS: Finalized history fixture 34
+PASS: Finalized history fixture 35
+PASS: Finalized history fixture 36
+PASS: Finalized history fixture 37
+PASS: Finalized history fixture 38
+PASS: Finalized history fixture 39
+PASS: Finalized history fixture 40
+PASS: Finalized history fixture 41
+PASS: Finalized history fixture 42
+PASS: Finalized history fixture 43
+PASS: Finalized history fixture 44
+PASS: Finalized history fixture 45
+PASS: Finalized history fixture 46
+PASS: Finalized history fixture 47
+PASS: Finalized history fixture 48
+PASS: Finalized history fixture 49
+PASS: Finalized history fixture 50
+PASS: Fifty-row history has bounded batch query count rather than per-service lookups.
+PASS: History count/order/pagination is 50 plus one; drafts excluded.
+PASS: Same-day finalized writes refresh current index by descending ID.
+PASS: Date/type/text filters apply inclusively before count/page.
+PASS: History filters never change current reading provenance.
+PASS: History rejects malformed calendar date. [invalid_input]
+PASS: Correction disclosure includes reason and excludes private contacts.
+PASS: Distance alone makes a future-date reminder due.
+PASS: Future snooze suppresses already reached threshold.
+PASS: Reminder rejects stale mutation. [stale_version]
+PASS: Resume restores due queue without creating a service.
+PASS: Vehicle archive suspends effective reminder.
+PASS: Vehicle restore restores threshold evaluation.
+PASS: Completion stores server actor/time and terminal queue state.
+PASS: Completion replay after lost response is idempotent.
+PASS: Reused request with a different base version is rejected. [invalid_input]
+PASS: Reused request cannot change operation. [invalid_input]
+PASS: Completed reminder cannot reopen. [invalid_state]
+PASS: Failure probe reaches service after-write projection.
+PASS: Caller failure rolls back complete write unit. [injected_failure]
+PASS: Rollback restores service version and derived current index together.
+PASS: Reminder pagination fixture 0
+PASS: Reminder pagination fixture 1
+PASS: Reminder pagination fixture 2
+PASS: Reminder pagination fixture 3
+PASS: Reminder pagination fixture 4
+PASS: Reminder pagination fixture 5
+PASS: Reminder pagination fixture 6
+PASS: Reminder pagination fixture 7
+PASS: Reminder pagination fixture 8
+PASS: Reminder pagination fixture 9
+PASS: Reminder pagination fixture 10
+PASS: Reminder pagination fixture 11
+PASS: Reminder pagination fixture 12
+PASS: Reminder pagination fixture 13
+PASS: Reminder pagination fixture 14
+PASS: Reminder pagination fixture 15
+PASS: Reminder pagination fixture 16
+PASS: Reminder pagination fixture 17
+PASS: Reminder pagination fixture 18
+PASS: Reminder pagination fixture 19
+PASS: Reminder pagination fixture 20
+PASS: Reminder pagination fixture 21
+PASS: Reminder pagination fixture 22
+PASS: Reminder pagination fixture 23
+PASS: Reminder pagination fixture 24
+PASS: Reminder pagination fixture 25
+PASS: Reminder pagination fixture 26
+PASS: Reminder pagination fixture 27
+PASS: Reminder pagination fixture 28
+PASS: Reminder pagination fixture 29
+PASS: Reminder pagination fixture 30
+PASS: Reminder pagination fixture 31
+PASS: Reminder pagination fixture 32
+PASS: Reminder pagination fixture 33
+PASS: Reminder pagination fixture 34
+PASS: Reminder pagination fixture 35
+PASS: Reminder pagination fixture 36
+PASS: Reminder pagination fixture 37
+PASS: Reminder pagination fixture 38
+PASS: Reminder pagination fixture 39
+PASS: Reminder pagination fixture 40
+PASS: Reminder pagination fixture 41
+PASS: Reminder pagination fixture 42
+PASS: Reminder pagination fixture 43
+PASS: Reminder pagination fixture 44
+PASS: Reminder pagination fixture 45
+PASS: Reminder pagination fixture 46
+PASS: Reminder pagination fixture 47
+PASS: Reminder pagination fixture 48
+PASS: Reminder pagination fixture 49
+PASS: Reminder pagination fixture 50
+PASS: Fifty-row reminder page hydrates relations in bounded batches.
+PASS: SQL effective filtering/count precedes reminder 50 plus one pagination.
+PASS: Reminder race worker starts.
+PASS: Reminder race worker starts.
+PASS: Reminder race worker exits cleanly.
+PASS: Reminder race worker exits cleanly.
+PASS: Concurrent reminder completion commits exactly once.
+PASS: Concurrent completion retains exactly one transition audit.
+PASS: Missing current projection cannot silently become upcoming. [storage_unavailable]
+PASS: Duplicate current projection cannot inflate queue totals. [storage_unavailable]
+PASS: Missing history relation fails closed rather than dropping finalized service. [storage_unavailable]
+QA-001 history/reminder domain verification complete.
+PASS: Authenticated finalized history displays filtered corrections without contact leaks.
+PASS: Reminder create/replay uses native handler and one record.
+PASS: Snooze/resume/completion and completion replay succeed; invalid nonce denied.
+PASS: Technician can read contact-free history but cannot access reminder page or handler.
+PASS: Subscriber cannot access private history.
+BENCH_DATA: mf_velog_customer=1000
+BENCH_DATA: mf_velog_vehicle=2000
+BENCH_DATA: mf_velog_service=20000
+BENCH_DATA: mf_velog_reminder=5000
+BENCH_RESULT: {"query":"customers_search","samples":30,"warmups":5,"p95_seconds":0.09484696388244629,"max_seconds":0.10903596878051758,"expected_total":1000,"result":"PASS"}
+BENCH_RESULT: {"query":"vehicles_search","samples":30,"warmups":5,"p95_seconds":0.07695198059082031,"max_seconds":0.07732081413269043,"expected_total":2000,"result":"PASS"}
+BENCH_RESULT: {"query":"services_finalized","samples":30,"warmups":5,"p95_seconds":0.21615982055664062,"max_seconds":0.2288210391998291,"expected_total":20000,"result":"PASS"}
+BENCH_RESULT: {"query":"history_filtered","samples":30,"warmups":5,"p95_seconds":0.6074490547180176,"max_seconds":0.6289420127868652,"expected_total":10,"result":"PASS"}
+WordPress database error Error on delete of '/tmp/#sql-temptable-164cb-29-86d.MAI' (Errcode: 2 "No such file or directory") for query SELECT q.ID,q.vehicle_id,q.vehicle_state,q.current_mm,q.stored_state,q.due_date,q.threshold_mm,q.snooze_until,q.effective FROM (SELECT p.ID, v.meta_value AS vehicle_id, vs.meta_value AS vehicle_state, c.meta_value AS current_mm,
+			s.meta_value AS stored_state, d.meta_value AS due_date, t.meta_value AS threshold_mm, z.meta_value AS snooze_until,
+			CASE WHEN s.meta_value='completed' THEN 'completed' WHEN vs.meta_value='archived' THEN 'suspended'
+			WHEN z.meta_value<>'' AND z.meta_value>'2026-10-21' THEN 'snoozed'
+			WHEN (d.meta_value<>'' AND d.meta_value<='2026-10-21') OR (t.meta_value<>'' AND c.meta_value<>'' AND CAST(c.meta_value AS DECIMAL(20,0))>=CAST(t.meta_value AS DECIMAL(20,0))) THEN 'due'
+			ELSE 'upcoming' END AS effective FROM wp_posts p
+			LEFT JOIN wp_postmeta s ON s.post_id=p.ID AND s.meta_key='_mf_velog_state'
+			LEFT JOIN wp_postmeta v ON v.post_id=p.ID AND v.meta_key='_mf_velog_reminder_vehicle_id'
+			LEFT JOIN wp_postmeta d ON d.post_id=p.ID AND d.meta_key='_mf_velog_reminder_due_date'
+			LEFT JOIN wp_postmeta t ON t.post_id=p.ID AND t.meta_key='_mf_velog_reminder_mm'
+			LEFT JOIN wp_postmeta z ON z.post_id=p.ID AND z.meta_key='_mf_velog_reminder_snooze'
+			LEFT JOIN wp_posts vp ON vp.ID=v.meta_value AND vp.post_type='mf_velog_vehicle' AND vp.post_status='private'
+			LEFT JOIN wp_postmeta vs ON vs.post_id=vp.ID AND vs.meta_key='_mf_velog_state'
+			LEFT JOIN wp_postmeta c ON c.post_id=vp.ID AND c.meta_key='_mf_velog_current_mm'
+			WHERE p.post_type='mf_velog_reminder' AND p.post_status='private') q WHERE ('due'='' OR q.effective='due') AND (0=0 OR q.vehicle_id='0') ORDER BY CASE WHEN q.due_date='' THEN '9999-12-31' ELSE q.due_date END ASC,q.ID DESC LIMIT 50 OFFSET 0 made by include('phar:///usr/local/bin/wp/php/boot-phar.php'), include('phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/wp-cli.php'), WP_CLI\bootstrap, WP_CLI\Bootstrap\LaunchRunner->process, WP_CLI\Runner->start, WP_CLI\Runner->do_early_invoke, WP_CLI\Runner->run_command_and_exit, WP_CLI\Runner->run_command, WP_CLI\Dispatcher\Subcommand->invoke, call_user_func, WP_CLI\Dispatcher\CommandFactory::WP_CLI\Dispatcher\{closure}, call_user_func, EvalFile_Command->__invoke, EvalFile_Command::execute_eval, eval, EvalFile_Command::{closure}, MF\VeLog\Common\Reminder\ReminderQuery->search
+PHP Fatal error:  Uncaught RuntimeException: Benchmark query correctness failed: reminders_due storage_unavailable in phar:///usr/local/bin/wp/vendor/wp-cli/eval-command/src/EvalFile_Command.php(85) : eval()'d code:113
+Stack trace:
+#0 phar:///usr/local/bin/wp/vendor/wp-cli/eval-command/src/EvalFile_Command.php(85): eval()
+#1 phar:///usr/local/bin/wp/vendor/wp-cli/eval-command/src/EvalFile_Command.php(59): EvalFile_Command::execute_eval()
+#2 [internal function]: EvalFile_Command->__invoke()
+#3 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/WP_CLI/Dispatcher/CommandFactory.php(100): call_user_func()
+#4 [internal function]: WP_CLI\Dispatcher\CommandFactory::WP_CLI\Dispatcher\{closure}()
+#5 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/WP_CLI/Dispatcher/Subcommand.php(497): call_user_func()
+#6 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/WP_CLI/Runner.php(470): WP_CLI\Dispatcher\Subcommand->invoke()
+#7 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/WP_CLI/Runner.php(493): WP_CLI\Runner->run_command()
+#8 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/WP_CLI/Runner.php(136): WP_CLI\Runner->run_command_and_exit()
+#9 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/WP_CLI/Runner.php(1228): WP_CLI\Runner->do_early_invoke()
+#10 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/WP_CLI/Bootstrap/LaunchRunner.php(28): WP_CLI\Runner->start()
+#11 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/bootstrap.php(84): WP_CLI\Bootstrap\LaunchRunner->process()
+#12 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/wp-cli.php(35): WP_CLI\bootstrap()
+#13 phar:///usr/local/bin/wp/php/boot-phar.php(20): include('...')
+#14 /usr/local/bin/wp(4): include('...')
+#15 {main}
+  thrown in phar:///usr/local/bin/wp/vendor/wp-cli/eval-command/src/EvalFile_Command.php(85) : eval()'d code on line 113
+Fatal error: Uncaught RuntimeException: Benchmark query correctness failed: reminders_due storage_unavailable in phar:///usr/local/bin/wp/vendor/wp-cli/eval-command/src/EvalFile_Command.php(85) : eval()'d code:113
+Stack trace:
+#0 phar:///usr/local/bin/wp/vendor/wp-cli/eval-command/src/EvalFile_Command.php(85): eval()
+#1 phar:///usr/local/bin/wp/vendor/wp-cli/eval-command/src/EvalFile_Command.php(59): EvalFile_Command::execute_eval()
+#2 [internal function]: EvalFile_Command->__invoke()
+#3 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/WP_CLI/Dispatcher/CommandFactory.php(100): call_user_func()
+#4 [internal function]: WP_CLI\Dispatcher\CommandFactory::WP_CLI\Dispatcher\{closure}()
+#5 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/WP_CLI/Dispatcher/Subcommand.php(497): call_user_func()
+#6 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/WP_CLI/Runner.php(470): WP_CLI\Dispatcher\Subcommand->invoke()
+#7 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/WP_CLI/Runner.php(493): WP_CLI\Runner->run_command()
+#8 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/WP_CLI/Runner.php(136): WP_CLI\Runner->run_command_and_exit()
+#9 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/WP_CLI/Runner.php(1228): WP_CLI\Runner->do_early_invoke()
+#10 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/WP_CLI/Bootstrap/LaunchRunner.php(28): WP_CLI\Runner->start()
+#11 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/bootstrap.php(84): WP_CLI\Bootstrap\LaunchRunner->process()
+#12 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/wp-cli.php(35): WP_CLI\bootstrap()
+#13 phar:///usr/local/bin/wp/php/boot-phar.php(20): include('...')
+#14 /usr/local/bin/wp(4): include('...')
+#15 {main}
+  thrown in phar:///usr/local/bin/wp/vendor/wp-cli/eval-command/src/EvalFile_Command.php(85) : eval()'d code on line 113

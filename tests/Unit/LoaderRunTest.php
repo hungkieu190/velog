@@ -239,10 +239,10 @@ class LoaderRunTest extends TestCase {
 	 * @since 0.1.0
 	 */
 	public function test_plugin_run_is_idempotent(): void {
-		// Expect add_action only for the init hook queued by set_locale().
+		// Locale, private CPTs and private service taxonomy each queue one init callback.
 		// If run() were not idempotent the count would double on the second call.
 		Functions\expect( 'add_action' )
-			->twice()
+			->times( 3 )
 			->with( 'init', \Mockery::type( 'callable' ), 10, 1 );
 		$this->addToAssertionCount( 1 );
 

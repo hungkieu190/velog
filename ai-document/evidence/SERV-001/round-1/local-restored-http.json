@@ -1,0 +1,16 @@
+{
+  "date": "2026-10-21",
+  "tls_note": "Local self-signed certificate explicitly accepted; proxy bypassed.",
+  "browser_verified": false,
+  "login": {
+    "status": 200,
+    "url": "https://velog.local/wp-login.php"
+  },
+  "css": {
+    "status": 200,
+    "url": "https://velog.local/wp-content/plugins/velog/assets/css/admin.css",
+    "sha256": "32aa67f878a39d2290184b3149e387fada768417f8c4d7df7008f1802abc3eed",
+    "expected_sha256": "32aa67f878a39d2290184b3149e387fada768417f8c4d7df7008f1802abc3eed",
+    "matches": true
+  }
+}

@@ -1,0 +1,14 @@
+ABSENT: /tmp/velog-product-smoke.4PatArHq; owned database/PHP processes absent; failed-run diagnostics removed: 0
+ABSENT: /tmp/velog-product-smoke.8p6SCkrK; owned database/PHP processes absent; failed-run diagnostics removed: 0
+ABSENT: /tmp/velog-product-smoke.AiFvC4Pg; owned database/PHP processes absent; failed-run diagnostics removed: 0
+ABSENT: /tmp/velog-product-smoke.AiPdcWtb; owned database/PHP processes absent; failed-run diagnostics removed: 2
+ABSENT: /tmp/velog-product-smoke.CnHqWO1a; owned database/PHP processes absent; failed-run diagnostics removed: 0
+ABSENT: /tmp/velog-product-smoke.Z02pdAUZ; owned database/PHP processes absent; failed-run diagnostics removed: 0
+ABSENT: /tmp/velog-product-smoke.cjs3zaZs; owned database/PHP processes absent; failed-run diagnostics removed: 0
+ABSENT: /tmp/velog-product-smoke.dmAS8DdD; owned database/PHP processes absent; failed-run diagnostics removed: 0
+ABSENT: /tmp/velog-product-smoke.hY6mSGso; owned database/PHP processes absent; failed-run diagnostics removed: 0
+ABSENT: /tmp/velog-product-smoke.iCWfGdpu; owned database/PHP processes absent; failed-run diagnostics removed: 2
+ABSENT: /tmp/velog-product-smoke.tY35BDKt; owned database/PHP processes absent; failed-run diagnostics removed: 0
+ABSENT: /tmp/velog-product-smoke.xVcwqVvg; owned database/PHP processes absent; failed-run diagnostics removed: 0
+ABSENT: /tmp/velog-product-smoke.zrBIMQ2t; owned database/PHP processes absent; failed-run diagnostics removed: 0
+Owned fixture JSON/cookies/barriers were inside removed run directories. Existing LocalWP data/private credentials/backups were not deleted. No source-tree scratch files.

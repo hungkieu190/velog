@@ -1,8 +1,31 @@
 # Source, Build, and Release Workflow Bootstrap
 
+## Owner decision — 2026-10-21: Consolidated technical test/fix resumed
+
+The Product Owner replied "ố kề,làm" to the proposed next consolidated test/fix phase after CODE-001 implementation completion. Developer is authorized to run technical tests, create isolated fixtures and fix demonstrated defects under QA-001. The earlier code-first testing pause has ended for this scope; preserve historical evidence and outstanding manual/product/benchmark debt. No active Tester gate, feature acceptance, live-data fixture authorization or external release/commit is implied.
+
+
+## Owner decision — 2026-10-21: Code first; all testing is deferred debt
+
+The Product Owner instructed: "bỏ qua hết tester, kể từ bây giờ các task test sẽ là các task nợ nhé; làm hết code đi đã, test và fix sau". This supersedes earlier test/Tester gates for ongoing and subsequent implementation.
+
+- Codex continues all remaining MVP application code directly, without waiting for Tester/UAT, test environments or test/fix rounds between features. The current instruction authorizes the remaining documented code queue; do not repeatedly request implementation permission for it.
+- Preserve already recorded test results and accepted features. Move unperformed manual, unit/integration/runtime/performance/regression work to explicit test-debt tasks; do not mark skipped work PASS or accepted.
+- Distinguish implementation completion from functional acceptance. Parent features may remain AWAITING_MANUAL_ACCEPTANCE with Next actor Developer for the next code item; this status and outstanding UAT are not implementation dependencies. A code checkpoint may be DONE only when explicitly labelled implementation-only. Do not infer product acceptance.
+- Test-debt tasks use DRAFT with Debt: TEST_DEBT and Scheduling: DEFERRED; they are not current Tester handoffs. Keep their cases and prerequisites for a later consolidated test/fix phase. No new test suite or fixture preparation is required during the code phase.
+- Perform necessary compilation/build and PHP syntax checks to produce loadable artifacts, inspect source/security boundaries, and record actual limitations. These checks are not functional tests. Do not defer a known syntax/build failure or bypass capabilities/nonces/validation just to keep coding.
+- Keep source/generated assets synchronized. Do not run functional suites, browsers, benchmarks, test seeds or live fixture writes merely to close a feature during this phase. Actual known functional issues may be recorded as fix debt; disclose material limitations honestly.
+- User remains Product Owner and may resume testing later. Codex is sole Developer; no active Tester gate or separate reviewer is required. External commit/push/deploy/release still requires explicit authorization.
+
+
 ## 1. Purpose and Authority
 
-Kit revision: 2026-10-05 / 3. Use with `01-backend-frontend-workflow.md` and the target project's product brief. On installation, copy this specification to `ai-document/source-build-release-workflow.md`, install file 01 as `ai-document/backend-frontend-workflow.md`, and use those paths for cross-references. The pair is self-contained; no original project files or results are required.
+## Owner decision — 2026-10-21: One Developer and one Tester
+
+The Product Owner explicitly instructed: "từ giờ bạn làm luôn backend, chỉnh sửa vào trong dự án agents nhé; giờ chỉ có bạn là dev, tôi là test, xong". Codex is the sole Developer for architecture, planning, backend, frontend, generated assets, fixtures, tests and technical self-review. The user remains Tester / Product Owner and exclusively performs manual acceptance. Separate backend/frontend-agent and Antigravity assignments are retired for future work; historical implementation/review evidence is preserved. BE/FE suffixes may remain as scope subdivisions owned by the same Developer. No separate-agent code approval is required or claimed. Record SELF_REVIEWED_DEVELOPMENT for combined code review; retain historical SELF_REVIEWED_BACKEND labels as technical evidence. Successful checks never imply manual PASS or feature DONE.
+
+
+Kit revision: 2026-10-21 / 4. Use with `01-backend-frontend-workflow.md` and the target project's product brief. On installation, copy this specification to `ai-document/source-build-release-workflow.md`, install file 01 as `ai-document/backend-frontend-workflow.md`, and use those paths for cross-references. The pair is self-contained; no original project files or results are required.
 
 File 01 governs application role mapping, startup acknowledgement, readiness, statuses, evidence and documentation ownership. Before build work, resolve the role through AGENTS.md and ai-document/agent-roles.json; do not infer ownership from an implementation request. The startup rule adapter is development metadata, not runtime code. This file governs technical build/package requirements. Neither file authorizes role switching or publication. Inspect and adapt actual project identity/runtime requirements; never copy another project's namespaces, versions, local filesystem paths or accepted evidence.
 
@@ -15,10 +38,10 @@ Establish a project-specific workflow for:
 - Maintaining `.gitignore`.
 - Enforcing these rules through `AGENTS.md`.
 
-Follow the Backend Architect / Frontend Developer workflow in file 01.
+Follow the Developer workflow and current code-first/test-debt decision in file 01.
 
-Backend Architect inspects the repository, prepares the task, and owns backend, build, packaging, and release tooling. It implements and self-reviews that work with `SELF_REVIEWED_BACKEND` evidence.
-Frontend Developer creates or modifies frontend source and generated assets only when an assigned frontend task has readiness PASS. Backend Architect reviews those changes before acceptance.
+Developer inspects the repository, prepares the task, and owns backend, build, packaging, and release tooling. It implements and self-reviews that work with `SELF_REVIEWED_BACKEND` evidence.
+Developer creates or modifies frontend source and generated assets only when an assigned frontend task has readiness PASS. Developer self-reviews the combined source/generated diff; Tester alone accepts the feature.
 
 Do not replace an existing working build system without examining it first.
 
@@ -439,6 +462,8 @@ Adding `.gitignore` does not untrack existing files. If generated files or secre
 
 Add or reconcile the following section in the project's `AGENTS.md`:
 
+Also install file 01's session continuity rules in `AGENTS.md` and the workflow documentation. At every session start, inspect the relevant task, checklist, and README and state in Vietnamese the next action, responsible actor, and required approval or prerequisite. Every final response must provide that same actionable guidance, including read-only and instruction-reading turns. If no next task is established, identify the scope or decision needed from the user; if records disagree, identify the mismatch and required clarification. A generic readiness statement alone is insufficient. These rules do not authorize implementation or task-state changes and do not replace the existing exactly-one handoff prompt requirement.
+
 ```markdown
 ## Frontend Source, Build, and Release Rules
 
@@ -466,7 +491,7 @@ Add or reconcile the following section in the project's `AGENTS.md`:
   completed successfully.
 - If build prerequisites are unavailable, record the exact blocker;
   do not manually patch generated files as a workaround.
-- Build configuration changes follow the Backend Architect task
+- Build configuration changes follow the Developer task
   and approval workflow.
 - Read `ai-document/build-and-release.md` before changing entry
   points, dependencies, output paths, or release packaging.
@@ -557,12 +582,12 @@ Use `git check-ignore` or equivalent inspection to verify:
 
 Syntax checks alone are not acceptance of the build and release workflow.
 
-Backend Architect reviews scripts, packaging boundaries, and relevant verification evidence before setting the task to `DONE`. Backend-owned work is recorded as `SELF_REVIEWED_BACKEND`; frontend work requires Backend Architect review.
+Developer reviews scripts, packaging boundaries, and relevant verification evidence before setting the task to `DONE`. Backend-owned work is recorded as `SELF_REVIEWED_BACKEND`; frontend work requires Developer review.
 
 
 ## 13. Required build/release blueprint
 
-Before a task is READY, Backend Architect provides the file-01 scope plus these concrete project mappings:
+Before a task is READY, Developer provides the file-01 scope plus these concrete project mappings:
 
 | Area | Required design detail |
 |---|---|
@@ -628,20 +653,20 @@ For handoff alerts, a small same-origin browser module may poll the read-only pr
 
 Track authoritative sources, scripts/configuration, npm/Composer lockfiles, production assets and generated ownership manifest for the WordPress profile. Ignore installed dependencies, development maps, release output, private staging/caches and temporary fixtures. Keep sanitized environment examples. Test representative paths with git check-ignore; do not untrack unrelated files or commit automatically.
 
-Do not treat a source checkout as an installable distribution until its autoload/dependencies are installed. Test the actual ZIP separately. Do not count an echo/TODO lint command as a passing quality gate. Backend Architect accepts the bounded bootstrap task after inspecting scripts, package contents, failure behavior and real installation evidence. Backend self-review is labeled `SELF_REVIEWED_BACKEND`. Completion of this tooling does not approve or complete the product MVP.
+Do not treat a source checkout as an installable distribution until its autoload/dependencies are installed. Test the actual ZIP separately. Do not count an echo/TODO lint command as a passing quality gate. Developer records a SELF_REVIEWED_DEVELOPMENT technical checkpoint after inspecting scripts, package contents, failure behavior and real installation evidence; Tester alone accepts the feature. Completion of this tooling does not approve or complete the product MVP.
 
 ## Manual handoff workflow integration
 
-Cross-agent handoffs between Backend Architect and Frontend Developer are conducted manually via synchronized task documents and copy-ready chat prompts. Automated background dispatch, JSON signal polling, and receipt generation are retired. Follow the manual handoff workflow: finish work and logs, update task metadata and checklist, provide exactly one latest English prompt under `### Chat handoff prompt`, and validate intake manually before starting received work. Any turn that changes status, next actor, review decision, workstream ownership, or manual-acceptance state must reproduce that task prompt verbatim as exactly one copy-ready prompt in the final user-facing response; omission or mismatch makes the handoff incomplete.
+Cross-agent handoffs between Developer and Developer are conducted manually via synchronized task documents and copy-ready chat prompts. Automated background dispatch, JSON signal polling, and receipt generation are retired. Follow the manual handoff workflow: finish work and logs, update task metadata and checklist, provide exactly one latest English prompt under `### Chat handoff prompt`, and validate intake manually before starting received work. Any turn that changes status, next actor, review decision, workstream ownership, or manual-acceptance state must reproduce that task prompt verbatim as exactly one copy-ready prompt in the final user-facing response; omission or mismatch makes the handoff incomplete.
 
 ## Owner decision — 2026-10-08: Tester owns browser verification
 
 This decision supersedes conflicting frontend verification requirements in earlier task descriptions, review requests, and setup guidance. Historical evidence remains unchanged.
 
-- Frontend Developer implements assigned presentation source, builds generated assets, records build/diff results, and hands off code. It is not required to run browser/manual verification, capture screenshots, or provide visual evidence.
-- Backend Architect reviews source/generated diffs and architecture/security boundaries, verifies relevant build/static checks, and creates a concrete Vietnamese `<ID>-UAT` task. It must specify environment, accounts, data, numbered actions, expected results, negative cases, and a per-case result table. Missing browser screenshots are not grounds to reject a frontend code handoff.
+- Developer implements assigned presentation source, builds generated assets, records build/diff results, and hands off code. It is not required to run browser/manual verification, capture screenshots, or provide visual evidence.
+- Developer reviews source/generated diffs and architecture/security boundaries, verifies relevant build/static checks, and creates a concrete Vietnamese `<ID>-UAT` task. It must specify environment, accounts, data, numbered actions, expected results, negative cases, and a per-case result table. Missing browser screenshots are not grounds to reject a frontend code handoff.
 - Tester / Product Owner owns all manual UI, responsive, RTL, keyboard, screen-reader, error-state, pagination, and asset-loading verification. Screenshots/videos are optional supporting material, not a mandatory builder deliverable.
 - Code approval moves the FE task, UAT task, and parent feature to `AWAITING_MANUAL_ACCEPTANCE`, with `Next actor: Tester`. `Review decision: APPROVED` means code review only; it does not mean a browser case passed.
 - Tester records actual results as PASS, FAIL, or BLOCKED and alone decides the transition to DONE. Agents may synchronize DONE only after the user's explicit acceptance; they never infer it from build success or elapsed time. Partial/blocked results are not full acceptance. Backend workstream DONE remains a technical `SELF_REVIEWED_BACKEND` checkpoint, not acceptance of the feature.
-- On FAIL, Backend Architect triages the reported case and assigns correction to the appropriate BE/FE owner. After code review, Tester reruns affected cases and relevant regressions before deciding DONE.
-- Test data/environment preparation must be explicit. If a prerequisite is unavailable, record BLOCKED and return preparation to Backend Architect; do not silently skip it or require Frontend Developer to create backend fixtures.
+- On FAIL, Developer triages the reported case and assigns correction to the appropriate BE/FE owner. After code review, Tester reruns affected cases and relevant regressions before deciding DONE.
+- Test data/environment preparation must be explicit. If a prerequisite is unavailable, record BLOCKED and return preparation to Developer; do not silently skip it or require Developer to create backend fixtures.

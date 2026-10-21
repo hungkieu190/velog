@@ -1,0 +1,18 @@
+{
+  "assets/css/admin.css": "f773ea03bc1a3924cceb2afe0755783b2d4138460b944a304892a6a5fe09377d",
+  "src/Admin/AdminMenu.php": "840cdaf391f611a21a84eeb10948a7bd673d7eda58e10304e2d25db5c99c8350",
+  "src/Admin/Assets.php": "225400ade317a53506c2246b5f2c204c7056e03ede66bcf744112b421eb30b64",
+  "src/Admin/ReminderPage.php": "f9f891d78474d1d11bd26d2c617876cdadcc7344092757e54707f6c8cea01e9d",
+  "src/Admin/ServiceHistoryPage.php": "0db2625c8676d42bb4d3fc50c634099d8176efe1e0726e40163d886cd6165544",
+  "src/Admin/ServicePage.php": "896fda2b92eba5f7ff56c7038f7c66b04b10ab0500c1ac902811948062804a6c",
+  "src/Admin/VehicleListTable.php": "c2f328e9209d97d068be2c8319ca0248f7e85a63960075197a7435c6f2ada6c5",
+  "src/Common/Reminder/ReminderPolicy.php": "82fe5aeac70d8c0a79dcad2999ba32b8d2cfa459e0d430578a8ff6c249198628",
+  "src/Common/Reminder/ReminderQuery.php": "ed898718e1d4cf6677ce4262caa163580c07ffcb95525eee87bae6681303c78a",
+  "src/Common/Reminder/ReminderService.php": "1588469d59d8ab562210f0ca7156166c2bd43bdd1dd7e7c55fda403729015a78",
+  "src/Common/Service/ServiceChronology.php": "41b035e0ec594910e554c015bcd8655428c40ad9a6b697b5dba6c70140f5ba6f",
+  "src/Common/Service/ServiceHistoryQuery.php": "03f906da0ecc3bc0079bd68c772474141aad4cab701902c305917731fb7bb049",
+  "src/Common/Storage/CurrentOdometerIndex.php": "e91ac3381171186c90b8ea36205859ff8b4a7e611019a680403f7712d62e9430",
+  "src/Common/Storage/RecordRepository.php": "d867e2dcd47deb52a3006c4748811a85be3ad53d38a9a986b74fa35c1bc2db94",
+  "src/Common/Storage/RecordSchema.php": "9a570105e9eafb3ff5e7fe5ee5a2b27a4fdad9584507466123b287791fecbdde",
+  "src/css/admin.scss": "c79db3933b43b06a0c8dc438217799d31ed2798527cd99699c7adb8252efb772"
+}

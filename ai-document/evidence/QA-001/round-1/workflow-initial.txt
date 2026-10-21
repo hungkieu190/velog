@@ -1,0 +1,383 @@
+
+> velog@0.1.0 test:workflow
+> node --test tests/workflow/*.test.mjs
+
+TAP version 13
+# Subtest: handoff alerts use the new role names
+ok 1 - handoff alerts use the new role names
+  ---
+  duration_ms: 4.834038
+  ...
+# Subtest: handoff alerts reject stale and old-role prompts
+ok 2 - handoff alerts reject stale and old-role prompts
+  ---
+  duration_ms: 0.406898
+  ...
+# Subtest: manual test handoff targets Tester
+ok 3 - manual test handoff targets Tester
+  ---
+  duration_ms: 0.425047
+  ...
+# Subtest: single Developer continuation does not invent a separate frontend handoff
+ok 4 - single Developer continuation does not invent a separate frontend handoff
+  ---
+  duration_ms: 0.370855
+  ...
+# Subtest: normalizes current roles and migration aliases
+ok 5 - normalizes current roles and migration aliases
+  ---
+  duration_ms: 6.542676
+  ...
+# Subtest: uses declared backend actor for any active implementation status
+ok 6 - uses declared backend actor for any active implementation status
+  ---
+  duration_ms: 1.207022
+  ...
+# Subtest: uses declared frontend actor for READY and review role for READY_FOR_REVIEW
+ok 7 - uses declared frontend actor for READY and review role for READY_FOR_REVIEW
+  ---
+  duration_ms: 0.303585
+  ...
+# Subtest: does not infer an actor when Next actor is missing or invalid
+ok 8 - does not infer an actor when Next actor is missing or invalid
+  ---
+  duration_ms: 0.26668
+  ...
+# Subtest: DONE has no active actor
+ok 9 - DONE has no active actor
+  ---
+  duration_ms: 0.242429
+  ...
+# Subtest: manual acceptance assigns the tester
+ok 10 - manual acceptance assigns the tester
+  ---
+  duration_ms: 0.230045
+  ...
+# Subtest: renders the frontend coding scene and explicit assignment metadata
+ok 11 - renders the frontend coding scene and explicit assignment metadata
+  ---
+  duration_ms: 3.832924
+  ...
+# Subtest: supports the sole Developer actor while retaining historical labels
+ok 12 - supports the sole Developer actor while retaining historical labels
+  ---
+  duration_ms: 1.538524
+  ...
+# Subtest: build ownership, maps, repeatability and safe failure
+ok 13 - build ownership, maps, repeatability and safe failure
+  ---
+  duration_ms: 6498.355809
+  ...
+# Subtest: dashboard surfaces contradictions and escapes untrusted Markdown
+ok 14 - dashboard surfaces contradictions and escapes untrusted Markdown
+  ---
+  duration_ms: 12.693652
+  ...
+# Subtest: W3-V3: prompt extraction does not fall back to older sections
+ok 15 - W3-V3: prompt extraction does not fall back to older sections
+  ---
+  duration_ms: 0.575213
+  ...
+# Subtest: W3-V4: prompt declaration exact token match
+ok 16 - W3-V4: prompt declaration exact token match
+  ---
+  duration_ms: 0.897437
+  ...
+# Subtest: W3-V4: unverified status mentions
+ok 17 - W3-V4: unverified status mentions
+  ---
+  duration_ms: 0.315649
+  ...
+# Subtest: release package boundaries and failures preserve the last successful archive
+not ok 18 - release package boundaries and failures preserve the last successful archive
+  ---
+  duration_ms: 14904.211852
+  location: '/home/ecommercelife/Local Sites/velog/app/public/wp-content/plugins/velog/tests/workflow/workflow.test.mjs:121:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    ./composer.json is valid
+    
+    > velog@0.1.0 check
+    > bash bin/check.sh
+    
+    No syntax errors detected in velog.php
+    No syntax errors detected in uninstall.php
+    No syntax errors detected in src/Admin/CustomerPage.php
+    No syntax errors detected in src/Admin/ReminderPage.php
+    No syntax errors detected in src/Admin/RegionalSettingsPage.php
+    No syntax errors detected in src/Admin/Assets.php
+    No syntax errors detected in src/Admin/VehiclePage.php
+    No syntax errors detected in src/Admin/ServiceHistoryPage.php
+    No syntax errors detected in src/Admin/AdminMenu.php
+    No syntax errors detected in src/Admin/CustomerListTable.php
+    No syntax errors detected in src/Admin/ServiceTypePage.php
+    No syntax errors detected in src/Admin/ServicePage.php
+    No syntax errors detected in src/Admin/VehicleListTable.php
+    No syntax errors detected in src/Core/Loader.php
+    No syntax errors detected in src/Core/Deactivator.php
+    No syntax errors detected in src/Core/ServiceTypes.php
+    No syntax errors detected in src/Core/Capabilities.php
+    No syntax errors detected in src/Core/PostTypes.php
+    No syntax errors detected in src/Core/Activator.php
+    No syntax errors detected in src/Core/Plugin.php
+    No syntax errors detected in src/Common/Service/ServiceFields.php
+    No syntax errors detected in src/Common/Service/ServiceTypes.php
+    No syntax errors detected in src/Common/Service/ServiceChronology.php
+    No syntax errors detected in src/Common/Service/ServiceQuery.php
+    No syntax errors detected in src/Common/Service/ServiceService.php
+    No syntax errors detected in src/Common/Service/ServiceHistoryQuery.php
+    No syntax errors detected in src/Common/Customer/CustomerService.php
+    No syntax errors detected in src/Common/Customer/CustomerRelations.php
+    No syntax errors detected in src/Common/Customer/CustomerQuery.php
+    No syntax errors detected in src/Common/AccessPolicy.php
+    No syntax errors detected in src/Common/Storage/RecordSchema.php
+    No syntax errors detected in src/Common/Storage/AuditEntry.php
+    No syntax errors detected in src/Common/Storage/RecordRepository.php
+    No syntax errors detected in src/Common/Storage/WriteUnit.php
+    No syntax errors detected in src/Common/Storage/WriteCoordinator.php
+    No syntax errors detected in src/Common/Storage/CurrentOdometerIndex.php
+    No syntax errors detected in src/Common/Vehicle/VehicleService.php
+    No syntax errors detected in src/Common/Vehicle/VehicleIdentifier.php
+    No syntax errors detected in src/Common/Vehicle/OdometerPolicy.php
+    No syntax errors detected in src/Common/Vehicle/VehicleQuery.php
+    No syntax errors detected in src/Common/Reminder/ReminderService.php
+    No syntax errors detected in src/Common/Reminder/ReminderPolicy.php
+    No syntax errors detected in src/Common/Reminder/ReminderQuery.php
+    No syntax errors detected in src/Common/Regional/Distance.php
+    No syntax errors detected in src/Common/Regional/Formatter.php
+    No syntax errors detected in src/Common/Regional/CalendarDate.php
+    No syntax errors detected in src/Common/Regional/CurrencyCatalog.php
+    No syntax errors detected in src/Common/Regional/ShopSettings.php
+    No syntax errors detected in src/Common/Regional/Money.php
+    No syntax errors detected in src/Common/Regional/DecimalInput.php
+    No syntax errors detected in src/Common/Regional/CurrencyCatalogData.php
+    No syntax errors detected in src/Common/Regional/DecimalMath.php
+    > phpcs --standard=phpcs.xml
+    
+    FILE: /tmp/velog-workflow-EDamL6/src/Admin/ReminderPage.php
+    ----------------------------------------------------------------------
+    FOUND 0 ERRORS AND 31 WARNINGS AFFECTING 31 LINES
+    ----------------------------------------------------------------------
+      36 | WARNING | Line exceeds 120 characters; contains 150 characters
+      64 | WARNING | Line exceeds 120 characters; contains 166 characters
+      81 | WARNING | Line exceeds 120 characters; contains 214 characters
+      91 | WARNING | Line exceeds 120 characters; contains 171 characters
+      92 | WARNING | Line exceeds 120 characters; contains 143 characters
+     109 | WARNING | Line exceeds 120 characters; contains 166 characters
+     124 | WARNING | Line exceeds 120 characters; contains 217 characters
+     133 | WARNING | Line exceeds 120 characters; contains 159 characters
+     138 | WARNING | Line exceeds 120 characters; contains 292 characters
+     139 | WARNING | Line exceeds 120 characters; contains 175 characters
+     178 | WARNING | Line exceeds 120 characters; contains 246 characters
+     181 | WARNING | Line exceeds 120 characters; contains 542 characters
+     183 | WARNING | Line exceeds 120 characters; contains 143 characters
+     186 | WARNING | Line exceeds 120 characters; contains 264 characters
+     187 | WARNING | Line exceeds 120 characters; contains 216 characters
+     189 | WARNING | Line exceeds 120 characters; contains 128 characters
+     198 | WARNING | Line exceeds 120 characters; contains 321 characters
+     200 | WARNING | Line exceeds 120 characters; contains 171 characters
+     210 | WARNING | Line exceeds 120 characters; contains 187 characters
+     211 | WARNING | Line exceeds 120 characters; contains 198 characters
+     220 | WARNING | Line exceeds 120 characters; contains 250 characters
+     221 | WARNING | Line exceeds 120 characters; contains 258 characters
+     229 | WARNING | Line exceeds 120 characters; contains 296 characters
+     240 | WARNING | Line exceeds 120 characters; contains 185 characters
+     256 | WARNING | Line exceeds 120 characters; contains 122 characters
+     258 | WARNING | Line exceeds 120 characters; contains 137 characters
+     259 | WARNING | Line exceeds 120 characters; contains 141 characters
+     260 | WARNING | Line exceeds 120 characters; contains 156 characters
+     261 | WARNING | Line exceeds 120 characters; contains 161 characters
+     263 | WARNING | Line exceeds 120 characters; contains 197 characters
+     273 | WARNING | Line exceeds 120 characters; contains 128 characters
+    ----------------------------------------------------------------------
+    
+    
+    FILE: /tmp/velog-workflow-EDamL6/src/Admin/ServiceHistoryPage.php
+    ----------------------------------------------------------------------
+    FOUND 0 ERRORS AND 14 WARNINGS AFFECTING 14 LINES
+    ----------------------------------------------------------------------
+      36 | WARNING | Line exceeds 120 characters; contains 168 characters
+      38 | WARNING | Line exceeds 120 characters; contains 122 characters
+      42 | WARNING | Line exceeds 120 characters; contains 216 characters
+      48 | WARNING | Line exceeds 120 characters; contains 152 characters
+      55 | WARNING | Line exceeds 120 characters; contains 121 characters
+      65 | WARNING | Line exceeds 120 characters; contains 215 characters
+      67 | WARNING | Line exceeds 120 characters; contains 254 characters
+      69 | WARNING | Line exceeds 120 characters; contains 195 characters
+      70 | WARNING | Line exceeds 120 characters; contains 205 characters
+      75 | WARNING | Line exceeds 120 characters; contains 125 characters
+      86 | WARNING | Line exceeds 120 characters; contains 601 characters
+      91 | WARNING | Line exceeds 120 characters; contains 259 characters
+      97 | WARNING | Line exceeds 120 characters; contains 455 characters
+     136 | WARNING | Line exceeds 120 characters; contains 136 characters
+    ----------------------------------------------------------------------
+    
+    
+    FILE: /tmp/velog-workflow-EDamL6/src/Admin/ServicePage.php
+    --------------------------------------------------------------------------------
+    FOUND 1 ERROR AFFECTING 1 LINE
+    --------------------------------------------------------------------------------
+     204 | ERROR | [x] When a multi-item array is declared with explicit keys, each
+         |       |     value should start on a new line.
+    --------------------------------------------------------------------------------
+    PHPCBF CAN FIX THE 1 MARKED SNIFF VIOLATIONS AUTOMATICALLY
+    --------------------------------------------------------------------------------
+    
+    
+    FILE: /tmp/velog-workflow-EDamL6/src/Admin/VehicleListTable.php
+    --------------------------------------------------------------------------------
+    FOUND 2 ERRORS AFFECTING 2 LINES
+    --------------------------------------------------------------------------------
+     52 | ERROR | [x] When a multi-item array is declared with explicit keys, each
+        |       |     value should start on a new line.
+     54 | ERROR | [x] When a multi-item array is declared with explicit keys, each
+        |       |     value should start on a new line.
+    --------------------------------------------------------------------------------
+    PHPCBF CAN FIX THE 2 MARKED SNIFF VIOLATIONS AUTOMATICALLY
+    --------------------------------------------------------------------------------
+    
+    
+    FILE: /tmp/velog-workflow-EDamL6/src/Common/Service/ServiceHistoryQuery.php
+    ---------------------------------------------------------------------------
+    FOUND 0 ERRORS AND 8 WARNINGS AFFECTING 8 LINES
+    ---------------------------------------------------------------------------
+      46 | WARNING | Line exceeds 120 characters; contains 121 characters
+      75 | WARNING | Line exceeds 120 characters; contains 128 characters
+     107 | WARNING | Line exceeds 120 characters; contains 124 characters
+     108 | WARNING | Line exceeds 120 characters; contains 124 characters
+     157 | WARNING | Line exceeds 120 characters; contains 139 characters
+     162 | WARNING | Line exceeds 120 characters; contains 172 characters
+     186 | WARNING | Line exceeds 120 characters; contains 123 characters
+     226 | WARNING | Line exceeds 120 characters; contains 215 characters
+    ---------------------------------------------------------------------------
+    
+    
+    FILE: /tmp/velog-workflow-EDamL6/src/Common/Storage/RecordSchema.php
+    ----------------------------------------------------------------------
+    FOUND 0 ERRORS AND 3 WARNINGS AFFECTING 3 LINES
+    ----------------------------------------------------------------------
+     540 | WARNING | Line exceeds 120 characters; contains 182 characters
+     554 | WARNING | Line exceeds 120 characters; contains 131 characters
+     557 | WARNING | Line exceeds 120 characters; contains 122 characters
+    ----------------------------------------------------------------------
+    
+    
+    FILE: /tmp/velog-workflow-EDamL6/src/Common/Storage/CurrentOdometerIndex.php
+    ----------------------------------------------------------------------------
+    FOUND 0 ERRORS AND 6 WARNINGS AFFECTING 6 LINES
+    ----------------------------------------------------------------------------
+     28 | WARNING | Line exceeds 120 characters; contains 126 characters
+     51 | WARNING | Line exceeds 120 characters; contains 168 characters
+     52 | WARNING | Line exceeds 120 characters; contains 130 characters
+     74 | WARNING | Line exceeds 120 characters; contains 164 characters
+     81 | WARNING | Line exceeds 120 characters; contains 130 characters
+     86 | WARNING | Line exceeds 120 characters; contains 156 characters
+    ----------------------------------------------------------------------------
+    
+    
+    FILE: /tmp/velog-workflow-EDamL6/src/Common/Reminder/ReminderService.php
+    ------------------------------------------------------------------------
+    FOUND 0 ERRORS AND 10 WARNINGS AFFECTING 10 LINES
+    ------------------------------------------------------------------------
+      60 | WARNING | Line exceeds 120 characters; contains 144 characters
+     124 | WARNING | Line exceeds 120 characters; contains 141 characters
+     125 | WARNING | Line exceeds 120 characters; contains 157 characters
+     130 | WARNING | Line exceeds 120 characters; contains 122 characters
+     138 | WARNING | Line exceeds 120 characters; contains 163 characters
+     151 | WARNING | Line exceeds 120 characters; contains 130 characters
+     166 | WARNING | Line exceeds 120 characters; contains 149 characters
+     171 | WARNING | Line exceeds 120 characters; contains 146 characters
+     183 | WARNING | Line exceeds 120 characters; contains 122 characters
+     192 | WARNING | Line exceeds 120 characters; contains 160 characters
+    ------------------------------------------------------------------------
+    
+    
+    FILE: /tmp/velog-workflow-EDamL6/src/Common/Reminder/ReminderPolicy.php
+    -----------------------------------------------------------------------
+    FOUND 0 ERRORS AND 1 WARNING AFFECTING 1 LINE
+    -----------------------------------------------------------------------
+     47 | WARNING | Line exceeds 120 characters; contains 122 characters
+    -----------------------------------------------------------------------
+    
+    
+    FILE: /tmp/velog-workflow-EDamL6/src/Common/Reminder/ReminderQuery.php
+    ----------------------------------------------------------------------
+    FOUND 0 ERRORS AND 10 WARNINGS AFFECTING 10 LINES
+    ----------------------------------------------------------------------
+      29 | WARNING | Line exceeds 120 characters; contains 123 characters
+      33 | WARNING | Line exceeds 120 characters; contains 163 characters
+      44 | WARNING | Line exceeds 120 characters; contains 126 characters
+      50 | WARNING | Line exceeds 120 characters; contains 613 characters
+      58 | WARNING | Line exceeds 120 characters; contains 251 characters
+      66 | WARNING | Line exceeds 120 characters; contains 127 characters
+      69 | WARNING | Line exceeds 120 characters; contains 187 characters
+      82 | WARNING | Line exceeds 120 characters; contains 283 characters
+      90 | WARNING | Line exceeds 120 characters; contains 144 characters
+     100 | WARNING | Line exceeds 120 characters; contains 124 characters
+    ----------------------------------------------------------------------
+    
+    Time: 11.03 secs; Memory: 42MB
+    
+    Script phpcs --standard=phpcs.xml handling the phpcs event returned with error code 2
+    npm failed (2)
+    
+    
+    1 !== 0
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 0
+  actual: 1
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///home/ecommercelife/Local%20Sites/velog/app/public/wp-content/plugins/velog/tests/workflow/workflow.test.mjs:125:12)
+    async Test.run (node:internal/test_runner/test:797:9)
+    async Test.processPendingSubtests (node:internal/test_runner/test:526:7)
+  ...
+# Subtest: quality gate propagates tool startup failure
+ok 19 - quality gate propagates tool startup failure
+  ---
+  duration_ms: 1664.320993
+  ...
+# Subtest: manifest destination cannot overwrite backend source
+ok 20 - manifest destination cannot overwrite backend source
+  ---
+  duration_ms: 375.684457
+  ...
+# Subtest: rejected release destination leaves no temporary staging
+not ok 21 - rejected release destination leaves no temporary staging
+  ---
+  duration_ms: 11000.664129
+  location: '/home/ecommercelife/Local Sites/velog/app/public/wp-content/plugins/velog/tests/workflow/workflow.test.mjs:195:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    The input did not match the regular expression /Symlink rejected/. Input:
+    
+    'npm failed (2)\n'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+  actual: |-
+    npm failed (2)
+    
+  operator: 'match'
+  stack: |-
+    TestContext.<anonymous> (file:///home/ecommercelife/Local%20Sites/velog/app/public/wp-content/plugins/velog/tests/workflow/workflow.test.mjs:202:12)
+    async Test.run (node:internal/test_runner/test:797:9)
+    async Test.processPendingSubtests (node:internal/test_runner/test:526:7)
+  ...
+# Subtest: Next actor declaration is authoritative across statuses
+ok 22 - Next actor declaration is authoritative across statuses
+  ---
+  duration_ms: 9.374884
+  ...
+1..22
+# tests 22
+# suites 0
+# pass 20
+# fail 2
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 34691.696679

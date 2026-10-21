@@ -1,0 +1,16 @@
+COUNT(DISTINCT p.ID)
+20000
+ID
+3013
+3012
+3011
+3010
+3009
+3008
+3007
+3006
+3005
+3004
+Query_ID	Duration	Query
+1	0.16321219	SELECT COUNT(DISTINCT p.ID) FROM wp_postmeta s FORCE INDEX (meta_key) STRAIGHT_JOIN wp_posts p ON p.ID=s.post_id WHERE s.meta_key='_mf_velog_state' AND s.meta_value='finalized' AND p.post_type='mf_velog_service' AND p.post_status='private'
+2	0.04845104	SELECT p.ID FROM wp_postmeta v FORCE INDEX (meta_key) STRAIGHT_JOIN wp_posts p ON p.ID=v.post_id STRAIGHT_JOIN wp_postmeta s ON s.post_id=p.ID AND s.meta_key='_mf_velog_state' WHERE v.meta_key='_mf_velog_service_vehicle_id' AND v.meta_value='1004' AND p.post_type='mf_velog_service' AND p.post_status

@@ -1,0 +1,18 @@
+> phpcs --standard=phpcs.xml
+
+FILE: ... Sites/velog/app/public/wp-content/plugins/velog/src/Admin/VehiclePage.php
+--------------------------------------------------------------------------------
+FOUND 0 ERRORS AND 6 WARNINGS AFFECTING 2 LINES
+--------------------------------------------------------------------------------
+ 366 | WARNING | Processing form data without nonce verification.
+ 366 | WARNING | Processing form data without nonce verification.
+ 366 | WARNING | Processing form data without nonce verification.
+ 378 | WARNING | Processing form data without nonce verification.
+ 378 | WARNING | Processing form data without nonce verification.
+ 378 | WARNING | Processing form data without nonce verification.
+--------------------------------------------------------------------------------
+
+Time: 5.6 secs; Memory: 38MB
+
+Script phpcs --standard=phpcs.xml handling the phpcs event returned with error code 1
+Script @phpcs was called via lint

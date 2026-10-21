@@ -1,0 +1,131 @@
+Allocated /tmp/velog-product-smoke.zrBIMQ2t for WP 6.4.3 mode=normal
+Waiting for DB...
+mysqld is alive
+database_version
+10.11.14-MariaDB-0ubuntu0.24.04.1
+Success: Added the constant 'DISABLE_WP_CRON' to the 'wp-config.php' file with the raw value 'true'.
+Waiting for HTTP...
+Plugin 'velog' activated.
+Success: Activated 1 of 1 plugins.
+PASS: Shop Settings configured explicitly.
+PASS: Isolated staff/denied fixture exists.
+PASS: Isolated staff/denied fixture exists.
+PASS: Isolated staff/denied fixture exists.
+PASS: Isolated staff/denied fixture exists.
+PASS: Private customer exists.
+PASS: Vehicle with known baseline exists.
+PASS: Private active service type created with audit.
+PASS: Type create replay is idempotent.
+PASS: Technician cannot manage service types. [forbidden]
+PASS: Duplicate service type refused. [conflict]
+PASS: Technician creates own incomplete-capable draft.
+PASS: Other technician cannot read private draft by ID. [forbidden]
+PASS: Other technician query excludes draft.
+PASS: Direct repository cannot bypass draft ownership. [forbidden]
+PASS: Manager edits foreign draft without impersonating creator.
+PASS: Own finalization captures customer and service type.
+PASS: Finalized record visible to operational staff.
+PASS: Service snapshot/audit do not leak contact details.
+PASS: Technician correction denied even with a reason. [reason_required]
+PASS: Direct repository finalized edit denied. [reason_required]
+PASS: Manager correction requires reason. [reason_required]
+PASS: Manager correction appends full audit.
+PASS: Referenced type renamed/deactivated without deleting history.
+PASS: Current customer name changed separately.
+PASS: Historical type/customer/currency remain frozen.
+PASS: Incomplete draft saved without fake zero/date/type.
+PASS: Incomplete finalization refused. [invalid_type]
+PASS: Inactive referenced type blocks new finalization. [invalid_type]
+PASS: Finalized customer snapshot cannot be forged by correction. [invalid_input]
+PASS: Type reactivated.
+PASS: Finalization requires active private customer relation. [invalid_customer]
+PASS: Direct repository transition cannot omit authoritative snapshots. [incomplete_service]
+PASS: Backdated reading between baseline and later service accepted.
+PASS: Backdated record does not replace later current reading.
+PASS: Reading above newer neighbour cannot be finalized by technician. [chronology_conflict]
+PASS: Manager reasoned chronology exception audited.
+PASS: Manager moves latest service earlier with reason.
+PASS: Current reading recomputed from remaining finalized records.
+PASS: Baseline edit checks actual service neighbours, not a global lock. [chronology_conflict]
+PASS: Compatible baseline edit allowed despite finalized services.
+PASS: Other vehicle history does not block unrelated baseline.
+PASS: Injected SQL failure rolls back write unit. [fixture_sql_failure]
+PASS: Failed write leaves no inserted service/audit/projections.
+PASS: Vehicle archived with history retained.
+PASS: Archived vehicle blocks draft edit. [invalid_vehicle]
+PASS: Archived vehicle history permits reasoned manager correction.
+PASS: Test vehicle restored for HTTP.
+PASS: Concurrent finalizer starts.
+PASS: Concurrent finalizer starts.
+PASS: Concurrent worker exits cleanly.
+PASS: Concurrent worker exits cleanly.
+PASS: Exactly one concurrent finalization succeeds.
+PASS: Concurrent finalize has one transition audit.
+PASS: Type/finalize race starts.
+PASS: Type/finalize race starts.
+PASS: Type/finalize race exits cleanly.
+PASS: Type/finalize race exits cleanly.
+PASS: Type deactivation/finalization race cannot finalize an already inactive type.
+PASS: Current reading fails closed on a missing service projection. [storage_unavailable]
+PASS: Corrupt taxonomy audit chain rejected. [storage_unavailable]
+PASS: Pagination draft fixture 0
+PASS: Pagination draft fixture 1
+PASS: Pagination draft fixture 2
+PASS: Pagination draft fixture 3
+PASS: Pagination draft fixture 4
+PASS: Pagination draft fixture 5
+PASS: Pagination draft fixture 6
+PASS: Pagination draft fixture 7
+PASS: Pagination draft fixture 8
+PASS: Pagination draft fixture 9
+PASS: Pagination draft fixture 10
+PASS: Pagination draft fixture 11
+PASS: Pagination draft fixture 12
+PASS: Pagination draft fixture 13
+PASS: Pagination draft fixture 14
+PASS: Pagination draft fixture 15
+PASS: Pagination draft fixture 16
+PASS: Pagination draft fixture 17
+PASS: Pagination draft fixture 18
+PASS: Pagination draft fixture 19
+PASS: Pagination draft fixture 20
+PASS: Pagination draft fixture 21
+PASS: Pagination draft fixture 22
+PASS: Pagination draft fixture 23
+PASS: Pagination draft fixture 24
+PASS: Pagination draft fixture 25
+PASS: Pagination draft fixture 26
+PASS: Pagination draft fixture 27
+PASS: Pagination draft fixture 28
+PASS: Pagination draft fixture 29
+PASS: Pagination draft fixture 30
+PASS: Pagination draft fixture 31
+PASS: Pagination draft fixture 32
+PASS: Pagination draft fixture 33
+PASS: Pagination draft fixture 34
+PASS: Pagination draft fixture 35
+PASS: Pagination draft fixture 36
+PASS: Pagination draft fixture 37
+PASS: Pagination draft fixture 38
+PASS: Pagination draft fixture 39
+PASS: Pagination draft fixture 40
+PASS: Pagination draft fixture 41
+PASS: Pagination draft fixture 42
+PASS: Pagination draft fixture 43
+PASS: Pagination draft fixture 44
+PASS: Pagination draft fixture 45
+PASS: Pagination draft fixture 46
+PASS: Pagination draft fixture 47
+PASS: Pagination draft fixture 48
+PASS: Pagination draft fixture 49
+PASS: Pagination draft fixture 50
+PASS: Own-draft pagination returns 50 plus one, excluding foreign drafts.
+SERV-001 domain verification complete.
+PASS: Authenticated draft create/replay retains one service.
+PASS: Own draft finalizes through real handler; technician finalized detail has no mutation/contact UI.
+PASS: Foreign draft ID does not expose content/form; authenticated own-draft pagination works.
+PASS: HTTP manager correction requires reason, persists audit, rejects stale version.
+PASS: Stale global Settings context cannot reinterpret service reading.
+PASS: Manager type create succeeds; technician valid-session nonce cannot authorize type mutation.
+PASS: Subscriber and anonymous service reads do not expose private records.
+All tests passed for 6.4.3

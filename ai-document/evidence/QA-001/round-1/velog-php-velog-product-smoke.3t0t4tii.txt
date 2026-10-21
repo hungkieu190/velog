@@ -1,0 +1,64 @@
+[Wed Oct 21 15:05:01 2026] PHP 8.3.6 Development Server (http://localhost:8660) started
+[Wed Oct 21 15:05:02 2026] 127.0.0.1:32840 Accepted
+[Wed Oct 21 15:05:02 2026] 127.0.0.1:32840 [200]: GET /marker.php
+[Wed Oct 21 15:05:02 2026] 127.0.0.1:32840 Closing
+[Wed Oct 21 15:05:23 2026] 127.0.0.1:59464 Accepted
+[Wed Oct 21 15:05:23 2026] 127.0.0.1:59464 [302]: POST /wp-login.php
+[Wed Oct 21 15:05:23 2026] 127.0.0.1:59464 Closing
+[Wed Oct 21 15:05:23 2026] 127.0.0.1:35826 Accepted
+[Wed Oct 21 15:05:26 2026] 127.0.0.1:35826 [200]: GET /wp-admin/admin.php?page=velog-history&vehicle_id=69&term=Corrected
+[Wed Oct 21 15:05:26 2026] 127.0.0.1:35826 Closing
+[Wed Oct 21 15:05:26 2026] 127.0.0.1:35830 Accepted
+[Wed Oct 21 15:05:26 2026] 127.0.0.1:35830 [200]: GET /wp-admin/admin.php?page=velog-reminders&state=all&filter_vehicle=69&paged=2
+[Wed Oct 21 15:05:26 2026] 127.0.0.1:35830 Closing
+[Wed Oct 21 15:05:26 2026] 127.0.0.1:35832 Accepted
+[Wed Oct 21 15:05:26 2026] 127.0.0.1:35832 [302]: POST /wp-admin/admin-post.php
+[Wed Oct 21 15:05:26 2026] 127.0.0.1:35832 Closing
+[Wed Oct 21 15:05:26 2026] 127.0.0.1:35848 Accepted
+[Wed Oct 21 15:05:26 2026] 127.0.0.1:35848 [302]: POST /wp-admin/admin-post.php
+[Wed Oct 21 15:05:26 2026] 127.0.0.1:35848 Closing
+[Wed Oct 21 15:05:26 2026] 127.0.0.1:35852 Accepted
+[Wed Oct 21 15:05:26 2026] 127.0.0.1:35852 [200]: GET /wp-admin/admin.php?page=velog-reminders&state=all&reminder_id=176
+[Wed Oct 21 15:05:26 2026] 127.0.0.1:35852 Closing
+[Wed Oct 21 15:05:27 2026] 127.0.0.1:35860 Accepted
+[Wed Oct 21 15:05:27 2026] 127.0.0.1:35860 [302]: POST /wp-admin/admin-post.php
+[Wed Oct 21 15:05:27 2026] 127.0.0.1:35860 Closing
+[Wed Oct 21 15:05:27 2026] 127.0.0.1:35866 Accepted
+[Wed Oct 21 15:05:27 2026] 127.0.0.1:35866 [200]: GET /wp-admin/admin.php?page=velog-reminders&state=all&reminder_id=176
+[Wed Oct 21 15:05:27 2026] 127.0.0.1:35866 Closing
+[Wed Oct 21 15:05:27 2026] 127.0.0.1:35876 Accepted
+[Wed Oct 21 15:05:27 2026] 127.0.0.1:35876 [302]: POST /wp-admin/admin-post.php
+[Wed Oct 21 15:05:27 2026] 127.0.0.1:35876 Closing
+[Wed Oct 21 15:05:27 2026] 127.0.0.1:35882 Accepted
+[Wed Oct 21 15:05:27 2026] 127.0.0.1:35882 [200]: GET /wp-admin/admin.php?page=velog-reminders&state=all&reminder_id=176
+[Wed Oct 21 15:05:27 2026] 127.0.0.1:35882 Closing
+[Wed Oct 21 15:05:27 2026] 127.0.0.1:35886 Accepted
+[Wed Oct 21 15:05:27 2026] 127.0.0.1:35886 [302]: POST /wp-admin/admin-post.php
+[Wed Oct 21 15:05:27 2026] 127.0.0.1:35886 Closing
+[Wed Oct 21 15:05:28 2026] 127.0.0.1:35890 Accepted
+[Wed Oct 21 15:05:28 2026] 127.0.0.1:35890 [302]: POST /wp-admin/admin-post.php
+[Wed Oct 21 15:05:28 2026] 127.0.0.1:35890 Closing
+[Wed Oct 21 15:05:28 2026] 127.0.0.1:35900 Accepted
+[Wed Oct 21 15:05:28 2026] 127.0.0.1:35900 [403]: POST /wp-admin/admin-post.php
+[Wed Oct 21 15:05:28 2026] 127.0.0.1:35900 Closing
+[Wed Oct 21 15:05:28 2026] 127.0.0.1:35912 Accepted
+[Wed Oct 21 15:05:28 2026] 127.0.0.1:35912 [200]: GET /wp-admin/admin.php?page=velog-reminders&state=all&reminder_id=176
+[Wed Oct 21 15:05:28 2026] 127.0.0.1:35912 Closing
+[Wed Oct 21 15:05:29 2026] 127.0.0.1:35920 Accepted
+[Wed Oct 21 15:05:29 2026] 127.0.0.1:35920 [302]: POST /wp-login.php
+[Wed Oct 21 15:05:29 2026] 127.0.0.1:35920 Closing
+[Wed Oct 21 15:05:29 2026] 127.0.0.1:35924 Accepted
+[Wed Oct 21 15:05:29 2026] 127.0.0.1:35924 [403]: GET /wp-admin/admin.php?page=velog-reminders
+[Wed Oct 21 15:05:29 2026] 127.0.0.1:35924 Closing
+[Wed Oct 21 15:05:30 2026] 127.0.0.1:35934 Accepted
+[Wed Oct 21 15:05:30 2026] 127.0.0.1:35934 [403]: POST /wp-admin/admin-post.php
+[Wed Oct 21 15:05:30 2026] 127.0.0.1:35934 Closing
+[Wed Oct 21 15:05:30 2026] 127.0.0.1:35942 Accepted
+[Wed Oct 21 15:05:30 2026] 127.0.0.1:35942 [200]: GET /wp-admin/admin.php?page=velog-history&vehicle_id=69
+[Wed Oct 21 15:05:30 2026] 127.0.0.1:35942 Closing
+[Wed Oct 21 15:05:31 2026] 127.0.0.1:35948 Accepted
+[Wed Oct 21 15:05:31 2026] 127.0.0.1:35948 [302]: POST /wp-login.php
+[Wed Oct 21 15:05:31 2026] 127.0.0.1:35948 Closing
+[Wed Oct 21 15:05:31 2026] 127.0.0.1:35950 Accepted
+[Wed Oct 21 15:05:31 2026] 127.0.0.1:35950 [403]: GET /wp-admin/admin.php?page=velog-history&vehicle_id=69
+[Wed Oct 21 15:05:31 2026] 127.0.0.1:35950 Closing

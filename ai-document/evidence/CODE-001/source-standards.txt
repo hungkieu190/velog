@@ -1,0 +1,20 @@
+Exit code: 1
+
+PHP CODE SNIFFER REPORT SUMMARY
+--------------------------------------------------------------------------------
+FILE                                                            ERRORS  WARNINGS
+--------------------------------------------------------------------------------
+.../public/wp-content/plugins/velog/src/Admin/ReminderPage.php  0       31
+...c/wp-content/plugins/velog/src/Admin/ServiceHistoryPage.php  0       14
+...ontent/plugins/velog/src/Common/Reminder/ReminderPolicy.php  0       1
+...content/plugins/velog/src/Common/Reminder/ReminderQuery.php  0       10
+...ntent/plugins/velog/src/Common/Reminder/ReminderService.php  0       10
+...nt/plugins/velog/src/Common/Service/ServiceHistoryQuery.php  0       8
+...t/plugins/velog/src/Common/Storage/CurrentOdometerIndex.php  0       6
+...p-content/plugins/velog/src/Common/Storage/RecordSchema.php  0       3
+--------------------------------------------------------------------------------
+A TOTAL OF 0 ERRORS AND 83 WARNINGS WERE FOUND IN 8 FILES
+--------------------------------------------------------------------------------
+
+Time: 1.53 secs; Memory: 38MB
+

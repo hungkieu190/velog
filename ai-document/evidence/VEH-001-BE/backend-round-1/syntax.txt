@@ -1,0 +1,10 @@
+No syntax errors detected in src/Common/Vehicle/VehicleService.php
+No syntax errors detected in src/Common/Vehicle/VehicleIdentifier.php
+No syntax errors detected in src/Common/Vehicle/OdometerPolicy.php
+No syntax errors detected in src/Common/Vehicle/VehicleQuery.php
+No syntax errors detected in src/Admin/VehiclePage.php
+No syntax errors detected in src/Admin/VehicleListTable.php
+No syntax errors detected in tests/fixtures/veh-001-uat-seed.php
+No syntax errors detected in tests/fixtures/veh-001-verify.php
+No syntax errors detected in tests/fixtures/veh-001-concurrent-worker.php
+PASS: shell syntax for tests/workflow/product-smoke.sh, tests/workflow/veh-001-endpoint.sh, tests/workflow/veh-001-uat-seed.sh

@@ -1,0 +1,113 @@
+Allocated /tmp/velog-product-smoke.aNgd3PFw for WP 6.7.2 mode=normal
+Waiting for DB...
+mysqld is alive
+database_version
+10.11.14-MariaDB-0ubuntu0.24.04.1
+Success: Added the constant 'DISABLE_WP_CRON' to the 'wp-config.php' file with the raw value 'true'.
+Waiting for HTTP...
+Plugin 'velog' activated.
+Success: Activated 1 of 1 plugins.
+PASS: Private customer fixture is created.
+PASS: Manager creates a Unicode vehicle with a private customer.
+PASS: Same create request returns the original identity.
+PASS: Normalized duplicate VIN rejected.
+PASS: Normalized jurisdiction/plate tuple rejected.
+PASS: Optional identifiers and exact binary uniqueness do not create false conflicts.
+PASS: Optional identifiers and exact binary uniqueness do not create false conflicts.
+PASS: Optional identifiers and exact binary uniqueness do not create false conflicts.
+PASS: Optional identifiers and exact binary uniqueness do not create false conflicts.
+PASS: Invalid complete vehicle rejected.
+PASS: Invalid complete vehicle rejected.
+PASS: Invalid complete vehicle rejected.
+PASS: Invalid complete vehicle rejected.
+PASS: Technician mutation denied.
+PASS: Direct repository rejects WordPress user as private owner.
+PASS: Direct repository rejects missing owner.
+PASS: Customer archive respects vehicle write guard.
+PASS: Self edit retains unique identifiers and advances version.
+PASS: Stale update rejected.
+PASS: Known baseline with independent preferred unit is accepted.
+PASS: Decrease without reason rejected.
+PASS: Reasoned decrease preserves real zero and audit.
+PASS: Clearing known zero still requires reason.
+PASS: Direct repository rejects forged canonical baseline.
+PASS: Vehicle archive preserves identifiers.
+PASS: Archived vehicle still reserves VIN.
+PASS: Customer archive succeeds after vehicle archive.
+PASS: Restore cannot reactivate an archived owner relation.
+PASS: Archived vehicle can explicitly clear its relation.
+PASS: Unassigned vehicle can be restored.
+PASS: Technician reads operational detail without audit.
+PASS: Subscriber detail denied.
+PASS: Technician exact identifier search is bounded and authorized.
+PASS: Operational search never contains customer contacts.
+PASS: Pagination fixture 1
+PASS: Pagination fixture 2
+PASS: Pagination fixture 3
+PASS: Pagination fixture 4
+PASS: Pagination fixture 5
+PASS: Pagination fixture 6
+PASS: Pagination fixture 7
+PASS: Pagination fixture 8
+PASS: Pagination fixture 9
+PASS: Pagination fixture 10
+PASS: Pagination fixture 11
+PASS: Pagination fixture 12
+PASS: Pagination fixture 13
+PASS: Pagination fixture 14
+PASS: Pagination fixture 15
+PASS: Pagination fixture 16
+PASS: Pagination fixture 17
+PASS: Pagination fixture 18
+PASS: Pagination fixture 19
+PASS: Pagination fixture 20
+PASS: Pagination fixture 21
+PASS: Pagination fixture 22
+PASS: Pagination fixture 23
+PASS: Pagination fixture 24
+PASS: Pagination fixture 25
+PASS: Pagination fixture 26
+PASS: Pagination fixture 27
+PASS: Pagination fixture 28
+PASS: Pagination fixture 29
+PASS: Pagination fixture 30
+PASS: Pagination fixture 31
+PASS: Pagination fixture 32
+PASS: Pagination fixture 33
+PASS: Pagination fixture 34
+PASS: Pagination fixture 35
+PASS: Pagination fixture 36
+PASS: Pagination fixture 37
+PASS: Pagination fixture 38
+PASS: Pagination fixture 39
+PASS: Pagination fixture 40
+PASS: Pagination fixture 41
+PASS: Pagination fixture 42
+PASS: Pagination fixture 43
+PASS: Pagination fixture 44
+PASS: Pagination fixture 45
+PASS: Pagination fixture 46
+PASS: Pagination fixture 47
+PASS: Pagination fixture 48
+PASS: Pagination fixture 49
+PASS: Pagination fixture 50
+PASS: Pagination fixture 51
+PASS: Stable pagination returns 50 plus one row.
+PASS: Write unit reports deliberate rollback.
+PASS: Rollback leaves no vehicle or projections.
+PASS: Real SQL failure returns a safe storage error.
+PASS: SQL failure rolls back prior vehicle writes.
+PASS: Concurrent worker starts.
+PASS: Concurrent worker starts.
+PASS: Concurrent worker exits cleanly.
+PASS: Concurrent worker exits cleanly.
+PASS: Concurrent identical VIN create has one winner.
+PASS: Race owner fixture exists.
+PASS: Concurrent worker starts.
+PASS: Concurrent worker starts.
+PASS: Concurrent worker exits cleanly.
+PASS: Concurrent worker exits cleanly.
+PASS: Customer archive and assignment race preserves the active relation invariant.
+PASS: Finalized service boundary refuses guessed baseline corrections.
+VEH-001 domain verification complete.
+Vehicle HTTP failure at line 44

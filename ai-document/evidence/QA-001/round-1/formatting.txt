@@ -1,0 +1,21 @@
+
+PHPCBF RESULT SUMMARY
+--------------------------------------------------------------------------------
+FILE                                                            FIXED  REMAINING
+--------------------------------------------------------------------------------
+.../public/wp-content/plugins/velog/src/Admin/ReminderPage.php  FAILED TO FIX
+...c/wp-content/plugins/velog/src/Admin/ServiceHistoryPage.php  56     3
+...ntent/plugins/velog/src/Common/Reminder/ReminderService.php  46     3
+...content/plugins/velog/src/Common/Reminder/ReminderQuery.php  7      9
+...nt/plugins/velog/src/Common/Service/ServiceHistoryQuery.php  35     5
+...t/plugins/velog/src/Common/Storage/CurrentOdometerIndex.php  9      3
+...p-content/plugins/velog/src/Common/Storage/RecordSchema.php  15     2
+--------------------------------------------------------------------------------
+A TOTAL OF 239 ERRORS WERE FIXED IN 7 FILES
+--------------------------------------------------------------------------------
+PHPCBF FAILED TO FIX 1 FILE
+--------------------------------------------------------------------------------
+
+Time: 15.77 secs; Memory: 24MB
+
+

@@ -1,0 +1,122 @@
+Allocated /tmp/velog-product-smoke.JRfwszNH for WP 6.7.2 mode=normal
+Waiting for DB...
+mysqld is alive
+database_version
+10.11.14-MariaDB-0ubuntu0.24.04.1
+Success: Added the constant 'DISABLE_WP_CRON' to the 'wp-config.php' file with the raw value 'true'.
+Waiting for HTTP...
+Plugin 'velog' activated.
+Success: Activated 1 of 1 plugins.
+PASS: Idle database connection is accepted.
+PASS: Active transaction is rejected: START TRANSACTION
+PASS: Direct coordinator call cannot enter a caller transaction.
+PASS: Active transaction is rejected: START TRANSACTION READ ONLY
+PASS: Direct coordinator call cannot enter a caller transaction.
+PASS: A transaction containing pending writes is rejected.
+PASS: Guard does not roll back caller writes.
+PASS: Guard does not commit caller writes.
+PASS: Implicit transaction mode is rejected.
+PASS: Connection is usable again after rollback and autocommit restoration.
+PASS: Customer page renders the safe notice for saved
+PASS: Customer notice does not expose database diagnostics.
+PASS: Customer page renders the safe notice for storage_unavailable
+PASS: Customer notice does not expose database diagnostics.
+PASS: Customer page renders the safe notice for forbidden
+PASS: Customer notice does not expose database diagnostics.
+PASS: Manager creates a Unicode customer.
+PASS: Technician reads the customer summary.
+PASS: Technician contact fields are redacted.
+PASS: Manager update advances the exact version.
+PASS: Stale update is rejected.
+PASS: Manager search finds normalized Unicode customer data.
+PASS: Fixture creates an active linked vehicle through the repository.
+PASS: Active vehicle blocks customer archive atomically.
+PASS: Fixture archives the linked vehicle.
+PASS: Customer archive succeeds after vehicle archive.
+PASS: Customer restore is versioned and audited.
+PASS: Create reconciliation preserves identity across field edits and archive/restore history.
+PASS: Reconciliation rejects audit state that contradicts the current envelope.
+PASS: Technician customer mutation is denied.
+PASS: Customer requires no username or contact fields.
+PASS: Duplicate contacts create an independent customer record.
+PASS: Customer creation does not create WordPress users.
+PASS: Create pagination fixture 1
+PASS: Create pagination fixture 2
+PASS: Create pagination fixture 3
+PASS: Create pagination fixture 4
+PASS: Create pagination fixture 5
+PASS: Create pagination fixture 6
+PASS: Create pagination fixture 7
+PASS: Create pagination fixture 8
+PASS: Create pagination fixture 9
+PASS: Create pagination fixture 10
+PASS: Create pagination fixture 11
+PASS: Create pagination fixture 12
+PASS: Create pagination fixture 13
+PASS: Create pagination fixture 14
+PASS: Create pagination fixture 15
+PASS: Create pagination fixture 16
+PASS: Create pagination fixture 17
+PASS: Create pagination fixture 18
+PASS: Create pagination fixture 19
+PASS: Create pagination fixture 20
+PASS: Create pagination fixture 21
+PASS: Create pagination fixture 22
+PASS: Create pagination fixture 23
+PASS: Create pagination fixture 24
+PASS: Create pagination fixture 25
+PASS: Create pagination fixture 26
+PASS: Create pagination fixture 27
+PASS: Create pagination fixture 28
+PASS: Create pagination fixture 29
+PASS: Create pagination fixture 30
+PASS: Create pagination fixture 31
+PASS: Create pagination fixture 32
+PASS: Create pagination fixture 33
+PASS: Create pagination fixture 34
+PASS: Create pagination fixture 35
+PASS: Create pagination fixture 36
+PASS: Create pagination fixture 37
+PASS: Create pagination fixture 38
+PASS: Create pagination fixture 39
+PASS: Create pagination fixture 40
+PASS: Create pagination fixture 41
+PASS: Create pagination fixture 42
+PASS: Create pagination fixture 43
+PASS: Create pagination fixture 44
+PASS: Create pagination fixture 45
+PASS: Create pagination fixture 46
+PASS: Create pagination fixture 47
+PASS: Create pagination fixture 48
+PASS: Create pagination fixture 49
+PASS: Create pagination fixture 50
+PASS: Create pagination fixture 51
+PASS: First page contains exactly 50 of 51 customers.
+PASS: Second page contains the remaining customer.
+PASS: Batch hydration has constant query count for one and 50 rows.
+PASS: Stable pagination does not repeat IDs.
+PASS: Batch hydration preserves technician contact redaction.
+PASS: Batch reader rejects duplicate IDs.
+PASS: Batch reader rejects an unbounded page.
+PASS: Native user IDs do not resolve to customer records by fallback.
+PASS: Duplicate envelope fault is installed in the disposable site.
+PASS: Batch hydration fails closed on duplicate authoritative rows.
+PASS: Batch read recovers after removing only the injected row.
+CUST-001 fixture passed.
+PASS: Authenticated native form POST creates exactly one Unicode customer, redirects, and displays success and persisted data.
+PASS: Invalid nonce rejects the HTTP write without adding a customer.
+PASS: Storage and permission redirect codes render visible error notices over HTTP.
+PASS: Contact search uses POST and an opaque token without contact values in its redirect.
+PASS: Another authorized account cannot reuse the private search reference.
+PASS: Expired search token reports an error and does not expose unfiltered rows.
+PASS: Invalid search nonce is rejected.
+PASS: HTTP search pagination keeps the token and reaches the remaining row.
+PASS: Anonymous search cannot enter the authorized handler.
+PASS: plan created no credentials, identities or manifest
+PASS: provisioning refused the negative control
+PASS: provisioning refused the negative control
+PASS: provisioning refused the negative control
+PASS: apply/verify/reapply; 52 customers, linked vehicle, permissions, pagination, no credential reset or manifest secrets
+PASS: provisioning refused the negative control
+PASS: account drift refused without resetting roles
+All tests passed for 6.7.2

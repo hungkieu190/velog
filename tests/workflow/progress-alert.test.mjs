@@ -32,6 +32,14 @@ test('manual test handoff targets Tester', () => {
     status: 'AWAITING_MANUAL_ACCEPTANCE',
     latestPrompt: 'Status: AWAITING_MANUAL_ACCEPTANCE\nRecipient: Tester\nIntent: accept',
   });
-  assert.equal(event.actor, 'Backend Architect');
+  assert.equal(event.actor, 'Developer');
   assert.match(event.text, /Tester is next/);
+});
+
+
+test('single Developer continuation does not invent a separate frontend handoff', () => {
+  const event = completionEvent({id: 'VEH-001-BE', status: 'IN_PROGRESS',
+    latestPrompt: 'Status: IN_PROGRESS\nRecipient: Developer\nIntent: work'});
+  assert.equal(event.actor, 'Developer');
+  assert.equal(event.text, 'Developer continues VEH-001-BE.');
 });

@@ -10,8 +10,11 @@
 - Baseline branch and commit: `main` at `2aa3b8d`.
 - User approval reference and approved scope: PLAN-001 revision 3 approves MVP direction; 2026-09-21 user authorizes batch planning only.
 - Latest round: Architect draft blueprint — Round 1.
-- Next actor: Architect
-- Next actor and exact next action: Resolve readiness gates; require all MVP prerequisite tasks DONE; reinspect accepted files/interfaces and record Blueprint readiness PASS before considering READY.
+- Next actor: Developer
+- Next actor and exact next action: Keep packaging, integration, performance and acceptance as deferred debt until Product Owner resumes testing.
+- Debt: TEST_DEBT
+- Scheduling: DEFERRED
+- Current authority: 2026-10-21 code-first owner decision supersedes historical prerequisite/test gates below.
 
 ## Problem and intended behavior
 
@@ -58,5 +61,9 @@ Passing individual task tests does not establish the complete customer-to-servic
 ### Chat handoff prompt
 
 ```text
-Continue as Architect for MVP-001, DRAFT revision 1. Read AGENTS.md, ai-document/tasks/PLAN-002-mvp-task-batch.md (Shared blueprint contract revision 1), ai-document/tasks/MVP-001-acceptance-package.md (Implementation blueprint revision 1), ai-document/implementation-checklist.md and the accepted dependency task files. Scope is mvp integration, performance and local package acceptance, AC1–AC4. Require CORE-001/002/003/004, DATA-001, CUST-001, VEH-001, SERV-001, HIST-001 and REM-001 DONE and resolve Remaining readiness gates before a bounded READY assignment. The user requested batch planning and Builder execution later. Baseline source inspection and planning documentation checks are the only evidence; all new runtime, integration and manual checks are NOT VERIFIED. Reinspect concrete callers/interfaces, complete the verification setup and record Blueprint readiness PASS only when genuinely complete and approved. Do not implement, dispatch Builder, mark DONE, commit, deploy or use the active database.
+Status: DRAFT
+Recipient: Developer
+Intent: deferred-test-fix
+
+Keep MVP-001 as TEST_DEBT / DEFERRED under ai-document/test-debt.md. After Product Owner resumes testing, prepare integration, privacy, performance and package verification from CODE-001 implementation evidence. Do not infer acceptance, create a release, commit or deploy without authorization.
 ```

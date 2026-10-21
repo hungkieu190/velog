@@ -1,58 +1,53 @@
 # VEH-001-BE: Vehicle backend contract and persistence
 
+## Approved correction — 2026-10-21
+
+Tester requested a native Year dropdown and one system distance unit. Product Owner approved the proposed correction with "ok sửa". Revision 3 amendment in VEH-001-contract-v2.md overrides per-vehicle unit controls; no full manual acceptance was reported. Correction implementation/self-review and Tester acceptance are complete; prior round evidence remains historical.
+
 ## Current handoff
-
 - Workstream: Backend
-- Status: BLOCKED
-- Plan revision: 1
-- Implementation round: 1
-- Blueprint readiness: INCOMPLETE — revalidate existing vehicle scope, shared gates, fixtures and UAT against restored CUST-001 record IDs.
-- Owner: Backend Architect
-- Contributors and review mode: Backend Architect implementation and `SELF_REVIEWED_BACKEND` required.
-- Related checklist items: VEH-001 / AC1–AC3 and backend portion of AC4.
-- Evidence: `ai-document/evidence/VEH-001-BE/backend-round-1/`.
-- Latest report: G-10 restores private customer IDs and removes the CUST-002 dependency. Vehicle source is unchanged; its existing scope and shared technical gates still need revalidation.
-- Temporary resource cleanup: No temporary resources created by this planning reconciliation; historical cleanup is not reverified.
-- Next actor: Backend Architect
-- Next actor and exact next action: G-10 removes the native-user dependency. Revalidate VEH-001 against private customer record IDs and its existing technical gates before resuming work.
+- Status: DONE
+- Plan revision: 3
+- Implementation round: 2
+- Blueprint readiness: PASS — revision 3 Year/global-unit correction approved with "ok sửa"; technical gates passed.
+- Owner: Developer
+- Contributors and review mode: Developer; SELF_REVIEWED_DEVELOPMENT technical review PASS (non-independent); manual acceptance remains Tester-owned.
+- Related checklist items: VEH-001 / AC1–AC4.
+- Latest report: Tester explicitly accepted all vehicle tests/environments on 2026-10-21 and requested continuing development. VEH-001 is functionally DONE; SERV-001 G-06 and implementation were subsequently approved.
+- Evidence: ai-document/evidence/VEH-001-BE/correction-round-2/report.md; original LocalWP preparation: ai-document/evidence/VEH-001-UAT/preparation-2026-10-21/report.md.
+- Temporary resource cleanup: Verified for all owned correction runs; see correction-round-2/cleanup.txt. Prior run cleanup remains historical.
+- Next actor: Developer
+- Next actor and exact next action: Developer implements approved SERV-001 revision 2 after G-06 approval; VEH-001 is accepted DONE.
 
-## Approved scope and boundaries
+## Approved scope and executable blueprint
 
-G-10 restores CUST-001 private customer IDs. Revalidate the existing scope and required gates before resuming implementation; this reconciliation adds no vehicle behavior.
-
-Implement vehicle domain validation, schema/projections, private manager/staff backend handlers, owner relation validation, archive/restore, optimistic versions, audit, and server-side tests/fixtures. Allowed application files are `src/Common/Vehicle/`, `src/Common/Storage/RecordSchema.php`, `src/Admin/VehiclePage.php`, `src/Admin/VehicleListTable.php`, `src/Admin/AdminMenu.php`, `src/Core/Plugin.php`, relevant server-side tests/fixtures, and technical/evidence documentation.
-
-Do not change Sass/CSS/JavaScript/generated assets, public routes, REST routes, customer data policy, service workflow, physical odometer resets, commits, deployment, release, or active-site data.
-
-## Stable backend contract
-
-- Require a plate with jurisdiction, or a VIN; preserve display values and use G-04 normalization for uniqueness across active and archived records.
-- Validate optional year (1886 through current year + 1), owner relation, state, and baseline. A baseline has original unit, canonical millimetres, and a non-future local date; null is distinct from zero.
-- Only managers mutate vehicles. Authorized staff reads never expose customer phone/email.
-- Every mutation uses capability, action-specific nonce at HTTP boundaries, exact version, unique request ID, and audit data. Archive/restore retains identifiers and does not rewrite service history.
-- G-05 governs chronology: a decrease needs manager reason; backdated readings validate against neighbours and do not automatically replace current reading; resets are out of scope.
-
-## Required gates
-
-- `composer run lint`
-- `composer run test -- --filter Vehicle`
-- `composer run test`
-- applicable isolated WordPress fixture on 6.4.3 and 6.7.2
-- `git diff --check`, backend diff/security review, and owned-resource cleanup.
+[Revision 2 contract with the approved revision 3 amendment](VEH-001-contract-v2.md) is authoritative for exact file boundaries, fields, operations, view states, pseudocode-equivalent execution steps, failure behavior, verification matrix and cleanup. It supersedes the previous conflicting root/Common class paths. Read the local admin UI skill and admin design system before PHP views. Presentation scope remains tracked in the FE subtask and is implemented by the same Developer.
 
 ## Acceptance criteria
 
-- AC1 backend: validated unique vehicle identifiers are persisted race-safely.
-- AC2 backend: owner relation, authorization, nonce, archive/restore, version, and audit controls fail closed.
-- AC3 backend: baseline chronology preserves unknown versus zero and G-05 rules.
-- AC4 backend: private server-side routes/handlers and fixture contract are ready for deferred presentation/UAT work.
+- AC1: Unique validated plate/jurisdiction or VIN, including concurrent writes and archived identifiers.
+- AC2: Private customer relation, manager mutation/staff read boundaries, nonces, versions and audited archive/restore.
+- AC3: Exact unknown/zero baseline and km/mi identity, site-local dates, attributed lower/cleared readings and fail-closed finalized-history boundary.
+- AC4: Bounded native admin forms/list/detail/search/pagination, isolated backend/HTTP evidence, FE code review and Tester acceptance.
+
+## Dependencies and history
+
+CUST-001 is DONE by explicit Tester acceptance on 2026-10-21. G-04/G-05/G-10 and the revision 3 G-11 amendment remain approved. [Readiness review](../evidence/VEH-001-BE/readiness-2026-10-21.md) records the prior gaps; runtime checks there were not performed. Earlier parent blueprint details remain in ai-document/history/VEH-001/pre-lean.md. Linked presentation task: [VEH-001-FE](VEH-001-FE-vehicle-presentation.md); manual task: [VEH-001-UAT](VEH-001-UAT-manual-test.md).
+
+## Technical checkpoint
+
+DONE records SELF_REVIEWED_DEVELOPMENT for this backend subdivision only. Tester subsequently accepted the parent feature and UAT; both are DONE.
+
+## Tester acceptance — 2026-10-21
+
+Tester explicitly accepted all testing environments and instructed continuing implementation on 2026-10-21: "đã pass hết các môi trường kiểm thử; làm tiếp code". VEH-001 T01–T15 accepted; no unreported per-browser observations are invented.
 
 ### Chat handoff prompt
 
 ```text
-Status: BLOCKED
-Recipient: Backend Architect
+Status: DONE
+Recipient: Developer
 Intent: work
 
-G-10 removes the CUST-002 native-user dependency. Revalidate VEH-001 scope, private customer-record ownership, shared locks, technical gates, fixtures and UAT before resuming implementation. Preserve vehicle source and historical evidence. No active-site database changes, commit, deploy, or release.
+Continue approved SERV-001 revision 2 under ai-document/service-workflow-contract.md; VEH-001 is accepted DONE by Tester. Preserve prior evidence and data. No commit, deploy or release.
 ```

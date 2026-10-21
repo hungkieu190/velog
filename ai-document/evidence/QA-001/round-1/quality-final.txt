@@ -1,0 +1,82 @@
+
+> velog@0.1.0 check
+> bash bin/check.sh
+
+No syntax errors detected in velog.php
+No syntax errors detected in uninstall.php
+No syntax errors detected in src/Admin/CustomerPage.php
+No syntax errors detected in src/Admin/ReminderPage.php
+No syntax errors detected in src/Admin/RegionalSettingsPage.php
+No syntax errors detected in src/Admin/Assets.php
+No syntax errors detected in src/Admin/VehiclePage.php
+No syntax errors detected in src/Admin/ServiceHistoryPage.php
+No syntax errors detected in src/Admin/AdminMenu.php
+No syntax errors detected in src/Admin/CustomerListTable.php
+No syntax errors detected in src/Admin/ServiceTypePage.php
+No syntax errors detected in src/Admin/ServicePage.php
+No syntax errors detected in src/Admin/VehicleListTable.php
+No syntax errors detected in src/Core/Loader.php
+No syntax errors detected in src/Core/Deactivator.php
+No syntax errors detected in src/Core/ServiceTypes.php
+No syntax errors detected in src/Core/Capabilities.php
+No syntax errors detected in src/Core/PostTypes.php
+No syntax errors detected in src/Core/Activator.php
+No syntax errors detected in src/Core/Plugin.php
+No syntax errors detected in src/Common/Service/ServiceFields.php
+No syntax errors detected in src/Common/Service/ServiceTypes.php
+No syntax errors detected in src/Common/Service/ServiceChronology.php
+No syntax errors detected in src/Common/Service/ServiceQuery.php
+No syntax errors detected in src/Common/Service/ServiceService.php
+No syntax errors detected in src/Common/Service/ServiceHistoryQuery.php
+No syntax errors detected in src/Common/Customer/CustomerService.php
+No syntax errors detected in src/Common/Customer/CustomerRelations.php
+No syntax errors detected in src/Common/Customer/CustomerQuery.php
+No syntax errors detected in src/Common/AccessPolicy.php
+No syntax errors detected in src/Common/Storage/RecordSchema.php
+No syntax errors detected in src/Common/Storage/AuditEntry.php
+No syntax errors detected in src/Common/Storage/RecordRepository.php
+No syntax errors detected in src/Common/Storage/WriteUnit.php
+No syntax errors detected in src/Common/Storage/WriteCoordinator.php
+No syntax errors detected in src/Common/Storage/CurrentOdometerIndex.php
+No syntax errors detected in src/Common/Vehicle/VehicleService.php
+No syntax errors detected in src/Common/Vehicle/VehicleIdentifier.php
+No syntax errors detected in src/Common/Vehicle/OdometerPolicy.php
+No syntax errors detected in src/Common/Vehicle/VehicleQuery.php
+No syntax errors detected in src/Common/Reminder/ReminderService.php
+No syntax errors detected in src/Common/Reminder/ReminderPolicy.php
+No syntax errors detected in src/Common/Reminder/ReminderQuery.php
+No syntax errors detected in src/Common/Regional/Distance.php
+No syntax errors detected in src/Common/Regional/Formatter.php
+No syntax errors detected in src/Common/Regional/CalendarDate.php
+No syntax errors detected in src/Common/Regional/CurrencyCatalog.php
+No syntax errors detected in src/Common/Regional/ShopSettings.php
+No syntax errors detected in src/Common/Regional/Money.php
+No syntax errors detected in src/Common/Regional/DecimalInput.php
+No syntax errors detected in src/Common/Regional/CurrencyCatalogData.php
+No syntax errors detected in src/Common/Regional/DecimalMath.php
+> phpcs --standard=phpcs.xml
+> phpstan analyse --configuration=phpstan.neon
+
+⚠️  You're running an old version of PHPStan.️
+
+The last release in the 1.12.x series with new features
+and bugfixes was released on July 17th 2025,
+that's 461 days ago.
+
+Since then more than 65 new PHPStan versions were released
+with hundreds of new features, bugfixes, and other
+quality of life improvements.
+
+To learn about what you're missing out on, check out
+this blog with articles about the latest major releases:
+https://phpstan.org/blog
+
+Upgrade today to PHPStan 2.2 or newer by using
+"phpstan/phpstan": "^2.2" in your composer.json.
+
+  0/52 [░░░░░░░░░░░░░░░░░░░░░░░░░░░░]   0%[1G[2K 20/52 [▓▓▓▓▓▓▓▓▓▓░░░░░░░░░░░░░░░░░░]  38%[1G[2K 40/52 [▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░░░░░░]  76%[1G[2K 52/52 [▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓] 100%
+
+
+ [OK] No errors                                                                 
+
+Quality checks passed. Report: reports/check-2026-10-21_15-00-01.log

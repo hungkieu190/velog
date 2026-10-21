@@ -1,0 +1,271 @@
+Allocated /tmp/velog-product-smoke.qTr59pN0 for WP 7.1.3 mode=normal
+Waiting for DB...
+mysqld is alive
+database_version
+8.4.0
+Success: Added the constant 'DISABLE_WP_CRON' to the 'wp-config.php' file with the raw value 'true'.
+Waiting for HTTP...
+Plugin 'velog' activated.
+Success: Activated 1 of 1 plugins.
+PASS: Private customer fixture is created.
+PASS: Manager creates a Unicode vehicle with a private customer.
+PASS: Same create request returns the original identity.
+PASS: Normalized duplicate VIN rejected.
+PASS: Normalized jurisdiction/plate tuple rejected.
+PASS: Optional identifiers and exact binary uniqueness do not create false conflicts.
+PASS: Optional identifiers and exact binary uniqueness do not create false conflicts.
+PASS: Optional identifiers and exact binary uniqueness do not create false conflicts.
+PASS: Optional identifiers and exact binary uniqueness do not create false conflicts.
+PASS: Invalid complete vehicle rejected.
+PASS: Invalid complete vehicle rejected.
+PASS: Invalid complete vehicle rejected.
+PASS: Invalid complete vehicle rejected.
+PASS: Technician mutation denied.
+PASS: Direct repository rejects WordPress user as private owner.
+PASS: Direct repository rejects missing owner.
+PASS: Customer archive respects vehicle write guard.
+PASS: Self edit retains unique identifiers and advances version.
+PASS: Stale update rejected.
+PASS: Known baseline with independent preferred unit is accepted.
+PASS: Decrease without reason rejected.
+PASS: Reasoned decrease preserves real zero and audit.
+PASS: Clearing known zero still requires reason.
+PASS: Direct repository rejects forged canonical baseline.
+PASS: Vehicle archive preserves identifiers.
+PASS: Archived vehicle still reserves VIN.
+PASS: Customer archive succeeds after vehicle archive.
+PASS: Restore cannot reactivate an archived owner relation.
+PASS: Archived vehicle can explicitly clear its relation.
+PASS: Unassigned vehicle can be restored.
+PASS: Technician reads operational detail without audit.
+PASS: Subscriber detail denied.
+PASS: Technician exact identifier search is bounded and authorized.
+PASS: Operational search never contains customer contacts.
+PASS: Pagination fixture 1
+PASS: Pagination fixture 2
+PASS: Pagination fixture 3
+PASS: Pagination fixture 4
+PASS: Pagination fixture 5
+PASS: Pagination fixture 6
+PASS: Pagination fixture 7
+PASS: Pagination fixture 8
+PASS: Pagination fixture 9
+PASS: Pagination fixture 10
+PASS: Pagination fixture 11
+PASS: Pagination fixture 12
+PASS: Pagination fixture 13
+PASS: Pagination fixture 14
+PASS: Pagination fixture 15
+PASS: Pagination fixture 16
+PASS: Pagination fixture 17
+PASS: Pagination fixture 18
+PASS: Pagination fixture 19
+PASS: Pagination fixture 20
+PASS: Pagination fixture 21
+PASS: Pagination fixture 22
+PASS: Pagination fixture 23
+PASS: Pagination fixture 24
+PASS: Pagination fixture 25
+PASS: Pagination fixture 26
+PASS: Pagination fixture 27
+PASS: Pagination fixture 28
+PASS: Pagination fixture 29
+PASS: Pagination fixture 30
+PASS: Pagination fixture 31
+PASS: Pagination fixture 32
+PASS: Pagination fixture 33
+PASS: Pagination fixture 34
+PASS: Pagination fixture 35
+PASS: Pagination fixture 36
+PASS: Pagination fixture 37
+PASS: Pagination fixture 38
+PASS: Pagination fixture 39
+PASS: Pagination fixture 40
+PASS: Pagination fixture 41
+PASS: Pagination fixture 42
+PASS: Pagination fixture 43
+PASS: Pagination fixture 44
+PASS: Pagination fixture 45
+PASS: Pagination fixture 46
+PASS: Pagination fixture 47
+PASS: Pagination fixture 48
+PASS: Pagination fixture 49
+PASS: Pagination fixture 50
+PASS: Pagination fixture 51
+PASS: Stable pagination returns 50 plus one row.
+PASS: Write unit reports deliberate rollback.
+PASS: Rollback leaves no vehicle or projections.
+PASS: Real SQL failure returns a safe storage error.
+PASS: SQL failure rolls back prior vehicle writes.
+PASS: Concurrent worker starts.
+PASS: Concurrent worker starts.
+PASS: Concurrent worker exits cleanly.
+PASS: Concurrent worker exits cleanly.
+PASS: Concurrent identical VIN create has one winner.
+PASS: Race owner fixture exists.
+PASS: Concurrent worker starts.
+PASS: Concurrent worker starts.
+PASS: Concurrent worker exits cleanly.
+PASS: Concurrent worker exits cleanly.
+PASS: Customer archive and assignment race preserves the active relation invariant.
+PASS: Finalized service boundary refuses guessed baseline corrections.
+VEH-001 domain verification complete.
+PASS: Authenticated HTTP Create succeeds and replay does not duplicate the vehicle.
+PASS: HTTP Update persists, stale replay leaves the winning edit intact.
+PASS: Invalid object/action nonce rejects the write.
+PHP Warning:  Undefined array key "record_version" in phar:///usr/local/bin/wp/vendor/wp-cli/eval-command/src/Eval_Command.php(39) : eval()'d code on line 1
+Warning: Undefined array key "record_version" in phar:///usr/local/bin/wp/vendor/wp-cli/eval-command/src/Eval_Command.php(39) : eval()'d code on line 1
+PHP Fatal error:  Uncaught TypeError: MF\VeLog\Common\Regional\ShopSettings::save_settings(): Argument #2 ($expected_version) must be of type int, null given, called in phar:///usr/local/bin/wp/vendor/wp-cli/eval-command/src/Eval_Command.php(39) : eval()'d code on line 1 and defined in /tmp/velog-product-smoke.qTr59pN0/wp/wp-content/plugins/velog/src/Common/Regional/ShopSettings.php:351
+Stack trace:
+#0 phar:///usr/local/bin/wp/vendor/wp-cli/eval-command/src/Eval_Command.php(39) : eval()'d code(1): MF\VeLog\Common\Regional\ShopSettings::save_settings()
+#1 phar:///usr/local/bin/wp/vendor/wp-cli/eval-command/src/Eval_Command.php(39): eval()
+#2 [internal function]: Eval_Command->__invoke()
+#3 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/WP_CLI/Dispatcher/CommandFactory.php(100): call_user_func()
+#4 [internal function]: WP_CLI\Dispatcher\CommandFactory::WP_CLI\Dispatcher\{closure}()
+#5 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/WP_CLI/Dispatcher/Subcommand.php(497): call_user_func()
+#6 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/WP_CLI/Runner.php(470): WP_CLI\Dispatcher\Subcommand->invoke()
+#7 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/WP_CLI/Runner.php(493): WP_CLI\Runner->run_command()
+#8 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/WP_CLI/Runner.php(136): WP_CLI\Runner->run_command_and_exit()
+#9 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/WP_CLI/Runner.php(1228): WP_CLI\Runner->do_early_invoke()
+#10 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/WP_CLI/Bootstrap/LaunchRunner.php(28): WP_CLI\Runner->start()
+#11 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/bootstrap.php(84): WP_CLI\Bootstrap\LaunchRunner->process()
+#12 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/wp-cli.php(35): WP_CLI\bootstrap()
+#13 phar:///usr/local/bin/wp/php/boot-phar.php(20): include('...')
+#14 /usr/local/bin/wp(4): include('...')
+#15 {main}
+  thrown in /tmp/velog-product-smoke.qTr59pN0/wp/wp-content/plugins/velog/src/Common/Regional/ShopSettings.php on line 351
+Fatal error: Uncaught TypeError: MF\VeLog\Common\Regional\ShopSettings::save_settings(): Argument #2 ($expected_version) must be of type int, null given, called in phar:///usr/local/bin/wp/vendor/wp-cli/eval-command/src/Eval_Command.php(39) : eval()'d code on line 1 and defined in /tmp/velog-product-smoke.qTr59pN0/wp/wp-content/plugins/velog/src/Common/Regional/ShopSettings.php:351
+Stack trace:
+#0 phar:///usr/local/bin/wp/vendor/wp-cli/eval-command/src/Eval_Command.php(39) : eval()'d code(1): MF\VeLog\Common\Regional\ShopSettings::save_settings()
+#1 phar:///usr/local/bin/wp/vendor/wp-cli/eval-command/src/Eval_Command.php(39): eval()
+#2 [internal function]: Eval_Command->__invoke()
+#3 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/WP_CLI/Dispatcher/CommandFactory.php(100): call_user_func()
+#4 [internal function]: WP_CLI\Dispatcher\CommandFactory::WP_CLI\Dispatcher\{closure}()
+#5 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/WP_CLI/Dispatcher/Subcommand.php(497): call_user_func()
+#6 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/WP_CLI/Runner.php(470): WP_CLI\Dispatcher\Subcommand->invoke()
+#7 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/WP_CLI/Runner.php(493): WP_CLI\Runner->run_command()
+#8 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/WP_CLI/Runner.php(136): WP_CLI\Runner->run_command_and_exit()
+#9 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/WP_CLI/Runner.php(1228): WP_CLI\Runner->do_early_invoke()
+#10 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/WP_CLI/Bootstrap/LaunchRunner.php(28): WP_CLI\Runner->start()
+#11 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/bootstrap.php(84): WP_CLI\Bootstrap\LaunchRunner->process()
+#12 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/wp-cli.php(35): WP_CLI\bootstrap()
+#13 phar:///usr/local/bin/wp/php/boot-phar.php(20): include('...')
+#14 /usr/local/bin/wp(4): include('...')
+#15 {main}
+  thrown in /tmp/velog-product-smoke.qTr59pN0/wp/wp-content/plugins/velog/src/Common/Regional/ShopSettings.php on line 351
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name='robots' content='max-image-preview:large, noindex, follow' />
+	<title>WordPress &rsaquo; Error</title>
+	<style>
+		html {
+			background: #f1f1f1;
+		}
+		body {
+			background: #fff;
+			border: 1px solid #ccd0d4;
+			color: #444;
+			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+			margin: 2em auto;
+			padding: 1em 2em;
+			max-width: 700px;
+			-webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .04);
+			box-shadow: 0 1px 1px rgba(0, 0, 0, .04);
+		}
+		h1 {
+			border-bottom: 1px solid #dadada;
+			clear: both;
+			color: #666;
+			font-size: 24px;
+			margin: 30px 0 0 0;
+			padding: 0;
+			padding-bottom: 7px;
+		}
+		#error-page {
+			margin-top: 50px;
+		}
+		#error-page p,
+		#error-page .wp-die-message {
+			font-size: 14px;
+			line-height: 1.5;
+			margin: 25px 0 20px;
+		}
+		#error-page code {
+			font-family: Consolas, Monaco, monospace;
+		}
+		ul li {
+			margin-bottom: 10px;
+			font-size: 14px ;
+		}
+		a {
+			color: #3858e9;
+		}
+		a:hover,
+		a:active {
+			color: #183ad6;
+		}
+		a:focus {
+			color: #183ad6;
+			box-shadow: 0 0 0 var(--wp-admin-border-width-focus, 1.5px) var(--wp-admin-theme-color, #3858e9);
+			outline: 2px solid transparent;
+		}
+		.button {
+			background: #f3f5f6;
+			border: 1px solid #016087;
+			color: #016087;
+			display: inline-block;
+			text-decoration: none;
+			font-size: 13px;
+			line-height: 2;
+			height: 28px;
+			margin: 0;
+			padding: 0 10px 1px;
+			cursor: pointer;
+			-webkit-border-radius: 3px;
+			-webkit-appearance: none;
+			border-radius: 3px;
+			white-space: nowrap;
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing:    border-box;
+			box-sizing:         border-box;
+
+			vertical-align: top;
+		}
+
+		.button.button-large {
+			line-height: 2.30769231;
+			min-height: 32px;
+			padding: 0 12px;
+		}
+
+		.button:hover,
+		.button:focus {
+			background: #f1f1f1;
+		}
+
+		.button:focus {
+			background: #f3f5f6;
+			border-color: #007cba;
+			-webkit-box-shadow: 0 0 0 1px #007cba;
+			box-shadow: 0 0 0 1px #007cba;
+			color: #016087;
+			outline: 2px solid transparent;
+			outline-offset: 0;
+		}
+
+		.button:active {
+			background: #f3f5f6;
+			border-color: #7e8993;
+			-webkit-box-shadow: none;
+			box-shadow: none;
+		}
+
+			</style>
+</head>
+<body id="error-page">
+	<div class="wp-die-message"><p>There has been a critical error on this website.</p><p><a href="https://wordpress.org/documentation/article/faq-troubleshooting/">Learn more about troubleshooting WordPress.</a></p></div></body>
+</html>
+	Vehicle HTTP failure at line 78

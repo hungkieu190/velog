@@ -92,7 +92,9 @@ function mf_velog_uat_seed( array $arguments ): array {
 		mf_velog_uat_require( $actor->has_cap( $capability ), 'Administrative fixture actor required.' );
 	}
 	mf_velog_uat_require( defined( 'VELOG_VERSION' ) && true === WriteCoordinator::check_environment(), 'VeLog write environment is unavailable.' );
-	mf_velog_uat_require( 'a651d52dd770433291508b939c5c1792c05953f2ebff253cb3a77bfcf267be89' === hash_file( 'sha256', __DIR__ . '/../../assets/css/admin.css' ), 'Approved admin asset mismatch.' );
+	// The VEH-001 snapshot is authorized only for disposable regression; live CUST-001 preparation stays pinned.
+	$approved_asset = $isolated ? 'f773ea03bc1a3924cceb2afe0755783b2d4138460b944a304892a6a5fe09377d' : 'a651d52dd770433291508b939c5c1792c05953f2ebff253cb3a77bfcf267be89';
+	mf_velog_uat_require( $approved_asset === hash_file( 'sha256', __DIR__ . '/../../assets/css/admin.css' ), 'Approved admin asset mismatch.' );
 	$roles = array(
 		'velog_uat_manager'    => 'mf_velog_manager',
 		'velog_uat_technician' => 'mf_velog_technician',

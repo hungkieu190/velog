@@ -90,14 +90,14 @@ final class VehicleIdentifier {
 	 * @param mixed $value Submitted value.
 	 */
 	public static function validate_year( mixed $value ): ?int {
-		if ( null === $value || '' === $value ) {
+		if ( null === $value || '' === $value || 0 === $value ) {
 			return 0;
 		}
 		if ( ! is_int( $value ) && ( ! is_string( $value ) || ! ctype_digit( $value ) ) ) {
 			return null;
 		}
 		$year = (int) $value;
-		return $year >= 1886 && $year <= ( (int) gmdate( 'Y' ) + 1 ) ? $year : null;
+		return $year >= 1886 && $year <= ( (int) wp_date( 'Y' ) + 1 ) ? $year : null;
 	}
 
 	/**
@@ -110,7 +110,7 @@ final class VehicleIdentifier {
 		$jurisdiction = (string) ( $fields['jurisdiction'] ?? '' );
 		$vin          = (string) ( $fields['vin'] ?? '' );
 		return ( '' !== $vin || ( '' !== $plate && '' !== $jurisdiction ) )
-			&& ( '' !== $plate || '' === $jurisdiction );
+			&& ( ( '' === $plate ) === ( '' === $jurisdiction ) );
 	}
 
 	/**
@@ -138,7 +138,7 @@ final class VehicleIdentifier {
 	 */
 	public static function project_vin( array $fields ): ?string {
 		$vin = self::normalize_vin( $fields['vin'] ?? '' );
-		return $vin ? $vin : null;
+		return null !== $vin && '' !== $vin ? $vin : null;
 	}
 
 	/**
@@ -157,11 +157,14 @@ final class VehicleIdentifier {
 	): ?string {
 		if (
 			! is_string( $value )
-			|| preg_match( '/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F<>]/u', $value )
+			|| 0 !== preg_match( '/[\x00-\x08\x0A-\x1F\x7F<>]/u', $value )
 		) {
 			return null;
 		}
 
+		if ( ! $collapse_whitespace && str_contains( $value, "\t" ) ) {
+			return null;
+		}
 		$normalized = trim( $value );
 		if ( $collapse_whitespace ) {
 			$normalized = (string) preg_replace( '/[ \t]+/', ' ', $normalized );
@@ -184,8 +187,11 @@ final class VehicleIdentifier {
 		}
 		if (
 			! is_string( $value )
-			|| preg_match( '/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F<>]/u', $value )
+			|| 0 !== preg_match( '/[\x00-\x08\x0A-\x1F\x7F<>]/u', $value )
 		) {
+			return null;
+		}
+		if ( ! $collapse_whitespace && str_contains( $value, "\t" ) ) {
 			return null;
 		}
 		$value = trim( $value );

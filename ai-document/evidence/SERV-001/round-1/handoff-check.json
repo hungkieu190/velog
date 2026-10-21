@@ -1,0 +1,43 @@
+{
+  "focus": "SERV-001",
+  "status": "BLOCKED",
+  "tasks": [
+    {
+      "id": "SERV-001-UAT",
+      "status": "BLOCKED",
+      "declaredOwner": "Developer",
+      "issues": []
+    },
+    {
+      "id": "SERV-001",
+      "status": "BLOCKED",
+      "declaredOwner": "Developer",
+      "issues": []
+    },
+    {
+      "id": "VEH-001-BE",
+      "status": "DONE",
+      "declaredOwner": "Developer",
+      "issues": []
+    },
+    {
+      "id": "VEH-001-FE",
+      "status": "DONE",
+      "declaredOwner": "Developer",
+      "issues": []
+    },
+    {
+      "id": "VEH-001-UAT",
+      "status": "DONE",
+      "declaredOwner": "Developer",
+      "issues": []
+    },
+    {
+      "id": "VEH-001",
+      "status": "DONE",
+      "declaredOwner": "Developer",
+      "issues": []
+    }
+  ],
+  "issues": []
+}

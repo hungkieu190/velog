@@ -1,0 +1,10 @@
+ABSENT: /tmp/velog-product-smoke.3KpwElq0; owned diagnostic files removed: 0
+ABSENT: /tmp/velog-product-smoke.FRxn664w; owned diagnostic files removed: 0
+ABSENT: /tmp/velog-product-smoke.Q1qrHKEi; owned diagnostic files removed: 2
+ABSENT: /tmp/velog-product-smoke.QSCIv5wG; owned diagnostic files removed: 0
+ABSENT: /tmp/velog-product-smoke.hTfFZufn; owned diagnostic files removed: 0
+ABSENT: /tmp/velog-product-smoke.iX94y0pk; owned diagnostic files removed: 0
+ABSENT: /tmp/velog-product-smoke.nWYcLN7F; owned diagnostic files removed: 2
+ABSENT: /tmp/velog-product-smoke.ww9CoPkl; owned diagnostic files removed: 0
+ABSENT: /tmp/velog_data001_6.7.2_34309_e44e1a65e988b3e0; owned diagnostic files removed: 0
+No owned database/PHP process remains for these runs. No live fixture was applied; live plan was read-only.

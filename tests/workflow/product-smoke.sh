@@ -19,7 +19,7 @@ for arg in "$@"; do
     esac
 done
 
-if [ "$TASK" != "CORE-003" ] && [ "$TASK" != "CORE-004" ] && [ "$TASK" != "CUST-001" ] && [ "$TASK" != "F-001-F-003-F-006" ]; then
+if [ "$TASK" != "CORE-003" ] && [ "$TASK" != "CORE-004" ] && [ "$TASK" != "CUST-001" ] && [ "$TASK" != "VEH-001" ] && [ "$TASK" != "SERV-001" ] && [ "$TASK" != "QA-001" ] && [ "$TASK" != "F-001-F-003-F-006" ]; then
     echo "Fail: Unsupported product-smoke task"
     exit 1
 fi
@@ -342,6 +342,12 @@ if [ "$TASK" = "CORE-004" ]; then
     FIXTURE_FILE="core-004-verify.php"
 elif [ "$TASK" = "CUST-001" ]; then
     FIXTURE_FILE="cust-001-verify.php"
+elif [ "$TASK" = "VEH-001" ]; then
+    FIXTURE_FILE="veh-001-verify.php"
+elif [ "$TASK" = "QA-001" ]; then
+    FIXTURE_FILE="core-queue-verify.php"
+elif [ "$TASK" = "SERV-001" ]; then
+    FIXTURE_FILE="serv-001-verify.php"
 elif [ "$TASK" = "F-001-F-003-F-006" ]; then
     FIXTURE_FILE="f-001-f-003-f-006-verify.php"
 fi
@@ -370,6 +376,22 @@ if [ -f "$PLUGIN_DIR/tests/fixtures/$FIXTURE_FILE" ]; then
     if [ "$TASK" = "CUST-001" ]; then
         bash "$PLUGIN_DIR/tests/workflow/cust-001-endpoint.sh" "$PORT" "$WP_DIR" || exit 1
         bash "$PLUGIN_DIR/tests/workflow/cust-001-uat-seed.sh" "$WP_DIR" || exit 1
+    fi
+
+    if [ "$TASK" = "VEH-001" ]; then
+        bash "$PLUGIN_DIR/tests/workflow/veh-001-endpoint.sh" "$PORT" "$WP_DIR" || exit 1
+        bash "$PLUGIN_DIR/tests/workflow/veh-001-uat-seed.sh" "$WP_DIR" || exit 1
+    fi
+
+    if [ "$TASK" = "QA-001" ]; then
+        bash "$PLUGIN_DIR/tests/workflow/core-queue-endpoint.sh" "$PORT" "$WP_DIR" || exit 1
+        if [ "${VELOG_QA_BENCHMARK:-0}" = "1" ]; then
+            wp eval-file "$PLUGIN_DIR/tests/fixtures/core-queue-benchmark.php" --path="$WP_DIR" || exit 1
+        fi
+    fi
+
+    if [ "$TASK" = "SERV-001" ]; then
+        bash "$PLUGIN_DIR/tests/workflow/serv-001-endpoint.sh" "$PORT" "$WP_DIR" || exit 1
     fi
 
     if [ "$TASK" = "CORE-004" ]; then

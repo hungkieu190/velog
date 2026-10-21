@@ -1,0 +1,107 @@
+> phpcs --standard=phpcs.xml
+
+FILE: ...al Sites/velog/app/public/wp-content/plugins/velog/src/Admin/AdminMenu.php
+--------------------------------------------------------------------------------
+FOUND 2 ERRORS AFFECTING 2 LINES
+--------------------------------------------------------------------------------
+ 42 | ERROR | Missing short description in doc comment
+ 45 | ERROR | Missing short description in doc comment
+--------------------------------------------------------------------------------
+
+
+FILE: ... Sites/velog/app/public/wp-content/plugins/velog/src/Admin/ServicePage.php
+--------------------------------------------------------------------------------
+FOUND 1 ERROR AND 2 WARNINGS AFFECTING 3 LINES
+--------------------------------------------------------------------------------
+ 155 | WARNING | Found unknown capability "mf_velog_correct_services" in
+     |         | function call to current_user_can(). Please check the spelling
+     |         | of the capability. If this is a custom capability, please
+     |         | verify the capability is registered with WordPress via a call
+     |         | to WP_Role(s)->add_cap().
+     |         | Custom capabilities can be made known to this sniff by setting
+     |         | the "custom_capabilities" property in the PHPCS ruleset.
+ 252 | ERROR   | Use Yoda Condition checks, you must.
+ 281 | WARNING | Found unknown capability "mf_velog_correct_services" in
+     |         | function call to current_user_can(). Please check the spelling
+     |         | of the capability. If this is a custom capability, please
+     |         | verify the capability is registered with WordPress via a call
+     |         | to WP_Role(s)->add_cap().
+     |         | Custom capabilities can be made known to this sniff by setting
+     |         | the "custom_capabilities" property in the PHPCS ruleset.
+--------------------------------------------------------------------------------
+
+
+FILE: ...og/app/public/wp-content/plugins/velog/src/Common/Service/ServiceTypes.php
+--------------------------------------------------------------------------------
+FOUND 0 ERRORS AND 12 WARNINGS AFFECTING 12 LINES
+--------------------------------------------------------------------------------
+  56 | WARNING | Line exceeds 120 characters; contains 135 characters
+  83 | WARNING | Line exceeds 120 characters; contains 141 characters
+  98 | WARNING | Line exceeds 120 characters; contains 126 characters
+ 105 | WARNING | Line exceeds 120 characters; contains 158 characters
+ 110 | WARNING | Line exceeds 120 characters; contains 124 characters
+ 117 | WARNING | Line exceeds 120 characters; contains 122 characters
+ 135 | WARNING | Line exceeds 120 characters; contains 159 characters
+ 139 | WARNING | Line exceeds 120 characters; contains 206 characters
+ 142 | WARNING | Line exceeds 120 characters; contains 141 characters
+ 169 | WARNING | Line exceeds 120 characters; contains 134 characters
+ 170 | WARNING | Line exceeds 120 characters; contains 135 characters
+ 175 | WARNING | Line exceeds 120 characters; contains 145 characters
+--------------------------------------------------------------------------------
+
+
+FILE: ...p/public/wp-content/plugins/velog/src/Common/Service/ServiceChronology.php
+--------------------------------------------------------------------------------
+FOUND 1 ERROR AND 2 WARNINGS AFFECTING 3 LINES
+--------------------------------------------------------------------------------
+  51 | WARNING | Line exceeds 120 characters; contains 138 characters
+  76 | ERROR   | Using short ternaries is not allowed as they are rarely used
+     |         | correctly
+ 132 | WARNING | Line exceeds 120 characters; contains 138 characters
+--------------------------------------------------------------------------------
+
+
+FILE: ...og/app/public/wp-content/plugins/velog/src/Common/Service/ServiceQuery.php
+--------------------------------------------------------------------------------
+FOUND 0 ERRORS AND 2 WARNINGS AFFECTING 2 LINES
+--------------------------------------------------------------------------------
+ 45 | WARNING | Line exceeds 120 characters; contains 129 characters
+ 95 | WARNING | Line exceeds 120 characters; contains 147 characters
+--------------------------------------------------------------------------------
+
+
+FILE: .../app/public/wp-content/plugins/velog/src/Common/Service/ServiceService.php
+--------------------------------------------------------------------------------
+FOUND 2 ERRORS AND 15 WARNINGS AFFECTING 17 LINES
+--------------------------------------------------------------------------------
+  49 | WARNING | Line exceeds 120 characters; contains 162 characters
+  50 | WARNING | Line exceeds 120 characters; contains 148 characters
+  55 | WARNING | Line exceeds 120 characters; contains 131 characters
+  64 | WARNING | Line exceeds 120 characters; contains 192 characters
+  77 | WARNING | Line exceeds 120 characters; contains 124 characters
+  88 | WARNING | Line exceeds 120 characters; contains 152 characters
+ 102 | WARNING | Line exceeds 120 characters; contains 137 characters
+ 121 | WARNING | Line exceeds 120 characters; contains 149 characters
+ 129 | WARNING | Line exceeds 120 characters; contains 121 characters
+ 136 | WARNING | Line exceeds 120 characters; contains 181 characters
+ 140 | WARNING | Line exceeds 120 characters; contains 121 characters
+ 147 | WARNING | Line exceeds 120 characters; contains 123 characters
+ 151 | WARNING | Line exceeds 120 characters; contains 136 characters
+ 160 | ERROR   | Use Yoda Condition checks, you must.
+ 167 | WARNING | Line exceeds 120 characters; contains 126 characters
+ 170 | ERROR   | Use Yoda Condition checks, you must.
+ 179 | WARNING | Line exceeds 120 characters; contains 167 characters
+--------------------------------------------------------------------------------
+
+
+FILE: ...og/app/public/wp-content/plugins/velog/src/Common/Storage/RecordSchema.php
+--------------------------------------------------------------------------------
+FOUND 0 ERRORS AND 1 WARNING AFFECTING 1 LINE
+--------------------------------------------------------------------------------
+ 505 | WARNING | Line exceeds 120 characters; contains 233 characters
+--------------------------------------------------------------------------------
+
+Time: 4.92 secs; Memory: 42MB
+
+Script phpcs --standard=phpcs.xml handling the phpcs event returned with error code 1
+Script @phpcs was called via lint

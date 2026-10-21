@@ -23,7 +23,7 @@ final class CustomerRelations {
 		if ( null === $value || '' === $value ) {
 			return 0;
 		}
-		return is_int( $value ) && $value > 0 ? $value : null;
+		return is_int( $value ) && $value >= 0 ? $value : null;
 	}
 
 	/**

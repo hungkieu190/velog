@@ -41,7 +41,7 @@ The dashboard's development-only CSS is `src/css/progress.css`, read directly by
 | npm run production | Fresh bundled/minified JS and minified CSS, legal notices retained, no maps, then exit. |
 | npm run build | Compatibility alias for production. |
 | npm run release | Validate version/configuration/prerequisites, run quality gates and PHPUnit, fresh production build, validate staging, create ZIP. |
-| npm run process | Read-only localhost dashboard, port 4177; `-- --port=4187` or PROGRESS_PORT overrides it; Ctrl+C stops it. It shows the declared workstream and `Next actor`, plus Frontend Developer/Backend Architect handoff alerts. Click **Enable sound** once in the tab to allow a chime; browser audio policy requires that user gesture. The first observed handoff is a baseline and does not chime. |
+| npm run process | Read-only localhost dashboard, port 4177; `-- --port=4187` or PROGRESS_PORT overrides it; Ctrl+C stops it. It shows the declared workstream and `Next actor`, plus Developer/Tester handoff alerts (historical actor labels remain readable). Click **Enable sound** once in the tab to allow a chime; browser audio policy requires that user gesture. The first observed handoff is a baseline and does not chime. |
 | npm run progress | Compatibility alias for `npm run process`. |
 | npm run check | PHP syntax, PHPCS and PHPStan using actual exit codes; saves a report under reports/. |
 | npm run test:workflow | Disposable-fixture checks for build ownership/failure, dashboard parsing/escaping, release boundaries/failure and quality-gate propagation. |
@@ -91,4 +91,4 @@ See evidence/README.md and testing-strategy.md for checks, results and cleanup. 
 
 ## Verification ownership (2026-10-08)
 
-Frontend Developer records production build and diff results; Backend Architect reviews source/generated consistency. Browser testing and screenshots are not builder gates. Backend Architect writes the Vietnamese UAT; Tester performs manual verification and alone authorizes DONE. See backend-frontend-workflow.md.
+The 2026-10-21 owner decision assigns Developer all source/generated assets and technical self-review. Browser testing/screenshots are not Developer gates. Developer writes the Vietnamese UAT; Tester performs manual verification and alone authorizes DONE. See backend-frontend-workflow.md.

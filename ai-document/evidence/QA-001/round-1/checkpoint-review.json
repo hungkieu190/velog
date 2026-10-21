@@ -1,0 +1,10 @@
+{
+  "source_and_documentation_whitespace_check_exit": 0,
+  "raw_tool_log_whitespace": "Preserved verbatim; staged full diff flags existing raw output padding/blank lines in evidence. No evidence content was rewritten to hide failures.",
+  "credential_pattern_findings": 0,
+  "upstream_before_commit": {
+    "ahead": 0,
+    "behind": 0
+  },
+  "checkpoint_type": "Paused work in progress; reminder benchmark failure remains unresolved."
+}

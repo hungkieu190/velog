@@ -1,0 +1,15 @@
+
+PHPCBF RESULT SUMMARY
+--------------------------------------------------------------------------------
+FILE                                                            FIXED  REMAINING
+--------------------------------------------------------------------------------
+...wp-content/plugins/velog/tests/Unit/ServiceWorkflowTest.php  13     5
+...content/plugins/velog/src/Common/Service/ServiceService.php  2      0
+...tent/plugins/velog/src/Common/Service/ServiceChronology.php  1      0
+--------------------------------------------------------------------------------
+A TOTAL OF 16 ERRORS WERE FIXED IN 3 FILES
+--------------------------------------------------------------------------------
+
+Time: 2.23 secs; Memory: 20MB
+
+

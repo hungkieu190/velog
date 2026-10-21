@@ -1,0 +1,7 @@
+{
+  "login_http_status": 200,
+  "generated_css_matches_source_build": true,
+  "css_sha256": "13a9bc27e6fd0d14795c64e43984eb15eea96b31eef90640ac4ca8ac6703b8f4",
+  "browser_rendering_verified": false,
+  "tls_note": "Local development self-signed certificate accepted explicitly for these requests."
+}

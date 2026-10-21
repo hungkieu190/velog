@@ -155,3 +155,36 @@ APPROVED by the Product Owner: restore the original customer architecture after 
 - Retire CUST-002 runtime/test additions and restore the pre-native customer implementation. Keep the project-local admin UI skill, design system, LocalWP documentation, unrelated work, and historical evidence. No WooCommerce dependency is introduced.
 - No active-site migration has been performed by the agent. Source restoration does not inspect or modify LocalWP data and does not prove the actual database contains no externally created native customer artifacts. Any detected live-data cleanup requires a separate reviewed scope.
 - CUST-001 resumes technical readiness; previous Tester T01 PASS and T02 FAIL remain unchanged. CUST-002 is BLOCKED/retired rather than accepted. VEH-001's native-user dependency is withdrawn, but its readiness and tests must be revalidated before implementation resumes.
+
+## Owner decision — 2026-10-21: One Developer and one Tester
+
+The Product Owner explicitly instructed: "từ giờ bạn làm luôn backend, chỉnh sửa vào trong dự án agents nhé; giờ chỉ có bạn là dev, tôi là test, xong". Codex is the sole Developer for architecture, planning, backend, frontend, generated assets, fixtures, tests and technical self-review. The user remains Tester / Product Owner and exclusively performs manual acceptance. Separate Backend Architect/Frontend Developer and Antigravity assignments are retired for future work; historical implementation/review evidence is preserved. BE/FE suffixes may remain as scope subdivisions owned by the same Developer. No separate-agent code approval is required or claimed. Record SELF_REVIEWED_DEVELOPMENT for combined code review; retain historical SELF_REVIEWED_BACKEND labels as technical evidence. Successful checks never imply manual PASS or feature DONE.
+
+## G-11 — System odometer unit and vehicle Year dropdown (2026-10-21)
+
+APPROVED. Product Owner requested a native Year selector and a single system odometer unit after vehicle testing, then approved the correction with "ok sửa". Vehicle Year remains optional within G-04 bounds, presented as a descending dropdown. ShopSettings.distance_unit governs odometer entry and display for every vehicle. Per-vehicle preferences and baseline unit selectors are retired from operational UI; historical metadata remains compatible and is not migrated.
+
+Changing Settings converts presentation from canonical millimetres without reinterpreting original numeric values or rewriting history. Unchanged rounded display submissions preserve the exact stored baseline. A changed system unit invalidates an already-open form; missing/corrupt Settings fail closed for edits. Original reading units remain provenance rather than per-vehicle configuration. Technical self-review does not constitute Tester acceptance.
+
+## G-06 — Service lifecycle and snapshots (2026-10-21)
+
+APPROVED. Product Owner explicitly replied "Duyệt G-06 và triển khai SERV-001" to the proposed creator/manager draft policy, active vehicle/customer/type plus required local date/reading at finalization, customer/type snapshots at finalization, manager-only reasoned audited corrections, system distance unit and optional cost. Executable revision 2 contract: service-workflow-contract.md. This approves implementation and isolated verification; active-site fixture writes, commit, push, deploy and release remain outside scope.
+
+## Owner decision — 2026-10-21: Code first; all testing is deferred debt
+
+The Product Owner instructed: "bỏ qua hết tester, kể từ bây giờ các task test sẽ là các task nợ nhé; làm hết code đi đã, test và fix sau". This supersedes earlier test/Tester gates for ongoing and subsequent implementation.
+
+- Codex continues all remaining MVP application code directly, without waiting for Tester/UAT, test environments or test/fix rounds between features. The current instruction authorizes the remaining documented code queue; do not repeatedly request implementation permission for it.
+- Preserve already recorded test results and accepted features. Move unperformed manual, unit/integration/runtime/performance/regression work to explicit test-debt tasks; do not mark skipped work PASS or accepted.
+- Distinguish implementation completion from functional acceptance. Parent features may remain AWAITING_MANUAL_ACCEPTANCE with Next actor Developer for the next code item; this status and outstanding UAT are not implementation dependencies. A code checkpoint may be DONE only when explicitly labelled implementation-only. Do not infer product acceptance.
+- Test-debt tasks use DRAFT with Debt: TEST_DEBT and Scheduling: DEFERRED; they are not current Tester handoffs. Keep their cases and prerequisites for a later consolidated test/fix phase. No new test suite or fixture preparation is required during the code phase.
+- Perform necessary compilation/build and PHP syntax checks to produce loadable artifacts, inspect source/security boundaries, and record actual limitations. These checks are not functional tests. Do not defer a known syntax/build failure or bypass capabilities/nonces/validation just to keep coding.
+- Keep source/generated assets synchronized. Do not run functional suites, browsers, benchmarks, test seeds or live fixture writes merely to close a feature during this phase. Actual known functional issues may be recorded as fix debt; disclose material limitations honestly.
+- User remains Product Owner and may resume testing later. Codex is sole Developer; no active Tester gate or separate reviewer is required. External commit/push/deploy/release still requires explicit authorization.
+
+
+G-07 reminder semantics remain the existing documented implementation proposal (OR thresholds, snooze, terminal completion, archive suspension). The broad code-first instruction authorizes building that proposal; business validation is retained in deferred test/product debt and is not falsely recorded as a separate explicit G-07 approval.
+
+## QA-001 resume and owner-requested checkpoint — 2026-10-21
+
+After CODE-001, the Product Owner authorized consolidated technical testing/fixes. The owner subsequently instructed stopping, saving progress for next session and pushing current work to Git. QA-001 remains IN_PROGRESS / PAUSED_BY_OWNER, Next actor Developer. Current commit/push is authorized; no feature acceptance, deployment or publication is implied. Round-1 report is the exact resume point, including the failing reminder benchmark and unexecuted retention fixture.

@@ -47,7 +47,7 @@ Before implementation, the backend task or linked view contract must specify:
 
 ## Review and verification
 
-- Backend Architect checks the contract, source/generated diffs, security boundaries, and applicable static/build evidence. Frontend Developer implements only assigned presentation work and supplies build/diff evidence.
+- Under the 2026-10-21 owner decision, Developer implements backend and presentation, checks contracts/source/generated diffs/security boundaries and records technical self-review with applicable static/build evidence. Tester alone owns manual acceptance.
 - Tester checks actual rendering and interaction in the documented [LocalWP environment](local-environment.md), including relevant admin color schemes, keyboard/focus, responsive/RTL behavior, feedback, pagination, and asset loading.
 - Review records deviations with a concrete reason and approved scope. A skill checklist cannot override the project's role boundaries or require agents to supply browser screenshots.
 - Adoption establishes the baseline for subsequent work. Existing screens still require task-specific review and Tester acceptance; this document does not certify their compliance.

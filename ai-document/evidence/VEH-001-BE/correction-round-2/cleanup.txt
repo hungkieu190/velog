@@ -1,0 +1,8 @@
+ABSENT: /tmp/velog-product-smoke.KDgY1pcu; owned DB/PHP processes absent; failed-run scratch diagnostics removed: 2
+ABSENT: /tmp/velog-product-smoke.PqNRxDoA; owned DB/PHP processes absent; failed-run scratch diagnostics removed: 0
+ABSENT: /tmp/velog-product-smoke.PqukGKoE; owned DB/PHP processes absent; failed-run scratch diagnostics removed: 0
+ABSENT: /tmp/velog-product-smoke.PtbEoC2u; owned DB/PHP processes absent; failed-run scratch diagnostics removed: 2
+ABSENT: /tmp/velog-product-smoke.aNgd3PFw; owned DB/PHP processes absent; failed-run scratch diagnostics removed: 2
+ABSENT: /tmp/velog-product-smoke.lfrGvVr4; owned DB/PHP processes absent; failed-run scratch diagnostics removed: 0
+ABSENT: /tmp/velog-product-smoke.qTr59pN0; owned DB/PHP processes absent; failed-run scratch diagnostics removed: 2
+No source-tree scratch files. Existing private backup/manifest/credentials retained. No live fixture reseed.
